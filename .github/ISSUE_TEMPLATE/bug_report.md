@@ -2,7 +2,7 @@
 name: Bug report
 about: Create a report to help us improve
 title: "[BUG Report] <short description + short errorcode/name>"
-labels: ''
+labels: bug report, task, to do
 assignees: ComSubVie, nbrugger-tgm, DaSchrotti-tgm
 
 ---
