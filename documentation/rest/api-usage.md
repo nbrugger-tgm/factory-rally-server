@@ -8,7 +8,6 @@ Detching one or more updates includes three mayor steps:
 
 > Note that the code below is `pseudo code` in JS, means the names of the classes and functions are not the one from the api
 
-**Waiting for the nexte event**
 ```javascript
 var wait = true; // false if you do not like to block the thread
 var type = eventAPI.fetchNextEventType(game_id,wait);
