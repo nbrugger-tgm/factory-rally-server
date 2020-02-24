@@ -622,6 +622,92 @@
         "responses": {},
         "operationId": "get-games-game_id-entitys-robots"
       }
+    },
+    "/games/{game_id}/map/info": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get Map info",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapInfo"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getMapInfo",
+        "description": "Get meta information abouzt the map of the game",
+        "security": [
+          {
+            "Player Token Access": []
+          }
+        ]
+      }
+    },
+    "/games/{game_id}/map/tiles/{x}/{y}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "x",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "y",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get tile",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tile"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getTile",
+        "description": "Inspect a tile of the map",
+        "security": [
+          {
+            "Player Token Access": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -656,11 +742,15 @@
           "direction": {
             "$ref": "#/components/schemas/Direction"
           },
-          "rotator-position": {
-            "$ref": "#/components/schemas/RotatorPosition"
-          },
           "rotator-direction": {
             "$ref": "#/components/schemas/Rotation"
+          },
+          "belt-strenght": {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Describes the number of tiles the belt brings you forward in one turn. If 0 the tile is not a belt"
           }
         },
         "required": [
@@ -1182,6 +1272,47 @@
             "description": "if true you can buy uprades"
           }
         }
+      },
+      "MapInfo": {
+        "title": "MapInfo",
+        "type": "object",
+        "description": "Describes the map *without* the tiles",
+        "properties": {
+          "width": {
+            "type": "integer",
+            "minimum": 4,
+            "maximum": 500
+          },
+          "height": {
+            "type": "integer",
+            "minimum": 4,
+            "maximum": 500
+          },
+          "prioBeacon": {
+            "$ref": "#/components/schemas/Position"
+          }
+        }
+      },
+      "Position": {
+        "title": "Position",
+        "type": "object",
+        "description": "Describes a point in a 2D system, without decimals",
+        "properties": {
+          "x": {
+            "type": "integer",
+            "description": "The X cordinate",
+            "multipleOf": 1
+          },
+          "y": {
+            "type": "integer",
+            "description": "Position on the Y axis (top-down on screen)",
+            "multipleOf": 1
+          }
+        },
+        "required": [
+          "x",
+          "y"
+        ]
       }
     }
   }
