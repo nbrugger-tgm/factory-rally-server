@@ -753,6 +753,333 @@
           }
         ]
       }
+    },
+    "/games/{game_id}/events/damage": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get next / last movement event",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DamageEvent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No unfetched event"
+          },
+          "417": {
+            "description": "The next event is not a movement event"
+          }
+        },
+        "operationId": "fetchNextMovementEvent",
+        "description": "Returns the next unfetched event of the damage type.\n\nIf the event is not of the damage type you will get a `400` status and the event stays unfetched",
+        "security": [
+          {
+            "Player Token Access": []
+          }
+        ]
+      }
+    },
+    "/games/{game_id}/events/lazer-hit": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get next / last movement event",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LazerHitEvent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No unfetched event"
+          },
+          "417": {
+            "description": "The next event is not a movement event"
+          }
+        },
+        "operationId": "fetchNextMovementEvent",
+        "description": "Returns the next unfetched event of the lazer hit type.\n\nIf the event is not of the lazer hit type you will get a `400` status and the event stays unfetched",
+        "security": [
+          {
+            "Player Token Access": []
+          }
+        ]
+      }
+    },
+    "/games/{game_id}/events/map": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get next / last movement event",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapEvent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No unfetched event"
+          },
+          "417": {
+            "description": "The next event is not a movement event"
+          }
+        },
+        "operationId": "fetchNextMovementEvent",
+        "description": "Returns the next unfetched event of the  Map Event type.\nMap Events activeata all active components of a type at once\n\nIf the event is not of the map event type you will get a `400` status and the event stays unfetched",
+        "security": [
+          {
+            "Player Token Access": []
+          }
+        ]
+      }
+    },
+    "/games/{game_id}/events/push": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get next / last movement event",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PushEvent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No unfetched event"
+          },
+          "417": {
+            "description": "The next event is not a movement event"
+          }
+        },
+        "operationId": "fetchNextMovementEvent",
+        "description": "Returns the next unfetched event of the push type.\n\nIf the event is not of the push  type you will get a `400` status and the event stays unfetched",
+        "security": [
+          {
+            "Player Token Access": []
+          }
+        ]
+      }
+    },
+    "/games/{game_id}/events/shoot": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get next / last movement event",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShootEvent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No unfetched event"
+          },
+          "417": {
+            "description": "The next event is not a movement event"
+          }
+        },
+        "operationId": "fetchNextMovementEvent",
+        "description": "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
+        "security": [
+          {
+            "Player Token Access": []
+          }
+        ]
+      }
+    },
+    "/games/{game_id}/events/shutdown": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get next / last movement event",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShutdownEvent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No unfetched event"
+          },
+          "417": {
+            "description": "The next event is not a movement event"
+          }
+        },
+        "operationId": "fetchNextMovementEvent",
+        "description": "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
+        "security": [
+          {
+            "Player Token Access": []
+          }
+        ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/{robot_id}/actions/avinable": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "robot_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get Aviable actions",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EntityActionType"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getPossibleActions",
+        "description": "Returns a list of EntityActionTypes which are possible to be executed at the moment.",
+        "security": [
+          {
+            "Player Token Access": []
+          }
+        ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/{robot_id}/actions/stack/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "robot_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Add Entity Action to stack",
+        "operationId": "doEntityAction",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Adds an action to the stack. The stack is processed using *first in first out*",
+        "security": [
+          {
+            "Player Token Access": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -1397,6 +1724,136 @@
             "$ref": "#/components/schemas/Position"
           }
         }
+      },
+      "PushEvent": {
+        "title": "PushEvent",
+        "type": "object",
+        "description": "When entities push each other",
+        "properties": {
+          "pusher-id": {
+            "$ref": "#/components/schemas/EntityID"
+          },
+          "ammount": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "The number of tiles the pushed entity is pushed"
+          },
+          "push-directon": {
+            "$ref": "#/components/schemas/Direction"
+          },
+          "pushed-id": {
+            "$ref": "#/components/schemas/EntityID"
+          }
+        }
+      },
+      "ShootEvent": {
+        "title": "ShootEvent",
+        "type": "object",
+        "description": "Event if a player shoots a lazer",
+        "properties": {
+          "shooter": {
+            "$ref": "#/components/schemas/EntityID"
+          },
+          "direction": {
+            "$ref": "#/components/schemas/Direction"
+          },
+          "to": {
+            "$ref": "#/components/schemas/Position"
+          },
+          "hit-entitys": {
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 0,
+            "description": "The entitys hit by the ray",
+            "items": {
+              "$ref": "#/components/schemas/EntityID"
+            }
+          }
+        }
+      },
+      "DamageEvent": {
+        "title": "DamageEvent",
+        "type": "object",
+        "description": "Happens when a entity takes damage",
+        "properties": {
+          "entity": {
+            "$ref": "#/components/schemas/EntityID"
+          },
+          "ammount": {
+            "type": "integer",
+            "description": "The number of damage points",
+            "minimum": 0,
+            "maximum": 5
+          }
+        }
+      },
+      "MapEventType": {
+        "type": "string",
+        "title": "MapEventType",
+        "description": "The event that occurs if the active map elements are activated",
+        "enum": [
+          "lazer",
+          "rotator",
+          "conveyor-belts",
+          "stomper",
+          "hole",
+          "hole-trap",
+          "pusher",
+          "flamethrower",
+          "portal",
+          "toggle-ramps",
+          "repair"
+        ]
+      },
+      "MapEvent": {
+        "title": "MapEvent",
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/MapEventType"
+          }
+        },
+        "description": "Events that takes place with the active components of the map"
+      },
+      "LazerHitEvent": {
+        "title": "LazerHitEvent",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "description": "Called when a player is hit by an "
+      },
+      "ShutdownEvent": {
+        "title": "ShutdownEvent",
+        "description": "When a robot reboots",
+        "type": "object",
+        "properties": {
+          "entity": {
+            "$ref": "#/components/schemas/EntityID"
+          }
+        }
+      },
+      "EntityAction": {
+        "title": "EntityAction",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "EntityActionType": {
+        "type": "string",
+        "title": "EntityActionType",
+        "default": "none",
+        "description": "Desines the action itsselft (what the action is doing)",
+        "enum": [
+          "spider jump",
+          "reboot",
+          "use upgrade"
+        ]
       }
     }
   }
