@@ -16,3 +16,20 @@ if(type == EventType.MOVE_EVENT){//you could also use switch
      ... 
 }
 ```
+This system is needed to provide type savety in languages such as Java and C#
+
+if you do not like to wait you will need something like this
+```javascript
+var wait = false; // false if you do not like to block the thread
+try{
+    var type = eventAPI.fetchNextEventType(game_id,wait);
+}catch(e){
+    if(e.statusCode == 302){
+        console.log("No Event avinable");
+    }
+}
+if(type == EventType.MOVE_EVENT){//you could also use switch
+     var moveEvent = eventAPI.fetchNextMovementEvent(game_id);
+     ... 
+}
+```
