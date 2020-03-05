@@ -1030,7 +1030,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/EntityActionType"
+                    "$ref": "#/components/schemas/EntityEventOportunity"
                   }
                 }
               }
@@ -1078,7 +1078,16 @@
           {
             "Player Token Access": []
           }
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EntityAction"
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -1839,10 +1848,14 @@
         "title": "EntityAction",
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
+          "phase": {
+            "$ref": "#/components/schemas/EntityActionPhase"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EntityActionType"
           }
-        }
+        },
+        "description": "The base type for entity actions between registers"
       },
       "EntityActionType": {
         "type": "string",
@@ -1850,10 +1863,67 @@
         "default": "none",
         "description": "Desines the action itsselft (what the action is doing)",
         "enum": [
-          "spider jump",
           "reboot",
-          "use upgrade"
+          "use upgrade",
+          "spider_jump",
+          "Cache",
+          "register-refresh",
+          "storage-swap",
+          "jumper",
+          "teleporter",
+          "magnet-ray",
+          "pushray",
+          "rotation",
+          "sidekick"
         ]
+      },
+      "EntityActionPhase": {
+        "type": "string",
+        "title": "EntityActionPhase",
+        "enum": [
+          "pre_register",
+          "after_register"
+        ],
+        "description": "The moment at which a entity action can be performed"
+      },
+      "EntityEventOportunity": {
+        "title": "EntityEventOportunity",
+        "type": "object",
+        "description": "The oportunity to perfom an action / event",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/EntityActionType"
+          },
+          "time-left": {
+            "type": "integer",
+            "description": "The time in ms left to do this action",
+            "format": "int64",
+            "minimum": 1
+          },
+          "end-time": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "description": "The in most languages avinable system time in MS as of which the action cant be committed any more"
+          }
+        }
+      },
+      "SimpleUpgradeActivation": {
+        "title": "SimpleUpgradeActivation",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EntityAction"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "upgrade": {
+                "$ref": "#/components/schemas/UpgradeID"
+              }
+            }
+          }
+        ],
+        "description": "type is allways `use-upgrade`"
       }
     }
   }
