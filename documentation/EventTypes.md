@@ -19,6 +19,7 @@ Infos:
 - Who pushes
 - Who gets pushed
 - How many fields
+- Direction of push
 
 ### Map event
 
@@ -26,14 +27,12 @@ Should get called whenever the map does something
 Infos:
 
 - What happens (Rotator, Stomper, Pusher, Laser, hole, conveyor belt,.. )
-- Infos about how it happens and what the result is
 
 ### Damage event
 
 Should get called whenever a player takes damage
 
 - Who took dmg
-- Why did he took dmg
 - How much dmg did he take
 
 ### Shoot event
@@ -42,17 +41,53 @@ Should get called when a player shoots
 
 - Who shoot (Maybe Data pos of shootstart and direction)
 
-### Hit event
-
-Should get called when a player gets hit with a laser
-
-- Who shoot (which player or map laser?)
-- Who got hit
-
 ### Shutdown event
 
-Should get called when a player starts rebooting. (Can get caused throught death or selfreboot)
+Should get called when a player starts rebooting.
+
+* the robot
 
 ### Reboot event
 
 Should get called when a player is rebooted
+
+* the robot
+
+### Buy upgrade event
+
+when a player obtains an upgrade
+
+* Who got the upgrade
+* Upgrade Card
+
+### Fill register
+
+When a player fills a robots register
+
+* Player who filles the register
+* Affected Robot
+* Register number
+
+### Timer start event
+
+When a player is done filling all registers
+
+* Player who was the fastest
+* Time left
+
+### Timer end event
+
+When the timer runs out
+
+### Complete Checkpoint
+
+When a player successfull reached a checkpoint
+
+* Player
+* Robot
+
+### Scan Event
+
+When the Prio beacon is scanning
+
+* Who got detected as the nearest robot
