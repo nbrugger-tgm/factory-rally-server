@@ -134,7 +134,7 @@ These are all elements which will get triggered after each register in the order
 
 - <u>Double conveyor belts:</u> move any robot resting on them two spaces in the direction of the arrows. 
 - <u>Single conveyor belts:</u> move any robot resting on them one space in the direction of the arrows. 
-- <u>Pushers:</u> push any robot resting on them into the next space in the direction the push panel faces. The tiles activate only in the register that corresponds to the number on them. 
+- <u>Pushers:</u> push any robot resting on them into the next space in the direction the push panel faces. Pushers are treated as wall so that robots cant pass through them. The tiles activate only in the register that corresponds to the number on them. 
 - <u>Gears:</u> rotate robots resting on them 90 degrees in the direction of the arrows.
 - <u>Trapdoors:</u> opens up and destroys a robot. The tiles activate only in the register that corresponds to the number on them. 
 - <u>Stompers:</u> will deal 2 damage to the robot. Further more a robot will stay stomped for this register phase so that it always has the least priority. The tiles activate only in the register that corresponds to the number on them.
@@ -180,8 +180,43 @@ If a robot moves onto the curved section of a conveyor belt by means of the conv
 
 ### Laser
 
+There are two different types of lasers, the board lasers and the robot lasers. The only difference is that the one laser is shot by the map after each register phase and the other one is shot by the robots after the register phase if they are still alive. The laser can only hit one robot. Lasers normally deal 1 damage but lasers of players could deal more damage if they have special upgrade cards.
 
+### Pushing other robots
+
+If robot **A** would enter a space where another robot (**B**) is standing on, it will push robot **B** into the direction robot **A** is moving till its movement is over. Robots do not change the direction they are facing when they are pushed. Robots can be pushed almost anywhere on the board, including into a pit. They can even be pushed off the side of the board! Robots cannot be pushed through walls. If a robot pushes another robot into a wall, both robots immediately end their movement.
+
+### Falling of the board
+
+If you move off or are pushed off of the board it will get destroyed instantly.
 
 ### Virtual Mode
 
 If a robot re-enters play on the same field as another robot, they will enter *Virtual Mode*. A robot in Virtual Mode does not interact with anything but  non-damaging board elements. The robot will remain in Virtual Mode as long as they share a space with another robot. As soon as the robot no longer shares a space with another robot, they become “real”.
+
+### Programming cards
+
+There are 9 different programming cards in the game. These are:
+
+- <u>Move-1:</u> Move your robot in the direction it is facing for one space. 
+- <u>Move-2:</u> Move your robot in the direction it is facing for two spaces. 
+- <u>Move-3:</u> Move your robot in the direction it is facing for three spaces. 
+- <u>Right turn:</u> Turn your robot 90 degrees to the right. The robot remains in its current space.
+- <u>Left turn:</u> Turn your robot 90 degrees to the left. The robot remains in its current space.
+- <u>U-turn:</u> Turn your robot 180 degrees so it faces the opposite direction. The robot remains in its current space.
+- <u>Move back:</u> Move your robot one space back. The robot does not change the direction it is facing. 
+- <u>Again:</u> Repeat the programming in your previous register. 
+- <u>Power up:</u> Take one energy cube, and place it on your player mat.
+
+### Special programming cards
+
+You may obtain these special programming cards by installing certain temporary upgrades. When you first receive a special programming card, place it in your discard pile. The card will cycle through your programming deck, and you may play them just as you would any other programming card, by placing them in one of your registers during the programming phase. 
+
+There are 6 special programming cards:
+
+- <u>Energy Routine:</u> 
+- <u>Sandbox Routine:</u> Choose one of the following actions to perform this register: Move 1, 2, or 3, Back Up, Turn Left, Turn Right, U-Turn
+- <u>Weasel Routine:</u> Choose one of the following actions to perform this register: Turn Left Turn Right U-Turn
+- <u>Speed Routine:</u> Move your robot 3 spaces in the direction it is facing.
+- <u>Heal Routine:</u> Remove a damage point
+- <u>Repeat Routine:</u> Repeat the programming in your previous register. 
