@@ -49,7 +49,7 @@ If there are still all upgrade cards left in shop they will all get removed from
 
 In this phase everyone can buy **one** upgrade card. Again the sequence for purchasing is specified by the priority beacon. These cards get bought with the energy cubes. The price of each upgrade card is written on the card. If you want to buy a card but you have to many of these type already you are able to put one away.
 
-#### Programming phase
+#### Programming Phase
 
 1. First of all every player gets 9 programming cards (or less depending on the missing health). 
 2. Every player has a short amount of time to look at the cards.
@@ -75,26 +75,37 @@ In the register phase the robots as well as the map starts moving.
 
 Once all five register phases have been completed the end of turn effects will get activated.
 
-- <u>RADIATION:</u> A robot on a radiation space takes 1 point of damage. 
-- <u>REPAIR SITES:</u> A robot on a repair site repairs damage points depending on how strong the repair field is.
-- <u>CHECKPOINTS:</u> A robot on a flag repairs 1 point of damage. 
-- <u>WIPE REGISTERS:</u> Discard all Program cards from registers that aren’t locked. 
-- <u>POWER DOWN:</u> Players whose robots were powered down this turn will be powered again if they had not been destroyed or got powered down again.
-- <u>RETURN ROBOTS TO PLAY:</u> All robots that were destroyed in this round re-enter the game at the entry point on the tile on which they last lived. They will look in the direction the player wants to and get 2 damage tokens. If a robot would re-enter on the same space as another robot, they are in Virtual Mode. 
+- <u>Board elements:</u> Board elements that only trigger at the end of the register phase will now be activated
+- <u>Wipe registers:</u> Discard all Program cards from registers that aren’t locked. 
+- <u>Power up:</u> Players whose robots were powered down this turn will be powered up again if they had not been destroyed or got powered down again.
+- <u>Reenter robots:</u> All robots that were destroyed in this round re-enter the game at the entry point on the tile on which they last lived. They will look in the direction the player wants to and get 2 damage tokens. If a robot would re-enter on the same space as another robot, they are in Virtual Mode. 
 
 ### Checkpoints
 
+Checkpoints can interact with the robots as well as with the map.
+
+#### Robots
+
 If a robot is at a checkpoint at the end of a register phase, it receives it and can make its way to the next one. Obviously, the checkpoints must be completed in the correct order, from the one with the lowest number to the one with the highest.
+
+#### Map
+
+Checkpoints can be affected by the map which means they can be moved by it. Following board elements can affect it:
+
+- <u>Conveyor belts:</u> They can move the checkpoint around and can even move the checkpoint to a player so that the player may wait for it.
+- <u>Pushers:</u> Pushers also affect Checkpoints and move them away.
+
+If a board element would throw the checkpoint into a hole, out of the map or another unreachable place it wont get affected by this board element.
 
 ### Damage and destruction
 
 When a player’s robot is damaged they get a damage token which means that they lose one health. A robot has a maximum of 10 health-points.
 
-<u>LOSS OF PROGRAM CARDS:</u>  Because of getting hit by lasers, getting stomped or damaged due other things the robots memory save gets affected so that thy get one fewer Program card for each damage token they have. 
+<u>Loss of program cards:</u>  Because of getting hit by lasers, getting stomped or damaged due other things the robots memory save gets affected so that thy get one fewer Program card for each damage token they have. 
 
-<u>LOCKED REGISTERS:</u> If a robot has 5 or more damage tokens, its registers begin to lock up starting with register 5 and working down to register 1. Once a register is locked, the Program card in that register cannot be discarded. This means that from now on this programming card is stuck in the register and is executed every round. This can only be removed when the register is no longer locked.
+<u>Locked registers:</u> If a robot has 5 or more damage tokens, its registers begin to lock up starting with register 5 and working down to register 1. Once a register is locked, the Program card in that register cannot be discarded. This means that from now on this programming card is stuck in the register and is executed every round. This can only be removed when the register is no longer locked.
 
-<u>DESTRUCTION:</u> A robot is destroyed when it got the 10th damage token which means it has 0 health points left. A robot can also be instantly destroyed by certain board elements or by moving off the edge of the board. There may be option cards which can prevent you from getting destroyed. The robot will re-enter play at the end of the turn. 
+<u>Destruction:</u> A robot is destroyed when it got the 10th damage token which means it has 0 health points left. A robot can also be instantly destroyed by certain board elements or by moving off the edge of the board. There may be option cards which can prevent you from getting destroyed. The robot will re-enter play at the end of the turn. 
 
 | Health points | Effect                                              |
 | :-----------: | --------------------------------------------------- |
@@ -109,4 +120,68 @@ When a player’s robot is damaged they get a damage token which means that they
 |       1       | Dealt 0 Program cards, lock all registers           |
 |       0       | Destruction                                         |
 
-### 
+### Winning the game
+
+The winner of the game is the player whose robot was the first one getting all checkpoint-marks. If one player won the game the others may continue to see who will get 2nd, 3rd ...
+
+### Board Elements
+
+On the map are many different board elements. Some of them are getting triggered after each register phase and some will only get triggered after the register phase is over. There are also some which will get triggered when ever a robot is on the tile no matter if it ends its register their or not.
+
+#### Register phase elements
+
+These are all elements which will get triggered after each register in the order they will get triggered:
+
+- <u>Double conveyor belts:</u> move any robot resting on them two spaces in the direction of the arrows. 
+- <u>Single conveyor belts:</u> move any robot resting on them one space in the direction of the arrows. 
+- <u>Pushers:</u> push any robot resting on them into the next space in the direction the push panel faces. The tiles activate only in the register that corresponds to the number on them. 
+- <u>Gears:</u> rotate robots resting on them 90 degrees in the direction of the arrows.
+- <u>Trapdoors:</u> opens up and destroys a robot. The tiles activate only in the register that corresponds to the number on them. 
+- <u>Stompers:</u> will deal 2 damage to the robot. Further more a robot will stay stomped for this register phase so that it always has the least priority. The tiles activate only in the register that corresponds to the number on them.
+- <u>Lasers:</u> will deal 1 damage to a robot. (See more at "Laser")
+
+#### End of turn elements
+
+- <u>Radiation:</u> A robot on a radiation space takes 1 point of damage. 
+- <u>Repair sites:</u> A robot on a repair site repairs damage points depending on how strong the repair field is. (1 or 2)
+- <u>Checkpoints:</u> A robot on a flag repairs 1 point of damage. 
+
+#### Always triggered elements
+
+- <u>Button:</u> A button is a toggle which will enable or disable something like ramps. Due that robots may get damage cause they wanted to use a ramp and now fall down or may drive against a wall instead of unseeing the ramp.
+- <u>Puddle:</u> A robot leaving a puddle gets one movement negated which means that a Move-1 card has no affect, a Move-2 is treated as a Move-1 and so on. Rotation is not affected. It has no affect if the robot in the puddle is pushed.
+
+#### Others
+
+- <u>Pit:</u> A robot which drives into a pit will get destroyed instantly. 
+- <u>Walls:</u>  Robots can’t move through walls and lasers can’t shoot through them. Robots that attempt to move through a wall or which would be forced to move through a wall simply stay where they are. 
+- <u>Levels:</u> Each map tile is on one level. Robots on the same level can fire on one another, but robots on different levels cannot.  
+- <u>Ledges:</u>  A robot on the lower level of a ledge treats the ledge as if it were a wall. A robot on the upper level of the ledge can cross the ledge and if it does so it will take 2 points of damage for each level fallen.
+- <u>Ramp:</u> A ramp is like a normal tile when a robot moves on it. However, when the player ends a register phase on the ramp it will slip down to the tile in front of the ramp (if there is a robot it will not slip down). A ramp can only be driven on from two sides (bottom and top), if a robot moves from the side it is treated like a wall. Further more a ramp can be toggled by buttons so that the ramp is disable and treated as a default tile. If a ramp gets disabled while a robot is  standing on it, the robot will get one point of damage.
+- <u>One-way walls:</u> One way walls are treated as a wall from one side but ignored from the other one. From left and right it is treated as wall too.
+
+### Conveyor movement
+
+#### Default behavior
+
+Conveyor belts move your robot in the direction of the arrows. Double-arrowed conveyor belts move robots two spaces and activate before single-arrowed conveyor belts, which move robots one space. Once a robot has moved off a belt, the belt no longer affects that robot.
+
+#### Interaction with other robots
+
+If a conveyor belt would move a robot into a non-conveyor belt space where another robot sits, the robot in motion must stop on the last space of the conveyor belt. It does not push the robot in its way. 
+
+If both robots would end their move on the same conveyor belt space, both robots stay where they are. 
+
+#### Rotating conveyor belts
+
+Some conveyor belts have a curved arrow indicating a rotating section of the belt. Robots rotate 90 degrees in the direction of the curved arrow as they move onto the curved section of the belt. If a robot moves onto the curved section of a conveyor belt by means other than the conveyor belt itself, the robot does not turn 90 degrees. 
+
+If a robot moves onto the curved section of a conveyor belt by means of the conveyor belt, but it moves from a straight arrowed space instead of a curved arrow space, it will not turn 90 degrees. 
+
+### Laser
+
+
+
+### Virtual Mode
+
+If a robot re-enters play on the same field as another robot, they will enter *Virtual Mode*. A robot in Virtual Mode does not interact with anything but  non-damaging board elements. The robot will remain in Virtual Mode as long as they share a space with another robot. As soon as the robot no longer shares a space with another robot, they become “real”.
