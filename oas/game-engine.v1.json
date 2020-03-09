@@ -382,7 +382,8 @@
               "$ref": "#/components/schemas/UpgradeID"
             },
             "in": "query",
-            "name": "upgrade"
+            "name": "upgrade",
+            "required": true
           },
           {
             "schema": {
@@ -544,12 +545,44 @@
       },
       "delete": {
         "summary": "Clear Robot Upgrades",
-        "operationId": "delete-games-game_id-entitys-robots-robot_id-upgrades",
+        "operationId": "clearUpgrades",
         "responses": {
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "description": "Removes all upgrades from a robot",
+        "security": [
+          {
+            "Player Token Access": []
+          }
+        ],
+        "requestBody": {},
+        "parameters": []
+      },
+      "patch": {
+        "summary": "Remove Upgrade",
+        "operationId": "removeRobotUpgrade",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Removes a paticular upgrade from the robot",
+        "security": [
+          {
+            "Player Token Access": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "$ref": "#/components/schemas/UpgradeID"
+            },
+            "in": "query",
+            "name": "upgrade"
+          }
+        ]
       }
     },
     "/games/{game_id}/entitys/robots/": {
@@ -564,8 +597,28 @@
       "get": {
         "summary": "Get all robots",
         "tags": [],
-        "responses": {},
-        "operationId": "get-games-game_id-entitys-robots"
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EntityID"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getRobots",
+        "description": "Returns a list of all robot IDs in this game.\n> A robot is not a player as a player is able to controll multiple robots",
+        "security": [
+          {
+            "Player Token Access": []
+          }
+        ]
       }
     },
     "/games/{game_id}/events/type": {
@@ -1861,7 +1914,7 @@
         "type": "string",
         "title": "EntityActionType",
         "default": "none",
-        "description": "Desines the action itsselft (what the action is doing)",
+        "description": "Defines the action itsselft (what the action is doing)",
         "enum": [
           "reboot",
           "use upgrade",
@@ -1924,6 +1977,23 @@
           }
         ],
         "description": "type is allways `use-upgrade`"
+      },
+      "EntityUseUpgradeAction": {
+        "title": "EntityUseUpgradeAction",
+        "description": "The action to make an entity use an upgade card (including the actions which require additional information)",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EntityAction"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "upgrade": {
+                "$ref": "#/components/schemas/UpgradeID"
+              }
+            }
+          }
+        ]
       }
     }
   }
