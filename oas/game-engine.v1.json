@@ -30,7 +30,9 @@
     "/games/": {
       "get": {
         "summary": "Get all games",
-        "tags": [],
+        "tags": [
+          "Game"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -98,7 +100,10 @@
             }
           },
           "description": "*Optional*\nThis rules define how your game will behave"
-        }
+        },
+        "tags": [
+          "Game"
+        ]
       },
       "parameters": []
     },
@@ -113,7 +118,9 @@
       ],
       "get": {
         "summary": "Get game status",
-        "tags": [],
+        "tags": [
+          "Game"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -148,7 +155,9 @@
     "/games/{game_id}/actions": {
       "get": {
         "summary": "Get games actions",
-        "tags": [],
+        "tags": [
+          "Game"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -208,6 +217,9 @@
           {
             "Host token access": []
           }
+        ],
+        "tags": [
+          "Game"
         ]
       }
     },
@@ -222,7 +234,9 @@
       ],
       "get": {
         "summary": "Get all players",
-        "tags": [],
+        "tags": [
+          "Players"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -276,6 +290,9 @@
             "name": "password",
             "description": "The password of the game if the lobby is password protected"
           }
+        ],
+        "tags": [
+          "Players"
         ]
       }
     },
@@ -296,7 +313,9 @@
       ],
       "get": {
         "summary": "Get player",
-        "tags": [],
+        "tags": [
+          "Players"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -309,7 +328,8 @@
             }
           }
         },
-        "operationId": "getPlayer"
+        "operationId": "getPlayer",
+        "description": "Get closer information about the player"
       },
       "delete": {
         "summary": "Remove Player",
@@ -327,6 +347,9 @@
           {
             "Host token access": []
           }
+        ],
+        "tags": [
+          "Players"
         ]
       }
     },
@@ -341,7 +364,9 @@
       ],
       "get": {
         "summary": "Get upgrade shop",
-        "tags": [],
+        "tags": [
+          "Upgrades"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -392,6 +417,9 @@
             "in": "query",
             "name": "exchange"
           }
+        ],
+        "tags": [
+          "Upgrades"
         ]
       }
     },
@@ -431,7 +459,10 @@
             "Player Token Access": []
           }
         ],
-        "description": "Get detailed information about the Upgrade"
+        "description": "Get detailed information about the Upgrade",
+        "tags": [
+          "Upgrades"
+        ]
       }
     },
     "/games/{game_id}/upgrades/": {
@@ -445,7 +476,9 @@
       ],
       "get": {
         "summary": "get all Upgrades",
-        "tags": [],
+        "tags": [
+          "Upgrades"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -499,7 +532,9 @@
       ],
       "get": {
         "summary": "Get register information",
-        "tags": [],
+        "tags": [
+          "Robots"
+        ],
         "responses": {},
         "operationId": "get-games-game_id-entitys-robots-robot_id-registers"
       },
@@ -510,7 +545,10 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "tags": [
+          "Robots"
+        ]
       },
       "delete": {
         "summary": "clear registers",
@@ -519,7 +557,10 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "tags": [
+          "Robots"
+        ]
       }
     },
     "/games/{game_id}/entitys/robots/{robot_id}/upgrades": {
@@ -539,7 +580,9 @@
       ],
       "get": {
         "summary": "Get Robot Upgrades",
-        "tags": [],
+        "tags": [
+          "Robots"
+        ],
         "responses": {},
         "operationId": "get-games-game_id-entitys-robots-robot_id-upgrades"
       },
@@ -558,7 +601,10 @@
           }
         ],
         "requestBody": {},
-        "parameters": []
+        "parameters": [],
+        "tags": [
+          "Robots"
+        ]
       },
       "patch": {
         "summary": "Remove Upgrade",
@@ -582,6 +628,9 @@
             "in": "query",
             "name": "upgrade"
           }
+        ],
+        "tags": [
+          "Robots"
         ]
       }
     },
@@ -596,7 +645,9 @@
       ],
       "get": {
         "summary": "Get all robots",
-        "tags": [],
+        "tags": [
+          "Robots"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -677,6 +728,9 @@
             "name": "wait",
             "description": "If true the server will not responde until a event is added to the queue\n\nRrequires less traffic but might impacts the servers performance or cause timeouts at the client"
           }
+        ],
+        "tags": [
+          "EventHandling"
         ]
       }
     },
@@ -709,7 +763,9 @@
       ],
       "get": {
         "summary": "Get tile",
-        "tags": [],
+        "tags": [
+          "Map"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -744,7 +800,9 @@
       ],
       "get": {
         "summary": "Get Map info",
-        "tags": [],
+        "tags": [
+          "Map"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -779,7 +837,9 @@
       ],
       "get": {
         "summary": "Get next / last movement event",
-        "tags": [],
+        "tags": [
+          "EventHandling"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -819,8 +879,10 @@
         }
       ],
       "get": {
-        "summary": "Get next / last movement event",
-        "tags": [],
+        "summary": "Get next / last damage event",
+        "tags": [
+          "EventHandling"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -839,7 +901,7 @@
             "description": "The next event is not a movement event"
           }
         },
-        "operationId": "fetchNextMovementEvent",
+        "operationId": "fetchNextDamageEvent",
         "description": "Returns the next unfetched event of the damage type.\n\nIf the event is not of the damage type you will get a `400` status and the event stays unfetched",
         "security": [
           {
@@ -860,8 +922,10 @@
         }
       ],
       "get": {
-        "summary": "Get next / last movement event",
-        "tags": [],
+        "summary": "Get next / last Lazer hit event",
+        "tags": [
+          "EventHandling"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -880,7 +944,7 @@
             "description": "The next event is not a movement event"
           }
         },
-        "operationId": "fetchNextMovementEvent",
+        "operationId": "fetchNextLazerHitEvent",
         "description": "Returns the next unfetched event of the lazer hit type.\n\nIf the event is not of the lazer hit type you will get a `400` status and the event stays unfetched",
         "security": [
           {
@@ -901,8 +965,10 @@
         }
       ],
       "get": {
-        "summary": "Get next / last movement event",
-        "tags": [],
+        "summary": "Get next / last map event",
+        "tags": [
+          "EventHandling"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -921,7 +987,7 @@
             "description": "The next event is not a movement event"
           }
         },
-        "operationId": "fetchNextMovementEvent",
+        "operationId": "fetchNextMapEvent",
         "description": "Returns the next unfetched event of the  Map Event type.\nMap Events activeata all active components of a type at once\n\nIf the event is not of the map event type you will get a `400` status and the event stays unfetched",
         "security": [
           {
@@ -942,8 +1008,10 @@
         }
       ],
       "get": {
-        "summary": "Get next / last movement event",
-        "tags": [],
+        "summary": "Get next / last push event",
+        "tags": [
+          "EventHandling"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -962,7 +1030,7 @@
             "description": "The next event is not a movement event"
           }
         },
-        "operationId": "fetchNextMovementEvent",
+        "operationId": "fetchNextPushEvent",
         "description": "Returns the next unfetched event of the push type.\n\nIf the event is not of the push  type you will get a `400` status and the event stays unfetched",
         "security": [
           {
@@ -983,8 +1051,10 @@
         }
       ],
       "get": {
-        "summary": "Get next / last movement event",
-        "tags": [],
+        "summary": "Get next / last shoot event",
+        "tags": [
+          "EventHandling"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -1003,7 +1073,7 @@
             "description": "The next event is not a movement event"
           }
         },
-        "operationId": "fetchNextMovementEvent",
+        "operationId": "fetchNextShootEvent",
         "description": "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
         "security": [
           {
@@ -1024,8 +1094,10 @@
         }
       ],
       "get": {
-        "summary": "Get next / last movement event",
-        "tags": [],
+        "summary": "Get next / last shutdown event",
+        "tags": [
+          "EventHandling"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -1044,7 +1116,7 @@
             "description": "The next event is not a movement event"
           }
         },
-        "operationId": "fetchNextMovementEvent",
+        "operationId": "fetchNextShutdownEvent",
         "description": "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
         "security": [
           {
@@ -1074,7 +1146,9 @@
       ],
       "get": {
         "summary": "Get Aviable actions",
-        "tags": [],
+        "tags": [
+          "Robots"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -1140,7 +1214,38 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "Robots"
+        ]
+      },
+      "get": {
+        "summary": "Get Robot action stack",
+        "operationId": "getActionStack",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EntityAction"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Retuns a list od all actions in the stack",
+        "security": [
+          {
+            "Player Token Access": []
+          }
+        ],
+        "tags": [
+          "Robots"
+        ]
       }
     }
   },
@@ -1996,5 +2101,27 @@
         ]
       }
     }
-  }
+  },
+  "tags": [
+    {
+      "description": "",
+      "name": "Players"
+    },
+    {
+      "description": "",
+      "name": "Game"
+    },
+    {
+      "description": "",
+      "name": "Players"
+    },
+    {
+      "description": "",
+      "name": "Upgrades"
+    },
+    {
+      "description": "",
+      "name": "EventHandling"
+    }
+  ]
 }
