@@ -2269,6 +2269,13 @@
             "minimum": 0,
             "maximum": 9,
             "description": "The cards in the hand of the robot"
+          },
+          "attitude": {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 4,
+            "description": "The height level of the robot"
           }
         }
       }
