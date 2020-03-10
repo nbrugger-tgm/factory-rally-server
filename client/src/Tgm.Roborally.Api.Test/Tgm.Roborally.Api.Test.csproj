@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Robot Rally Game logic engine
+
+This api controlls the flow of a game and provides it's data. It is desiged to be RESTfull so the structure works simmilar as file system. The service will run and only work in a local network, `game.host` is the IP of the Computer hosting the game and will be found via a IP scan
+
+The version of the OpenAPI document: 0.1.0
+Contact: nbrugger@student.tgm.ac.at
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tgm.Roborally.Api.Test</RootNamespace>
+    <AssemblyName>Tgm.Roborally.Api.Test</AssemblyName>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <ItemGroup>
+      <PackageReference Include="CompareNETObjects" Version="4.57.0" />
+      <PackageReference Include="JsonSubTypes" Version="1.5.2" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+      <PackageReference Include="xunit" Version="2.4.1" />
+      <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+      <PackageReference Include="RestSharp" Version="106.10.1" />
+      <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+      <ProjectReference Include="..\Tgm.Roborally.Api\Tgm.Roborally.Api.csproj">
+          <Project>{80A52BB2-6A06-457C-B1BC-7BB0624863F2}</Project>
+          <Name>Tgm.Roborally.Api</Name>
+      </ProjectReference>
+  </ItemGroup>
+</Project>
+

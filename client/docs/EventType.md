@@ -1,0 +1,9 @@
+# Tgm.Roborally.Api.Model.EventType
+Describes what the event is about
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
