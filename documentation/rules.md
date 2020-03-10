@@ -5,7 +5,7 @@
 1. First of all you have to host a match where your friends can join to.
 2. Together you have to choose a course which you want to play with. This can even be a custom course which only the host has to have installed.
 3. Now every player chooses a robot.
-4. After that every player has to place its Robot on the map. The order is random.
+   4. After that every player has to place its Robot on the map. The order is random.
 
 ### Play
 
@@ -15,13 +15,13 @@ The game is played in rounds. Each round is made out of 5 phases:
    - During the upgrade phase each player can buy upgrade cards for the energy cubes he has.
 2. The programming phase:
    - Each player gets an amount of programming cards. 
-   - Every player has to place the maximum of the programming cards he is able to.
+   - Every player has to place the maximum of the programming cards he is able to. (all players at the same time)
 3. The power-down-announce phase:
    - Each player can now tell that they want to power down after this round
 4. The register phase:
    - Now the robots gets moved like their programming cards tell them too in five register phases. 
      - The robots get moved once after another so the priority beacon tells them in which order they have to move.
-     - When every robot has moved the board elements gets triggered.
+     - When every robot has moved the board elements are triggered.
 5. End of turn effects:
    - There are map fields which only do something after the 5th register phase *More here*
 
@@ -39,23 +39,23 @@ There are two card types:
 - Temporary upgrade
 
 Permanent cards gives the robot a buff and you can have a maximum amount of three.
-Temporary cards can always be played and you can have a maximum amount of three.
+Temporary cards can be used at special situations (or always depending on the upgrade) and you can have a maximum amount of three.
 
 ##### Refill
 
-If there are still all upgrade cards left in shop they will all get removed from the match. Otherwise, so many cards will be added to the card shop so that there are as many as players again.
+If there are still all upgrade cards left in shop they will all be removed from the match. Otherwise, so many cards will be added to the card shop so that there are as many as players again.
 
 ##### Purchase
 
-In this phase everyone can buy **one** upgrade card. Again the sequence for purchasing is specified by the priority beacon. These cards get bought with the energy cubes. The price of each upgrade card is written on the card. If you want to buy a card but you have to many of these type already you are able to put one away.
+In this phase everyone can buy **one** upgrade card. Again the sequence for purchasing is specified by the priority beacon. These cards get bought with the energy cubes. The price of each upgrade card is written on the card. If you want to buy a card but you have to many of these type already you are able to exchange a old card with a new one.
 
 #### Programming Phase
 
-1. First of all every player gets 9 programming cards (or less depending on the missing health). 
+1. First of all every player gets 9 programming cards (or less depending on the missing health more about this later on). 
 2. Every player has a short amount of time to look at the cards.
 3. Now every has to place 5 (or less depending on the missing health) in the order they should get used in the register phase. 
 4. When the first player is ready all other players have 30 seconds left to place their cards. 
-5. If a register is empty, it will get filled with a random card from the players hand.
+5. If registers are empty after the timer ran out, they will be filled with random cards from the players hand.
 
 #### Power-down-announce Phase
 
@@ -78,7 +78,7 @@ Once all five register phases have been completed the end of turn effects will g
 - <u>Board elements:</u> Board elements that only trigger at the end of the register phase will now be activated
 - <u>Wipe registers:</u> Discard all Program cards from registers that aren’t locked. 
 - <u>Power up:</u> Players whose robots were powered down this turn will be powered up again if they had not been destroyed or got powered down again.
-- <u>Reenter robots:</u> All robots that were destroyed in this round re-enter the game at the entry point on the tile on which they last lived. They will look in the direction the player wants to and get 2 damage tokens. If a robot would re-enter on the same space as another robot, they are in Virtual Mode. 
+- <u>Re-enter robots:</u> All robots that were destroyed in this round re-enter the game at the entry point on the tile on which they last lived. They will look in the direction the player wants to and get 2 damage tokens. If a robot would re-enter on the same space as another robot, they are in Virtual Mode. 
 
 ### Checkpoints
 
@@ -162,7 +162,7 @@ These are all elements which will get triggered after each register in the order
 
 ### Conveyor movement
 
-#### Default behavior
+#### Default behaviour
 
 Conveyor belts move your robot in the direction of the arrows. Double-arrowed conveyor belts move robots two spaces and activate before single-arrowed conveyor belts, which move robots one space. Once a robot has moved off a belt, the belt no longer affects that robot.
 

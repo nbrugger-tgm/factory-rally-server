@@ -1,8 +1,8 @@
 ### Events & Updates
 Sometimes you would like to know what the Api is doing and what changed since the last fetch. This is called events.
 
-Detching one or more updates includes three mayor steps:
-- Waiting for the nexte event
+Detecting one or more updates includes three mayor steps:
+- Waiting for the next event
 - receiving the type of the event
 - fetch the right event by its type
 
