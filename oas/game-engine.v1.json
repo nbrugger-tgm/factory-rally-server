@@ -1415,10 +1415,19 @@
         "enum": [
           "normal",
           "rotator",
-          "band",
-          "hole",
           "wall",
-          "prio_core"
+          "prio_core",
+          "conveyor",
+          "trap-door",
+          "stomper",
+          "radioactive",
+          "repair site",
+          "Button",
+          "Wall",
+          "One Way Wall",
+          "Puddle",
+          "pit",
+          "Ramp"
         ]
       },
       "Direction": {
@@ -1928,7 +1937,14 @@
           "fill register",
           "activate upgrade",
           "lazer shot",
-          "game start"
+          "game start",
+          "clear shop",
+          "fill shop",
+          "register clear",
+          "programming timer start",
+          "programming timer stop",
+          "random card distribution",
+          "take card event"
         ]
       },
       "MovementEvent": {
