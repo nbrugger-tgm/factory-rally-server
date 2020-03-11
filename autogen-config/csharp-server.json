@@ -1,0 +1,8 @@
+{
+	"aspnetCoreVersion" : "3.0",
+	"newtonsoftVersion" : "12.0.3",
+	"operationIsAsync" : true,
+	"packageName" : "Tgm.Roborally.Server",
+	"packageTitle" : "Roborally API Server",
+	"useFrameworkReference" : true
+}
