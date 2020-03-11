@@ -89,11 +89,6 @@ namespace Tgm.Roborally.Server.Models
             [EnumMember(Value = "Button")]
             ButtonEnum = 10,
             
-            /// <summary>
-            /// Enum WallEnum for Wall
-            /// </summary>
-            [EnumMember(Value = "Wall")]
-            WallEnum = 11,
             
             /// <summary>
             /// Enum OneWayWallEnum for One Way Wall

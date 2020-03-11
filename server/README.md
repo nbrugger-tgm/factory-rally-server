@@ -19,7 +19,7 @@ build.bat
 ```
 ## Run in Docker
 
-```
+```bash
 cd src/Tgm.Roborally.Server
 docker build -t tgm.roborally.server .
 docker run -p 5000:8080 tgm.roborally.server

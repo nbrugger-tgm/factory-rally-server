@@ -18,6 +18,7 @@ using System.ComponentModel.DataAnnotations;
 using Tgm.Roborally.Server.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Tgm.Roborally.Server.Models;
+using Action = Tgm.Roborally.Server.Models.Action;
 
 namespace Tgm.Roborally.Server.Controllers
 { 

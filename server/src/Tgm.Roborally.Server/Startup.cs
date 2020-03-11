@@ -23,6 +23,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Tgm.Roborally.Server.Filters;
 using Tgm.Roborally.Server.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Hosting;
 
 namespace Tgm.Roborally.Server
 {
@@ -68,12 +69,12 @@ namespace Tgm.Roborally.Server
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddNewtonsoftJson(opts =>
                 {
-                    opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    opts.SerializerSettings.Converters.Add(new StringEnumConverter
-                    {
-                        NamingStrategy = new CamelCaseNamingStrategy()
-                    });
-                });
+                     opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                     opts.SerializerSettings.Converters.Add(new StringEnumConverter
+                     {
+                         NamingStrategy = new CamelCaseNamingStrategy()
+                     });
+                 });
 
             services
                 .AddSwaggerGen(c =>
@@ -107,7 +108,7 @@ namespace Tgm.Roborally.Server
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
         /// <param name="app"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHttpsRedirection();
             app
