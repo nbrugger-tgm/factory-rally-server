@@ -708,46 +708,6 @@
         ]
       }
     },
-    "/games/{game_id}/entitys/robots/": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get all robots",
-        "tags": [
-          "Robots"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EntityID"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getRobots",
-        "description": "Returns a list of all robot IDs in this game.\n> A robot is not a player as a player is able to controll multiple robots",
-        "security": [
-          {
-            "Player-Token-Access": []
-          }
-        ]
-      }
-    },
     "/games/{game_id}/events/type": {
       "parameters": [
         {
@@ -1201,7 +1161,7 @@
         ]
       }
     },
-    "/games/{game_id}/entitys/robots/{robot_id}/actions/avinable": {
+    "/games/{game_id}/entitys/robots/{robot_id}/info": {
       "parameters": [
         {
           "schema": {
@@ -1221,27 +1181,22 @@
         }
       ],
       "get": {
-        "summary": "Get Aviable actions",
-        "tags": [
-          "Robots"
-        ],
+        "summary": "Get Robot Informations",
+        "tags": [],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EntityEventOportunity"
-                  }
+                  "$ref": "#/components/schemas/RobotInfo"
                 }
               }
             }
           }
         },
-        "operationId": "getPossibleActions",
-        "description": "Returns a list of EntityActionTypes which are possible to be executed at the moment.",
+        "operationId": "getRobotStats",
+        "description": "Returns the status and info about the robot",
         "security": [
           {
             "Player-Token-Access": []
@@ -1324,7 +1279,7 @@
         ]
       }
     },
-    "/games/{game_id}/entitys/robots/{robot_id}/info": {
+    "/games/{game_id}/entitys/robots/{robot_id}/actions/avinable": {
       "parameters": [
         {
           "schema": {
@@ -1344,22 +1299,67 @@
         }
       ],
       "get": {
-        "summary": "Get Robot Informations",
-        "tags": [],
+        "summary": "Get Aviable actions",
+        "tags": [
+          "Robots"
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RobotInfo"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EntityEventOportunity"
+                  }
                 }
               }
             }
           }
         },
-        "operationId": "getRobotStats",
-        "description": "Returns the status and info about the robot",
+        "operationId": "getPossibleActions",
+        "description": "Returns a list of EntityActionTypes which are possible to be executed at the moment.",
+        "security": [
+          {
+            "Player-Token-Access": []
+          }
+        ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/": {
+      "parameters": [
+        {
+          "schema": {
+            "$ref": "#/components/schemas/GameID"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get all robots",
+        "tags": [
+          "Robots"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EntityID"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getRobots",
+        "description": "Returns a list of all robot IDs in this game.\n> A robot is not a player as a player is able to controll multiple robots",
         "security": [
           {
             "Player-Token-Access": []
@@ -1480,11 +1480,15 @@
             "format": "int32",
             "minimum": 1,
             "description": "The unique identification of this entity. <br>\n*!!!* This is not the id of the player<br>\nThis value will be autogenerated by the api and is read only"
+          },
+          "location": {
+            "$ref": "#/components/schemas/Position"
           }
         },
         "required": [
           "direction",
-          "name"
+          "name",
+          "location"
         ]
       },
       "GameRules": {
@@ -1944,7 +1948,8 @@
           "programming timer start",
           "programming timer stop",
           "random card distribution",
-          "take card event"
+          "take card event",
+          "activate checkpoint"
         ]
       },
       "MovementEvent": {
@@ -2239,61 +2244,94 @@
       },
       "RobotInfo": {
         "title": "RobotInfo",
-        "type": "object",
         "description": "Describes the state/stats of a robot",
-        "properties": {
-          "energy-cubes": {
-            "type": "integer",
-            "default": 3,
-            "description": "The number of avainable energy cubes",
-            "minimum": 0,
-            "maximum": 20
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Entity"
           },
-          "health": {
-            "type": "integer",
-            "default": 10,
-            "description": "The remaining health points",
-            "minimum": 1,
-            "maximum": 10
-          },
-          "active": {
-            "type": "boolean",
-            "default": true,
-            "description": "True if the robot is not in rebooting mode"
-          },
-          "virtual": {
-            "type": "boolean",
-            "default": false,
-            "description": "If the robot is in virtual mode"
-          },
-          "priority": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 8,
-            "description": "The priority of this player. Higher is more priority. 1 = lowest. max = number of players"
-          },
-          "on-turn": {
-            "type": "boolean",
-            "description": "True if the robot is currently active (executing a register)"
-          },
-          "is-mine": {
-            "type": "boolean",
-            "description": "True if you are the one controlling the robot"
-          },
-          "hand-cards": {
-            "type": "integer",
-            "minimum": 0,
-            "maximum": 9,
-            "description": "The cards in the hand of the robot"
-          },
-          "attitude": {
-            "type": "integer",
-            "default": 0,
-            "minimum": 0,
-            "maximum": 4,
-            "description": "The height level of the robot"
+          {
+            "type": "object",
+            "properties": {
+              "energy-cubes": {
+                "type": "integer",
+                "default": 3,
+                "description": "The number of avainable energy cubes",
+                "minimum": 0,
+                "maximum": 20
+              },
+              "health": {
+                "type": "integer",
+                "default": 10,
+                "description": "The remaining health points",
+                "minimum": 1,
+                "maximum": 10
+              },
+              "active": {
+                "type": "boolean",
+                "default": true,
+                "description": "True if the robot is not in rebooting mode"
+              },
+              "virtual": {
+                "type": "boolean",
+                "default": false,
+                "description": "If the robot is in virtual mode"
+              },
+              "priority": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 8,
+                "description": "The priority of this player. Higher is more priority. 1 = lowest. max = number of players"
+              },
+              "on-turn": {
+                "type": "boolean",
+                "description": "True if the robot is currently active (executing a register)"
+              },
+              "is-mine": {
+                "type": "boolean",
+                "description": "True if you are the one controlling the robot"
+              },
+              "hand-cards": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9,
+                "description": "The cards in the hand of the robot"
+              },
+              "attitude": {
+                "type": "integer",
+                "default": 0,
+                "minimum": 0,
+                "maximum": 4,
+                "description": "The height level of the robot"
+              }
+            }
           }
-        }
+        ]
+      },
+      "Checkpoint": {
+        "title": "Checkpoint",
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "number": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "The number of the checkpoint defining the order they need to be called in"
+              },
+              "checked-by": {
+                "type": "array",
+                "description": "The entities (robots) which allready were at this point",
+                "items": {
+                  "$ref": "#/components/schemas/EntityID"
+                }
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/Entity"
+          }
+        ],
+        "description": "Checkpoints are entities"
       }
     }
   },
