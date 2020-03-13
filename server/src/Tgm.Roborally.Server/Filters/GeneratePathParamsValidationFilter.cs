@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Tgm.Roborally.Server.Filters
@@ -16,7 +16,7 @@ namespace Tgm.Roborally.Server.Filters
         /// </summary>
         /// <param name="operation">Operation</param>
         /// <param name="context">OperationFilterContext</param>
-        public void Apply(Operation operation, OperationFilterContext context)
+        public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             var pars = context.ApiDescription.ParameterDescriptions;
 
@@ -24,6 +24,8 @@ namespace Tgm.Roborally.Server.Filters
             {
                 var swaggerParam = operation.Parameters.SingleOrDefault(p => p.Name == par.Name);
 
+                if (par.ParameterDescriptor == null)
+                    continue;
                 var attributes = ((ControllerParameterDescriptor)par.ParameterDescriptor).ParameterInfo.CustomAttributes;
 
                 if (attributes != null && attributes.Count() > 0 && swaggerParam != null)
@@ -40,10 +42,10 @@ namespace Tgm.Roborally.Server.Filters
                     if (regexAttr != null)
                     {
                         string regex = (string)regexAttr.ConstructorArguments[0].Value;
-                        if (swaggerParam is NonBodyParameter)
-                        {
-                            ((NonBodyParameter)swaggerParam).Pattern = regex;
-                        }
+                       // if (swaggerParam is NonBodyParameter)
+                       // {
+                            swaggerParam.Schema.Format = regex;
+                        //}
                     }
 
                     // String Length [StringLength]
@@ -70,11 +72,8 @@ namespace Tgm.Roborally.Server.Filters
                         maxLength = (int)maxLengthAttr.ConstructorArguments[0].Value;
                     }
 
-                    if (swaggerParam is NonBodyParameter)
-                    {
-                        ((NonBodyParameter)swaggerParam).MinLength = minLenght;
-                        ((NonBodyParameter)swaggerParam).MaxLength = maxLength;
-                    }
+                    swaggerParam.Schema.MinLength = minLenght;
+                    swaggerParam.Schema.MaxLength = maxLength;
 
                     // Range [Range]
                     var rangeAttr = attributes.FirstOrDefault(p => p.AttributeType == typeof(RangeAttribute));
@@ -83,15 +82,13 @@ namespace Tgm.Roborally.Server.Filters
                         int rangeMin = (int)rangeAttr.ConstructorArguments[0].Value;
                         int rangeMax = (int)rangeAttr.ConstructorArguments[1].Value;
 
-                        if (swaggerParam is NonBodyParameter)
-                        {
-                            ((NonBodyParameter)swaggerParam).Minimum = rangeMin;
-                            ((NonBodyParameter)swaggerParam).Maximum = rangeMax;
-                        }
+                        swaggerParam.Schema.Minimum = rangeMin;
+                        swaggerParam.Schema.Maximum = rangeMax;
                     }
                 }
             }
         }
+
     }
 }
 

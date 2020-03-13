@@ -174,7 +174,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -418,7 +418,7 @@
             "description": "OK"
           }
         },
-        "description": "Buy this Upgrade from the shop.\n### Note\nIf your robot allready owns 3 Upgrades of this type you have to use the `exchange` parameter. This is the ID of the Upgrade to replace with the bought one",
+        "description": "Buy this Upgrade from the shop.\n### Note\nIf your robot allready owns 3 Upgrades you have to use the `exchange` parameter. This is the ID of the Upgrade to replace with the bought one",
         "security": [
           {
             "Player-Token-Access": []
@@ -712,7 +712,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -774,7 +774,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -827,7 +827,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -864,7 +864,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -907,7 +907,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -950,7 +950,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -993,7 +993,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -1036,7 +1036,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -1079,7 +1079,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -1122,7 +1122,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -1165,7 +1165,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -1208,7 +1208,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -1268,7 +1268,7 @@
             }
           }
         },
-        "description": "Returns a list of all actions in the stack",
+        "description": "Retuns a list od all actions in the stack",
         "security": [
           {
             "Player-Token-Access": []
@@ -1283,7 +1283,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -1416,17 +1416,18 @@
           "normal",
           "rotator",
           "wall",
-          "one_way_wall",
           "prio_core",
           "conveyor",
-          "trap_door",
+          "trap-door",
           "stomper",
           "radioactive",
           "repair site",
-          "button",
-          "puddle",
+          "Button",
+          "Wall",
+          "One Way Wall",
+          "Puddle",
           "pit",
-          "ramp"
+          "Ramp"
         ]
       },
       "Direction": {
@@ -1500,17 +1501,18 @@
             "default": true,
             "description": "If true players can see the name of the player controlling a robot"
           },
-          "wholes": {
-            "type": "boolean",
-            "default": true,
-            "description": "If true wholes will spaw on the map"
-          },
           "max-players": {
             "type": "integer",
             "default": 4,
             "minimum": 1,
             "maximum": 10,
             "description": "The maximum ammount of players able to join the game"
+          },
+          "name": {
+            "type": "string",
+            "description": "The visible name of the game",
+            "minLength": 3,
+            "maxLength": 50
           }
         }
       },

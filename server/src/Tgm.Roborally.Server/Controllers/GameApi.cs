@@ -15,6 +15,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using Tgm.Roborally.Server.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Tgm.Roborally.Server.Models;
@@ -141,7 +142,7 @@ namespace Tgm.Roborally.Server.Controllers
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(List<int>));
             string exampleJson = null;
-            exampleJson = "537";
+            exampleJson = "[]";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<List<int>>(exampleJson)

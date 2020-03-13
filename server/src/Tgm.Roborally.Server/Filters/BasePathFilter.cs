@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -30,10 +31,10 @@ namespace Tgm.Roborally.Server.Filters
         /// </summary>
         /// <param name="swaggerDoc">SwaggerDocument</param>
         /// <param name="context">FilterContext</param>
-        public void Apply(SwaggerDocument swaggerDoc, DocumentFilterContext context)
+        public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
-            swaggerDoc.BasePath = BasePath;
-
+            //swaggerDoc.BasePath = BasePath;
+            
             var pathsToModify = swaggerDoc.Paths.Where(p => p.Key.StartsWith(BasePath)).ToList();
 
             foreach (var path in pathsToModify)
@@ -46,5 +47,6 @@ namespace Tgm.Roborally.Server.Filters
                 }
             }
         }
+
     }
 }

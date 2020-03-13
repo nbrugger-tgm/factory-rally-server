@@ -23,7 +23,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Tgm.Roborally.Server.Filters;
 using Tgm.Roborally.Server.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace Tgm.Roborally.Server
 {
@@ -69,30 +69,30 @@ namespace Tgm.Roborally.Server
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddNewtonsoftJson(opts =>
                 {
-                     opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                     opts.SerializerSettings.Converters.Add(new StringEnumConverter
-                     {
-                         NamingStrategy = new CamelCaseNamingStrategy()
-                     });
-                 });
+                    opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    opts.SerializerSettings.Converters.Add(new StringEnumConverter
+                    {
+                        NamingStrategy = new CamelCaseNamingStrategy()
+                    });
+                });
 
             services
                 .AddSwaggerGen(c =>
                 {
-                    c.SwaggerDoc("0.1.0", new Info
+                    c.SwaggerDoc("0.1.0", new OpenApiInfo
                     {
                         Version = "0.1.0",
                         Title = "Robot Rally Game logic engine",
                         Description = "Robot Rally Game logic engine (ASP.NET Core 2.0)",
-                        Contact = new Contact()
+                        Contact = new OpenApiContact()
                         {
                            Name = "Nils Brugger",
-                           Url = "https://github.com/openapitools/openapi-generator",
+                           Url = new Uri("https://github.com/openapitools/openapi-generator"),
                            Email = "nbrugger@student.tgm.ac.at"
                         },
-                        TermsOfService = ""
+                        //TermsOfService = new Uri("")
                     });
-                    c.CustomSchemaIds(type => type.FriendlyId(true));
+                    //c.CustomSchemaIds(type => type.(true));
                     c.DescribeAllEnumsAsStrings();
                     c.IncludeXmlComments($"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{Assembly.GetEntryAssembly().GetName().Name}.xml");
                     // Sets the basePath property in the Swagger document generated
@@ -108,7 +108,7 @@ namespace Tgm.Roborally.Server
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
         /// <param name="app"></param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseHttpsRedirection();
             app
