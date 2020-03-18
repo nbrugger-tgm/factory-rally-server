@@ -1,3 +1,10 @@
-Models/*.cs
-Filters/*.cs
-!GameRules.cs
+**/Models/*.cs
+**/Filters/*.cs
+**/Controllers/*.cs
+**.csproj
+**/Startup.cs
+**/Program.cs
+
+!**/*Type.cs
+!**/GameState.cs
+!**/GameRules.cs

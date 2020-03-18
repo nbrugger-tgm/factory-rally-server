@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 <a name="fetchnextdamageevent"></a>
 # **FetchNextDamageEvent**
-> DamageEvent FetchNextDamageEvent (string gameId)
+> DamageEvent FetchNextDamageEvent (int gameId)
 
 Get next / last damage event
 
@@ -44,7 +44,7 @@ namespace Example
             // config.AddApiKeyPrefix("uid", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
-            var gameId = gameId_example;  // string | 
+            var gameId = 56;  // int | 
 
             try
             {
@@ -67,7 +67,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **string**|  | 
+ **gameId** | **int**|  | 
 
 ### Return type
 
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 
 <a name="fetchnextlazerhitevent"></a>
 # **FetchNextLazerHitEvent**
-> LazerHitEvent FetchNextLazerHitEvent (string gameId)
+> LazerHitEvent FetchNextLazerHitEvent (int gameId)
 
 Get next / last Lazer hit event
 
@@ -121,7 +121,7 @@ namespace Example
             // config.AddApiKeyPrefix("uid", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
-            var gameId = gameId_example;  // string | 
+            var gameId = 56;  // int | 
 
             try
             {
@@ -144,7 +144,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **string**|  | 
+ **gameId** | **int**|  | 
 
 ### Return type
 
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 
 <a name="fetchnextmapevent"></a>
 # **FetchNextMapEvent**
-> MapEvent FetchNextMapEvent (string gameId)
+> MapEvent FetchNextMapEvent (int gameId)
 
 Get next / last map event
 
@@ -198,7 +198,7 @@ namespace Example
             // config.AddApiKeyPrefix("uid", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
-            var gameId = gameId_example;  // string | 
+            var gameId = 56;  // int | 
 
             try
             {
@@ -221,7 +221,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **string**|  | 
+ **gameId** | **int**|  | 
 
 ### Return type
 
@@ -247,7 +247,7 @@ Name | Type | Description  | Notes
 
 <a name="fetchnextmovementevent"></a>
 # **FetchNextMovementEvent**
-> MovementEvent FetchNextMovementEvent (string gameId)
+> MovementEvent FetchNextMovementEvent (int gameId)
 
 Get next / last movement event
 
@@ -275,7 +275,7 @@ namespace Example
             // config.AddApiKeyPrefix("uid", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
-            var gameId = gameId_example;  // string | 
+            var gameId = 56;  // int | 
 
             try
             {
@@ -298,7 +298,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **string**|  | 
+ **gameId** | **int**|  | 
 
 ### Return type
 
@@ -324,7 +324,7 @@ Name | Type | Description  | Notes
 
 <a name="fetchnextpushevent"></a>
 # **FetchNextPushEvent**
-> PushEvent FetchNextPushEvent (string gameId)
+> PushEvent FetchNextPushEvent (int gameId)
 
 Get next / last push event
 
@@ -352,7 +352,7 @@ namespace Example
             // config.AddApiKeyPrefix("uid", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
-            var gameId = gameId_example;  // string | 
+            var gameId = 56;  // int | 
 
             try
             {
@@ -375,7 +375,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **string**|  | 
+ **gameId** | **int**|  | 
 
 ### Return type
 
@@ -401,7 +401,7 @@ Name | Type | Description  | Notes
 
 <a name="fetchnextshootevent"></a>
 # **FetchNextShootEvent**
-> ShootEvent FetchNextShootEvent (string gameId)
+> ShootEvent FetchNextShootEvent (int gameId)
 
 Get next / last shoot event
 
@@ -429,7 +429,7 @@ namespace Example
             // config.AddApiKeyPrefix("uid", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
-            var gameId = gameId_example;  // string | 
+            var gameId = 56;  // int | 
 
             try
             {
@@ -452,7 +452,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **string**|  | 
+ **gameId** | **int**|  | 
 
 ### Return type
 
@@ -478,7 +478,7 @@ Name | Type | Description  | Notes
 
 <a name="fetchnextshutdownevent"></a>
 # **FetchNextShutdownEvent**
-> ShutdownEvent FetchNextShutdownEvent (string gameId)
+> ShutdownEvent FetchNextShutdownEvent (int gameId)
 
 Get next / last shutdown event
 
@@ -506,7 +506,7 @@ namespace Example
             // config.AddApiKeyPrefix("uid", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
-            var gameId = gameId_example;  // string | 
+            var gameId = 56;  // int | 
 
             try
             {
@@ -529,7 +529,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **string**|  | 
+ **gameId** | **int**|  | 
 
 ### Return type
 
@@ -555,7 +555,7 @@ Name | Type | Description  | Notes
 
 <a name="traceevent"></a>
 # **TraceEvent**
-> InlineResponse200 TraceEvent (string gameId, bool? batch = null, bool? wait = null)
+> InlineResponse200 TraceEvent (int gameId, bool? batch = null, bool? wait = null)
 
 trace event
 
@@ -583,7 +583,7 @@ namespace Example
             // config.AddApiKeyPrefix("uid", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
-            var gameId = gameId_example;  // string | 
+            var gameId = 56;  // int | 
             var batch = true;  // bool? | If true you will get all past events at once (optional)  (default to false)
             var wait = true;  // bool? | If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional)  (default to false)
 
@@ -608,7 +608,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **string**|  | 
+ **gameId** | **int**|  | 
  **batch** | **bool?**| If true you will get all past events at once | [optional] [default to false]
  **wait** | **bool?**| If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client | [optional] [default to false]
 

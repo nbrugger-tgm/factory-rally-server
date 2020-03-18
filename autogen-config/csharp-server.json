@@ -4,5 +4,6 @@
 	"operationIsAsync" : true,
 	"packageName" : "Tgm.Roborally.Server",
 	"packageTitle" : "Roborally API Server",
-	"useFrameworkReference" : true
+	"useFrameworkReference" : true,
+	"enumValueSuffix" : ""
 }
