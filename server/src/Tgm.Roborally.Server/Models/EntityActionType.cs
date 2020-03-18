@@ -30,75 +30,75 @@ namespace Tgm.Roborally.Server.Models
         {
             
             /// <summary>
-            /// Enum RebootEnum for reboot
+            /// Enum Reboot for reboot
             /// </summary>
             [EnumMember(Value = "reboot")]
-            RebootEnum = 1,
+            Reboot = 1,
             
             /// <summary>
-            /// Enum UseUpgradeEnum for use upgrade
+            /// Enum UseUpgrade for use upgrade
             /// </summary>
             [EnumMember(Value = "use upgrade")]
-            UseUpgradeEnum = 2,
+            UseUpgrade = 2,
             
             /// <summary>
-            /// Enum SpiderJumpEnum for spider_jump
+            /// Enum SpiderJump for spider_jump
             /// </summary>
             [EnumMember(Value = "spider_jump")]
-            SpiderJumpEnum = 3,
+            SpiderJump = 3,
             
             /// <summary>
-            /// Enum CacheEnum for Cache
+            /// Enum Cache for Cache
             /// </summary>
             [EnumMember(Value = "Cache")]
-            CacheEnum = 4,
+            Cache = 4,
             
             /// <summary>
-            /// Enum RegisterRefreshEnum for register-refresh
+            /// Enum RegisterRefresh for register-refresh
             /// </summary>
             [EnumMember(Value = "register-refresh")]
-            RegisterRefreshEnum = 5,
+            RegisterRefresh = 5,
             
             /// <summary>
-            /// Enum StorageSwapEnum for storage-swap
+            /// Enum StorageSwap for storage-swap
             /// </summary>
             [EnumMember(Value = "storage-swap")]
-            StorageSwapEnum = 6,
+            StorageSwap = 6,
             
             /// <summary>
-            /// Enum JumperEnum for jumper
+            /// Enum Jumper for jumper
             /// </summary>
             [EnumMember(Value = "jumper")]
-            JumperEnum = 7,
+            Jumper = 7,
             
             /// <summary>
-            /// Enum TeleporterEnum for teleporter
+            /// Enum Teleporter for teleporter
             /// </summary>
             [EnumMember(Value = "teleporter")]
-            TeleporterEnum = 8,
+            Teleporter = 8,
             
             /// <summary>
-            /// Enum MagnetRayEnum for magnet-ray
+            /// Enum MagnetRay for magnet-ray
             /// </summary>
             [EnumMember(Value = "magnet-ray")]
-            MagnetRayEnum = 9,
+            MagnetRay = 9,
             
             /// <summary>
-            /// Enum PushrayEnum for pushray
+            /// Enum Pushray for pushray
             /// </summary>
             [EnumMember(Value = "pushray")]
-            PushrayEnum = 10,
+            Pushray = 10,
             
             /// <summary>
-            /// Enum RotationEnum for rotation
+            /// Enum Rotation for rotation
             /// </summary>
             [EnumMember(Value = "rotation")]
-            RotationEnum = 11,
+            Rotation = 11,
             
             /// <summary>
-            /// Enum SidekickEnum for sidekick
+            /// Enum Sidekick for sidekick
             /// </summary>
             [EnumMember(Value = "sidekick")]
-            SidekickEnum = 12
+            Sidekick = 12
         }
 }

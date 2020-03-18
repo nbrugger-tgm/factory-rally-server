@@ -17,6 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
+using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models
 { 
@@ -26,36 +27,42 @@ namespace Tgm.Roborally.Server.Models
     [DataContract]
     public partial class GameInfo : IEquatable<GameInfo>
     {
+        private GameLogic _ref {get;}
+        public GameInfo(GameLogic game)
+        {
+            _ref = game;
+        }
+
         /// <summary>
         /// The time passed since the game started in secconds. If the game is not started it will be &#x60;0&#x60;
         /// </summary>
         /// <value>The time passed since the game started in secconds. If the game is not started it will be &#x60;0&#x60;</value>
         [Required]
-        [DataMember(Name="passed-time", EmitDefaultValue=false)]
+        [DataMember(Name="passed-time", EmitDefaultValue=true)]
         public int PassedTime { get; set; } = -1;
 
         /// <summary>
         /// Gets or Sets State
         /// </summary>
         [Required]
-        [DataMember(Name="state", EmitDefaultValue=false)]
-        public GameState State { get; set; }
+        [DataMember(Name = "state", EmitDefaultValue = true)]
+        public GameState State => _ref.State;
 
         /// <summary>
         /// Not every game can be connected to hardware (for example to many bots)  If this is true it means you can use this game with hardware
         /// </summary>
         /// <value>Not every game can be connected to hardware (for example to many bots)  If this is true it means you can use this game with hardware</value>
         [Required]
-        [DataMember(Name="hardware-compatible", EmitDefaultValue=false)]
-        public bool HardwareCompatible { get; set; } = false;
+        [DataMember(Name="hardware-compatible", EmitDefaultValue=true)]
+        public bool HardwareCompatible => _ref.Hardware.Compatible;
 
         /// <summary>
         /// Is a hardware boead connected
         /// </summary>
         /// <value>Is a hardware boead connected</value>
         [Required]
-        [DataMember(Name="hardware-attached", EmitDefaultValue=false)]
-        public bool HardwareAttached { get; set; } = false;
+        [DataMember(Name="hardware-attached", EmitDefaultValue=true)]
+        public bool HardwareAttached => _ref.Hardware.HardwareConnected;
 
         /// <summary>
         /// This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication
@@ -63,8 +70,8 @@ namespace Tgm.Roborally.Server.Models
         /// <value>This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication</value>
         [Required]
         [Range(0, 8)]
-        [DataMember(Name="player-on-turn", EmitDefaultValue=false)]
-        public int PlayerOnTurn { get; set; }
+        [DataMember(Name = "player-on-turn", EmitDefaultValue = true)]
+        public int PlayerOnTurn => _ref.playerOnTurn;
 
         /// <summary>
         /// Returns the string presentation of the object

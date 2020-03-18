@@ -30,87 +30,87 @@ namespace Tgm.Roborally.Server.Models
         {
             
             /// <summary>
-            /// Enum MovementEnum for movement
+            /// Enum Movement for movement
             /// </summary>
             [EnumMember(Value = "movement")]
-            MovementEnum = 1,
+            Movement = 1,
             
             /// <summary>
-            /// Enum UpgradePurchaseEnum for upgrade purchase
+            /// Enum UpgradePurchase for upgrade purchase
             /// </summary>
             [EnumMember(Value = "upgrade purchase")]
-            UpgradePurchaseEnum = 2,
+            UpgradePurchase = 2,
             
             /// <summary>
-            /// Enum FillRegisterEnum for fill register
+            /// Enum FillRegister for fill register
             /// </summary>
             [EnumMember(Value = "fill register")]
-            FillRegisterEnum = 3,
+            FillRegister = 3,
             
             /// <summary>
-            /// Enum ActivateUpgradeEnum for activate upgrade
+            /// Enum ActivateUpgrade for activate upgrade
             /// </summary>
             [EnumMember(Value = "activate upgrade")]
-            ActivateUpgradeEnum = 4,
+            ActivateUpgrade = 4,
             
             /// <summary>
-            /// Enum LazerShotEnum for lazer shot
+            /// Enum LazerShot for lazer shot
             /// </summary>
             [EnumMember(Value = "lazer shot")]
-            LazerShotEnum = 5,
+            LazerShot = 5,
             
             /// <summary>
-            /// Enum GameStartEnum for game start
+            /// Enum GameStart for game start
             /// </summary>
             [EnumMember(Value = "game start")]
-            GameStartEnum = 6,
+            GameStart = 6,
             
             /// <summary>
-            /// Enum ClearShopEnum for clear shop
+            /// Enum ClearShop for clear shop
             /// </summary>
             [EnumMember(Value = "clear shop")]
-            ClearShopEnum = 7,
+            ClearShop = 7,
             
             /// <summary>
-            /// Enum FillShopEnum for fill shop
+            /// Enum FillShop for fill shop
             /// </summary>
             [EnumMember(Value = "fill shop")]
-            FillShopEnum = 8,
+            FillShop = 8,
             
             /// <summary>
-            /// Enum RegisterClearEnum for register clear
+            /// Enum RegisterClear for register clear
             /// </summary>
             [EnumMember(Value = "register clear")]
-            RegisterClearEnum = 9,
+            RegisterClear = 9,
             
             /// <summary>
-            /// Enum ProgrammingTimerStartEnum for programming timer start
+            /// Enum ProgrammingTimerStart for programming timer start
             /// </summary>
             [EnumMember(Value = "programming timer start")]
-            ProgrammingTimerStartEnum = 10,
+            ProgrammingTimerStart = 10,
             
             /// <summary>
-            /// Enum ProgrammingTimerStopEnum for programming timer stop
+            /// Enum ProgrammingTimerStop for programming timer stop
             /// </summary>
             [EnumMember(Value = "programming timer stop")]
-            ProgrammingTimerStopEnum = 11,
+            ProgrammingTimerStop = 11,
             
             /// <summary>
-            /// Enum RandomCardDistributionEnum for random card distribution
+            /// Enum RandomCardDistribution for random card distribution
             /// </summary>
             [EnumMember(Value = "random card distribution")]
-            RandomCardDistributionEnum = 12,
+            RandomCardDistribution = 12,
             
             /// <summary>
-            /// Enum TakeCardEventEnum for take card event
+            /// Enum TakeCardEvent for take card event
             /// </summary>
             [EnumMember(Value = "take card event")]
-            TakeCardEventEnum = 13,
+            TakeCardEvent = 13,
             
             /// <summary>
-            /// Enum ActivateCheckpointEnum for activate checkpoint
+            /// Enum ActivateCheckpoint for activate checkpoint
             /// </summary>
             [EnumMember(Value = "activate checkpoint")]
-            ActivateCheckpointEnum = 14
+            ActivateCheckpoint = 14
         }
 }

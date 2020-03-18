@@ -17,6 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
+using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models
 { 
@@ -26,13 +27,19 @@ namespace Tgm.Roborally.Server.Models
     [DataContract]
     public partial class Game : IEquatable<Game>
     {
+        private readonly GameLogic _logic;
+        public Game(GameLogic gameLogic)
+        {
+            _logic = gameLogic;
+        }
+
         /// <summary>
         /// **Unique**&lt;br&gt; This is the parameter a game is identified by
         /// </summary>
         /// <value>**Unique**&lt;br&gt; This is the parameter a game is identified by</value>
         [Range(0, 2048)]
-        [DataMember(Name="id", EmitDefaultValue=false)]
-        public int Id { get; set; }
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        public int Id => _logic.Id;
 
         /// <summary>
         /// The name is **unique** but it should ***not*** be used as identifer (it&#39;s not natively supportet) It is used to display the game&#39;s name
@@ -40,22 +47,22 @@ namespace Tgm.Roborally.Server.Models
         /// <value>The name is **unique** but it should ***not*** be used as identifer (it&#39;s not natively supportet) It is used to display the game&#39;s name</value>
         [Required]
         [RegularExpression("[A-Za-z]+[A-Za-z0-9 _-]+")]
-        [StringLength(20, MinimumLength=3)]
-        [DataMember(Name="name", EmitDefaultValue=false)]
-        public string Name { get; set; }
+        [StringLength(20, MinimumLength = 3)]
+        [DataMember(Name = "name", EmitDefaultValue = false)]
+        public string Name => _logic.Name;
 
         /// <summary>
         /// The list of players attending the game. (Only contains the name of the players)
         /// </summary>
         /// <value>The list of players attending the game. (Only contains the name of the players)</value>
-        [DataMember(Name="players", EmitDefaultValue=false)]
-        public List<string> Players { get; set; }
+        [DataMember(Name = "players", EmitDefaultValue = false)]
+        public List<string> Players => _logic.Players;
 
         /// <summary>
         /// Gets or Sets RuntimeInfo
         /// </summary>
-        [DataMember(Name="runtime_info", EmitDefaultValue=false)]
-        public GameState RuntimeInfo { get; set; }
+        [DataMember(Name = "runtime_info", EmitDefaultValue = false)]
+        public GameState RuntimeInfo => _logic.State;
 
         /// <summary>
         /// Returns the string presentation of the object

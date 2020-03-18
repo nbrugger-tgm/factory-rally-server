@@ -1,3 +1,5 @@
+using System;
+using System.Threading;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore;
 
@@ -15,6 +17,7 @@ namespace Tgm.Roborally.Server
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();
+            Thread.Sleep(2000);
         }
 
         /// <summary>

@@ -30,33 +30,33 @@ namespace Tgm.Roborally.Server.Models
         {
             
             /// <summary>
-            /// Enum LOBBYEnum for LOBBY
+            /// Enum LOBBY for LOBBY
             /// </summary>
             [EnumMember(Value = "LOBBY")]
-            LOBBYEnum = 1,
+            LOBBY = 1,
             
             /// <summary>
-            /// Enum PLANNINGEnum for PLANNING
+            /// Enum PLANNING for PLANNING
             /// </summary>
             [EnumMember(Value = "PLANNING")]
-            PLANNINGEnum = 2,
+            PLANNING = 2,
             
             /// <summary>
-            /// Enum PLAYINGEnum for PLAYING
+            /// Enum PLAYING for PLAYING
             /// </summary>
             [EnumMember(Value = "PLAYING")]
-            PLAYINGEnum = 3,
+            PLAYING = 3,
             
             /// <summary>
-            /// Enum FINISHEDEnum for FINISHED
+            /// Enum FINISHED for FINISHED
             /// </summary>
             [EnumMember(Value = "FINISHED")]
-            FINISHEDEnum = 4,
+            FINISHED = 4,
             
             /// <summary>
-            /// Enum BREAKEnum for BREAK
+            /// Enum BREAK for BREAK
             /// </summary>
             [EnumMember(Value = "BREAK")]
-            BREAKEnum = 5
+            BREAK = 5
         }
 }

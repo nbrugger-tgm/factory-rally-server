@@ -30,69 +30,69 @@ namespace Tgm.Roborally.Server.Models
         {
             
             /// <summary>
-            /// Enum LazerEnum for lazer
+            /// Enum Lazer for lazer
             /// </summary>
             [EnumMember(Value = "lazer")]
-            LazerEnum = 1,
+            Lazer = 1,
             
             /// <summary>
-            /// Enum RotatorEnum for rotator
+            /// Enum Rotator for rotator
             /// </summary>
             [EnumMember(Value = "rotator")]
-            RotatorEnum = 2,
+            Rotator = 2,
             
             /// <summary>
-            /// Enum ConveyorBeltsEnum for conveyor-belts
+            /// Enum ConveyorBelts for conveyor-belts
             /// </summary>
             [EnumMember(Value = "conveyor-belts")]
-            ConveyorBeltsEnum = 3,
+            ConveyorBelts = 3,
             
             /// <summary>
-            /// Enum StomperEnum for stomper
+            /// Enum Stomper for stomper
             /// </summary>
             [EnumMember(Value = "stomper")]
-            StomperEnum = 4,
+            Stomper = 4,
             
             /// <summary>
-            /// Enum HoleEnum for hole
+            /// Enum Hole for hole
             /// </summary>
             [EnumMember(Value = "hole")]
-            HoleEnum = 5,
+            Hole = 5,
             
             /// <summary>
-            /// Enum HoleTrapEnum for hole-trap
+            /// Enum HoleTrap for hole-trap
             /// </summary>
             [EnumMember(Value = "hole-trap")]
-            HoleTrapEnum = 6,
+            HoleTrap = 6,
             
             /// <summary>
-            /// Enum PusherEnum for pusher
+            /// Enum Pusher for pusher
             /// </summary>
             [EnumMember(Value = "pusher")]
-            PusherEnum = 7,
+            Pusher = 7,
             
             /// <summary>
-            /// Enum FlamethrowerEnum for flamethrower
+            /// Enum Flamethrower for flamethrower
             /// </summary>
             [EnumMember(Value = "flamethrower")]
-            FlamethrowerEnum = 8,
+            Flamethrower = 8,
             
             /// <summary>
-            /// Enum PortalEnum for portal
+            /// Enum Portal for portal
             /// </summary>
             [EnumMember(Value = "portal")]
-            PortalEnum = 9,
+            Portal = 9,
             
             /// <summary>
-            /// Enum ToggleRampsEnum for toggle-ramps
+            /// Enum ToggleRamps for toggle-ramps
             /// </summary>
             [EnumMember(Value = "toggle-ramps")]
-            ToggleRampsEnum = 10,
+            ToggleRamps = 10,
             
             /// <summary>
-            /// Enum RepairEnum for repair
+            /// Enum Repair for repair
             /// </summary>
             [EnumMember(Value = "repair")]
-            RepairEnum = 11
+            Repair = 11
         }
 }

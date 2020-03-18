@@ -30,88 +30,87 @@ namespace Tgm.Roborally.Server.Models
         {
             
             /// <summary>
-            /// Enum NormalEnum for normal
+            /// Enum Normal for normal
             /// </summary>
             [EnumMember(Value = "normal")]
-            NormalEnum = 1,
+            Normal = 1,
             
             /// <summary>
-            /// Enum RotatorEnum for rotator
+            /// Enum Rotator for rotator
             /// </summary>
             [EnumMember(Value = "rotator")]
-            RotatorEnum = 2,
+            Rotator = 2,
             
             /// <summary>
-            /// Enum WallEnum for wall
+            /// Enum Wall for wall
             /// </summary>
             [EnumMember(Value = "wall")]
-            WallEnum = 3,
+            Wall = 3,
             
             /// <summary>
-            /// Enum PrioCoreEnum for prio_core
+            /// Enum PrioCore for prio_core
             /// </summary>
             [EnumMember(Value = "prio_core")]
-            PrioCoreEnum = 4,
+            PrioCore = 4,
             
             /// <summary>
-            /// Enum ConveyorEnum for conveyor
+            /// Enum Conveyor for conveyor
             /// </summary>
             [EnumMember(Value = "conveyor")]
-            ConveyorEnum = 5,
+            Conveyor = 5,
             
             /// <summary>
-            /// Enum TrapDoorEnum for trap-door
+            /// Enum TrapDoor for trap-door
             /// </summary>
             [EnumMember(Value = "trap-door")]
-            TrapDoorEnum = 6,
+            TrapDoor = 6,
             
             /// <summary>
-            /// Enum StomperEnum for stomper
+            /// Enum Stomper for stomper
             /// </summary>
             [EnumMember(Value = "stomper")]
-            StomperEnum = 7,
+            Stomper = 7,
             
             /// <summary>
-            /// Enum RadioactiveEnum for radioactive
+            /// Enum Radioactive for radioactive
             /// </summary>
             [EnumMember(Value = "radioactive")]
-            RadioactiveEnum = 8,
+            Radioactive = 8,
             
             /// <summary>
-            /// Enum RepairSiteEnum for repair site
+            /// Enum RepairSite for repair site
             /// </summary>
             [EnumMember(Value = "repair site")]
-            RepairSiteEnum = 9,
+            RepairSite = 9,
             
             /// <summary>
-            /// Enum ButtonEnum for Button
+            /// Enum Button for Button
             /// </summary>
             [EnumMember(Value = "Button")]
-            ButtonEnum = 10,
-            
+            Button = 10,
             
             /// <summary>
-            /// Enum OneWayWallEnum for One Way Wall
+            /// Enum OneWayWall for One Way Wall
             /// </summary>
             [EnumMember(Value = "One Way Wall")]
-            OneWayWallEnum = 12,
+            OneWayWall = 11,
             
             /// <summary>
-            /// Enum PuddleEnum for Puddle
+            /// Enum Puddle for Puddle
             /// </summary>
             [EnumMember(Value = "Puddle")]
-            PuddleEnum = 13,
+            Puddle = 12,
             
             /// <summary>
-            /// Enum PitEnum for pit
+            /// Enum Pit for pit
             /// </summary>
             [EnumMember(Value = "pit")]
-            PitEnum = 14,
+            Pit = 13,
             
             /// <summary>
-            /// Enum RampEnum for Ramp
+            /// Enum Ramp for Ramp
             /// </summary>
             [EnumMember(Value = "Ramp")]
-            RampEnum = 15
+            Ramp = 14
         }
 }

@@ -34,19 +34,20 @@ namespace Tgm.Roborally.Server.Models
         public bool PlayerNamesVisible { get; set; } = true;
 
         /// <summary>
-        /// If true wholes will spaw on the map
-        /// </summary>
-        /// <value>If true wholes will spaw on the map</value>
-        [DataMember(Name="wholes", EmitDefaultValue=false)]
-        public bool Wholes { get; set; } = true;
-
-        /// <summary>
         /// The maximum ammount of players able to join the game
         /// </summary>
         /// <value>The maximum ammount of players able to join the game</value>
         [Range(1, 10)]
         [DataMember(Name="max-players", EmitDefaultValue=false)]
         public int MaxPlayers { get; set; } = 4;
+
+        /// <summary>
+        /// The visible name of the game
+        /// </summary>
+        /// <value>The visible name of the game</value>
+        [StringLength(50, MinimumLength=3)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
+        public string Name { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -57,8 +58,8 @@ namespace Tgm.Roborally.Server.Models
             var sb = new StringBuilder();
             sb.Append("class GameRules {\n");
             sb.Append("  PlayerNamesVisible: ").Append(PlayerNamesVisible).Append("\n");
-            sb.Append("  Wholes: ").Append(Wholes).Append("\n");
             sb.Append("  MaxPlayers: ").Append(MaxPlayers).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -101,14 +102,14 @@ namespace Tgm.Roborally.Server.Models
                     PlayerNamesVisible.Equals(other.PlayerNamesVisible)
                 ) && 
                 (
-                    Wholes == other.Wholes ||
-                    
-                    Wholes.Equals(other.Wholes)
-                ) && 
-                (
                     MaxPlayers == other.MaxPlayers ||
                     
                     MaxPlayers.Equals(other.MaxPlayers)
+                ) && 
+                (
+                    Name == other.Name ||
+                    Name != null &&
+                    Name.Equals(other.Name)
                 );
         }
 
@@ -125,9 +126,9 @@ namespace Tgm.Roborally.Server.Models
                     
                     hashCode = hashCode * 59 + PlayerNamesVisible.GetHashCode();
                     
-                    hashCode = hashCode * 59 + Wholes.GetHashCode();
-                    
                     hashCode = hashCode * 59 + MaxPlayers.GetHashCode();
+                    if (Name != null)
+                    hashCode = hashCode * 59 + Name.GetHashCode();
                 return hashCode;
             }
         }

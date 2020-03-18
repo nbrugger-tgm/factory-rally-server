@@ -30,9 +30,9 @@ namespace Tgm.Roborally.Server.Models
         {
             
             /// <summary>
-            /// Enum GeneratorEnum for generator
+            /// Enum Generator for generator
             /// </summary>
             [EnumMember(Value = "generator")]
-            GeneratorEnum = 1
+            Generator = 1
         }
 }

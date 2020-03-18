@@ -30,15 +30,15 @@ namespace Tgm.Roborally.Server.Models
         {
             
             /// <summary>
-            /// Enum PAUSEEnum for PAUSE
+            /// Enum PAUSE for PAUSE
             /// </summary>
             [EnumMember(Value = "PAUSE")]
-            PAUSEEnum = 1,
+            PAUSE = 1,
             
             /// <summary>
-            /// Enum UNPAUSEEnum for UNPAUSE
+            /// Enum UNPAUSE for UNPAUSE
             /// </summary>
             [EnumMember(Value = "UNPAUSE")]
-            UNPAUSEEnum = 2
+            UNPAUSE = 2
         }
 }
