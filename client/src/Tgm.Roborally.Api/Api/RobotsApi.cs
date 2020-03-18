@@ -84,7 +84,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="robotId"></param>
         /// <param name="entityAction"> (optional)</param>
         /// <returns></returns>
-        void DoEntityAction (string gameId, string robotId, EntityAction entityAction = default(EntityAction));
+        void DoEntityAction (int gameId, string robotId, EntityAction entityAction = default(EntityAction));
 
         /// <summary>
         /// Add Entity Action to stack
@@ -97,7 +97,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="robotId"></param>
         /// <param name="entityAction"> (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> DoEntityActionWithHttpInfo (string gameId, string robotId, EntityAction entityAction = default(EntityAction));
+        ApiResponse<Object> DoEntityActionWithHttpInfo (int gameId, string robotId, EntityAction entityAction = default(EntityAction));
         /// <summary>
         /// Get Robot action stack
         /// </summary>
@@ -108,7 +108,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>List&lt;EntityAction&gt;</returns>
-        List<EntityAction> GetActionStack (string gameId, string robotId);
+        List<EntityAction> GetActionStack (int gameId, string robotId);
 
         /// <summary>
         /// Get Robot action stack
@@ -120,7 +120,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>ApiResponse of List&lt;EntityAction&gt;</returns>
-        ApiResponse<List<EntityAction>> GetActionStackWithHttpInfo (string gameId, string robotId);
+        ApiResponse<List<EntityAction>> GetActionStackWithHttpInfo (int gameId, string robotId);
         /// <summary>
         /// Get Robot Upgrades
         /// </summary>
@@ -130,8 +130,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
-        /// <returns></returns>
-        void GetInstalledUpgrades (int gameId, int robotId);
+        /// <returns>List&lt;int&gt;</returns>
+        List<int> GetInstalledUpgrades (int gameId, int robotId);
 
         /// <summary>
         /// Get Robot Upgrades
@@ -142,8 +142,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> GetInstalledUpgradesWithHttpInfo (int gameId, int robotId);
+        /// <returns>ApiResponse of List&lt;int&gt;</returns>
+        ApiResponse<List<int>> GetInstalledUpgradesWithHttpInfo (int gameId, int robotId);
         /// <summary>
         /// Get Aviable actions
         /// </summary>
@@ -154,7 +154,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>List&lt;EntityEventOportunity&gt;</returns>
-        List<EntityEventOportunity> GetPossibleActions (string gameId, string robotId);
+        List<EntityEventOportunity> GetPossibleActions (int gameId, string robotId);
 
         /// <summary>
         /// Get Aviable actions
@@ -166,7 +166,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>ApiResponse of List&lt;EntityEventOportunity&gt;</returns>
-        ApiResponse<List<EntityEventOportunity>> GetPossibleActionsWithHttpInfo (string gameId, string robotId);
+        ApiResponse<List<EntityEventOportunity>> GetPossibleActionsWithHttpInfo (int gameId, string robotId);
         /// <summary>
         /// Get register information
         /// </summary>
@@ -325,7 +325,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="robotId"></param>
         /// <param name="entityAction"> (optional)</param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task DoEntityActionAsync (string gameId, string robotId, EntityAction entityAction = default(EntityAction));
+        System.Threading.Tasks.Task DoEntityActionAsync (int gameId, string robotId, EntityAction entityAction = default(EntityAction));
 
         /// <summary>
         /// Add Entity Action to stack
@@ -338,7 +338,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="robotId"></param>
         /// <param name="entityAction"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> DoEntityActionAsyncWithHttpInfo (string gameId, string robotId, EntityAction entityAction = default(EntityAction));
+        System.Threading.Tasks.Task<ApiResponse<Object>> DoEntityActionAsyncWithHttpInfo (int gameId, string robotId, EntityAction entityAction = default(EntityAction));
         /// <summary>
         /// Get Robot action stack
         /// </summary>
@@ -349,7 +349,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>Task of List&lt;EntityAction&gt;</returns>
-        System.Threading.Tasks.Task<List<EntityAction>> GetActionStackAsync (string gameId, string robotId);
+        System.Threading.Tasks.Task<List<EntityAction>> GetActionStackAsync (int gameId, string robotId);
 
         /// <summary>
         /// Get Robot action stack
@@ -361,7 +361,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>Task of ApiResponse (List&lt;EntityAction&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<EntityAction>>> GetActionStackAsyncWithHttpInfo (string gameId, string robotId);
+        System.Threading.Tasks.Task<ApiResponse<List<EntityAction>>> GetActionStackAsyncWithHttpInfo (int gameId, string robotId);
         /// <summary>
         /// Get Robot Upgrades
         /// </summary>
@@ -371,8 +371,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task GetInstalledUpgradesAsync (int gameId, int robotId);
+        /// <returns>Task of List&lt;int&gt;</returns>
+        System.Threading.Tasks.Task<List<int>> GetInstalledUpgradesAsync (int gameId, int robotId);
 
         /// <summary>
         /// Get Robot Upgrades
@@ -383,8 +383,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> GetInstalledUpgradesAsyncWithHttpInfo (int gameId, int robotId);
+        /// <returns>Task of ApiResponse (List&lt;int&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<int>>> GetInstalledUpgradesAsyncWithHttpInfo (int gameId, int robotId);
         /// <summary>
         /// Get Aviable actions
         /// </summary>
@@ -395,7 +395,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>Task of List&lt;EntityEventOportunity&gt;</returns>
-        System.Threading.Tasks.Task<List<EntityEventOportunity>> GetPossibleActionsAsync (string gameId, string robotId);
+        System.Threading.Tasks.Task<List<EntityEventOportunity>> GetPossibleActionsAsync (int gameId, string robotId);
 
         /// <summary>
         /// Get Aviable actions
@@ -407,7 +407,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>Task of ApiResponse (List&lt;EntityEventOportunity&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<EntityEventOportunity>>> GetPossibleActionsAsyncWithHttpInfo (string gameId, string robotId);
+        System.Threading.Tasks.Task<ApiResponse<List<EntityEventOportunity>>> GetPossibleActionsAsyncWithHttpInfo (int gameId, string robotId);
         /// <summary>
         /// Get register information
         /// </summary>
@@ -886,7 +886,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="robotId"></param>
         /// <param name="entityAction"> (optional)</param>
         /// <returns></returns>
-        public void DoEntityAction (string gameId, string robotId, EntityAction entityAction = default(EntityAction))
+        public void DoEntityAction (int gameId, string robotId, EntityAction entityAction = default(EntityAction))
         {
              DoEntityActionWithHttpInfo(gameId, robotId, entityAction);
         }
@@ -899,12 +899,8 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="robotId"></param>
         /// <param name="entityAction"> (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse<Object> DoEntityActionWithHttpInfo (string gameId, string robotId, EntityAction entityAction = default(EntityAction))
+        public Tgm.Roborally.Api.Client.ApiResponse<Object> DoEntityActionWithHttpInfo (int gameId, string robotId, EntityAction entityAction = default(EntityAction))
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling RobotsApi->DoEntityAction");
-
             // verify the required parameter 'robotId' is set
             if (robotId == null)
                 throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'robotId' when calling RobotsApi->DoEntityAction");
@@ -925,8 +921,7 @@ namespace Tgm.Roborally.Api.Api
             var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             if (robotId != null)
                 localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
             localVarRequestOptions.Data = entityAction;
@@ -963,7 +958,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="robotId"></param>
         /// <param name="entityAction"> (optional)</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task DoEntityActionAsync (string gameId, string robotId, EntityAction entityAction = default(EntityAction))
+        public async System.Threading.Tasks.Task DoEntityActionAsync (int gameId, string robotId, EntityAction entityAction = default(EntityAction))
         {
              await DoEntityActionAsyncWithHttpInfo(gameId, robotId, entityAction);
 
@@ -977,12 +972,8 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="robotId"></param>
         /// <param name="entityAction"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<Object>> DoEntityActionAsyncWithHttpInfo (string gameId, string robotId, EntityAction entityAction = default(EntityAction))
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<Object>> DoEntityActionAsyncWithHttpInfo (int gameId, string robotId, EntityAction entityAction = default(EntityAction))
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling RobotsApi->DoEntityAction");
-
             // verify the required parameter 'robotId' is set
             if (robotId == null)
                 throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'robotId' when calling RobotsApi->DoEntityAction");
@@ -1004,8 +995,7 @@ namespace Tgm.Roborally.Api.Api
             foreach (var _accept in _accepts)
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             if (robotId != null)
                 localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
             localVarRequestOptions.Data = entityAction;
@@ -1042,7 +1032,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>List&lt;EntityAction&gt;</returns>
-        public List<EntityAction> GetActionStack (string gameId, string robotId)
+        public List<EntityAction> GetActionStack (int gameId, string robotId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<List<EntityAction>> localVarResponse = GetActionStackWithHttpInfo(gameId, robotId);
              return localVarResponse.Data;
@@ -1055,12 +1045,8 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>ApiResponse of List&lt;EntityAction&gt;</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse< List<EntityAction> > GetActionStackWithHttpInfo (string gameId, string robotId)
+        public Tgm.Roborally.Api.Client.ApiResponse< List<EntityAction> > GetActionStackWithHttpInfo (int gameId, string robotId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling RobotsApi->GetActionStack");
-
             // verify the required parameter 'robotId' is set
             if (robotId == null)
                 throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'robotId' when calling RobotsApi->GetActionStack");
@@ -1081,8 +1067,7 @@ namespace Tgm.Roborally.Api.Api
             var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             if (robotId != null)
                 localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
@@ -1117,7 +1102,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>Task of List&lt;EntityAction&gt;</returns>
-        public async System.Threading.Tasks.Task<List<EntityAction>> GetActionStackAsync (string gameId, string robotId)
+        public async System.Threading.Tasks.Task<List<EntityAction>> GetActionStackAsync (int gameId, string robotId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<List<EntityAction>> localVarResponse = await GetActionStackAsyncWithHttpInfo(gameId, robotId);
              return localVarResponse.Data;
@@ -1131,12 +1116,8 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>Task of ApiResponse (List&lt;EntityAction&gt;)</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<List<EntityAction>>> GetActionStackAsyncWithHttpInfo (string gameId, string robotId)
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<List<EntityAction>>> GetActionStackAsyncWithHttpInfo (int gameId, string robotId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling RobotsApi->GetActionStack");
-
             // verify the required parameter 'robotId' is set
             if (robotId == null)
                 throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'robotId' when calling RobotsApi->GetActionStack");
@@ -1158,8 +1139,7 @@ namespace Tgm.Roborally.Api.Api
             foreach (var _accept in _accepts)
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             if (robotId != null)
                 localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
@@ -1194,10 +1174,11 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
-        /// <returns></returns>
-        public void GetInstalledUpgrades (int gameId, int robotId)
+        /// <returns>List&lt;int&gt;</returns>
+        public List<int> GetInstalledUpgrades (int gameId, int robotId)
         {
-             GetInstalledUpgradesWithHttpInfo(gameId, robotId);
+             Tgm.Roborally.Api.Client.ApiResponse<List<int>> localVarResponse = GetInstalledUpgradesWithHttpInfo(gameId, robotId);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -1206,8 +1187,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse<Object> GetInstalledUpgradesWithHttpInfo (int gameId, int robotId)
+        /// <returns>ApiResponse of List&lt;int&gt;</returns>
+        public Tgm.Roborally.Api.Client.ApiResponse< List<int> > GetInstalledUpgradesWithHttpInfo (int gameId, int robotId)
         {
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
@@ -1216,6 +1197,7 @@ namespace Tgm.Roborally.Api.Api
 
             // to determine the Accept header
             String[] _accepts = new String[] {
+                "application/json"
             };
 
             var localVarContentType = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -1240,7 +1222,7 @@ namespace Tgm.Roborally.Api.Api
             }
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/games/{game_id}/entitys/robots/{robot_id}/upgrades", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get< List<int> >("/games/{game_id}/entitys/robots/{robot_id}/upgrades", localVarRequestOptions, this.Configuration);
 
             if (this.ExceptionFactory != null)
             {
@@ -1257,10 +1239,11 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task GetInstalledUpgradesAsync (int gameId, int robotId)
+        /// <returns>Task of List&lt;int&gt;</returns>
+        public async System.Threading.Tasks.Task<List<int>> GetInstalledUpgradesAsync (int gameId, int robotId)
         {
-             await GetInstalledUpgradesAsyncWithHttpInfo(gameId, robotId);
+             Tgm.Roborally.Api.Client.ApiResponse<List<int>> localVarResponse = await GetInstalledUpgradesAsyncWithHttpInfo(gameId, robotId);
+             return localVarResponse.Data;
 
         }
 
@@ -1270,8 +1253,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<Object>> GetInstalledUpgradesAsyncWithHttpInfo (int gameId, int robotId)
+        /// <returns>Task of ApiResponse (List&lt;int&gt;)</returns>
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<List<int>>> GetInstalledUpgradesAsyncWithHttpInfo (int gameId, int robotId)
         {
 
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
@@ -1281,6 +1264,7 @@ namespace Tgm.Roborally.Api.Api
 
             // to determine the Accept header
             String[] _accepts = new String[] {
+                "application/json"
             };
             
             foreach (var _contentType in _contentTypes)
@@ -1306,7 +1290,7 @@ namespace Tgm.Roborally.Api.Api
 
             // make the HTTP request
 
-            var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/games/{game_id}/entitys/robots/{robot_id}/upgrades", localVarRequestOptions, this.Configuration);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<int>>("/games/{game_id}/entitys/robots/{robot_id}/upgrades", localVarRequestOptions, this.Configuration);
 
             if (this.ExceptionFactory != null)
             {
@@ -1324,7 +1308,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>List&lt;EntityEventOportunity&gt;</returns>
-        public List<EntityEventOportunity> GetPossibleActions (string gameId, string robotId)
+        public List<EntityEventOportunity> GetPossibleActions (int gameId, string robotId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<List<EntityEventOportunity>> localVarResponse = GetPossibleActionsWithHttpInfo(gameId, robotId);
              return localVarResponse.Data;
@@ -1337,12 +1321,8 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>ApiResponse of List&lt;EntityEventOportunity&gt;</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse< List<EntityEventOportunity> > GetPossibleActionsWithHttpInfo (string gameId, string robotId)
+        public Tgm.Roborally.Api.Client.ApiResponse< List<EntityEventOportunity> > GetPossibleActionsWithHttpInfo (int gameId, string robotId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling RobotsApi->GetPossibleActions");
-
             // verify the required parameter 'robotId' is set
             if (robotId == null)
                 throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'robotId' when calling RobotsApi->GetPossibleActions");
@@ -1363,8 +1343,7 @@ namespace Tgm.Roborally.Api.Api
             var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             if (robotId != null)
                 localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
@@ -1399,7 +1378,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>Task of List&lt;EntityEventOportunity&gt;</returns>
-        public async System.Threading.Tasks.Task<List<EntityEventOportunity>> GetPossibleActionsAsync (string gameId, string robotId)
+        public async System.Threading.Tasks.Task<List<EntityEventOportunity>> GetPossibleActionsAsync (int gameId, string robotId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<List<EntityEventOportunity>> localVarResponse = await GetPossibleActionsAsyncWithHttpInfo(gameId, robotId);
              return localVarResponse.Data;
@@ -1413,12 +1392,8 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <returns>Task of ApiResponse (List&lt;EntityEventOportunity&gt;)</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<List<EntityEventOportunity>>> GetPossibleActionsAsyncWithHttpInfo (string gameId, string robotId)
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<List<EntityEventOportunity>>> GetPossibleActionsAsyncWithHttpInfo (int gameId, string robotId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling RobotsApi->GetPossibleActions");
-
             // verify the required parameter 'robotId' is set
             if (robotId == null)
                 throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'robotId' when calling RobotsApi->GetPossibleActions");
@@ -1440,8 +1415,7 @@ namespace Tgm.Roborally.Api.Api
             foreach (var _accept in _accepts)
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             if (robotId != null)
                 localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 

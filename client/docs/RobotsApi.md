@@ -170,7 +170,7 @@ void (empty response body)
 
 <a name="doentityaction"></a>
 # **DoEntityAction**
-> void DoEntityAction (string gameId, string robotId, EntityAction entityAction = null)
+> void DoEntityAction (int gameId, string robotId, EntityAction entityAction = null)
 
 Add Entity Action to stack
 
@@ -198,7 +198,7 @@ namespace Example
             // config.AddApiKeyPrefix("uid", "Bearer");
 
             var apiInstance = new RobotsApi(config);
-            var gameId = gameId_example;  // string | 
+            var gameId = 56;  // int | 
             var robotId = robotId_example;  // string | 
             var entityAction = new EntityAction(); // EntityAction |  (optional) 
 
@@ -222,7 +222,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **string**|  | 
+ **gameId** | **int**|  | 
  **robotId** | **string**|  | 
  **entityAction** | [**EntityAction**](EntityAction.md)|  | [optional] 
 
@@ -248,7 +248,7 @@ void (empty response body)
 
 <a name="getactionstack"></a>
 # **GetActionStack**
-> List&lt;EntityAction&gt; GetActionStack (string gameId, string robotId)
+> List&lt;EntityAction&gt; GetActionStack (int gameId, string robotId)
 
 Get Robot action stack
 
@@ -276,7 +276,7 @@ namespace Example
             // config.AddApiKeyPrefix("uid", "Bearer");
 
             var apiInstance = new RobotsApi(config);
-            var gameId = gameId_example;  // string | 
+            var gameId = 56;  // int | 
             var robotId = robotId_example;  // string | 
 
             try
@@ -300,7 +300,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **string**|  | 
+ **gameId** | **int**|  | 
  **robotId** | **string**|  | 
 
 ### Return type
@@ -325,7 +325,7 @@ Name | Type | Description  | Notes
 
 <a name="getinstalledupgrades"></a>
 # **GetInstalledUpgrades**
-> void GetInstalledUpgrades (int gameId, int robotId)
+> List&lt;int&gt; GetInstalledUpgrades (int gameId, int robotId)
 
 Get Robot Upgrades
 
@@ -359,7 +359,8 @@ namespace Example
             try
             {
                 // Get Robot Upgrades
-                apiInstance.GetInstalledUpgrades(gameId, robotId);
+                List<int> result = apiInstance.GetInstalledUpgrades(gameId, robotId);
+                Debug.WriteLine(result);
             }
             catch (ApiException  e)
             {
@@ -381,7 +382,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**List<int>**
 
 ### Authorization
 
@@ -390,7 +391,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -401,7 +402,7 @@ void (empty response body)
 
 <a name="getpossibleactions"></a>
 # **GetPossibleActions**
-> List&lt;EntityEventOportunity&gt; GetPossibleActions (string gameId, string robotId)
+> List&lt;EntityEventOportunity&gt; GetPossibleActions (int gameId, string robotId)
 
 Get Aviable actions
 
@@ -429,7 +430,7 @@ namespace Example
             // config.AddApiKeyPrefix("uid", "Bearer");
 
             var apiInstance = new RobotsApi(config);
-            var gameId = gameId_example;  // string | 
+            var gameId = 56;  // int | 
             var robotId = robotId_example;  // string | 
 
             try
@@ -453,7 +454,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **string**|  | 
+ **gameId** | **int**|  | 
  **robotId** | **string**|  | 
 
 ### Return type

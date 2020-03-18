@@ -36,7 +36,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>DamageEvent</returns>
-        DamageEvent FetchNextDamageEvent (string gameId);
+        DamageEvent FetchNextDamageEvent (int gameId);
 
         /// <summary>
         /// Get next / last damage event
@@ -47,7 +47,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of DamageEvent</returns>
-        ApiResponse<DamageEvent> FetchNextDamageEventWithHttpInfo (string gameId);
+        ApiResponse<DamageEvent> FetchNextDamageEventWithHttpInfo (int gameId);
         /// <summary>
         /// Get next / last Lazer hit event
         /// </summary>
@@ -57,7 +57,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>LazerHitEvent</returns>
-        LazerHitEvent FetchNextLazerHitEvent (string gameId);
+        LazerHitEvent FetchNextLazerHitEvent (int gameId);
 
         /// <summary>
         /// Get next / last Lazer hit event
@@ -68,7 +68,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of LazerHitEvent</returns>
-        ApiResponse<LazerHitEvent> FetchNextLazerHitEventWithHttpInfo (string gameId);
+        ApiResponse<LazerHitEvent> FetchNextLazerHitEventWithHttpInfo (int gameId);
         /// <summary>
         /// Get next / last map event
         /// </summary>
@@ -78,7 +78,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>MapEvent</returns>
-        MapEvent FetchNextMapEvent (string gameId);
+        MapEvent FetchNextMapEvent (int gameId);
 
         /// <summary>
         /// Get next / last map event
@@ -89,7 +89,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of MapEvent</returns>
-        ApiResponse<MapEvent> FetchNextMapEventWithHttpInfo (string gameId);
+        ApiResponse<MapEvent> FetchNextMapEventWithHttpInfo (int gameId);
         /// <summary>
         /// Get next / last movement event
         /// </summary>
@@ -99,7 +99,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>MovementEvent</returns>
-        MovementEvent FetchNextMovementEvent (string gameId);
+        MovementEvent FetchNextMovementEvent (int gameId);
 
         /// <summary>
         /// Get next / last movement event
@@ -110,7 +110,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of MovementEvent</returns>
-        ApiResponse<MovementEvent> FetchNextMovementEventWithHttpInfo (string gameId);
+        ApiResponse<MovementEvent> FetchNextMovementEventWithHttpInfo (int gameId);
         /// <summary>
         /// Get next / last push event
         /// </summary>
@@ -120,7 +120,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>PushEvent</returns>
-        PushEvent FetchNextPushEvent (string gameId);
+        PushEvent FetchNextPushEvent (int gameId);
 
         /// <summary>
         /// Get next / last push event
@@ -131,7 +131,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of PushEvent</returns>
-        ApiResponse<PushEvent> FetchNextPushEventWithHttpInfo (string gameId);
+        ApiResponse<PushEvent> FetchNextPushEventWithHttpInfo (int gameId);
         /// <summary>
         /// Get next / last shoot event
         /// </summary>
@@ -141,7 +141,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ShootEvent</returns>
-        ShootEvent FetchNextShootEvent (string gameId);
+        ShootEvent FetchNextShootEvent (int gameId);
 
         /// <summary>
         /// Get next / last shoot event
@@ -152,7 +152,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of ShootEvent</returns>
-        ApiResponse<ShootEvent> FetchNextShootEventWithHttpInfo (string gameId);
+        ApiResponse<ShootEvent> FetchNextShootEventWithHttpInfo (int gameId);
         /// <summary>
         /// Get next / last shutdown event
         /// </summary>
@@ -162,7 +162,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ShutdownEvent</returns>
-        ShutdownEvent FetchNextShutdownEvent (string gameId);
+        ShutdownEvent FetchNextShutdownEvent (int gameId);
 
         /// <summary>
         /// Get next / last shutdown event
@@ -173,7 +173,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of ShutdownEvent</returns>
-        ApiResponse<ShutdownEvent> FetchNextShutdownEventWithHttpInfo (string gameId);
+        ApiResponse<ShutdownEvent> FetchNextShutdownEventWithHttpInfo (int gameId);
         /// <summary>
         /// trace event
         /// </summary>
@@ -185,7 +185,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
         /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
         /// <returns>InlineResponse200</returns>
-        InlineResponse200 TraceEvent (string gameId, bool? batch = default(bool?), bool? wait = default(bool?));
+        InlineResponse200 TraceEvent (int gameId, bool? batch = default(bool?), bool? wait = default(bool?));
 
         /// <summary>
         /// trace event
@@ -198,7 +198,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
         /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
         /// <returns>ApiResponse of InlineResponse200</returns>
-        ApiResponse<InlineResponse200> TraceEventWithHttpInfo (string gameId, bool? batch = default(bool?), bool? wait = default(bool?));
+        ApiResponse<InlineResponse200> TraceEventWithHttpInfo (int gameId, bool? batch = default(bool?), bool? wait = default(bool?));
         #endregion Synchronous Operations
     }
 
@@ -217,7 +217,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of DamageEvent</returns>
-        System.Threading.Tasks.Task<DamageEvent> FetchNextDamageEventAsync (string gameId);
+        System.Threading.Tasks.Task<DamageEvent> FetchNextDamageEventAsync (int gameId);
 
         /// <summary>
         /// Get next / last damage event
@@ -228,7 +228,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (DamageEvent)</returns>
-        System.Threading.Tasks.Task<ApiResponse<DamageEvent>> FetchNextDamageEventAsyncWithHttpInfo (string gameId);
+        System.Threading.Tasks.Task<ApiResponse<DamageEvent>> FetchNextDamageEventAsyncWithHttpInfo (int gameId);
         /// <summary>
         /// Get next / last Lazer hit event
         /// </summary>
@@ -238,7 +238,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of LazerHitEvent</returns>
-        System.Threading.Tasks.Task<LazerHitEvent> FetchNextLazerHitEventAsync (string gameId);
+        System.Threading.Tasks.Task<LazerHitEvent> FetchNextLazerHitEventAsync (int gameId);
 
         /// <summary>
         /// Get next / last Lazer hit event
@@ -249,7 +249,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (LazerHitEvent)</returns>
-        System.Threading.Tasks.Task<ApiResponse<LazerHitEvent>> FetchNextLazerHitEventAsyncWithHttpInfo (string gameId);
+        System.Threading.Tasks.Task<ApiResponse<LazerHitEvent>> FetchNextLazerHitEventAsyncWithHttpInfo (int gameId);
         /// <summary>
         /// Get next / last map event
         /// </summary>
@@ -259,7 +259,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of MapEvent</returns>
-        System.Threading.Tasks.Task<MapEvent> FetchNextMapEventAsync (string gameId);
+        System.Threading.Tasks.Task<MapEvent> FetchNextMapEventAsync (int gameId);
 
         /// <summary>
         /// Get next / last map event
@@ -270,7 +270,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (MapEvent)</returns>
-        System.Threading.Tasks.Task<ApiResponse<MapEvent>> FetchNextMapEventAsyncWithHttpInfo (string gameId);
+        System.Threading.Tasks.Task<ApiResponse<MapEvent>> FetchNextMapEventAsyncWithHttpInfo (int gameId);
         /// <summary>
         /// Get next / last movement event
         /// </summary>
@@ -280,7 +280,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of MovementEvent</returns>
-        System.Threading.Tasks.Task<MovementEvent> FetchNextMovementEventAsync (string gameId);
+        System.Threading.Tasks.Task<MovementEvent> FetchNextMovementEventAsync (int gameId);
 
         /// <summary>
         /// Get next / last movement event
@@ -291,7 +291,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (MovementEvent)</returns>
-        System.Threading.Tasks.Task<ApiResponse<MovementEvent>> FetchNextMovementEventAsyncWithHttpInfo (string gameId);
+        System.Threading.Tasks.Task<ApiResponse<MovementEvent>> FetchNextMovementEventAsyncWithHttpInfo (int gameId);
         /// <summary>
         /// Get next / last push event
         /// </summary>
@@ -301,7 +301,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of PushEvent</returns>
-        System.Threading.Tasks.Task<PushEvent> FetchNextPushEventAsync (string gameId);
+        System.Threading.Tasks.Task<PushEvent> FetchNextPushEventAsync (int gameId);
 
         /// <summary>
         /// Get next / last push event
@@ -312,7 +312,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (PushEvent)</returns>
-        System.Threading.Tasks.Task<ApiResponse<PushEvent>> FetchNextPushEventAsyncWithHttpInfo (string gameId);
+        System.Threading.Tasks.Task<ApiResponse<PushEvent>> FetchNextPushEventAsyncWithHttpInfo (int gameId);
         /// <summary>
         /// Get next / last shoot event
         /// </summary>
@@ -322,7 +322,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ShootEvent</returns>
-        System.Threading.Tasks.Task<ShootEvent> FetchNextShootEventAsync (string gameId);
+        System.Threading.Tasks.Task<ShootEvent> FetchNextShootEventAsync (int gameId);
 
         /// <summary>
         /// Get next / last shoot event
@@ -333,7 +333,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (ShootEvent)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ShootEvent>> FetchNextShootEventAsyncWithHttpInfo (string gameId);
+        System.Threading.Tasks.Task<ApiResponse<ShootEvent>> FetchNextShootEventAsyncWithHttpInfo (int gameId);
         /// <summary>
         /// Get next / last shutdown event
         /// </summary>
@@ -343,7 +343,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ShutdownEvent</returns>
-        System.Threading.Tasks.Task<ShutdownEvent> FetchNextShutdownEventAsync (string gameId);
+        System.Threading.Tasks.Task<ShutdownEvent> FetchNextShutdownEventAsync (int gameId);
 
         /// <summary>
         /// Get next / last shutdown event
@@ -354,7 +354,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (ShutdownEvent)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ShutdownEvent>> FetchNextShutdownEventAsyncWithHttpInfo (string gameId);
+        System.Threading.Tasks.Task<ApiResponse<ShutdownEvent>> FetchNextShutdownEventAsyncWithHttpInfo (int gameId);
         /// <summary>
         /// trace event
         /// </summary>
@@ -366,7 +366,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
         /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
         /// <returns>Task of InlineResponse200</returns>
-        System.Threading.Tasks.Task<InlineResponse200> TraceEventAsync (string gameId, bool? batch = default(bool?), bool? wait = default(bool?));
+        System.Threading.Tasks.Task<InlineResponse200> TraceEventAsync (int gameId, bool? batch = default(bool?), bool? wait = default(bool?));
 
         /// <summary>
         /// trace event
@@ -379,7 +379,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
         /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
         /// <returns>Task of ApiResponse (InlineResponse200)</returns>
-        System.Threading.Tasks.Task<ApiResponse<InlineResponse200>> TraceEventAsyncWithHttpInfo (string gameId, bool? batch = default(bool?), bool? wait = default(bool?));
+        System.Threading.Tasks.Task<ApiResponse<InlineResponse200>> TraceEventAsyncWithHttpInfo (int gameId, bool? batch = default(bool?), bool? wait = default(bool?));
         #endregion Asynchronous Operations
     }
 
@@ -506,7 +506,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>DamageEvent</returns>
-        public DamageEvent FetchNextDamageEvent (string gameId)
+        public DamageEvent FetchNextDamageEvent (int gameId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<DamageEvent> localVarResponse = FetchNextDamageEventWithHttpInfo(gameId);
              return localVarResponse.Data;
@@ -518,12 +518,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of DamageEvent</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse< DamageEvent > FetchNextDamageEventWithHttpInfo (string gameId)
+        public Tgm.Roborally.Api.Client.ApiResponse< DamageEvent > FetchNextDamageEventWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextDamageEvent");
-
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
             String[] _contentTypes = new String[] {
@@ -540,8 +536,7 @@ namespace Tgm.Roborally.Api.Api
             var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -573,7 +568,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of DamageEvent</returns>
-        public async System.Threading.Tasks.Task<DamageEvent> FetchNextDamageEventAsync (string gameId)
+        public async System.Threading.Tasks.Task<DamageEvent> FetchNextDamageEventAsync (int gameId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<DamageEvent> localVarResponse = await FetchNextDamageEventAsyncWithHttpInfo(gameId);
              return localVarResponse.Data;
@@ -586,12 +581,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (DamageEvent)</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<DamageEvent>> FetchNextDamageEventAsyncWithHttpInfo (string gameId)
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<DamageEvent>> FetchNextDamageEventAsyncWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextDamageEvent");
-
 
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
@@ -609,8 +600,7 @@ namespace Tgm.Roborally.Api.Api
             foreach (var _accept in _accepts)
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -643,7 +633,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>LazerHitEvent</returns>
-        public LazerHitEvent FetchNextLazerHitEvent (string gameId)
+        public LazerHitEvent FetchNextLazerHitEvent (int gameId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<LazerHitEvent> localVarResponse = FetchNextLazerHitEventWithHttpInfo(gameId);
              return localVarResponse.Data;
@@ -655,12 +645,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of LazerHitEvent</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse< LazerHitEvent > FetchNextLazerHitEventWithHttpInfo (string gameId)
+        public Tgm.Roborally.Api.Client.ApiResponse< LazerHitEvent > FetchNextLazerHitEventWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextLazerHitEvent");
-
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
             String[] _contentTypes = new String[] {
@@ -677,8 +663,7 @@ namespace Tgm.Roborally.Api.Api
             var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -710,7 +695,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of LazerHitEvent</returns>
-        public async System.Threading.Tasks.Task<LazerHitEvent> FetchNextLazerHitEventAsync (string gameId)
+        public async System.Threading.Tasks.Task<LazerHitEvent> FetchNextLazerHitEventAsync (int gameId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<LazerHitEvent> localVarResponse = await FetchNextLazerHitEventAsyncWithHttpInfo(gameId);
              return localVarResponse.Data;
@@ -723,12 +708,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (LazerHitEvent)</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<LazerHitEvent>> FetchNextLazerHitEventAsyncWithHttpInfo (string gameId)
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<LazerHitEvent>> FetchNextLazerHitEventAsyncWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextLazerHitEvent");
-
 
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
@@ -746,8 +727,7 @@ namespace Tgm.Roborally.Api.Api
             foreach (var _accept in _accepts)
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -780,7 +760,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>MapEvent</returns>
-        public MapEvent FetchNextMapEvent (string gameId)
+        public MapEvent FetchNextMapEvent (int gameId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<MapEvent> localVarResponse = FetchNextMapEventWithHttpInfo(gameId);
              return localVarResponse.Data;
@@ -792,12 +772,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of MapEvent</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse< MapEvent > FetchNextMapEventWithHttpInfo (string gameId)
+        public Tgm.Roborally.Api.Client.ApiResponse< MapEvent > FetchNextMapEventWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextMapEvent");
-
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
             String[] _contentTypes = new String[] {
@@ -814,8 +790,7 @@ namespace Tgm.Roborally.Api.Api
             var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -847,7 +822,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of MapEvent</returns>
-        public async System.Threading.Tasks.Task<MapEvent> FetchNextMapEventAsync (string gameId)
+        public async System.Threading.Tasks.Task<MapEvent> FetchNextMapEventAsync (int gameId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<MapEvent> localVarResponse = await FetchNextMapEventAsyncWithHttpInfo(gameId);
              return localVarResponse.Data;
@@ -860,12 +835,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (MapEvent)</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<MapEvent>> FetchNextMapEventAsyncWithHttpInfo (string gameId)
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<MapEvent>> FetchNextMapEventAsyncWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextMapEvent");
-
 
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
@@ -883,8 +854,7 @@ namespace Tgm.Roborally.Api.Api
             foreach (var _accept in _accepts)
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -917,7 +887,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>MovementEvent</returns>
-        public MovementEvent FetchNextMovementEvent (string gameId)
+        public MovementEvent FetchNextMovementEvent (int gameId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<MovementEvent> localVarResponse = FetchNextMovementEventWithHttpInfo(gameId);
              return localVarResponse.Data;
@@ -929,12 +899,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of MovementEvent</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse< MovementEvent > FetchNextMovementEventWithHttpInfo (string gameId)
+        public Tgm.Roborally.Api.Client.ApiResponse< MovementEvent > FetchNextMovementEventWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextMovementEvent");
-
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
             String[] _contentTypes = new String[] {
@@ -951,8 +917,7 @@ namespace Tgm.Roborally.Api.Api
             var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -984,7 +949,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of MovementEvent</returns>
-        public async System.Threading.Tasks.Task<MovementEvent> FetchNextMovementEventAsync (string gameId)
+        public async System.Threading.Tasks.Task<MovementEvent> FetchNextMovementEventAsync (int gameId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<MovementEvent> localVarResponse = await FetchNextMovementEventAsyncWithHttpInfo(gameId);
              return localVarResponse.Data;
@@ -997,12 +962,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (MovementEvent)</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<MovementEvent>> FetchNextMovementEventAsyncWithHttpInfo (string gameId)
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<MovementEvent>> FetchNextMovementEventAsyncWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextMovementEvent");
-
 
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
@@ -1020,8 +981,7 @@ namespace Tgm.Roborally.Api.Api
             foreach (var _accept in _accepts)
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -1054,7 +1014,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>PushEvent</returns>
-        public PushEvent FetchNextPushEvent (string gameId)
+        public PushEvent FetchNextPushEvent (int gameId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<PushEvent> localVarResponse = FetchNextPushEventWithHttpInfo(gameId);
              return localVarResponse.Data;
@@ -1066,12 +1026,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of PushEvent</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse< PushEvent > FetchNextPushEventWithHttpInfo (string gameId)
+        public Tgm.Roborally.Api.Client.ApiResponse< PushEvent > FetchNextPushEventWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextPushEvent");
-
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
             String[] _contentTypes = new String[] {
@@ -1088,8 +1044,7 @@ namespace Tgm.Roborally.Api.Api
             var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -1121,7 +1076,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of PushEvent</returns>
-        public async System.Threading.Tasks.Task<PushEvent> FetchNextPushEventAsync (string gameId)
+        public async System.Threading.Tasks.Task<PushEvent> FetchNextPushEventAsync (int gameId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<PushEvent> localVarResponse = await FetchNextPushEventAsyncWithHttpInfo(gameId);
              return localVarResponse.Data;
@@ -1134,12 +1089,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (PushEvent)</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<PushEvent>> FetchNextPushEventAsyncWithHttpInfo (string gameId)
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<PushEvent>> FetchNextPushEventAsyncWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextPushEvent");
-
 
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
@@ -1157,8 +1108,7 @@ namespace Tgm.Roborally.Api.Api
             foreach (var _accept in _accepts)
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -1191,7 +1141,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ShootEvent</returns>
-        public ShootEvent FetchNextShootEvent (string gameId)
+        public ShootEvent FetchNextShootEvent (int gameId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<ShootEvent> localVarResponse = FetchNextShootEventWithHttpInfo(gameId);
              return localVarResponse.Data;
@@ -1203,12 +1153,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of ShootEvent</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse< ShootEvent > FetchNextShootEventWithHttpInfo (string gameId)
+        public Tgm.Roborally.Api.Client.ApiResponse< ShootEvent > FetchNextShootEventWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextShootEvent");
-
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
             String[] _contentTypes = new String[] {
@@ -1225,8 +1171,7 @@ namespace Tgm.Roborally.Api.Api
             var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -1258,7 +1203,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ShootEvent</returns>
-        public async System.Threading.Tasks.Task<ShootEvent> FetchNextShootEventAsync (string gameId)
+        public async System.Threading.Tasks.Task<ShootEvent> FetchNextShootEventAsync (int gameId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<ShootEvent> localVarResponse = await FetchNextShootEventAsyncWithHttpInfo(gameId);
              return localVarResponse.Data;
@@ -1271,12 +1216,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (ShootEvent)</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<ShootEvent>> FetchNextShootEventAsyncWithHttpInfo (string gameId)
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<ShootEvent>> FetchNextShootEventAsyncWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextShootEvent");
-
 
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
@@ -1294,8 +1235,7 @@ namespace Tgm.Roborally.Api.Api
             foreach (var _accept in _accepts)
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -1328,7 +1268,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ShutdownEvent</returns>
-        public ShutdownEvent FetchNextShutdownEvent (string gameId)
+        public ShutdownEvent FetchNextShutdownEvent (int gameId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<ShutdownEvent> localVarResponse = FetchNextShutdownEventWithHttpInfo(gameId);
              return localVarResponse.Data;
@@ -1340,12 +1280,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of ShutdownEvent</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse< ShutdownEvent > FetchNextShutdownEventWithHttpInfo (string gameId)
+        public Tgm.Roborally.Api.Client.ApiResponse< ShutdownEvent > FetchNextShutdownEventWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextShutdownEvent");
-
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
             String[] _contentTypes = new String[] {
@@ -1362,8 +1298,7 @@ namespace Tgm.Roborally.Api.Api
             var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -1395,7 +1330,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ShutdownEvent</returns>
-        public async System.Threading.Tasks.Task<ShutdownEvent> FetchNextShutdownEventAsync (string gameId)
+        public async System.Threading.Tasks.Task<ShutdownEvent> FetchNextShutdownEventAsync (int gameId)
         {
              Tgm.Roborally.Api.Client.ApiResponse<ShutdownEvent> localVarResponse = await FetchNextShutdownEventAsyncWithHttpInfo(gameId);
              return localVarResponse.Data;
@@ -1408,12 +1343,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (ShutdownEvent)</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<ShutdownEvent>> FetchNextShutdownEventAsyncWithHttpInfo (string gameId)
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<ShutdownEvent>> FetchNextShutdownEventAsyncWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextShutdownEvent");
-
 
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
@@ -1431,8 +1362,7 @@ namespace Tgm.Roborally.Api.Api
             foreach (var _accept in _accepts)
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -1467,7 +1397,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
         /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
         /// <returns>InlineResponse200</returns>
-        public InlineResponse200 TraceEvent (string gameId, bool? batch = default(bool?), bool? wait = default(bool?))
+        public InlineResponse200 TraceEvent (int gameId, bool? batch = default(bool?), bool? wait = default(bool?))
         {
              Tgm.Roborally.Api.Client.ApiResponse<InlineResponse200> localVarResponse = TraceEventWithHttpInfo(gameId, batch, wait);
              return localVarResponse.Data;
@@ -1481,12 +1411,8 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
         /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
         /// <returns>ApiResponse of InlineResponse200</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse< InlineResponse200 > TraceEventWithHttpInfo (string gameId, bool? batch = default(bool?), bool? wait = default(bool?))
+        public Tgm.Roborally.Api.Client.ApiResponse< InlineResponse200 > TraceEventWithHttpInfo (int gameId, bool? batch = default(bool?), bool? wait = default(bool?))
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->TraceEvent");
-
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
             String[] _contentTypes = new String[] {
@@ -1503,8 +1429,7 @@ namespace Tgm.Roborally.Api.Api
             var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             if (batch != null)
             {
                 foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "batch", batch))
@@ -1558,7 +1483,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
         /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
         /// <returns>Task of InlineResponse200</returns>
-        public async System.Threading.Tasks.Task<InlineResponse200> TraceEventAsync (string gameId, bool? batch = default(bool?), bool? wait = default(bool?))
+        public async System.Threading.Tasks.Task<InlineResponse200> TraceEventAsync (int gameId, bool? batch = default(bool?), bool? wait = default(bool?))
         {
              Tgm.Roborally.Api.Client.ApiResponse<InlineResponse200> localVarResponse = await TraceEventAsyncWithHttpInfo(gameId, batch, wait);
              return localVarResponse.Data;
@@ -1573,12 +1498,8 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
         /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
         /// <returns>Task of ApiResponse (InlineResponse200)</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<InlineResponse200>> TraceEventAsyncWithHttpInfo (string gameId, bool? batch = default(bool?), bool? wait = default(bool?))
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<InlineResponse200>> TraceEventAsyncWithHttpInfo (int gameId, bool? batch = default(bool?), bool? wait = default(bool?))
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->TraceEvent");
-
 
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
@@ -1596,8 +1517,7 @@ namespace Tgm.Roborally.Api.Api
             foreach (var _accept in _accepts)
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             if (batch != null)
             {
                 foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "batch", batch))

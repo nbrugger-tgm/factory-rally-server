@@ -24,117 +24,121 @@ namespace Tgm.Roborally.Api.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IMapApiSync : IApiAccessor
+    public interface IDefaultApiSync : IApiAccessor
     {
         #region Synchronous Operations
         /// <summary>
-        /// Get Map info
+        /// Set Robots
         /// </summary>
         /// <remarks>
-        /// Get meta information abouzt the map of the game
+        /// Stes the type of robot(s) the player is controlling
         /// </remarks>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <returns>MapInfo</returns>
-        MapInfo GetMapInfo (int gameId);
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns></returns>
+        void ChooseRobot (int gameId, int playerId, List<Robots> robots = default(List<Robots>));
 
         /// <summary>
-        /// Get Map info
+        /// Set Robots
         /// </summary>
         /// <remarks>
-        /// Get meta information abouzt the map of the game
+        /// Stes the type of robot(s) the player is controlling
         /// </remarks>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <returns>ApiResponse of MapInfo</returns>
-        ApiResponse<MapInfo> GetMapInfoWithHttpInfo (int gameId);
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> ChooseRobotWithHttpInfo (int gameId, int playerId, List<Robots> robots = default(List<Robots>));
         /// <summary>
-        /// Get tile
+        /// Get Robot Informations
         /// </summary>
         /// <remarks>
-        /// Inspect a tile of the map
+        /// Returns the status and info about the robot
         /// </remarks>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns>Tile</returns>
-        Tile GetTile (int gameId, string x, string y);
+        /// <param name="robotId"></param>
+        /// <returns>RobotInfo</returns>
+        RobotInfo GetRobotStats (int gameId, string robotId);
 
         /// <summary>
-        /// Get tile
+        /// Get Robot Informations
         /// </summary>
         /// <remarks>
-        /// Inspect a tile of the map
+        /// Returns the status and info about the robot
         /// </remarks>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns>ApiResponse of Tile</returns>
-        ApiResponse<Tile> GetTileWithHttpInfo (int gameId, string x, string y);
+        /// <param name="robotId"></param>
+        /// <returns>ApiResponse of RobotInfo</returns>
+        ApiResponse<RobotInfo> GetRobotStatsWithHttpInfo (int gameId, string robotId);
         #endregion Synchronous Operations
     }
 
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IMapApiAsync : IApiAccessor
+    public interface IDefaultApiAsync : IApiAccessor
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Get Map info
+        /// Set Robots
         /// </summary>
         /// <remarks>
-        /// Get meta information abouzt the map of the game
+        /// Stes the type of robot(s) the player is controlling
         /// </remarks>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <returns>Task of MapInfo</returns>
-        System.Threading.Tasks.Task<MapInfo> GetMapInfoAsync (int gameId);
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task ChooseRobotAsync (int gameId, int playerId, List<Robots> robots = default(List<Robots>));
 
         /// <summary>
-        /// Get Map info
+        /// Set Robots
         /// </summary>
         /// <remarks>
-        /// Get meta information abouzt the map of the game
+        /// Stes the type of robot(s) the player is controlling
         /// </remarks>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <returns>Task of ApiResponse (MapInfo)</returns>
-        System.Threading.Tasks.Task<ApiResponse<MapInfo>> GetMapInfoAsyncWithHttpInfo (int gameId);
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> ChooseRobotAsyncWithHttpInfo (int gameId, int playerId, List<Robots> robots = default(List<Robots>));
         /// <summary>
-        /// Get tile
+        /// Get Robot Informations
         /// </summary>
         /// <remarks>
-        /// Inspect a tile of the map
+        /// Returns the status and info about the robot
         /// </remarks>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns>Task of Tile</returns>
-        System.Threading.Tasks.Task<Tile> GetTileAsync (int gameId, string x, string y);
+        /// <param name="robotId"></param>
+        /// <returns>Task of RobotInfo</returns>
+        System.Threading.Tasks.Task<RobotInfo> GetRobotStatsAsync (int gameId, string robotId);
 
         /// <summary>
-        /// Get tile
+        /// Get Robot Informations
         /// </summary>
         /// <remarks>
-        /// Inspect a tile of the map
+        /// Returns the status and info about the robot
         /// </remarks>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns>Task of ApiResponse (Tile)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Tile>> GetTileAsyncWithHttpInfo (int gameId, string x, string y);
+        /// <param name="robotId"></param>
+        /// <returns>Task of ApiResponse (RobotInfo)</returns>
+        System.Threading.Tasks.Task<ApiResponse<RobotInfo>> GetRobotStatsAsyncWithHttpInfo (int gameId, string robotId);
         #endregion Asynchronous Operations
     }
 
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IMapApi : IMapApiSync, IMapApiAsync
+    public interface IDefaultApi : IDefaultApiSync, IDefaultApiAsync
     {
 
     }
@@ -142,23 +146,23 @@ namespace Tgm.Roborally.Api.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public partial class MapApi : IMapApi
+    public partial class DefaultApi : IDefaultApi
     {
         private Tgm.Roborally.Api.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapApi"/> class.
+        /// Initializes a new instance of the <see cref="DefaultApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public MapApi() : this((string) null)
+        public DefaultApi() : this((string) null)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapApi"/> class.
+        /// Initializes a new instance of the <see cref="DefaultApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public MapApi(String basePath)
+        public DefaultApi(String basePath)
         {
             this.Configuration = Tgm.Roborally.Api.Client.Configuration.MergeConfigurations(
                 Tgm.Roborally.Api.Client.GlobalConfiguration.Instance,
@@ -170,12 +174,12 @@ namespace Tgm.Roborally.Api.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapApi"/> class
+        /// Initializes a new instance of the <see cref="DefaultApi"/> class
         /// using Configuration object
         /// </summary>
         /// <param name="configuration">An instance of Configuration</param>
         /// <returns></returns>
-        public MapApi(Tgm.Roborally.Api.Client.Configuration configuration)
+        public DefaultApi(Tgm.Roborally.Api.Client.Configuration configuration)
         {
             if (configuration == null) throw new ArgumentNullException("configuration");
 
@@ -189,13 +193,13 @@ namespace Tgm.Roborally.Api.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapApi"/> class
+        /// Initializes a new instance of the <see cref="DefaultApi"/> class
         /// using a Configuration object and client instance.
         /// </summary>
         /// <param name="client">The client interface for synchronous API access.</param>
         /// <param name="asyncClient">The client interface for asynchronous API access.</param>
         /// <param name="configuration">The configuration object.</param>
-        public MapApi(Tgm.Roborally.Api.Client.ISynchronousClient client,Tgm.Roborally.Api.Client.IAsynchronousClient asyncClient, Tgm.Roborally.Api.Client.IReadableConfiguration configuration)
+        public DefaultApi(Tgm.Roborally.Api.Client.ISynchronousClient client,Tgm.Roborally.Api.Client.IAsynchronousClient asyncClient, Tgm.Roborally.Api.Client.IReadableConfiguration configuration)
         {
             if(client == null) throw new ArgumentNullException("client");
             if(asyncClient == null) throw new ArgumentNullException("asyncClient");
@@ -249,25 +253,168 @@ namespace Tgm.Roborally.Api.Api
         }
 
         /// <summary>
-        /// Get Map info Get meta information abouzt the map of the game
+        /// Set Robots Stes the type of robot(s) the player is controlling
         /// </summary>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <returns>MapInfo</returns>
-        public MapInfo GetMapInfo (int gameId)
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns></returns>
+        public void ChooseRobot (int gameId, int playerId, List<Robots> robots = default(List<Robots>))
         {
-             Tgm.Roborally.Api.Client.ApiResponse<MapInfo> localVarResponse = GetMapInfoWithHttpInfo(gameId);
+             ChooseRobotWithHttpInfo(gameId, playerId, robots);
+        }
+
+        /// <summary>
+        /// Set Robots Stes the type of robot(s) the player is controlling
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public Tgm.Roborally.Api.Client.ApiResponse<Object> ChooseRobotWithHttpInfo (int gameId, int playerId, List<Robots> robots = default(List<Robots>))
+        {
+            Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
+
+            String[] _contentTypes = new String[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            String[] _accepts = new String[] {
+            };
+
+            var localVarContentType = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("player_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(playerId)); // path parameter
+            localVarRequestOptions.Data = robots;
+
+            // authentication (Player-Token-Access) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            {
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                {
+                    foreach (var _kvpValue in _kvp.Value)
+                    {
+                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
+                    }
+                }
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Patch<Object>("/games/{game_id}/players/{player_id}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("ChooseRobot", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Set Robots Stes the type of robot(s) the player is controlling
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task ChooseRobotAsync (int gameId, int playerId, List<Robots> robots = default(List<Robots>))
+        {
+             await ChooseRobotAsyncWithHttpInfo(gameId, playerId, robots);
+
+        }
+
+        /// <summary>
+        /// Set Robots Stes the type of robot(s) the player is controlling
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<Object>> ChooseRobotAsyncWithHttpInfo (int gameId, int playerId, List<Robots> robots = default(List<Robots>))
+        {
+
+            Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
+
+            String[] _contentTypes = new String[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            String[] _accepts = new String[] {
+            };
+            
+            foreach (var _contentType in _contentTypes)
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", _contentType);
+            
+            foreach (var _accept in _accepts)
+                localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
+            
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("player_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(playerId)); // path parameter
+            localVarRequestOptions.Data = robots;
+
+            // authentication (Player-Token-Access) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            {
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                {
+                    foreach (var _kvpValue in _kvp.Value)
+                    {
+                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
+                    }
+                }
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PatchAsync<Object>("/games/{game_id}/players/{player_id}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("ChooseRobot", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get Robot Informations Returns the status and info about the robot
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="robotId"></param>
+        /// <returns>RobotInfo</returns>
+        public RobotInfo GetRobotStats (int gameId, string robotId)
+        {
+             Tgm.Roborally.Api.Client.ApiResponse<RobotInfo> localVarResponse = GetRobotStatsWithHttpInfo(gameId, robotId);
              return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Get Map info Get meta information abouzt the map of the game
+        /// Get Robot Informations Returns the status and info about the robot
         /// </summary>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <returns>ApiResponse of MapInfo</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse< MapInfo > GetMapInfoWithHttpInfo (int gameId)
+        /// <param name="robotId"></param>
+        /// <returns>ApiResponse of RobotInfo</returns>
+        public Tgm.Roborally.Api.Client.ApiResponse< RobotInfo > GetRobotStatsWithHttpInfo (int gameId, string robotId)
         {
+            // verify the required parameter 'robotId' is set
+            if (robotId == null)
+                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'robotId' when calling DefaultApi->GetRobotStats");
+
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
             String[] _contentTypes = new String[] {
@@ -285,6 +432,8 @@ namespace Tgm.Roborally.Api.Api
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            if (robotId != null)
+                localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -299,11 +448,11 @@ namespace Tgm.Roborally.Api.Api
             }
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get< MapInfo >("/games/{game_id}/map/info", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get< RobotInfo >("/games/{game_id}/entitys/robots/{robot_id}/info", localVarRequestOptions, this.Configuration);
 
             if (this.ExceptionFactory != null)
             {
-                Exception _exception = this.ExceptionFactory("GetMapInfo", localVarResponse);
+                Exception _exception = this.ExceptionFactory("GetRobotStats", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 
@@ -311,26 +460,32 @@ namespace Tgm.Roborally.Api.Api
         }
 
         /// <summary>
-        /// Get Map info Get meta information abouzt the map of the game
+        /// Get Robot Informations Returns the status and info about the robot
         /// </summary>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <returns>Task of MapInfo</returns>
-        public async System.Threading.Tasks.Task<MapInfo> GetMapInfoAsync (int gameId)
+        /// <param name="robotId"></param>
+        /// <returns>Task of RobotInfo</returns>
+        public async System.Threading.Tasks.Task<RobotInfo> GetRobotStatsAsync (int gameId, string robotId)
         {
-             Tgm.Roborally.Api.Client.ApiResponse<MapInfo> localVarResponse = await GetMapInfoAsyncWithHttpInfo(gameId);
+             Tgm.Roborally.Api.Client.ApiResponse<RobotInfo> localVarResponse = await GetRobotStatsAsyncWithHttpInfo(gameId, robotId);
              return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// Get Map info Get meta information abouzt the map of the game
+        /// Get Robot Informations Returns the status and info about the robot
         /// </summary>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <returns>Task of ApiResponse (MapInfo)</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<MapInfo>> GetMapInfoAsyncWithHttpInfo (int gameId)
+        /// <param name="robotId"></param>
+        /// <returns>Task of ApiResponse (RobotInfo)</returns>
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<RobotInfo>> GetRobotStatsAsyncWithHttpInfo (int gameId, string robotId)
         {
+            // verify the required parameter 'robotId' is set
+            if (robotId == null)
+                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'robotId' when calling DefaultApi->GetRobotStats");
+
 
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
@@ -349,6 +504,8 @@ namespace Tgm.Roborally.Api.Api
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            if (robotId != null)
+                localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
             // authentication (Player-Token-Access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
@@ -364,170 +521,11 @@ namespace Tgm.Roborally.Api.Api
 
             // make the HTTP request
 
-            var localVarResponse = await this.AsynchronousClient.GetAsync<MapInfo>("/games/{game_id}/map/info", localVarRequestOptions, this.Configuration);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<RobotInfo>("/games/{game_id}/entitys/robots/{robot_id}/info", localVarRequestOptions, this.Configuration);
 
             if (this.ExceptionFactory != null)
             {
-                Exception _exception = this.ExceptionFactory("GetMapInfo", localVarResponse);
-                if (_exception != null) throw _exception;
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// Get tile Inspect a tile of the map
-        /// </summary>
-        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="gameId"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns>Tile</returns>
-        public Tile GetTile (int gameId, string x, string y)
-        {
-             Tgm.Roborally.Api.Client.ApiResponse<Tile> localVarResponse = GetTileWithHttpInfo(gameId, x, y);
-             return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Get tile Inspect a tile of the map
-        /// </summary>
-        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="gameId"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns>ApiResponse of Tile</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse< Tile > GetTileWithHttpInfo (int gameId, string x, string y)
-        {
-            // verify the required parameter 'x' is set
-            if (x == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'x' when calling MapApi->GetTile");
-
-            // verify the required parameter 'y' is set
-            if (y == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'y' when calling MapApi->GetTile");
-
-            Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
-
-            String[] _contentTypes = new String[] {
-            };
-
-            // to determine the Accept header
-            String[] _accepts = new String[] {
-                "application/json"
-            };
-
-            var localVarContentType = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-
-            var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-
-            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
-            if (x != null)
-                localVarRequestOptions.PathParameters.Add("x", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(x)); // path parameter
-            if (y != null)
-                localVarRequestOptions.PathParameters.Add("y", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(y)); // path parameter
-
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
-            {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
-            }
-
-            // make the HTTP request
-            var localVarResponse = this.Client.Get< Tile >("/games/{game_id}/map/tiles/{x}/{y}", localVarRequestOptions, this.Configuration);
-
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("GetTile", localVarResponse);
-                if (_exception != null) throw _exception;
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// Get tile Inspect a tile of the map
-        /// </summary>
-        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="gameId"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns>Task of Tile</returns>
-        public async System.Threading.Tasks.Task<Tile> GetTileAsync (int gameId, string x, string y)
-        {
-             Tgm.Roborally.Api.Client.ApiResponse<Tile> localVarResponse = await GetTileAsyncWithHttpInfo(gameId, x, y);
-             return localVarResponse.Data;
-
-        }
-
-        /// <summary>
-        /// Get tile Inspect a tile of the map
-        /// </summary>
-        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="gameId"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns>Task of ApiResponse (Tile)</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<Tile>> GetTileAsyncWithHttpInfo (int gameId, string x, string y)
-        {
-            // verify the required parameter 'x' is set
-            if (x == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'x' when calling MapApi->GetTile");
-
-            // verify the required parameter 'y' is set
-            if (y == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'y' when calling MapApi->GetTile");
-
-
-            Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
-
-            String[] _contentTypes = new String[] {
-            };
-
-            // to determine the Accept header
-            String[] _accepts = new String[] {
-                "application/json"
-            };
-            
-            foreach (var _contentType in _contentTypes)
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", _contentType);
-            
-            foreach (var _accept in _accepts)
-                localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
-            
-            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
-            if (x != null)
-                localVarRequestOptions.PathParameters.Add("x", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(x)); // path parameter
-            if (y != null)
-                localVarRequestOptions.PathParameters.Add("y", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(y)); // path parameter
-
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
-            {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
-            }
-
-            // make the HTTP request
-
-            var localVarResponse = await this.AsynchronousClient.GetAsync<Tile>("/games/{game_id}/map/tiles/{x}/{y}", localVarRequestOptions, this.Configuration);
-
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("GetTile", localVarResponse);
+                Exception _exception = this.ExceptionFactory("GetRobotStats", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 

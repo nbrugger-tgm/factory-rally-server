@@ -70,18 +70,19 @@ namespace Example
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.ApiKeyPrefix.Add("uid", "Bearer");
 
-            var apiInstance = new EventHandlingApi(config);
-            var gameId = gameId_example;  // string | 
+            var apiInstance = new DefaultApi(config);
+            var gameId = 56;  // int | 
+            var playerId = 56;  // int | 
+            var robots = new List<Robots>(); // List<Robots> | The robots assigned to the player (optional) 
 
             try
             {
-                // Get next / last damage event
-                DamageEvent result = apiInstance.FetchNextDamageEvent(gameId);
-                Debug.WriteLine(result);
+                // Set Robots
+                apiInstance.ChooseRobot(gameId, playerId, robots);
             }
             catch (ApiException e)
             {
-                Debug.Print("Exception when calling EventHandlingApi.FetchNextDamageEvent: " + e.Message );
+                Debug.Print("Exception when calling DefaultApi.ChooseRobot: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -98,6 +99,8 @@ All URIs are relative to *http://localhost:5050/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultApi* | [**ChooseRobot**](docs/DefaultApi.md#chooserobot) | **PATCH** /games/{game_id}/players/{player_id} | Set Robots
+*DefaultApi* | [**GetRobotStats**](docs/DefaultApi.md#getrobotstats) | **GET** /games/{game_id}/entitys/robots/{robot_id}/info | Get Robot Informations
 *EventHandlingApi* | [**FetchNextDamageEvent**](docs/EventHandlingApi.md#fetchnextdamageevent) | **GET** /games/{game_id}/events/damage | Get next / last damage event
 *EventHandlingApi* | [**FetchNextLazerHitEvent**](docs/EventHandlingApi.md#fetchnextlazerhitevent) | **GET** /games/{game_id}/events/lazer-hit | Get next / last Lazer hit event
 *EventHandlingApi* | [**FetchNextMapEvent**](docs/EventHandlingApi.md#fetchnextmapevent) | **GET** /games/{game_id}/events/map | Get next / last map event
@@ -138,6 +141,8 @@ Class | Method | HTTP request | Description
 
  - [Model.Action](docs/Action.md)
  - [Model.ActionType](docs/ActionType.md)
+ - [Model.Checkpoint](docs/Checkpoint.md)
+ - [Model.CheckpointAllOf](docs/CheckpointAllOf.md)
  - [Model.DamageEvent](docs/DamageEvent.md)
  - [Model.Direction](docs/Direction.md)
  - [Model.Entity](docs/Entity.md)
@@ -165,6 +170,9 @@ Class | Method | HTTP request | Description
  - [Model.Position](docs/Position.md)
  - [Model.PushEvent](docs/PushEvent.md)
  - [Model.RobotCommand](docs/RobotCommand.md)
+ - [Model.RobotInfo](docs/RobotInfo.md)
+ - [Model.RobotInfoAllOf](docs/RobotInfoAllOf.md)
+ - [Model.Robots](docs/Robots.md)
  - [Model.Rotation](docs/Rotation.md)
  - [Model.RotatorPosition](docs/RotatorPosition.md)
  - [Model.RoundPhase](docs/RoundPhase.md)

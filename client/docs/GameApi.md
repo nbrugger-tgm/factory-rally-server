@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 <a name="commitaction"></a>
 # **CommitAction**
-> void CommitAction (string gameId, ActionType action)
+> void CommitAction (int gameId, ActionType action)
 
 Commit Action
 
@@ -41,7 +41,7 @@ namespace Example
             // config.AddApiKeyPrefix("hid", "Bearer");
 
             var apiInstance = new GameApi(config);
-            var gameId = gameId_example;  // string | 
+            var gameId = 56;  // int | 
             var action = new ActionType(); // ActionType | 
 
             try
@@ -64,7 +64,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **string**|  | 
+ **gameId** | **int**|  | 
  **action** | [**ActionType**](ActionType.md)|  | 
 
 ### Return type
@@ -163,7 +163,7 @@ void (empty response body)
 
 <a name="getactions"></a>
 # **GetActions**
-> List&lt;Action&gt; GetActions (string gameId)
+> List&lt;Action&gt; GetActions (int gameId)
 
 Get games actions
 
@@ -191,7 +191,7 @@ namespace Example
             // config.AddApiKeyPrefix("hid", "Bearer");
 
             var apiInstance = new GameApi(config);
-            var gameId = gameId_example;  // string | 
+            var gameId = 56;  // int | 
 
             try
             {
@@ -214,7 +214,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **string**|  | 
+ **gameId** | **int**|  | 
 
 ### Return type
 

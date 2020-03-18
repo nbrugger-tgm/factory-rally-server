@@ -17,6 +17,7 @@ using System.Net;
 using System.Net.Mime;
 using Tgm.Roborally.Api.Client;
 using Tgm.Roborally.Api.Model;
+using Action = Tgm.Roborally.Api.Model.Action;
 
 namespace Tgm.Roborally.Api.Api
 {
@@ -37,7 +38,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        void CommitAction (string gameId, ActionType action);
+        void CommitAction (int gameId, ActionType action);
 
         /// <summary>
         /// Commit Action
@@ -49,7 +50,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="action"></param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> CommitActionWithHttpInfo (string gameId, ActionType action);
+        ApiResponse<Object> CommitActionWithHttpInfo (int gameId, ActionType action);
         /// <summary>
         /// Create Game
         /// </summary>
@@ -80,7 +81,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>List&lt;Action&gt;</returns>
-        List<Tgm.Roborally.Api.Model.Action> GetActions (string gameId);
+        List<Action> GetActions (int gameId);
 
         /// <summary>
         /// Get games actions
@@ -91,7 +92,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of List&lt;Action&gt;</returns>
-        ApiResponse<List<Tgm.Roborally.Api.Model.Action>> GetActionsWithHttpInfo (string gameId);
+        ApiResponse<List<Action>> GetActionsWithHttpInfo (int gameId);
         /// <summary>
         /// Get game status
         /// </summary>
@@ -155,7 +156,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="action"></param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task CommitActionAsync (string gameId, ActionType action);
+        System.Threading.Tasks.Task CommitActionAsync (int gameId, ActionType action);
 
         /// <summary>
         /// Commit Action
@@ -167,7 +168,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="action"></param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> CommitActionAsyncWithHttpInfo (string gameId, ActionType action);
+        System.Threading.Tasks.Task<ApiResponse<Object>> CommitActionAsyncWithHttpInfo (int gameId, ActionType action);
         /// <summary>
         /// Create Game
         /// </summary>
@@ -198,7 +199,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of List&lt;Action&gt;</returns>
-        System.Threading.Tasks.Task<List<Tgm.Roborally.Api.Model.Action>> GetActionsAsync (string gameId);
+        System.Threading.Tasks.Task<List<Action>> GetActionsAsync (int gameId);
 
         /// <summary>
         /// Get games actions
@@ -209,7 +210,7 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (List&lt;Action&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<Tgm.Roborally.Api.Model.Action>>> GetActionsAsyncWithHttpInfo (string gameId);
+        System.Threading.Tasks.Task<ApiResponse<List<Action>>> GetActionsAsyncWithHttpInfo (int gameId);
         /// <summary>
         /// Get game status
         /// </summary>
@@ -381,7 +382,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public void CommitAction (string gameId, ActionType action)
+        public void CommitAction (int gameId, ActionType action)
         {
              CommitActionWithHttpInfo(gameId, action);
         }
@@ -393,12 +394,8 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="action"></param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse<Object> CommitActionWithHttpInfo (string gameId, ActionType action)
+        public Tgm.Roborally.Api.Client.ApiResponse<Object> CommitActionWithHttpInfo (int gameId, ActionType action)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling GameApi->CommitAction");
-
             // verify the required parameter 'action' is set
             if (action == null)
                 throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'action' when calling GameApi->CommitAction");
@@ -418,8 +415,7 @@ namespace Tgm.Roborally.Api.Api
             var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             if (action != null)
             {
                 foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "action", action))
@@ -462,7 +458,7 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="action"></param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task CommitActionAsync (string gameId, ActionType action)
+        public async System.Threading.Tasks.Task CommitActionAsync (int gameId, ActionType action)
         {
              await CommitActionAsyncWithHttpInfo(gameId, action);
 
@@ -475,12 +471,8 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <param name="action"></param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<Object>> CommitActionAsyncWithHttpInfo (string gameId, ActionType action)
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<Object>> CommitActionAsyncWithHttpInfo (int gameId, ActionType action)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling GameApi->CommitAction");
-
             // verify the required parameter 'action' is set
             if (action == null)
                 throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'action' when calling GameApi->CommitAction");
@@ -501,8 +493,7 @@ namespace Tgm.Roborally.Api.Api
             foreach (var _accept in _accepts)
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             if (action != null)
             {
                 foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "action", action))
@@ -670,9 +661,9 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>List&lt;Action&gt;</returns>
-        public List<Tgm.Roborally.Api.Model.Action> GetActions (string gameId)
+        public List<Action> GetActions (int gameId)
         {
-             Tgm.Roborally.Api.Client.ApiResponse<List<Tgm.Roborally.Api.Model.Action>> localVarResponse = GetActionsWithHttpInfo(gameId);
+             Tgm.Roborally.Api.Client.ApiResponse<List<Action>> localVarResponse = GetActionsWithHttpInfo(gameId);
              return localVarResponse.Data;
         }
 
@@ -682,12 +673,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>ApiResponse of List&lt;Action&gt;</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse< List<Tgm.Roborally.Api.Model.Action> > GetActionsWithHttpInfo (string gameId)
+        public Tgm.Roborally.Api.Client.ApiResponse< List<Action> > GetActionsWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling GameApi->GetActions");
-
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
             String[] _contentTypes = new String[] {
@@ -704,8 +691,7 @@ namespace Tgm.Roborally.Api.Api
             var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Host-token-access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("hid")))
@@ -720,7 +706,7 @@ namespace Tgm.Roborally.Api.Api
             }
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get< List<Tgm.Roborally.Api.Model.Action> >("/games/{game_id}/actions", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get< List<Action> >("/games/{game_id}/actions", localVarRequestOptions, this.Configuration);
 
             if (this.ExceptionFactory != null)
             {
@@ -737,9 +723,9 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of List&lt;Action&gt;</returns>
-        public async System.Threading.Tasks.Task<List<Tgm.Roborally.Api.Model.Action>> GetActionsAsync (string gameId)
+        public async System.Threading.Tasks.Task<List<Action>> GetActionsAsync (int gameId)
         {
-             Tgm.Roborally.Api.Client.ApiResponse<List<Tgm.Roborally.Api.Model.Action>> localVarResponse = await GetActionsAsyncWithHttpInfo(gameId);
+             Tgm.Roborally.Api.Client.ApiResponse<List<Action>> localVarResponse = await GetActionsAsyncWithHttpInfo(gameId);
              return localVarResponse.Data;
 
         }
@@ -750,12 +736,8 @@ namespace Tgm.Roborally.Api.Api
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (List&lt;Action&gt;)</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<List<Tgm.Roborally.Api.Model.Action>>> GetActionsAsyncWithHttpInfo (string gameId)
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<List<Action>>> GetActionsAsyncWithHttpInfo (int gameId)
         {
-            // verify the required parameter 'gameId' is set
-            if (gameId == null)
-                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling GameApi->GetActions");
-
 
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
@@ -773,8 +755,7 @@ namespace Tgm.Roborally.Api.Api
             foreach (var _accept in _accepts)
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
-            if (gameId != null)
-                localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
             // authentication (Host-token-access) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("hid")))
@@ -790,7 +771,7 @@ namespace Tgm.Roborally.Api.Api
 
             // make the HTTP request
 
-            var localVarResponse = await this.AsynchronousClient.GetAsync<List<Tgm.Roborally.Api.Model.Action>>("/games/{game_id}/actions", localVarRequestOptions, this.Configuration);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<Action>>("/games/{game_id}/actions", localVarRequestOptions, this.Configuration);
 
             if (this.ExceptionFactory != null)
             {

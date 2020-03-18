@@ -62,7 +62,61 @@ namespace Tgm.Roborally.Api.Model
         /// Enum Lazershot for value: lazer shot
         /// </summary>
         [EnumMember(Value = "lazer shot")]
-        Lazershot = 5
+        Lazershot = 5,
+
+        /// <summary>
+        /// Enum Gamestart for value: game start
+        /// </summary>
+        [EnumMember(Value = "game start")]
+        Gamestart = 6,
+
+        /// <summary>
+        /// Enum Clearshop for value: clear shop
+        /// </summary>
+        [EnumMember(Value = "clear shop")]
+        Clearshop = 7,
+
+        /// <summary>
+        /// Enum Fillshop for value: fill shop
+        /// </summary>
+        [EnumMember(Value = "fill shop")]
+        Fillshop = 8,
+
+        /// <summary>
+        /// Enum Registerclear for value: register clear
+        /// </summary>
+        [EnumMember(Value = "register clear")]
+        Registerclear = 9,
+
+        /// <summary>
+        /// Enum Programmingtimerstart for value: programming timer start
+        /// </summary>
+        [EnumMember(Value = "programming timer start")]
+        Programmingtimerstart = 10,
+
+        /// <summary>
+        /// Enum Programmingtimerstop for value: programming timer stop
+        /// </summary>
+        [EnumMember(Value = "programming timer stop")]
+        Programmingtimerstop = 11,
+
+        /// <summary>
+        /// Enum Randomcarddistribution for value: random card distribution
+        /// </summary>
+        [EnumMember(Value = "random card distribution")]
+        Randomcarddistribution = 12,
+
+        /// <summary>
+        /// Enum Takecardevent for value: take card event
+        /// </summary>
+        [EnumMember(Value = "take card event")]
+        Takecardevent = 13,
+
+        /// <summary>
+        /// Enum Activatecheckpoint for value: activate checkpoint
+        /// </summary>
+        [EnumMember(Value = "activate checkpoint")]
+        Activatecheckpoint = 14
 
     }
 

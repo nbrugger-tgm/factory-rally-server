@@ -1,20 +1,20 @@
-# Tgm.Roborally.Api.Api.MapApi
+# Tgm.Roborally.Api.Api.DefaultApi
 
 All URIs are relative to *http://localhost:5050/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetMapInfo**](MapApi.md#getmapinfo) | **GET** /games/{game_id}/map/info | Get Map info
-[**GetTile**](MapApi.md#gettile) | **GET** /games/{game_id}/map/tiles/{x}/{y} | Get tile
+[**ChooseRobot**](DefaultApi.md#chooserobot) | **PATCH** /games/{game_id}/players/{player_id} | Set Robots
+[**GetRobotStats**](DefaultApi.md#getrobotstats) | **GET** /games/{game_id}/entitys/robots/{robot_id}/info | Get Robot Informations
 
 
-<a name="getmapinfo"></a>
-# **GetMapInfo**
-> MapInfo GetMapInfo (int gameId)
+<a name="chooserobot"></a>
+# **ChooseRobot**
+> void ChooseRobot (int gameId, int playerId, List<Robots> robots = null)
 
-Get Map info
+Set Robots
 
-Get meta information abouzt the map of the game
+Stes the type of robot(s) the player is controlling
 
 ### Example
 ```csharp
@@ -26,7 +26,7 @@ using Tgm.Roborally.Api.Model;
 
 namespace Example
 {
-    public class GetMapInfoExample
+    public class ChooseRobotExample
     {
         public static void Main()
         {
@@ -37,18 +37,19 @@ namespace Example
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("uid", "Bearer");
 
-            var apiInstance = new MapApi(config);
+            var apiInstance = new DefaultApi(config);
             var gameId = 56;  // int | 
+            var playerId = 56;  // int | 
+            var robots = new List<Robots>(); // List<Robots> | The robots assigned to the player (optional) 
 
             try
             {
-                // Get Map info
-                MapInfo result = apiInstance.GetMapInfo(gameId);
-                Debug.WriteLine(result);
+                // Set Robots
+                apiInstance.ChooseRobot(gameId, playerId, robots);
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling MapApi.GetMapInfo: " + e.Message );
+                Debug.Print("Exception when calling DefaultApi.ChooseRobot: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -62,10 +63,12 @@ namespace Example
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **gameId** | **int**|  | 
+ **playerId** | **int**|  | 
+ **robots** | [**List&lt;Robots&gt;**](Robots.md)| The robots assigned to the player | [optional] 
 
 ### Return type
 
-[**MapInfo**](MapInfo.md)
+void (empty response body)
 
 ### Authorization
 
@@ -73,8 +76,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -83,13 +86,13 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="gettile"></a>
-# **GetTile**
-> Tile GetTile (int gameId, string x, string y)
+<a name="getrobotstats"></a>
+# **GetRobotStats**
+> RobotInfo GetRobotStats (int gameId, string robotId)
 
-Get tile
+Get Robot Informations
 
-Inspect a tile of the map
+Returns the status and info about the robot
 
 ### Example
 ```csharp
@@ -101,7 +104,7 @@ using Tgm.Roborally.Api.Model;
 
 namespace Example
 {
-    public class GetTileExample
+    public class GetRobotStatsExample
     {
         public static void Main()
         {
@@ -112,20 +115,19 @@ namespace Example
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("uid", "Bearer");
 
-            var apiInstance = new MapApi(config);
+            var apiInstance = new DefaultApi(config);
             var gameId = 56;  // int | 
-            var x = x_example;  // string | 
-            var y = y_example;  // string | 
+            var robotId = robotId_example;  // string | 
 
             try
             {
-                // Get tile
-                Tile result = apiInstance.GetTile(gameId, x, y);
+                // Get Robot Informations
+                RobotInfo result = apiInstance.GetRobotStats(gameId, robotId);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling MapApi.GetTile: " + e.Message );
+                Debug.Print("Exception when calling DefaultApi.GetRobotStats: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -139,12 +141,11 @@ namespace Example
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **gameId** | **int**|  | 
- **x** | **string**|  | 
- **y** | **string**|  | 
+ **robotId** | **string**|  | 
 
 ### Return type
 
-[**Tile**](Tile.md)
+[**RobotInfo**](RobotInfo.md)
 
 ### Authorization
 

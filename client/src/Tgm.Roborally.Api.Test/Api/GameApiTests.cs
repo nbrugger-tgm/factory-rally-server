@@ -37,6 +37,7 @@ namespace Tgm.Roborally.Api.Test
         public GameApiTests()
         {
             instance = new GameApi();
+            Console.Write(instance.GetBasePath());
         }
 
         public void Dispose()

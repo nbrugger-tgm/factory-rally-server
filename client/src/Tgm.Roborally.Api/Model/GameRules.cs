@@ -35,13 +35,13 @@ namespace Tgm.Roborally.Api.Model
         /// Initializes a new instance of the <see cref="GameRules" /> class.
         /// </summary>
         /// <param name="playerNamesVisible">If true players can see the name of the player controlling a robot (default to true).</param>
-        /// <param name="wholes">If true wholes will spaw on the map (default to true).</param>
         /// <param name="maxPlayers">The maximum ammount of players able to join the game (default to 4).</param>
-        public GameRules(bool playerNamesVisible = true, bool wholes = true, int maxPlayers = 4)
+        /// <param name="name">The visible name of the game.</param>
+        public GameRules(bool playerNamesVisible = true, int maxPlayers = 4, string name = default(string))
         {
             this.PlayerNamesVisible = playerNamesVisible;
-            this.Wholes = wholes;
             this.MaxPlayers = maxPlayers;
+            this.Name = name;
         }
         
         /// <summary>
@@ -52,18 +52,18 @@ namespace Tgm.Roborally.Api.Model
         public bool PlayerNamesVisible { get; set; }
 
         /// <summary>
-        /// If true wholes will spaw on the map
-        /// </summary>
-        /// <value>If true wholes will spaw on the map</value>
-        [DataMember(Name="wholes", EmitDefaultValue=false)]
-        public bool Wholes { get; set; }
-
-        /// <summary>
         /// The maximum ammount of players able to join the game
         /// </summary>
         /// <value>The maximum ammount of players able to join the game</value>
         [DataMember(Name="max-players", EmitDefaultValue=false)]
         public int MaxPlayers { get; set; }
+
+        /// <summary>
+        /// The visible name of the game
+        /// </summary>
+        /// <value>The visible name of the game</value>
+        [DataMember(Name="name", EmitDefaultValue=false)]
+        public string Name { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -74,8 +74,8 @@ namespace Tgm.Roborally.Api.Model
             var sb = new StringBuilder();
             sb.Append("class GameRules {\n");
             sb.Append("  PlayerNamesVisible: ").Append(PlayerNamesVisible).Append("\n");
-            sb.Append("  Wholes: ").Append(Wholes).Append("\n");
             sb.Append("  MaxPlayers: ").Append(MaxPlayers).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -115,12 +115,13 @@ namespace Tgm.Roborally.Api.Model
                     this.PlayerNamesVisible.Equals(input.PlayerNamesVisible)
                 ) && 
                 (
-                    this.Wholes == input.Wholes ||
-                    this.Wholes.Equals(input.Wholes)
-                ) && 
-                (
                     this.MaxPlayers == input.MaxPlayers ||
                     this.MaxPlayers.Equals(input.MaxPlayers)
+                ) && 
+                (
+                    this.Name == input.Name ||
+                    (this.Name != null &&
+                    this.Name.Equals(input.Name))
                 );
         }
 
@@ -134,8 +135,9 @@ namespace Tgm.Roborally.Api.Model
             {
                 int hashCode = 41;
                 hashCode = hashCode * 59 + this.PlayerNamesVisible.GetHashCode();
-                hashCode = hashCode * 59 + this.Wholes.GetHashCode();
                 hashCode = hashCode * 59 + this.MaxPlayers.GetHashCode();
+                if (this.Name != null)
+                    hashCode = hashCode * 59 + this.Name.GetHashCode();
                 return hashCode;
             }
         }
@@ -157,6 +159,18 @@ namespace Tgm.Roborally.Api.Model
             if(this.MaxPlayers < (int)1)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for MaxPlayers, must be a value greater than or equal to 1.", new [] { "MaxPlayers" });
+            }
+
+            // Name (string) maxLength
+            if(this.Name != null && this.Name.Length > 50)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, length must be less than 50.", new [] { "Name" });
+            }
+
+            // Name (string) minLength
+            if(this.Name != null && this.Name.Length < 3)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, length must be greater than 3.", new [] { "Name" });
             }
 
             yield break;

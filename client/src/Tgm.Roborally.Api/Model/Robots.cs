@@ -26,37 +26,18 @@ using OpenAPIDateConverter = Tgm.Roborally.Api.Client.OpenAPIDateConverter;
 namespace Tgm.Roborally.Api.Model
 {
     /// <summary>
-    /// Defines a direction in a 2D system. the X and Y values can be defined by the client.
+    /// Defines Robots
     /// </summary>
-    /// <value>Defines a direction in a 2D system. the X and Y values can be defined by the client.</value>
     
     [JsonConverter(typeof(StringEnumConverter))]
     
-    public enum Direction
+    public enum Robots
     {
         /// <summary>
-        /// Enum Up for value: up
+        /// Enum Dicer for value: dicer
         /// </summary>
-        [EnumMember(Value = "up")]
-        Up = 1,
-
-        /// <summary>
-        /// Enum Down for value: down
-        /// </summary>
-        [EnumMember(Value = "down")]
-        Down = 2,
-
-        /// <summary>
-        /// Enum Left for value: left
-        /// </summary>
-        [EnumMember(Value = "left")]
-        Left = 3,
-
-        /// <summary>
-        /// Enum Right for value: right
-        /// </summary>
-        [EnumMember(Value = "right")]
-        Right = 4
+        [EnumMember(Value = "dicer")]
+        Dicer = 1
 
     }
 

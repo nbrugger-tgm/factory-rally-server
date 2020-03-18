@@ -47,28 +47,76 @@ namespace Tgm.Roborally.Api.Model
         Rotator = 2,
 
         /// <summary>
-        /// Enum Band for value: band
-        /// </summary>
-        [EnumMember(Value = "band")]
-        Band = 3,
-
-        /// <summary>
-        /// Enum Hole for value: hole
-        /// </summary>
-        [EnumMember(Value = "hole")]
-        Hole = 4,
-
-        /// <summary>
         /// Enum Wall for value: wall
         /// </summary>
         [EnumMember(Value = "wall")]
-        Wall = 5,
+        Wall = 3,
 
         /// <summary>
         /// Enum Priocore for value: prio_core
         /// </summary>
         [EnumMember(Value = "prio_core")]
-        Priocore = 6
+        Priocore = 4,
+
+        /// <summary>
+        /// Enum Conveyor for value: conveyor
+        /// </summary>
+        [EnumMember(Value = "conveyor")]
+        Conveyor = 5,
+
+        /// <summary>
+        /// Enum TrapDoor for value: trap-door
+        /// </summary>
+        [EnumMember(Value = "trap-door")]
+        TrapDoor = 6,
+
+        /// <summary>
+        /// Enum Stomper for value: stomper
+        /// </summary>
+        [EnumMember(Value = "stomper")]
+        Stomper = 7,
+
+        /// <summary>
+        /// Enum Radioactive for value: radioactive
+        /// </summary>
+        [EnumMember(Value = "radioactive")]
+        Radioactive = 8,
+
+        /// <summary>
+        /// Enum Repairsite for value: repair site
+        /// </summary>
+        [EnumMember(Value = "repair site")]
+        Repairsite = 9,
+
+        /// <summary>
+        /// Enum Button for value: Button
+        /// </summary>
+        [EnumMember(Value = "Button")]
+        Button = 10,
+
+        /// <summary>
+        /// Enum OneWayWall for value: One Way Wall
+        /// </summary>
+        [EnumMember(Value = "One Way Wall")]
+        OneWayWall = 11,
+
+        /// <summary>
+        /// Enum Puddle for value: Puddle
+        /// </summary>
+        [EnumMember(Value = "Puddle")]
+        Puddle = 12,
+
+        /// <summary>
+        /// Enum Pit for value: pit
+        /// </summary>
+        [EnumMember(Value = "pit")]
+        Pit = 13,
+
+        /// <summary>
+        /// Enum Ramp for value: Ramp
+        /// </summary>
+        [EnumMember(Value = "Ramp")]
+        Ramp = 14
 
     }
 
