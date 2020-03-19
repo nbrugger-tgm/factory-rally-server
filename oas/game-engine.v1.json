@@ -14,15 +14,11 @@
   },
   "servers": [
     {
-      "url": "http://localhost:5050/v1",
-      "description": "Mock"
-    },
-    {
       "url": "http://game.host/v1",
       "description": "Production"
     },
     {
-      "url": "http://localhost:8080/v1",
+      "url": "http://localhost:5050/v1",
       "description": "Debug"
     }
   ],
@@ -137,7 +133,7 @@
         "parameters": [],
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -335,7 +331,7 @@
         "description": "Removes a player from the game. This can be done by the player itsself or by the host.",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           },
           {
             "Host-token-access": []
@@ -353,10 +349,10 @@
             "description": "OK"
           }
         },
-        "description": "Stes the type of robot(s) the player is controlling",
+        "description": "Sets the type of robot(s) the player is controlling",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ],
         "requestBody": {
@@ -406,7 +402,7 @@
         "description": "Retuns a list of all cards in the upgrade shop",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       },
@@ -421,7 +417,7 @@
         "description": "Buy this Upgrade from the shop.\n### Note\nIf your robot allready owns 3 Upgrades you have to use the `exchange` parameter. This is the ID of the Upgrade to replace with the bought one",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ],
         "parameters": [
@@ -482,7 +478,7 @@
         "operationId": "getUpgradeInformation",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ],
         "description": "Get detailed information about the Upgrade",
@@ -526,7 +522,7 @@
         "description": "Returns a list of all Upgrade IDs",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -574,7 +570,7 @@
         "description": "Returns the content of the registers",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       },
@@ -592,7 +588,7 @@
         "description": "Updates the card in a register",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       },
@@ -610,7 +606,7 @@
         "description": "Emptys all register of the robot",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -658,7 +654,7 @@
         "description": "Returns the upgrades installed on the robot",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       },
@@ -673,7 +669,7 @@
         "description": "Removes all upgrades from a robot",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ],
         "tags": [
@@ -691,7 +687,7 @@
         "description": "Removes a paticular upgrade from the robot",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ],
         "parameters": [
@@ -742,7 +738,7 @@
         "description": "All events needed by the client are accessible here. (Usefull for animations)\nMore about this function is found in the [regarding Github Issue](https://github.com/FactoryRally/game-controller/issues/6)\n\n**This function only returns the type of the event you need to fetch the data seperately**\n> Read more at [api-usage.md](https://github.com/FactoryRally/game-controller/blob/master/documentation/rest/api-usage.md#events--updates)",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ],
         "parameters": [
@@ -818,7 +814,7 @@
         "description": "Inspect a tile of the map",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -855,7 +851,7 @@
         "description": "Get meta information abouzt the map of the game",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -898,7 +894,7 @@
         "description": "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -941,7 +937,7 @@
         "description": "Returns the next unfetched event of the damage type.\n\nIf the event is not of the damage type you will get a `400` status and the event stays unfetched",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -984,7 +980,7 @@
         "description": "Returns the next unfetched event of the lazer hit type.\n\nIf the event is not of the lazer hit type you will get a `400` status and the event stays unfetched",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -1027,7 +1023,7 @@
         "description": "Returns the next unfetched event of the  Map Event type.\nMap Events activeata all active components of a type at once\n\nIf the event is not of the map event type you will get a `400` status and the event stays unfetched",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -1070,7 +1066,7 @@
         "description": "Returns the next unfetched event of the push type.\n\nIf the event is not of the push  type you will get a `400` status and the event stays unfetched",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -1113,7 +1109,7 @@
         "description": "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -1156,7 +1152,7 @@
         "description": "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -1182,7 +1178,9 @@
       ],
       "get": {
         "summary": "Get Robot Informations",
-        "tags": [],
+        "tags": [
+          "Robots"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -1199,7 +1197,7 @@
         "description": "Returns the status and info about the robot",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -1234,7 +1232,7 @@
         "description": "Adds an action to the stack. The stack is processed using *first in first out*",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ],
         "requestBody": {
@@ -1271,7 +1269,7 @@
         "description": "Retuns a list od all actions in the stack",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ],
         "tags": [
@@ -1322,7 +1320,7 @@
         "description": "Returns a list of EntityActionTypes which are possible to be executed at the moment.",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -1362,7 +1360,7 @@
         "description": "Returns a list of all robot IDs in this game.\n> A robot is not a player as a player is able to controll multiple robots",
         "security": [
           {
-            "Player-Token-Access": []
+            "Player-Access-Token": []
           }
         ]
       }
@@ -1376,11 +1374,11 @@
         "description": "The Host of the game (and of the API) has an unique identificaton granting him game manipulating abilities. By this means it is also possible to have a host and a client at the same machine. \n> This could be used for AI`s (bot players)",
         "name": "hid"
       },
-      "Player-Token-Access": {
+      "Player-Access-Token": {
         "type": "apiKey",
         "in": "query",
         "description": "Players need a token to join a lobby/game. If the host sets a password the player needs the password to get the token",
-        "name": "uid"
+        "name": "pat"
       }
     },
     "schemas": {
@@ -1512,8 +1510,18 @@
             "description": "The visible name of the game",
             "minLength": 3,
             "maxLength": 50
+          },
+          "robots-per-player": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "maximum": 3,
+            "description": "Defines the number of robots per player"
           }
-        }
+        },
+        "required": [
+          "name"
+        ]
       },
       "Game": {
         "title": "Game",
@@ -1536,7 +1544,7 @@
             "minItems": 0,
             "description": "The list of players attending the game.\n(Only contains the name of the players)",
             "items": {
-              "$ref": "#/components/schemas/Name"
+              "$ref": "#/components/schemas/PlayerID"
             }
           },
           "runtime_info": {
@@ -1653,10 +1661,6 @@
           },
           "type": {
             "$ref": "#/components/schemas/ActionType"
-          },
-          "canceled": {
-            "type": "boolean",
-            "description": "true if the player canceled the action"
           },
           "executed": {
             "type": "boolean",
@@ -1898,20 +1902,22 @@
       "JoinResponse": {
         "title": "JoinResponse",
         "type": "object",
+        "description": "All the data you need as you joined a game.",
         "properties": {
           "id": {
             "$ref": "#/components/schemas/PlayerID"
           },
-          "uid": {
+          "pat": {
             "type": "integer",
-            "description": "The uid is the key for the joined player. You need this key for authentication"
+            "description": "The uid is the key for the joined player. You need this key for authentication",
+            "minimum": 9999,
+            "maximum": 99999999
           }
         },
         "required": [
-          "uid",
-          "id"
-        ],
-        "description": "All the data you need as you joined a game."
+          "id",
+          "pat"
+        ]
       },
       "UpgradeID": {
         "type": "integer",
@@ -2332,6 +2338,14 @@
           }
         ],
         "description": "Checkpoints are entities"
+      },
+      "PlayerAccessToken": {
+        "type": "string",
+        "title": "PlayerAccessToken",
+        "minLength": 10,
+        "maxLength": 75,
+        "pattern": "[A-Za-z0-9+*~-_=?]+",
+        "description": "The token used to authorize a player"
       }
     }
   },
