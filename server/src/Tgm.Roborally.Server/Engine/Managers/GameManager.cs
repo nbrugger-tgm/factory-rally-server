@@ -19,7 +19,7 @@ namespace Tgm.Roborally.Server.Engine
 		{
 			Console.WriteLine("Create game with rules : " + rules);
 			int id = randomID;
-			GameLogic game = new GameLogic {Id = id, Name = rules.Name};
+			GameLogic game = new GameLogic(rules) {Id = id};
 			games[id] = game;
 			return id;
 		}
@@ -28,6 +28,8 @@ namespace Tgm.Roborally.Server.Engine
 
 		public GameLogic GetGame(int gameId, ref IActionResult response)
 		{
+			if (response != null)
+				return null;
 			if (games.ContainsKey(gameId))
 				response = new NotFoundResult();
 			return games[gameId];

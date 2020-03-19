@@ -5,11 +5,11 @@ namespace Tgm.Roborally.Server.Engine
 {
 	public class EventManager
 	{
-		public Dictionary<string,Queue<Event>> queues = new Dictionary<string, Queue<Event>>();
+		public Dictionary<int,Queue<Event>> queues = new Dictionary<int, Queue<Event>>();
 
 		public void notify(Event e,int game)
 		{
-			foreach (var player in GameManager.instance.games[game].Players)
+			foreach (int player in GameManager.instance.games[game].PlayerIds)
 			{
 				if(queues[player] == null)
 					queues[player] = new Queue<Event>();

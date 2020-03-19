@@ -56,7 +56,7 @@ namespace Tgm.Roborally.Server.Models
         /// </summary>
         /// <value>The list of players attending the game. (Only contains the name of the players)</value>
         [DataMember(Name = "players", EmitDefaultValue = false)]
-        public List<string> Players => _logic.Players;
+        public List<int> Players => _logic.PlayerIds;
 
         /// <summary>
         /// Gets or Sets RuntimeInfo

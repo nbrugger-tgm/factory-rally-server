@@ -10,13 +10,13 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
-using Tgm.Roborally.Server.Attributes;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
+using Tgm.Roborally.Server.Attributes;
+using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Controllers
@@ -38,19 +38,15 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("GetAllPlayers")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
-        public virtual IActionResult GetAllPlayers([FromRoute][Required][Range(0, 2048)]int gameId)
-        { 
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(List<int>));
-            string exampleJson = null;
-            exampleJson = "3";
+        public virtual IActionResult GetAllPlayers([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
+        {
+            IActionResult response = null;
             
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<List<int>>(exampleJson)
-            : default(List<int>);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+            GameLogic game = GameManager.instance.GetGame(gameId, ref response);
+            if (response != null)
+                return response;
+            
+            return new ObjectResult(game.PlayerIds);
         }
 
         /// <summary>
@@ -65,19 +61,16 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("GetPlayer")]
         [SwaggerResponse(statusCode: 200, type: typeof(Player), description: "OK")]
-        public virtual IActionResult GetPlayer([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required][Range(0, 8)]int playerId)
+        public virtual IActionResult GetPlayer([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "player_id")][Required][Range(0, 8)]int playerId)
         { 
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Player));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"on-turn\" : false,\r\n  \"controlled_entities\" : [ null, null ],\r\n  \"id\" : 3\r\n}";
+            IActionResult response = null;
             
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Player>(exampleJson)
-            : default(Player);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+            GameLogic game = GameManager.instance.GetGame(gameId, ref response);
+            Player p = game.GetPlayer(playerId, ref response);
+            if (response != null)
+                return response;
+            return new ObjectResult(p);
         }
 
         /// <summary>
@@ -94,21 +87,15 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("Join")]
         [SwaggerResponse(statusCode: 200, type: typeof(JoinResponse), description: "Joined")]
         [SwaggerResponse(statusCode: 401, type: typeof(ErrorMessage), description: "Wrong/No password")]
-        public virtual IActionResult Join([FromRoute][Required][Range(0, 2048)]int gameId, [FromQuery]string password)
-        { 
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(JoinResponse));
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorMessage));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"uid\" : 0,\r\n  \"id\" : 3\r\n}";
+        public virtual IActionResult Join([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromQuery]string password)
+        {
+            IActionResult response = null;
             
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<JoinResponse>(exampleJson)
-            : default(JoinResponse);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+            GameLogic game = GameManager.instance.GetGame(gameId, ref response);
+            if (response != null)
+                return response;
+            game.Join(password,ref response);
+            return response;
         }
 
         /// <summary>
@@ -124,7 +111,7 @@ namespace Tgm.Roborally.Server.Controllers
         [Authorize(Policy = "Player-Token-Access")]
         [ValidateModelState]
         [SwaggerOperation("KickPlayer")]
-        public virtual IActionResult KickPlayer([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required][Range(0, 8)]int playerId)
+        public virtual IActionResult KickPlayer([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "player_id")][Required][Range(0, 8)]int playerId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...

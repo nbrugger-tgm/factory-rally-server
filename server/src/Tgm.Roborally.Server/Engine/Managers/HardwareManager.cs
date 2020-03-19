@@ -13,6 +13,6 @@ namespace Tgm.Roborally.Server.Engine
 		}
 
 		public bool HardwareConnected => ip != null && Compatible;
-		public bool Compatible => _game.Players.Count <= 4;
+		public bool Compatible => _game.MaxPlayers <= 4;
 	}
 }

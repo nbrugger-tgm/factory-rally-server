@@ -10,7 +10,9 @@ namespace Tgm.Roborally.Server.Engine
 {
 	public class GameActionHandler
 	{
-		public List<ActionType> queue { get; } = new List<ActionType>();
+		private List<ActionType> _Queue { get; } = new List<ActionType>();
+
+		
 		private int _queuePos;
 		public int QueuePos => _queuePos;
 		private Dictionary<ActionType, Action> ActionMap = new Dictionary<ActionType, Action>();
@@ -18,7 +20,7 @@ namespace Tgm.Roborally.Server.Engine
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void executeNext()
 		{
-			ActionType key = queue[_queuePos];
+			ActionType key = _Queue[_queuePos];
 			_queuePos++;
 			ActionMap[key].Invoke();
 		}
@@ -37,8 +39,9 @@ namespace Tgm.Roborally.Server.Engine
 			ActionMap[ActionType.PAUSE] = () => { _ref.State = _ref.LastState; };
 		}
 
-		public void Add(ActionType t) => queue.Add(t);
-		public List<ActionType> Pending => queue.Where((i, e) => e >= _queuePos).ToList();
-		public List<ActionType> Executed => queue.Where((i, e) => e < _queuePos).ToList();
+		public void Add(ActionType t) => _Queue.Add(t);
+		public List<ActionType> Pending => _Queue.Where((i, e) => e >= _queuePos).ToList();
+		public List<ActionType> Executed => _Queue.Where((i, e) => e < _queuePos).ToList();
+		public List<Tgm.Roborally.Server.Models.Action> Queue => _Queue.Select((e,i) => new Tgm.Roborally.Server.Models.Action(){Index = i,Executed = i<_queuePos,Type = e,}).ToList();
 	}
 }

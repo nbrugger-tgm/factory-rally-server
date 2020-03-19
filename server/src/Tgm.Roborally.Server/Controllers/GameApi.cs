@@ -85,7 +85,7 @@ namespace Tgm.Roborally.Server.Controllers
 			GameLogic game = GameManager.instance.GetGame(gameId, ref response);
 			if (response != null)
 				return response;
-			return new ObjectResult(game.ActionHandler.queue);
+			return new ObjectResult(game.ActionHandler.Queue);
 		}
 
 		/// <summary>
@@ -125,7 +125,7 @@ namespace Tgm.Roborally.Server.Controllers
 		public virtual IActionResult GetGames([FromQuery] bool joinable, [FromQuery] bool unprotected)
 		{
 			return new ObjectResult(GameManager.instance.games.Where(pair =>
-					(!joinable || pair.Value.State == GameState.LOBBY) && (!unprotected || pair.Value.Password == null))
+					(!joinable || pair.Value.Joinable) && (!unprotected || pair.Value.Password == null))
 				.Select(e => e.Key));
 		}
 	}
