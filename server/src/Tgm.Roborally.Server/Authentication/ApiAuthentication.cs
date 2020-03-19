@@ -41,8 +41,8 @@ namespace Tgm.Roborally.Server.Authentication
                     context.Succeed(requirement);
                 }
 
-                apiKey = authorizationFilterContext.HttpContext.Request.Query["uid"].FirstOrDefault();
-                if (requirement.PolicyName == "Player-Token-Access" && apiKey != null && requirement.ApiKeys.Any(requiredApiKey => apiKey == requiredApiKey))
+                apiKey = authorizationFilterContext.HttpContext.Request.Query["pat"].FirstOrDefault();
+                if (requirement.PolicyName == "Player-Access-Token" && apiKey != null && requirement.ApiKeys.Any(requiredApiKey => apiKey == requiredApiKey))
                 {
                     context.Succeed(requirement);
                 }

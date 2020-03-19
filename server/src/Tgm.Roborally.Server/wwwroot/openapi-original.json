@@ -13,14 +13,11 @@
     "version" : "0.1.0"
   },
   "servers" : [ {
-    "description" : "Mock",
-    "url" : "http://localhost:5050/v1"
-  }, {
     "description" : "Production",
     "url" : "http://game.host/v1"
   }, {
     "description" : "Debug",
-    "url" : "http://localhost:8080/v1"
+    "url" : "http://localhost:5050/v1"
   } ],
   "tags" : [ {
     "description" : "All actions needed to interact with players.<br>Keep in mid that a player is *not* a robot",
@@ -142,7 +139,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get game status",
         "tags" : [ "Game" ]
@@ -327,7 +324,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         }, {
           "Host-token-access" : [ ]
         } ],
@@ -372,7 +369,7 @@
         "tags" : [ "Players" ]
       },
       "patch" : {
-        "description" : "Stes the type of robot(s) the player is controlling",
+        "description" : "Sets the type of robot(s) the player is controlling",
         "operationId" : "chooseRobot",
         "parameters" : [ {
           "explode" : false,
@@ -412,7 +409,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Set Robots"
       }
@@ -444,7 +441,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get upgrade shop",
         "tags" : [ "Upgrades" ]
@@ -486,7 +483,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Buy Upgrade",
         "tags" : [ "Upgrades" ]
@@ -528,7 +525,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get upgrade information",
         "tags" : [ "Upgrades" ]
@@ -564,7 +561,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "get all Upgrades",
         "tags" : [ "Upgrades" ]
@@ -599,7 +596,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "clear registers",
         "tags" : [ "Robots" ]
@@ -642,7 +639,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get register information",
         "tags" : [ "Robots" ]
@@ -675,7 +672,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "change register content",
         "tags" : [ "Robots" ]
@@ -710,7 +707,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Clear Robot Upgrades",
         "tags" : [ "Robots" ]
@@ -753,7 +750,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get Robot Upgrades",
         "tags" : [ "Robots" ]
@@ -795,7 +792,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Remove Upgrade",
         "tags" : [ "Robots" ]
@@ -850,7 +847,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "trace event",
         "tags" : [ "EventHandling" ]
@@ -901,7 +898,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get tile",
         "tags" : [ "Map" ]
@@ -934,7 +931,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get Map info",
         "tags" : [ "Map" ]
@@ -973,7 +970,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get next / last movement event",
         "tags" : [ "EventHandling" ]
@@ -1012,7 +1009,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get next / last damage event",
         "tags" : [ "EventHandling" ]
@@ -1051,7 +1048,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get next / last Lazer hit event",
         "tags" : [ "EventHandling" ]
@@ -1090,7 +1087,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get next / last map event",
         "tags" : [ "EventHandling" ]
@@ -1129,7 +1126,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get next / last push event",
         "tags" : [ "EventHandling" ]
@@ -1168,7 +1165,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get next / last shoot event",
         "tags" : [ "EventHandling" ]
@@ -1207,7 +1204,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get next / last shutdown event",
         "tags" : [ "EventHandling" ]
@@ -1249,10 +1246,10 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get Robot Informations",
-        "tags" : [ ]
+        "tags" : [ "Robots" ]
       }
     },
     "/games/{game_id}/entitys/robots/{robot_id}/actions/stack/" : {
@@ -1294,7 +1291,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get Robot action stack",
         "tags" : [ "Robots" ]
@@ -1336,7 +1333,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Add Entity Action to stack",
         "tags" : [ "Robots" ]
@@ -1381,7 +1378,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get Aviable actions",
         "tags" : [ "Robots" ]
@@ -1417,7 +1414,7 @@
           }
         },
         "security" : [ {
-          "Player-Token-Access" : [ ]
+          "Player-Access-Token" : [ ]
         } ],
         "summary" : "Get all robots",
         "tags" : [ "Robots" ]
@@ -1512,7 +1509,8 @@
         "example" : {
           "max-players" : 1,
           "name" : "name",
-          "player-names-visible" : true
+          "player-names-visible" : true,
+          "robots-per-player" : 2
         },
         "properties" : {
           "player-names-visible" : {
@@ -1532,8 +1530,16 @@
             "maxLength" : 50,
             "minLength" : 3,
             "type" : "string"
+          },
+          "robots-per-player" : {
+            "description" : "Defines the number of robots per player",
+            "format" : "int32",
+            "maximum" : 3,
+            "minimum" : 1,
+            "type" : "integer"
           }
         },
+        "required" : [ "name" ],
         "title" : "GameRules",
         "type" : "object"
       },
@@ -1560,7 +1566,7 @@
           "players" : {
             "description" : "The list of players attending the game.\n(Only contains the name of the players)",
             "items" : {
-              "$ref" : "#/components/schemas/Name"
+              "$ref" : "#/components/schemas/PlayerID"
             },
             "minItems" : 0,
             "type" : "array"
@@ -1668,7 +1674,6 @@
       "Action" : {
         "description" : "A queued action.\nActions are executed in their adding sequence which is represented by their index",
         "example" : {
-          "canceled" : true,
           "index" : 0,
           "executed" : true,
           "requestor" : 6
@@ -1680,10 +1685,6 @@
           },
           "type" : {
             "$ref" : "#/components/schemas/ActionType"
-          },
-          "canceled" : {
-            "description" : "true if the player canceled the action",
-            "type" : "boolean"
           },
           "executed" : {
             "description" : "true if the action was allready executed",
@@ -1973,7 +1974,7 @@
       "JoinResponse" : {
         "description" : "All the data you need as you joined a game.",
         "example" : {
-          "uid" : 0,
+          "pat" : 8017480,
           "id" : 3
         },
         "properties" : {
@@ -1985,12 +1986,14 @@
             "title" : "PlayerID",
             "type" : "integer"
           },
-          "uid" : {
+          "pat" : {
             "description" : "The uid is the key for the joined player. You need this key for authentication",
+            "maximum" : 99999999,
+            "minimum" : 9999,
             "type" : "integer"
           }
         },
-        "required" : [ "id", "uid" ],
+        "required" : [ "id", "pat" ],
         "title" : "JoinResponse",
         "type" : "object"
       },
@@ -2358,6 +2361,14 @@
         "description" : "Checkpoints are entities",
         "title" : "Checkpoint"
       },
+      "PlayerAccessToken" : {
+        "description" : "The token used to authorize a player",
+        "maxLength" : 75,
+        "minLength" : 10,
+        "pattern" : "[A-Za-z0-9+*~-_=?]+",
+        "title" : "PlayerAccessToken",
+        "type" : "string"
+      },
       "inline_response_200" : {
         "example" : { },
         "properties" : {
@@ -2456,10 +2467,10 @@
         "name" : "hid",
         "type" : "apiKey"
       },
-      "Player-Token-Access" : {
+      "Player-Access-Token" : {
         "description" : "Players need a token to join a lobby/game. If the host sets a password the player needs the password to get the token",
         "in" : "query",
-        "name" : "uid",
+        "name" : "pat",
         "type" : "apiKey"
       }
     }

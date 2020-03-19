@@ -40,8 +40,9 @@ namespace Tgm.Roborally.Server.Models
         /// </summary>
         /// <value>The uid is the key for the joined player. You need this key for authentication</value>
         [Required]
-        [DataMember(Name="uid", EmitDefaultValue=false)]
-        public int Uid { get; set; }
+        [Range(9999, 99999999)]
+        [DataMember(Name="pat", EmitDefaultValue=false)]
+        public int Pat { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -52,7 +53,7 @@ namespace Tgm.Roborally.Server.Models
             var sb = new StringBuilder();
             sb.Append("class JoinResponse {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Uid: ").Append(Uid).Append("\n");
+            sb.Append("  Pat: ").Append(Pat).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -95,9 +96,9 @@ namespace Tgm.Roborally.Server.Models
                     Id.Equals(other.Id)
                 ) && 
                 (
-                    Uid == other.Uid ||
+                    Pat == other.Pat ||
                     
-                    Uid.Equals(other.Uid)
+                    Pat.Equals(other.Pat)
                 );
         }
 
@@ -114,7 +115,7 @@ namespace Tgm.Roborally.Server.Models
                     
                     hashCode = hashCode * 59 + Id.GetHashCode();
                     
-                    hashCode = hashCode * 59 + Uid.GetHashCode();
+                    hashCode = hashCode * 59 + Pat.GetHashCode();
                 return hashCode;
             }
         }

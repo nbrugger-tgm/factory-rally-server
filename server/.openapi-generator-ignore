@@ -8,3 +8,4 @@
 !**/*Type.cs
 !**/GameState.cs
 !**/GameRules.cs
+!**/JoinResponse.cs
