@@ -11,22 +11,17 @@ namespace Tgm.Roborally.Test
 	{
 		static void Main(string[] args)
 		{
-			//Configuration c = new Configuration {BasePath = "localhost:5050/v1"};
-			GameApi api = new GameApi();
-			GameRules r = new GameRules();
-			r.Name = "Test";
-			r.MaxPlayers = 4;
-			r.PlayerNamesVisible = true;
-			
+			Configuration c = new Configuration {BasePath = "http://localhost:5050/v1"};
+			GameApi api = new GameApi(c);
+			GameRules r = new GameRules(default,2,"Test",1,null);
+
 			Console.WriteLine("Create Games : ");
 			
 			api.CreateGame(r);
-			api.CreateGame(new GameRules() {Name = "Test1", MaxPlayers = 4, PlayerNamesVisible = true});
-			api.CreateGame(new GameRules() {Name = "Test2", MaxPlayers = 10, PlayerNamesVisible = true});
 
 			List<int> games = api.GetGames();
 			
-			Console.WriteLine(games.Count == 3 ? "Success" : "Fail");
+			Console.WriteLine(games.Count == 1 ? "Success" : "Fail");
 			
 			
 			Console.WriteLine("Change Game State (Pause) : ");
@@ -43,6 +38,11 @@ namespace Tgm.Roborally.Test
 			api.CommitAction(games[0],ActionType.UNPAUSE);
 			Console.WriteLine("  After Change : "+api.GetGameState(games[0]).State);
 			Console.WriteLine(api.GetGameState(games[0]).State == GameState.LOBBY ? "Success" : "Fail");
+			
+			
+			Console.WriteLine("--------[Player Join Test]---------");
+			PlayersApi p = new PlayersApi(c);
+			Console.WriteLine(p.Join(games[0]));
 		}
 	}
 }
