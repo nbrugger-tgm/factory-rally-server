@@ -30,8 +30,11 @@ namespace Tgm.Roborally.Server.Engine
 		{
 			if (response != null)
 				return null;
-			if (games.ContainsKey(gameId))
+			if (!games.ContainsKey(gameId))
+			{
 				response = new NotFoundResult();
+				return null;
+			}
 			return games[gameId];
 		}
 	}

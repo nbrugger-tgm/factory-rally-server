@@ -19,7 +19,7 @@ namespace Tgm.Roborally.Server.Engine
 
 		public string Password;
 
-		private GameState _state;
+		private GameState _state = GameState.LOBBY;
 
 		public GameState State
 		{
@@ -92,7 +92,7 @@ namespace Tgm.Roborally.Server.Engine
 				return;
 			}
 
-			if (!password.Equals(CreatedBy.Password))
+			if (CreatedBy.Password != null && !password.Equals(CreatedBy.Password))
 			{
 				response = new ForbidResult();
 			}

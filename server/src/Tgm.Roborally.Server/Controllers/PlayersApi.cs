@@ -92,6 +92,8 @@ namespace Tgm.Roborally.Server.Controllers
             IActionResult response = null;
             
             GameLogic game = GameManager.instance.GetGame(gameId, ref response);
+            if (response != null)
+                return response;
             game.Join(password,ref response);
             return response;
         }
