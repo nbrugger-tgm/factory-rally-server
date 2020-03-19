@@ -6,6 +6,7 @@ The Game Controller is an Web API controlling the logic/flow of one (or multiple
 Fehlercodes :
 
 - [ ] Game Not Found 404
+- [ ] Game Not Joinable 309 Conflict
 
 Extend hardware compatibility conditions 
 
