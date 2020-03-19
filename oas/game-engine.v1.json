@@ -1375,10 +1375,10 @@
         "name": "hid"
       },
       "Player-Access-Token": {
-        "type": "apiKey",
         "in": "query",
         "description": "Players need a token to join a lobby/game. If the host sets a password the player needs the password to get the token",
-        "name": "pat"
+        "name": "pat",
+        "type": "apiKey"
       }
     },
     "schemas": {
@@ -1517,6 +1517,9 @@
             "minimum": 1,
             "maximum": 3,
             "description": "Defines the number of robots per player"
+          },
+          "password": {
+            "$ref": "#/components/schemas/Password"
           }
         },
         "required": [

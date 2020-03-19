@@ -1507,6 +1507,7 @@
       "GameRules" : {
         "description" : "Game Rules define the rules for a Game",
         "example" : {
+          "password" : "QWer7zÜ",
           "max-players" : 1,
           "name" : "name",
           "player-names-visible" : true,
@@ -1537,6 +1538,15 @@
             "maximum" : 3,
             "minimum" : 1,
             "type" : "integer"
+          },
+          "password" : {
+            "description" : "The password of a game",
+            "example" : "QWer7zÜ",
+            "format" : "password",
+            "maxLength" : 18,
+            "minLength" : 4,
+            "title" : "Password",
+            "type" : "string"
           }
         },
         "required" : [ "name" ],

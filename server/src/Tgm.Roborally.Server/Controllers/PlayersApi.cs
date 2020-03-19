@@ -92,8 +92,6 @@ namespace Tgm.Roborally.Server.Controllers
             IActionResult response = null;
             
             GameLogic game = GameManager.instance.GetGame(gameId, ref response);
-            if (response != null)
-                return response;
             game.Join(password,ref response);
             return response;
         }
@@ -113,11 +111,11 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("KickPlayer")]
         public virtual IActionResult KickPlayer([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "player_id")][Required][Range(0, 8)]int playerId)
         { 
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-
-            throw new NotImplementedException();
+            IActionResult response = null;
+            
+            GameLogic game = GameManager.instance.GetGame(gameId, ref response);
+            game.RemovePlayer(playerId,ref response);
+            return response;
         }
     }
 }

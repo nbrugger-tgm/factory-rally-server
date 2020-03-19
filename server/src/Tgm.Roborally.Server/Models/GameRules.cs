@@ -59,6 +59,14 @@ namespace Tgm.Roborally.Server.Models
         public int RobotsPerPlayer { get; set; }
 
         /// <summary>
+        /// The password of a game
+        /// </summary>
+        /// <value>The password of a game</value>
+        [StringLength(18, MinimumLength=4)]
+        [DataMember(Name="password", EmitDefaultValue=false)]
+        public string Password { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -70,6 +78,7 @@ namespace Tgm.Roborally.Server.Models
             sb.Append("  MaxPlayers: ").Append(MaxPlayers).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  RobotsPerPlayer: ").Append(RobotsPerPlayer).Append("\n");
+            sb.Append("  Password: ").Append(Password).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -125,6 +134,11 @@ namespace Tgm.Roborally.Server.Models
                     RobotsPerPlayer == other.RobotsPerPlayer ||
                     
                     RobotsPerPlayer.Equals(other.RobotsPerPlayer)
+                ) && 
+                (
+                    Password == other.Password ||
+                    Password != null &&
+                    Password.Equals(other.Password)
                 );
         }
 
@@ -146,6 +160,8 @@ namespace Tgm.Roborally.Server.Models
                     hashCode = hashCode * 59 + Name.GetHashCode();
                     
                     hashCode = hashCode * 59 + RobotsPerPlayer.GetHashCode();
+                    if (Password != null)
+                    hashCode = hashCode * 59 + Password.GetHashCode();
                 return hashCode;
             }
         }

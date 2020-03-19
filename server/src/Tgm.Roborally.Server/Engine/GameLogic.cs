@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Serialization;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine
@@ -56,7 +54,7 @@ namespace Tgm.Roborally.Server.Engine
 
 			return id;
 		}
-		
+
 		public Player GetPlayer(int id, ref IActionResult response)
 		{
 			if (response != null)
@@ -94,9 +92,33 @@ namespace Tgm.Roborally.Server.Engine
 				return;
 			}
 
+			if (!password.Equals(CreatedBy.Password))
+			{
+				response = new ForbidResult();
+			}
+
 			Player p = new Player {Id = NextPlayerID()};
 			Players.Add(p);
-			
+			response = new ObjectResult(new JoinResponse(p));
+		}
+
+		public void RemovePlayer(int playerId, ref IActionResult response)
+		{
+			if (_state == GameState.LOBBY)
+				Players.Remove(GetPlayer(playerId));
+			else if (_state == GameState.PLAYING || _state == GameState.PLANNING)
+			{
+				Player p = GetPlayer(playerId);
+				p.Active = false;
+			}
+			else
+			{
+				//Player not removable
+				response = new ConflictResult();
+				return;
+			}
+
+			response = new OkResult();
 		}
 	}
 }

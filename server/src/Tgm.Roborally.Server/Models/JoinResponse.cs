@@ -26,14 +26,20 @@ namespace Tgm.Roborally.Server.Models
     [DataContract]
     public partial class JoinResponse : IEquatable<JoinResponse>
     {
+        private Player _player { get; }
+        public JoinResponse(Player player)
+        {
+            _player = player;
+        }
+
         /// <summary>
         /// This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication
         /// </summary>
         /// <value>This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication</value>
         [Required]
         [Range(0, 8)]
-        [DataMember(Name="id", EmitDefaultValue=false)]
-        public int Id { get; set; }
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        public int Id => _player.Id;
 
         /// <summary>
         /// The uid is the key for the joined player. You need this key for authentication
@@ -41,8 +47,8 @@ namespace Tgm.Roborally.Server.Models
         /// <value>The uid is the key for the joined player. You need this key for authentication</value>
         [Required]
         [Range(9999, 99999999)]
-        [DataMember(Name="pat", EmitDefaultValue=false)]
-        public int Pat { get; set; }
+        [DataMember(Name = "pat", EmitDefaultValue = false)]
+        public string Pat => _player.auth;
 
         /// <summary>
         /// Returns the string presentation of the object

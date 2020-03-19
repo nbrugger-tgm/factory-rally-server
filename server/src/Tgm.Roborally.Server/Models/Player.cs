@@ -34,6 +34,21 @@ namespace Tgm.Roborally.Server.Models
         [Range(0, 8)]
         [DataMember(Name="id", EmitDefaultValue=false)]
         public int Id { get; set; }
+        
+        public string auth { get; } = AuthID();
+        private const string chars = "ABCDEFGHIJKLMNOPQRSTabcdefghijklmnopqrst1234567890-_+~*=?";
+        private static string AuthID()
+        {
+            Random r = new Random();
+            int l = r.Next(65) + 10;
+            StringBuilder b = new StringBuilder();
+            for (int i = 0; i < l; i++)
+            {
+                b.Append(chars[r.Next(chars.Length)]);
+            }
+
+            return b.ToString();
+        }
 
         /// <summary>
         /// The list of entities controlled by this player
@@ -49,6 +64,9 @@ namespace Tgm.Roborally.Server.Models
         /// <value>Îf this is true rhe player is able to interact at the moment</value>
         [DataMember(Name="on-turn", EmitDefaultValue=false)]
         public bool OnTurn { get; set; } = false;
+
+        [DataMember(Name = "active", EmitDefaultValue = false)]
+        public bool Active { get; set; } = true;
 
         /// <summary>
         /// Returns the string presentation of the object

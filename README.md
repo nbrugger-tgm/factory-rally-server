@@ -7,8 +7,10 @@ Fehlercodes :
 
 - [ ] Game Not Found 404
 - [ ] Game Not Joinable 309 Conflict
+- [ ] Player not Removable Invalid Request
 
 Extend hardware compatibility conditions 
 
 - [ ] Player ID not negative
 - [ ] Get Actions executed/pending options
+- [ ] Add Player "active" attribute
