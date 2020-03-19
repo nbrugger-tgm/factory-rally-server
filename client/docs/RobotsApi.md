@@ -1,6 +1,6 @@
 # Tgm.Roborally.Api.Api.RobotsApi
 
-All URIs are relative to *http://localhost:5050/v1*
+All URIs are relative to *http://game.host/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**GetInstalledUpgrades**](RobotsApi.md#getinstalledupgrades) | **GET** /games/{game_id}/entitys/robots/{robot_id}/upgrades | Get Robot Upgrades
 [**GetPossibleActions**](RobotsApi.md#getpossibleactions) | **GET** /games/{game_id}/entitys/robots/{robot_id}/actions/avinable | Get Aviable actions
 [**GetRegisters**](RobotsApi.md#getregisters) | **GET** /games/{game_id}/entitys/robots/{robot_id}/registers | Get register information
+[**GetRobotStats**](RobotsApi.md#getrobotstats) | **GET** /games/{game_id}/entitys/robots/{robot_id}/info | Get Robot Informations
 [**GetRobots**](RobotsApi.md#getrobots) | **GET** /games/{game_id}/entitys/robots/ | Get all robots
 [**RemoveRobotUpgrade**](RobotsApi.md#removerobotupgrade) | **PATCH** /games/{game_id}/entitys/robots/{robot_id}/upgrades | Remove Upgrade
 [**UpdateRegister**](RobotsApi.md#updateregister) | **PATCH** /games/{game_id}/entitys/robots/{robot_id}/registers | change register content
@@ -39,11 +40,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new RobotsApi(config);
             var gameId = 56;  // int | 
@@ -78,7 +79,7 @@ void (empty response body)
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -115,11 +116,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new RobotsApi(config);
             var gameId = 56;  // int | 
@@ -154,7 +155,7 @@ void (empty response body)
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -191,11 +192,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new RobotsApi(config);
             var gameId = 56;  // int | 
@@ -232,7 +233,7 @@ void (empty response body)
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -269,11 +270,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new RobotsApi(config);
             var gameId = 56;  // int | 
@@ -309,7 +310,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -346,11 +347,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new RobotsApi(config);
             var gameId = 56;  // int | 
@@ -386,7 +387,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -423,11 +424,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new RobotsApi(config);
             var gameId = 56;  // int | 
@@ -463,7 +464,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -500,11 +501,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new RobotsApi(config);
             var gameId = 56;  // int | 
@@ -540,7 +541,84 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="getrobotstats"></a>
+# **GetRobotStats**
+> RobotInfo GetRobotStats (int gameId, string robotId)
+
+Get Robot Informations
+
+Returns the status and info about the robot
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using Tgm.Roborally.Api.Api;
+using Tgm.Roborally.Api.Client;
+using Tgm.Roborally.Api.Model;
+
+namespace Example
+{
+    public class GetRobotStatsExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("pat", "Bearer");
+
+            var apiInstance = new RobotsApi(config);
+            var gameId = 56;  // int | 
+            var robotId = robotId_example;  // string | 
+
+            try
+            {
+                // Get Robot Informations
+                RobotInfo result = apiInstance.GetRobotStats(gameId, robotId);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling RobotsApi.GetRobotStats: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **gameId** | **int**|  | 
+ **robotId** | **string**|  | 
+
+### Return type
+
+[**RobotInfo**](RobotInfo.md)
+
+### Authorization
+
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -577,11 +655,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new RobotsApi(config);
             var gameId = 56;  // int | 
@@ -615,7 +693,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -652,11 +730,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new RobotsApi(config);
             var gameId = 56;  // int | 
@@ -693,7 +771,7 @@ void (empty response body)
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -730,11 +808,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new RobotsApi(config);
             var gameId = 56;  // int | 
@@ -769,7 +847,7 @@ void (empty response body)
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 

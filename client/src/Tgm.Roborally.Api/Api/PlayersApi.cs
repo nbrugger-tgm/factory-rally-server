@@ -731,10 +731,10 @@ namespace Tgm.Roborally.Api.Api
                     }
                 }
             }
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -807,10 +807,10 @@ namespace Tgm.Roborally.Api.Api
                     }
                 }
             }
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {

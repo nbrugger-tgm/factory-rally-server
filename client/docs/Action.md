@@ -6,7 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Index** | **int** | The queue index of the action | [optional] 
 **Type** | **ActionType** |  | [optional] 
-**Canceled** | **bool** | true if the player canceled the action | [optional] 
 **Executed** | **bool** | true if the action was allready executed | [optional] 
 **Requestor** | **int** | The index of the player this instruction came from | [optional] 
 

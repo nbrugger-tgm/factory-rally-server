@@ -41,14 +41,12 @@ namespace Tgm.Roborally.Api.Model
         /// </summary>
         /// <param name="index">The queue index of the action.</param>
         /// <param name="type">type.</param>
-        /// <param name="canceled">true if the player canceled the action.</param>
         /// <param name="executed">true if the action was allready executed.</param>
         /// <param name="requestor">The index of the player this instruction came from.</param>
-        public Action(int index = default(int), ActionType type = default(ActionType), bool canceled = default(bool), bool executed = default(bool), int requestor = default(int))
+        public Action(int index = default(int), ActionType type = default(ActionType), bool executed = default(bool), int requestor = default(int))
         {
             this.Index = index;
             this.Type = type;
-            this.Canceled = canceled;
             this.Executed = executed;
             this.Requestor = requestor;
         }
@@ -59,13 +57,6 @@ namespace Tgm.Roborally.Api.Model
         /// <value>The queue index of the action</value>
         [DataMember(Name="index", EmitDefaultValue=false)]
         public int Index { get; set; }
-
-        /// <summary>
-        /// true if the player canceled the action
-        /// </summary>
-        /// <value>true if the player canceled the action</value>
-        [DataMember(Name="canceled", EmitDefaultValue=false)]
-        public bool Canceled { get; set; }
 
         /// <summary>
         /// true if the action was allready executed
@@ -91,7 +82,6 @@ namespace Tgm.Roborally.Api.Model
             sb.Append("class Action {\n");
             sb.Append("  Index: ").Append(Index).Append("\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  Canceled: ").Append(Canceled).Append("\n");
             sb.Append("  Executed: ").Append(Executed).Append("\n");
             sb.Append("  Requestor: ").Append(Requestor).Append("\n");
             sb.Append("}\n");
@@ -137,10 +127,6 @@ namespace Tgm.Roborally.Api.Model
                     this.Type.Equals(input.Type)
                 ) && 
                 (
-                    this.Canceled == input.Canceled ||
-                    this.Canceled.Equals(input.Canceled)
-                ) && 
-                (
                     this.Executed == input.Executed ||
                     this.Executed.Equals(input.Executed)
                 ) && 
@@ -161,7 +147,6 @@ namespace Tgm.Roborally.Api.Model
                 int hashCode = 41;
                 hashCode = hashCode * 59 + this.Index.GetHashCode();
                 hashCode = hashCode * 59 + this.Type.GetHashCode();
-                hashCode = hashCode * 59 + this.Canceled.GetHashCode();
                 hashCode = hashCode * 59 + this.Executed.GetHashCode();
                 hashCode = hashCode * 59 + this.Requestor.GetHashCode();
                 return hashCode;

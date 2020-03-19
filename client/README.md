@@ -64,11 +64,11 @@ namespace Example
         {
 
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.ApiKey.Add("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.ApiKey.Add("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.ApiKeyPrefix.Add("uid", "Bearer");
+            // config.ApiKeyPrefix.Add("pat", "Bearer");
 
             var apiInstance = new DefaultApi(config);
             var gameId = 56;  // int | 
@@ -95,12 +95,11 @@ namespace Example
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost:5050/v1*
+All URIs are relative to *http://game.host/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**ChooseRobot**](docs/DefaultApi.md#chooserobot) | **PATCH** /games/{game_id}/players/{player_id} | Set Robots
-*DefaultApi* | [**GetRobotStats**](docs/DefaultApi.md#getrobotstats) | **GET** /games/{game_id}/entitys/robots/{robot_id}/info | Get Robot Informations
 *EventHandlingApi* | [**FetchNextDamageEvent**](docs/EventHandlingApi.md#fetchnextdamageevent) | **GET** /games/{game_id}/events/damage | Get next / last damage event
 *EventHandlingApi* | [**FetchNextLazerHitEvent**](docs/EventHandlingApi.md#fetchnextlazerhitevent) | **GET** /games/{game_id}/events/lazer-hit | Get next / last Lazer hit event
 *EventHandlingApi* | [**FetchNextMapEvent**](docs/EventHandlingApi.md#fetchnextmapevent) | **GET** /games/{game_id}/events/map | Get next / last map event
@@ -127,6 +126,7 @@ Class | Method | HTTP request | Description
 *RobotsApi* | [**GetInstalledUpgrades**](docs/RobotsApi.md#getinstalledupgrades) | **GET** /games/{game_id}/entitys/robots/{robot_id}/upgrades | Get Robot Upgrades
 *RobotsApi* | [**GetPossibleActions**](docs/RobotsApi.md#getpossibleactions) | **GET** /games/{game_id}/entitys/robots/{robot_id}/actions/avinable | Get Aviable actions
 *RobotsApi* | [**GetRegisters**](docs/RobotsApi.md#getregisters) | **GET** /games/{game_id}/entitys/robots/{robot_id}/registers | Get register information
+*RobotsApi* | [**GetRobotStats**](docs/RobotsApi.md#getrobotstats) | **GET** /games/{game_id}/entitys/robots/{robot_id}/info | Get Robot Informations
 *RobotsApi* | [**GetRobots**](docs/RobotsApi.md#getrobots) | **GET** /games/{game_id}/entitys/robots/ | Get all robots
 *RobotsApi* | [**RemoveRobotUpgrade**](docs/RobotsApi.md#removerobotupgrade) | **PATCH** /games/{game_id}/entitys/robots/{robot_id}/upgrades | Remove Upgrade
 *RobotsApi* | [**UpdateRegister**](docs/RobotsApi.md#updateregister) | **PATCH** /games/{game_id}/entitys/robots/{robot_id}/registers | change register content
@@ -198,10 +198,10 @@ Class | Method | HTTP request | Description
 - **API key parameter name**: hid
 - **Location**: URL query string
 
-<a name="Player-Token-Access"></a>
-### Player-Token-Access
+<a name="Player-Access-Token"></a>
+### Player-Access-Token
 
 - **Type**: API key
-- **API key parameter name**: uid
+- **API key parameter name**: pat
 - **Location**: URL query string
 

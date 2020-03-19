@@ -52,7 +52,14 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="values">Defines number values for the upgrade.&lt;br&gt;Example: Effect: \&quot;You have {registers} additonal Registers\&quot;&lt;br&gt; &#x60;{registers}&#x60; is the number of the regsiters (that will be added) and the exact value will be defined in here (&#x60;values&#x60;).</param>
         /// <param name="type">type (required).</param>
         /// <param name="id">The id of an upgrade. **Unique**.</param>
-        public Upgrade(int cost = 2, string name = default(string), bool permanent = true, string description = "null", int rounds = default(int), List<Pair> values = default(List<Pair>), UpgradeType type = default(UpgradeType), int id = default(int))
+        public Upgrade(int cost = 2,
+            string name = default(string),
+            bool permanent = true,
+            string description = "null",
+            int rounds = default(int),
+            List<Pair> values = default(List<Pair>),
+            UpgradeType type = default(UpgradeType),
+            int id = default(int))
         {
             this.Cost = cost;
             // to ensure "name" is required (not null)

@@ -96,7 +96,7 @@ namespace Tgm.Roborally.Api.Client
         public Configuration()
         {
             UserAgent = "OpenAPI-Generator/1.0.0/csharp";
-            BasePath = "http://localhost:5050/v1";
+            BasePath = "http://game.host/v1";
             DefaultHeaders = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
             ApiKeyPrefix = new ConcurrentDictionary<string, string>();
@@ -113,7 +113,7 @@ namespace Tgm.Roborally.Api.Client
             IDictionary<string, string> defaultHeaders,
             IDictionary<string, string> apiKey,
             IDictionary<string, string> apiKeyPrefix,
-            string basePath = "http://localhost:5050/v1") : this()
+            string basePath = "http://game.host/v1") : this()
         {
             if (string.IsNullOrWhiteSpace(basePath))
                 throw new ArgumentException("The provided basePath is invalid.", "basePath");

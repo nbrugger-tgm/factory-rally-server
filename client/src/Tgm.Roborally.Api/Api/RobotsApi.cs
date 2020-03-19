@@ -191,6 +191,29 @@ namespace Tgm.Roborally.Api.Api
         /// <returns>ApiResponse of List&lt;RobotCommand&gt;</returns>
         ApiResponse<List<RobotCommand>> GetRegistersWithHttpInfo (int gameId, int robotId);
         /// <summary>
+        /// Get Robot Informations
+        /// </summary>
+        /// <remarks>
+        /// Returns the status and info about the robot
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="robotId"></param>
+        /// <returns>RobotInfo</returns>
+        RobotInfo GetRobotStats (int gameId, string robotId);
+
+        /// <summary>
+        /// Get Robot Informations
+        /// </summary>
+        /// <remarks>
+        /// Returns the status and info about the robot
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="robotId"></param>
+        /// <returns>ApiResponse of RobotInfo</returns>
+        ApiResponse<RobotInfo> GetRobotStatsWithHttpInfo (int gameId, string robotId);
+        /// <summary>
         /// Get all robots
         /// </summary>
         /// <remarks>
@@ -432,6 +455,29 @@ namespace Tgm.Roborally.Api.Api
         /// <returns>Task of ApiResponse (List&lt;RobotCommand&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<RobotCommand>>> GetRegistersAsyncWithHttpInfo (int gameId, int robotId);
         /// <summary>
+        /// Get Robot Informations
+        /// </summary>
+        /// <remarks>
+        /// Returns the status and info about the robot
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="robotId"></param>
+        /// <returns>Task of RobotInfo</returns>
+        System.Threading.Tasks.Task<RobotInfo> GetRobotStatsAsync (int gameId, string robotId);
+
+        /// <summary>
+        /// Get Robot Informations
+        /// </summary>
+        /// <remarks>
+        /// Returns the status and info about the robot
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="robotId"></param>
+        /// <returns>Task of ApiResponse (RobotInfo)</returns>
+        System.Threading.Tasks.Task<ApiResponse<RobotInfo>> GetRobotStatsAsyncWithHttpInfo (int gameId, string robotId);
+        /// <summary>
         /// Get all robots
         /// </summary>
         /// <remarks>
@@ -659,10 +705,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -724,10 +770,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -788,10 +834,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -853,10 +899,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -926,10 +972,10 @@ namespace Tgm.Roborally.Api.Api
                 localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
             localVarRequestOptions.Data = entityAction;
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1000,10 +1046,10 @@ namespace Tgm.Roborally.Api.Api
                 localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
             localVarRequestOptions.Data = entityAction;
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1071,10 +1117,10 @@ namespace Tgm.Roborally.Api.Api
             if (robotId != null)
                 localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1143,10 +1189,10 @@ namespace Tgm.Roborally.Api.Api
             if (robotId != null)
                 localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1209,10 +1255,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1276,10 +1322,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1347,10 +1393,10 @@ namespace Tgm.Roborally.Api.Api
             if (robotId != null)
                 localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1419,10 +1465,10 @@ namespace Tgm.Roborally.Api.Api
             if (robotId != null)
                 localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1485,10 +1531,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1552,10 +1598,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1571,6 +1617,149 @@ namespace Tgm.Roborally.Api.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetRegisters", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get Robot Informations Returns the status and info about the robot
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="robotId"></param>
+        /// <returns>RobotInfo</returns>
+        public RobotInfo GetRobotStats (int gameId, string robotId)
+        {
+             Tgm.Roborally.Api.Client.ApiResponse<RobotInfo> localVarResponse = GetRobotStatsWithHttpInfo(gameId, robotId);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get Robot Informations Returns the status and info about the robot
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="robotId"></param>
+        /// <returns>ApiResponse of RobotInfo</returns>
+        public Tgm.Roborally.Api.Client.ApiResponse< RobotInfo > GetRobotStatsWithHttpInfo (int gameId, string robotId)
+        {
+            // verify the required parameter 'robotId' is set
+            if (robotId == null)
+                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'robotId' when calling RobotsApi->GetRobotStats");
+
+            Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
+
+            String[] _contentTypes = new String[] {
+            };
+
+            // to determine the Accept header
+            String[] _accepts = new String[] {
+                "application/json"
+            };
+
+            var localVarContentType = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            if (robotId != null)
+                localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
+
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
+            {
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
+                {
+                    foreach (var _kvpValue in _kvp.Value)
+                    {
+                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
+                    }
+                }
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get< RobotInfo >("/games/{game_id}/entitys/robots/{robot_id}/info", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetRobotStats", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get Robot Informations Returns the status and info about the robot
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="robotId"></param>
+        /// <returns>Task of RobotInfo</returns>
+        public async System.Threading.Tasks.Task<RobotInfo> GetRobotStatsAsync (int gameId, string robotId)
+        {
+             Tgm.Roborally.Api.Client.ApiResponse<RobotInfo> localVarResponse = await GetRobotStatsAsyncWithHttpInfo(gameId, robotId);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Get Robot Informations Returns the status and info about the robot
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="robotId"></param>
+        /// <returns>Task of ApiResponse (RobotInfo)</returns>
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<RobotInfo>> GetRobotStatsAsyncWithHttpInfo (int gameId, string robotId)
+        {
+            // verify the required parameter 'robotId' is set
+            if (robotId == null)
+                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'robotId' when calling RobotsApi->GetRobotStats");
+
+
+            Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
+
+            String[] _contentTypes = new String[] {
+            };
+
+            // to determine the Accept header
+            String[] _accepts = new String[] {
+                "application/json"
+            };
+            
+            foreach (var _contentType in _contentTypes)
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", _contentType);
+            
+            foreach (var _accept in _accepts)
+                localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
+            
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            if (robotId != null)
+                localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
+
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
+            {
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
+                {
+                    foreach (var _kvpValue in _kvp.Value)
+                    {
+                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
+                    }
+                }
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<RobotInfo>("/games/{game_id}/entitys/robots/{robot_id}/info", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetRobotStats", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 
@@ -1615,10 +1804,10 @@ namespace Tgm.Roborally.Api.Api
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1679,10 +1868,10 @@ namespace Tgm.Roborally.Api.Api
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1755,10 +1944,10 @@ namespace Tgm.Roborally.Api.Api
                 }
             }
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1832,10 +2021,10 @@ namespace Tgm.Roborally.Api.Api
                 }
             }
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1896,10 +2085,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {
@@ -1961,10 +2150,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Token-Access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("uid")))
+            // authentication (Player-Access-Token) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "uid", this.Configuration.GetApiKeyWithPrefix("uid")))
+                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
                 {
                     foreach (var _kvpValue in _kvp.Value)
                     {

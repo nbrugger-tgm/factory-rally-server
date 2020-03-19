@@ -1,6 +1,6 @@
 # Tgm.Roborally.Api.Api.PlayersApi
 
-All URIs are relative to *http://localhost:5050/v1*
+All URIs are relative to *http://game.host/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -33,7 +33,7 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
+            config.BasePath = "http://game.host/v1";
             var apiInstance = new PlayersApi(config);
             var gameId = 56;  // int | 
 
@@ -103,7 +103,7 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
+            config.BasePath = "http://game.host/v1";
             var apiInstance = new PlayersApi(config);
             var gameId = 56;  // int | 
             var playerId = 56;  // int | 
@@ -175,7 +175,7 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
+            config.BasePath = "http://game.host/v1";
             var apiInstance = new PlayersApi(config);
             var gameId = 56;  // int | 
             var password = password_example;  // string | The password of the game if the lobby is password protected (optional) 
@@ -248,15 +248,15 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
+            config.BasePath = "http://game.host/v1";
             // Configure API key authorization: Host-token-access
             config.AddApiKey("hid", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("hid", "Bearer");
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new PlayersApi(config);
             var gameId = 56;  // int | 
@@ -291,7 +291,7 @@ void (empty response body)
 
 ### Authorization
 
-[Host-token-access](../README.md#Host-token-access), [Player-Token-Access](../README.md#Player-Token-Access)
+[Host-token-access](../README.md#Host-token-access), [Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 

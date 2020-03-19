@@ -1,11 +1,10 @@
 # Tgm.Roborally.Api.Api.DefaultApi
 
-All URIs are relative to *http://localhost:5050/v1*
+All URIs are relative to *http://game.host/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ChooseRobot**](DefaultApi.md#chooserobot) | **PATCH** /games/{game_id}/players/{player_id} | Set Robots
-[**GetRobotStats**](DefaultApi.md#getrobotstats) | **GET** /games/{game_id}/entitys/robots/{robot_id}/info | Get Robot Informations
 
 
 <a name="chooserobot"></a>
@@ -14,7 +13,7 @@ Method | HTTP request | Description
 
 Set Robots
 
-Stes the type of robot(s) the player is controlling
+Sets the type of robot(s) the player is controlling
 
 ### Example
 ```csharp
@@ -31,11 +30,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new DefaultApi(config);
             var gameId = 56;  // int | 
@@ -72,89 +71,12 @@ void (empty response body)
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
  - **Content-Type**: application/json
  - **Accept**: Not defined
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | OK |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a name="getrobotstats"></a>
-# **GetRobotStats**
-> RobotInfo GetRobotStats (int gameId, string robotId)
-
-Get Robot Informations
-
-Returns the status and info about the robot
-
-### Example
-```csharp
-using System.Collections.Generic;
-using System.Diagnostics;
-using Tgm.Roborally.Api.Api;
-using Tgm.Roborally.Api.Client;
-using Tgm.Roborally.Api.Model;
-
-namespace Example
-{
-    public class GetRobotStatsExample
-    {
-        public static void Main()
-        {
-            Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
-            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
-
-            var apiInstance = new DefaultApi(config);
-            var gameId = 56;  // int | 
-            var robotId = robotId_example;  // string | 
-
-            try
-            {
-                // Get Robot Informations
-                RobotInfo result = apiInstance.GetRobotStats(gameId, robotId);
-                Debug.WriteLine(result);
-            }
-            catch (ApiException  e)
-            {
-                Debug.Print("Exception when calling DefaultApi.GetRobotStats: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
-                Debug.Print(e.StackTrace);
-            }
-        }
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **gameId** | **int**|  | 
- **robotId** | **string**|  | 
-
-### Return type
-
-[**RobotInfo**](RobotInfo.md)
-
-### Authorization
-
-[Player-Token-Access](../README.md#Player-Token-Access)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |

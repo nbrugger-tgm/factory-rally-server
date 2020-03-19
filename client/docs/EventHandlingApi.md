@@ -1,6 +1,6 @@
 # Tgm.Roborally.Api.Api.EventHandlingApi
 
-All URIs are relative to *http://localhost:5050/v1*
+All URIs are relative to *http://game.host/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -37,11 +37,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
             var gameId = 56;  // int | 
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -114,11 +114,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
             var gameId = 56;  // int | 
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -191,11 +191,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
             var gameId = 56;  // int | 
@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -268,11 +268,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
             var gameId = 56;  // int | 
@@ -306,7 +306,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -345,11 +345,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
             var gameId = 56;  // int | 
@@ -383,7 +383,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -422,11 +422,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
             var gameId = 56;  // int | 
@@ -460,7 +460,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -499,11 +499,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
             var gameId = 56;  // int | 
@@ -537,7 +537,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 
@@ -576,11 +576,11 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:5050/v1";
-            // Configure API key authorization: Player-Token-Access
-            config.AddApiKey("uid", "YOUR_API_KEY");
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: Player-Access-Token
+            config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("uid", "Bearer");
+            // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
             var gameId = 56;  // int | 
@@ -618,7 +618,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Token-Access](../README.md#Player-Token-Access)
+[Player-Access-Token](../README.md#Player-Access-Token)
 
 ### HTTP request headers
 

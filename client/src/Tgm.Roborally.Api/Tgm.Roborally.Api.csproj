@@ -7,13 +7,13 @@ This api controlls the flow of a game and provides it's data. It is desiged to b
 The version of the OpenAPI document: 0.1.0
 Contact: nbrugger@student.tgm.ac.at
 -->
-<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{806E076D-DBEE-4A44-8A17-F5DB74946EC5}</ProjectGuid>
+    <ProjectGuid>{BBB438C0-EF6A-4496-883A-AB2C895410B5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Tgm.Roborally.Api</RootNamespace>
@@ -27,7 +27,6 @@ Contact: nbrugger@student.tgm.ac.at
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/GIT_USER_ID/GIT_REPO_ID</PackageProjectUrl>
     <PackageReleaseNotes>Minor update</PackageReleaseNotes>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->

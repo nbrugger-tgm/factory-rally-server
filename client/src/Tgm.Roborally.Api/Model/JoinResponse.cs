@@ -40,11 +40,11 @@ namespace Tgm.Roborally.Api.Model
         /// Initializes a new instance of the <see cref="JoinResponse" /> class.
         /// </summary>
         /// <param name="id">This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication (required).</param>
-        /// <param name="uid">The uid is the key for the joined player. You need this key for authentication (required).</param>
-        public JoinResponse(int id = default(int), int uid = default(int))
+        /// <param name="pat">The uid is the key for the joined player. You need this key for authentication (required).</param>
+        public JoinResponse(int id = default(int), int pat = default(int))
         {
             this.Id = id;
-            this.Uid = uid;
+            this.Pat = pat;
         }
         
         /// <summary>
@@ -58,8 +58,8 @@ namespace Tgm.Roborally.Api.Model
         /// The uid is the key for the joined player. You need this key for authentication
         /// </summary>
         /// <value>The uid is the key for the joined player. You need this key for authentication</value>
-        [DataMember(Name="uid", EmitDefaultValue=false)]
-        public int Uid { get; set; }
+        [DataMember(Name="pat", EmitDefaultValue=false)]
+        public int Pat { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -70,7 +70,7 @@ namespace Tgm.Roborally.Api.Model
             var sb = new StringBuilder();
             sb.Append("class JoinResponse {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Uid: ").Append(Uid).Append("\n");
+            sb.Append("  Pat: ").Append(Pat).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -110,8 +110,8 @@ namespace Tgm.Roborally.Api.Model
                     this.Id.Equals(input.Id)
                 ) && 
                 (
-                    this.Uid == input.Uid ||
-                    this.Uid.Equals(input.Uid)
+                    this.Pat == input.Pat ||
+                    this.Pat.Equals(input.Pat)
                 );
         }
 
@@ -125,7 +125,7 @@ namespace Tgm.Roborally.Api.Model
             {
                 int hashCode = 41;
                 hashCode = hashCode * 59 + this.Id.GetHashCode();
-                hashCode = hashCode * 59 + this.Uid.GetHashCode();
+                hashCode = hashCode * 59 + this.Pat.GetHashCode();
                 return hashCode;
             }
         }
@@ -147,6 +147,18 @@ namespace Tgm.Roborally.Api.Model
             if(this.Id < (int)0)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Id, must be a value greater than or equal to 0.", new [] { "Id" });
+            }
+
+            // Pat (int) maximum
+            if(this.Pat > (int)99999999)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Pat, must be a value less than or equal to 99999999.", new [] { "Pat" });
+            }
+
+            // Pat (int) minimum
+            if(this.Pat < (int)9999)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Pat, must be a value greater than or equal to 9999.", new [] { "Pat" });
             }
 
             yield break;

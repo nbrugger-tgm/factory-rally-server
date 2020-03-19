@@ -48,7 +48,7 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="name">The name is **unique** but it should ***not*** be used as identifer (it&#39;s not natively supportet) It is used to display the game&#39;s name (required).</param>
         /// <param name="players">The list of players attending the game. (Only contains the name of the players).</param>
         /// <param name="runtimeInfo">runtimeInfo.</param>
-        public Game(int id = default(int), string name = default(string), List<string> players = default(List<string>), GameState runtimeInfo = default(GameState))
+        public Game(int id = default(int), string name = default(string), List<int> players = default(List<int>), GameState runtimeInfo = default(GameState))
         {
             // to ensure "name" is required (not null)
             this.Name = name ?? throw new ArgumentNullException("name is a required property for Game and cannot be null");;
@@ -76,7 +76,7 @@ namespace Tgm.Roborally.Api.Model
         /// </summary>
         /// <value>The list of players attending the game. (Only contains the name of the players)</value>
         [DataMember(Name="players", EmitDefaultValue=false)]
-        public List<string> Players { get; set; }
+        public List<int> Players { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

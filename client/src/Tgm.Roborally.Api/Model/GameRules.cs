@@ -34,14 +34,24 @@ namespace Tgm.Roborally.Api.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="GameRules" /> class.
         /// </summary>
+        [JsonConstructorAttribute]
+        protected GameRules() { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameRules" /> class.
+        /// </summary>
         /// <param name="playerNamesVisible">If true players can see the name of the player controlling a robot (default to true).</param>
         /// <param name="maxPlayers">The maximum ammount of players able to join the game (default to 4).</param>
-        /// <param name="name">The visible name of the game.</param>
-        public GameRules(bool playerNamesVisible = true, int maxPlayers = 4, string name = default(string))
+        /// <param name="name">The visible name of the game (required).</param>
+        /// <param name="robotsPerPlayer">Defines the number of robots per player.</param>
+        /// <param name="password">The password of a game.</param>
+        public GameRules(bool playerNamesVisible = true, int maxPlayers = 4, string name = default(string), int robotsPerPlayer = default(int), string password = default(string))
         {
+            // to ensure "name" is required (not null)
+            this.Name = name ?? throw new ArgumentNullException("name is a required property for GameRules and cannot be null");;
             this.PlayerNamesVisible = playerNamesVisible;
             this.MaxPlayers = maxPlayers;
-            this.Name = name;
+            this.RobotsPerPlayer = robotsPerPlayer;
+            this.Password = password;
         }
         
         /// <summary>
@@ -66,6 +76,20 @@ namespace Tgm.Roborally.Api.Model
         public string Name { get; set; }
 
         /// <summary>
+        /// Defines the number of robots per player
+        /// </summary>
+        /// <value>Defines the number of robots per player</value>
+        [DataMember(Name="robots-per-player", EmitDefaultValue=false)]
+        public int RobotsPerPlayer { get; set; }
+
+        /// <summary>
+        /// The password of a game
+        /// </summary>
+        /// <value>The password of a game</value>
+        [DataMember(Name="password", EmitDefaultValue=false)]
+        public string Password { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -76,6 +100,8 @@ namespace Tgm.Roborally.Api.Model
             sb.Append("  PlayerNamesVisible: ").Append(PlayerNamesVisible).Append("\n");
             sb.Append("  MaxPlayers: ").Append(MaxPlayers).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  RobotsPerPlayer: ").Append(RobotsPerPlayer).Append("\n");
+            sb.Append("  Password: ").Append(Password).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -122,6 +148,15 @@ namespace Tgm.Roborally.Api.Model
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
+                ) && 
+                (
+                    this.RobotsPerPlayer == input.RobotsPerPlayer ||
+                    this.RobotsPerPlayer.Equals(input.RobotsPerPlayer)
+                ) && 
+                (
+                    this.Password == input.Password ||
+                    (this.Password != null &&
+                    this.Password.Equals(input.Password))
                 );
         }
 
@@ -138,6 +173,9 @@ namespace Tgm.Roborally.Api.Model
                 hashCode = hashCode * 59 + this.MaxPlayers.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                hashCode = hashCode * 59 + this.RobotsPerPlayer.GetHashCode();
+                if (this.Password != null)
+                    hashCode = hashCode * 59 + this.Password.GetHashCode();
                 return hashCode;
             }
         }
@@ -171,6 +209,30 @@ namespace Tgm.Roborally.Api.Model
             if(this.Name != null && this.Name.Length < 3)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, length must be greater than 3.", new [] { "Name" });
+            }
+
+            // RobotsPerPlayer (int) maximum
+            if(this.RobotsPerPlayer > (int)3)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for RobotsPerPlayer, must be a value less than or equal to 3.", new [] { "RobotsPerPlayer" });
+            }
+
+            // RobotsPerPlayer (int) minimum
+            if(this.RobotsPerPlayer < (int)1)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for RobotsPerPlayer, must be a value greater than or equal to 1.", new [] { "RobotsPerPlayer" });
+            }
+
+            // Password (string) maxLength
+            if(this.Password != null && this.Password.Length > 18)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Password, length must be less than 18.", new [] { "Password" });
+            }
+
+            // Password (string) minLength
+            if(this.Password != null && this.Password.Length < 4)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Password, length must be greater than 4.", new [] { "Password" });
             }
 
             yield break;

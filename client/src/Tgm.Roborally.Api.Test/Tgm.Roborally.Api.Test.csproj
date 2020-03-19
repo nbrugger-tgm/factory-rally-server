@@ -17,9 +17,6 @@ Contact: nbrugger@student.tgm.ac.at
     <IsPackable>false</IsPackable>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <WarningLevel>3</WarningLevel>
-  </PropertyGroup>
   <ItemGroup>
       <PackageReference Include="CompareNETObjects" Version="4.57.0" />
       <PackageReference Include="JsonSubTypes" Version="1.5.2" />
@@ -32,7 +29,7 @@ Contact: nbrugger@student.tgm.ac.at
   </ItemGroup>
   <ItemGroup>
       <ProjectReference Include="..\Tgm.Roborally.Api\Tgm.Roborally.Api.csproj">
-          <Project>{806E076D-DBEE-4A44-8A17-F5DB74946EC5}</Project>
+          <Project>{BBB438C0-EF6A-4496-883A-AB2C895410B5}</Project>
           <Name>Tgm.Roborally.Api</Name>
       </ProjectReference>
   </ItemGroup>
