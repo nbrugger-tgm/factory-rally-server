@@ -126,6 +126,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "operationId": "getGameState",
@@ -157,6 +167,19 @@
                 }
               }
             }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "operationId": "getActions",
@@ -165,7 +188,23 @@
             "Host-token-access": []
           }
         ],
-        "description": "Get all (**not robot related**) actions comitted to this game."
+        "description": "Get all (**not robot related**) actions comitted to this game.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "PENDING",
+                "EXECUTED",
+                "ALL"
+              ],
+              "default": "ALL"
+            },
+            "in": "query",
+            "name": "mode",
+            "description": "Defines wich entries to return"
+          }
+        ]
       },
       "parameters": [
         {
@@ -183,6 +222,26 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "description": "Queues an action to be executed",
@@ -235,6 +294,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "operationId": "getAllPlayers",
@@ -256,6 +325,26 @@
           },
           "401": {
             "description": "Wrong/No password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Not Joinable",
             "content": {
               "application/json": {
                 "schema": {
@@ -315,6 +404,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "operationId": "getPlayer",
@@ -326,6 +425,16 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "description": "Removes a player from the game. This can be done by the player itsself or by the host.",
@@ -347,9 +456,19 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
-        "description": "Sets the type of robot(s) the player is controlling",
+        "description": "# DEPRECATET\n> This feature is useless in this version. It will be usefull in newer versions\n\nSets the type of robot(s) the player is controlling",
         "security": [
           {
             "Player-Access-Token": []
@@ -367,7 +486,10 @@
             }
           },
           "description": "The robots assigned to the player"
-        }
+        },
+        "tags": [
+          "Players"
+        ]
       }
     },
     "/games/{game_id}/upgrades/shop": {
@@ -396,6 +518,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "operationId": "getUpgradeShop",
@@ -412,6 +544,16 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "description": "Buy this Upgrade from the shop.\n### Note\nIf your robot allready owns 3 Upgrades you have to use the `exchange` parameter. This is the ID of the Upgrade to replace with the bought one",
@@ -473,6 +615,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "operationId": "getUpgradeInformation",
@@ -513,6 +665,16 @@
                   "items": {
                     "$ref": "#/components/schemas/UpgradeID"
                   }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
                 }
               }
             }
@@ -564,6 +726,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "operationId": "getRegisters",
@@ -598,6 +770,16 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -648,6 +830,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "operationId": "getInstalledUpgrades",
@@ -664,6 +856,16 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "description": "Removes all upgrades from a robot",
@@ -682,6 +884,16 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "description": "Removes a paticular upgrade from the robot",
@@ -730,6 +942,16 @@
                       "$ref": "#/components/schemas/EventType"
                     }
                   }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
                 }
               }
             }
@@ -808,6 +1030,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "operationId": "getTile",
@@ -842,6 +1074,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/MapInfo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
                 }
               }
             }
@@ -1191,6 +1433,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "operationId": "getRobotStats",
@@ -1227,6 +1479,16 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "description": "Adds an action to the stack. The stack is processed using *first in first out*",
@@ -1261,6 +1523,16 @@
                   "items": {
                     "$ref": "#/components/schemas/EntityAction"
                   }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
                 }
               }
             }
@@ -1314,6 +1586,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
           }
         },
         "operationId": "getPossibleActions",
@@ -1351,6 +1633,16 @@
                   "items": {
                     "$ref": "#/components/schemas/EntityID"
                   }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
                 }
               }
             }
@@ -1520,6 +1812,11 @@
           },
           "password": {
             "$ref": "#/components/schemas/Password"
+          },
+          "fill-with-bots": {
+            "type": "boolean",
+            "default": false,
+            "description": "If true emply player slots are going to be filled up with AI enemys"
           }
         },
         "required": [
@@ -1846,9 +2143,10 @@
         ]
       },
       "Player": {
-        "title": "Player",
         "type": "object",
+        "title": "Player",
         "description": "A player attending in a game.\n#### Warning\nThis is **not** permanent. It is created and removed with the game (or with you joining and leaving the game)",
+        "additionalProperties": false,
         "properties": {
           "id": {
             "$ref": "#/components/schemas/PlayerID"
@@ -1866,6 +2164,11 @@
             "type": "boolean",
             "default": false,
             "description": "Îf this is true rhe player is able to interact at the moment"
+          },
+          "active": {
+            "type": "boolean",
+            "default": true,
+            "description": "Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects"
           }
         },
         "required": [
@@ -1899,7 +2202,8 @@
         "description": "Defines what an action will do",
         "enum": [
           "PAUSE",
-          "UNPAUSE"
+          "UNPAUSE",
+          "START_GAME"
         ]
       },
       "JoinResponse": {
@@ -2248,7 +2552,8 @@
         "type": "string",
         "title": "Robots",
         "enum": [
-          "dicer"
+          "dicer",
+          "tank"
         ]
       },
       "RobotInfo": {
@@ -2311,6 +2616,9 @@
                 "minimum": 0,
                 "maximum": 4,
                 "description": "The height level of the robot"
+              },
+              "type": {
+                "$ref": "#/components/schemas/Robots"
               }
             }
           }
@@ -2343,12 +2651,38 @@
         "description": "Checkpoints are entities"
       },
       "PlayerAccessToken": {
-        "type": "string",
         "title": "PlayerAccessToken",
-        "minLength": 10,
-        "maxLength": 75,
+        "description": "The token used to authorize a player",
+        "schema": {
+          "type": "string"
+        },
         "pattern": "[A-Za-z0-9+*~-_=?]+",
-        "description": "The token used to authorize a player"
+        "maxLength": 75,
+        "minLength": 10,
+        "type": "string"
+      },
+      "GameActionEvent": {
+        "title": "GameActionEvent",
+        "type": "object",
+        "description": "This event is triggerd if a game action is committed",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/Action"
+          }
+        }
+      },
+      "RobotPickEvent": {
+        "title": "RobotPickEvent",
+        "type": "object",
+        "description": "Triggered when a robot is assigned to a player",
+        "properties": {
+          "player": {
+            "$ref": "#/components/schemas/PlayerID"
+          },
+          "robot": {
+            "$ref": "#/components/schemas/EntityID"
+          }
+        }
       }
     }
   },
