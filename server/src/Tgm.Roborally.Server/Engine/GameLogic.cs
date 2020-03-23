@@ -2,44 +2,59 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine
 {
 	public class GameLogic
 	{
-		public EventManager EventManager { get; } = new EventManager();
+		private GameState _state = GameState.LOBBY;
+		public int Id;
+		public GameState LastState => _lastState;
+		private GameState _lastState;
+		public readonly string Password;
+		public int playerOnTurn;
+		private readonly List<Player> Players = new List<Player>();
+		private readonly GameThread thread;
+
+		public GameLogic(GameRules r)
+		{
+			CreatedBy = r;
+			EventManager = new EventManager(this);
+			ActionHandler = new GameActionHandler(this);
+			Hardware = new HardwareManager(this);
+			Info = new GameInfo(this);
+			Game = new Game(this);
+			thread = new GameThread(this);
+			thread.Start();
+		}
+
+		public void ComittEvent(Event e) => EventManager.notify(e);
+
+		public EventManager EventManager { get; }
 		public HardwareManager Hardware { get; }
 
 		public GameActionHandler ActionHandler { get; }
 
 		public Game Game { get; }
 		public GameInfo Info { get; }
-		public GameState LastState;
-
-		public string Password;
-
-		private GameState _state = GameState.LOBBY;
 
 		public GameState State
 		{
 			get => _state;
 			set
 			{
-				LastState = State;
+				_lastState = State;
 				_state = value;
 			}
 		}
 
 
 		private GameRules CreatedBy { get; }
-
-		public int playerOnTurn;
-		public int Id;
 		public bool PlayerNamesVisible => CreatedBy.PlayerNamesVisible;
 		public string Name => CreatedBy.Name;
 		public int MaxPlayers => CreatedBy.MaxPlayers;
-		private List<Player> Players = new List<Player>();
 		public List<int> PlayerIds => Players.Select(e => e.Id).ToList();
 
 		public bool Joinable => (State == GameState.LOBBY && Players.Count < MaxPlayers);
@@ -71,15 +86,6 @@ namespace Tgm.Roborally.Server.Engine
 		{
 			IActionResult res = null;
 			return GetPlayer(id, ref res);
-		}
-
-		public GameLogic(GameRules r)
-		{
-			ActionHandler = new GameActionHandler(this);
-			Hardware = new HardwareManager(this);
-			Info = new GameInfo(this);
-			Game = new Game(this);
-			CreatedBy = r;
 		}
 
 		public void Join(string password, ref IActionResult response)
@@ -119,6 +125,15 @@ namespace Tgm.Roborally.Server.Engine
 			}
 
 			response = new OkResult();
+		}
+
+		public void StartGame()
+		{
+			if (_state != GameState.LOBBY)
+			{
+				throw new WrongStateException(GameState.LOBBY, _state, "Start Game");
+			}
+			if(Players.Count < MaxPlayers)
 		}
 	}
 }

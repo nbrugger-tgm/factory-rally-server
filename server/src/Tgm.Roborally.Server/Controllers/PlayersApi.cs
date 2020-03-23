@@ -67,6 +67,8 @@ namespace Tgm.Roborally.Server.Controllers
             IActionResult response = null;
             
             GameLogic game = GameManager.instance.GetGame(gameId, ref response);
+            if (response != null)
+                return response;
             Player p = game.GetPlayer(playerId, ref response);
             if (response != null)
                 return response;

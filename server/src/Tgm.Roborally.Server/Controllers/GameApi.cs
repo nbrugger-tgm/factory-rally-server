@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using Tgm.Roborally.Server.Attributes;
 using Tgm.Roborally.Server.Engine;
+using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Controllers
@@ -46,6 +47,16 @@ namespace Tgm.Roborally.Server.Controllers
 			if (response != null)
 				return response;
 			game.ActionHandler.Add(action);
+			try
+			{
+				game.ActionHandler.ExecuteNext();
+			}
+			catch (WrongStateException e)
+			{
+				//TODO Add Error Model Response
+				return new BadRequestObjectResult(e.Message);
+			}
+
 			return new OkResult();
 		}
 

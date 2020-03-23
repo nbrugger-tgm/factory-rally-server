@@ -1,4 +1,5 @@
 using System.Threading;
+using Tgm.Roborally.Server.Engine.Phases;
 
 namespace Tgm.Roborally.Server.Engine
 {
@@ -17,6 +18,8 @@ namespace Tgm.Roborally.Server.Engine
 
 		private void run()
 		{
+			LobbyPhase phase = new LobbyPhase();
+			phase.Start(game);
 		}
 	}
 }
