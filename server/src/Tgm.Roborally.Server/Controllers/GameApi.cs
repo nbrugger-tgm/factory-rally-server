@@ -27,21 +27,6 @@ namespace Tgm.Roborally.Server.Controllers
 	[ApiController]
 	public class GameApiController : ControllerBase
 	{
-		/// <summary>
-		/// Commit Action
-		/// </summary>
-		/// <remarks>Queues an action to be executed</remarks>
-		/// <param name="gameId"></param>
-		/// <param name="action"></param>
-		/// <response code="200">OK</response>
-		[HttpPut]
-		[Route("/v1/games/{game_id}/actions")]
-		//[Authorize(Policy = "Host-token-access")]
-		[ValidateModelState]
-		[SwaggerOperation("CommitAction")]
-		public virtual IActionResult CommitAction([FromRoute(Name = "game_id")] [Required]
-			int gameId, [FromQuery] [Required()] ActionType action)
-		{
 			IActionResult response = null;
 			GameLogic game = GameManager.instance.GetGame(gameId, ref response);
 			if (response != null)
@@ -56,42 +41,79 @@ namespace Tgm.Roborally.Server.Controllers
 				//TODO Add Error Model Response
 				return new BadRequestObjectResult(e.Message);
 			}
+        /// <summary>
+        /// Commit Action
+        /// </summary>
+        /// <remarks>Queues an action to be executed</remarks>
+        /// <param name="gameId"></param>
+        /// <param name="action"></param>
+        /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="409">Conflict</response>
+        [HttpPut]
+        [Route("/v1/games/{game_id}/actions")]
+        [Authorize(Policy = "Host-token-access")]
+        [ValidateModelState]
+        [SwaggerOperation("CommitAction")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        [SwaggerResponse(statusCode: 409, type: typeof(ErrorMessage), description: "Conflict")]
+        public virtual IActionResult CommitAction([FromRoute][Required][Range(0, 2048)]int gameId, [FromQuery][Required()]ActionType action)
+        { 
+        /// <summary>
+        /// Create Game
+        /// </summary>
+        /// <remarks>Creates a random game by your defined rules</remarks>
+        /// <param name="gameRules">*Optional* This rules define how your game will behave</param>
+        /// <response code="200">OK</response>
+        [HttpPost]
+        [Route("/v1/games/")]
+        [Authorize(Policy = "Host-token-access")]
+        [ValidateModelState]
+        [SwaggerOperation("CreateGame")]
+        public virtual IActionResult CreateGame([FromBody]GameRules gameRules)
+        { 
+        /// <summary>
+        /// Get games actions
+        /// </summary>
+        /// <remarks>Get all (**not robot related**) actions comitted to this game.</remarks>
+        /// <param name="gameId"></param>
+        /// <param name="mode">Defines wich entries to return</param>
+        /// <response code="200">OK</response>
+        /// <response code="201">Created</response>
+        /// <response code="404">Not Found</response>
+        [HttpGet]
+        [Route("/v1/games/{game_id}/actions")]
+        [Authorize(Policy = "Host-token-access")]
+        [ValidateModelState]
+        [SwaggerOperation("GetActions")]
+        [SwaggerResponse(statusCode: 200, type: typeof(List<Action>), description: "OK")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        public virtual IActionResult GetActions([FromRoute][Required][Range(0, 2048)]int gameId, [FromQuery]string mode)
+        { 
 
 			return new OkResult();
 		}
 
-		/// <summary>
-		/// Create Game
-		/// </summary>
-		/// <remarks>Creates a random game by your defined rules</remarks>
-		/// <param name="gameRules">*Optional* This rules define how your game will behave</param>
-		/// <response code="200">OK</response>
-		[HttpPost]
-		[Route("/v1/games/")]
-		//[Authorize(Policy = "Host-token-access")]
-		[ValidateModelState]
-		[SwaggerOperation("CreateGame")]
-		public virtual IActionResult CreateGame([FromBody] GameRules gameRules)
-		{
 			GameManager.instance.startGame(gameRules);
 			return StatusCode(200);
 		}
+        /// <summary>
+        /// Get game status
+        /// </summary>
+        /// <remarks>Returns the status of a game</remarks>
+        /// <param name="gameId"></param>
+        /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
+        [HttpGet]
+        [Route("/v1/games/{game_id}/status")]
+        [Authorize(Policy = "Player-Access-Token")]
+        [ValidateModelState]
+        [SwaggerOperation("GetGameState")]
+        [SwaggerResponse(statusCode: 200, type: typeof(GameInfo), description: "OK")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        public virtual IActionResult GetGameState([FromRoute][Required][Range(0, 2048)]int gameId)
+        { 
 
-		/// <summary>
-		/// Get games actions
-		/// </summary>
-		/// <remarks>Get all (**not robot related**) actions comitted to this game.</remarks>
-		/// <param name="gameId"></param>
-		/// <response code="200">OK</response>
-		[HttpGet]
-		[Route("/v1/games/{game_id}/actions")]
-		//[Authorize(Policy = "Host-token-access")]
-		[ValidateModelState]
-		[SwaggerOperation("GetActions")]
-		[SwaggerResponse(statusCode: 200, type: typeof(List<Action>), description: "OK")]
-		public virtual IActionResult GetActions([FromRoute(Name = "game_id")] [Required]
-			int gameId)
-		{
 			IActionResult response = null;
 			GameLogic game = GameManager.instance.GetGame(gameId, ref response);
 			if (response != null)
@@ -99,42 +121,27 @@ namespace Tgm.Roborally.Server.Controllers
 			return new ObjectResult(game.ActionHandler.Queue);
 		}
 
-		/// <summary>
-		/// Get game status
-		/// </summary>
-		/// <remarks>Returns the status of a game</remarks>
-		/// <param name="gameId"></param>
-		/// <response code="200">OK</response>
-		[HttpGet]
-		[Route("/v1/games/{game_id}/status")]
-		//[Authorize(Policy = "Player-Token-Access")]
-		[ValidateModelState]
-		[SwaggerOperation("GetGameState")]
-		[SwaggerResponse(statusCode: 200, type: typeof(GameInfo), description: "OK")]
-		public virtual IActionResult GetGameState([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-			int gameId)
-		{
 			IActionResult response = null;
 			GameLogic game = GameManager.instance.GetGame(gameId, ref response);
 			if (response != null)
 				return response;
 			return new ObjectResult(game.Info);
 		}
+        /// <summary>
+        /// Get all games
+        /// </summary>
+        /// <remarks>Returns a list of all hosted games</remarks>
+        /// <param name="joinable">true: only return joinable games</param>
+        /// <param name="unprotected">true: only display games with no password set</param>
+        /// <response code="200">OK</response>
+        [HttpGet]
+        [Route("/v1/games/")]
+        [ValidateModelState]
+        [SwaggerOperation("GetGames")]
+        [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
+        public virtual IActionResult GetGames([FromQuery]bool joinable, [FromQuery]bool unprotected)
+        { 
 
-		/// <summary>
-		/// Get all games
-		/// </summary>
-		/// <remarks>Returns a list of all hosted games</remarks>
-		/// <param name="joinable">true: only return joinable games</param>
-		/// <param name="unprotected">true: only display games with no password set</param>
-		/// <response code="200">OK</response>
-		[HttpGet]
-		[Route("/v1/games/")]
-		[ValidateModelState]
-		[SwaggerOperation("GetGames")]
-		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
-		public virtual IActionResult GetGames([FromQuery] bool joinable, [FromQuery] bool unprotected)
-		{
 			return new ObjectResult(GameManager.instance.games.Where(pair =>
 					(!joinable || pair.Value.Joinable) && (!unprotected || pair.Value.Password == null))
 				.Select(e => e.Key));

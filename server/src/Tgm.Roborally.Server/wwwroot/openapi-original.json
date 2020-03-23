@@ -136,6 +136,16 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -158,6 +168,18 @@
             "$ref" : "#/components/schemas/GameID"
           },
           "style" : "simple"
+        }, {
+          "description" : "Defines wich entries to return",
+          "explode" : true,
+          "in" : "query",
+          "name" : "mode",
+          "required" : false,
+          "schema" : {
+            "default" : "ALL",
+            "enum" : [ "PENDING", "EXECUTED", "ALL" ],
+            "type" : "string"
+          },
+          "style" : "form"
         } ],
         "responses" : {
           "200" : {
@@ -172,6 +194,19 @@
               }
             },
             "description" : "OK"
+          },
+          "201" : {
+            "description" : "Created"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -205,6 +240,26 @@
         "responses" : {
           "200" : {
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          },
+          "409" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Conflict"
           }
         },
         "security" : [ {
@@ -241,6 +296,16 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "summary" : "Get all players",
@@ -289,6 +354,26 @@
               }
             },
             "description" : "Wrong/No password"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          },
+          "409" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Joinable"
           }
         },
         "summary" : "Join game",
@@ -321,6 +406,16 @@
         "responses" : {
           "200" : {
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -363,13 +458,23 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "summary" : "Get player",
         "tags" : [ "Players" ]
       },
       "patch" : {
-        "description" : "Sets the type of robot(s) the player is controlling",
+        "description" : "# DEPRECATET\n> This feature is useless in this version. It will be usefull in newer versions\n\nSets the type of robot(s) the player is controlling",
         "operationId" : "chooseRobot",
         "parameters" : [ {
           "explode" : false,
@@ -406,12 +511,23 @@
         "responses" : {
           "200" : {
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
           "Player-Access-Token" : [ ]
         } ],
-        "summary" : "Set Robots"
+        "summary" : "Set Robots",
+        "tags" : [ "Players" ]
       }
     },
     "/games/{game_id}/upgrades/shop" : {
@@ -438,6 +554,16 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -480,6 +606,16 @@
         "responses" : {
           "200" : {
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -522,6 +658,16 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -558,6 +704,16 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -593,6 +749,16 @@
         "responses" : {
           "200" : {
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -636,6 +802,16 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -704,6 +880,16 @@
         "responses" : {
           "200" : {
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -747,6 +933,16 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -789,6 +985,16 @@
         "responses" : {
           "200" : {
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -844,6 +1050,16 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -895,6 +1111,16 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -928,6 +1154,16 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -1243,6 +1479,16 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -1288,6 +1534,16 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -1330,6 +1586,16 @@
         "responses" : {
           "200" : {
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -1375,6 +1641,16 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -1411,6 +1687,16 @@
               }
             },
             "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
         },
         "security" : [ {
@@ -1511,6 +1797,7 @@
           "max-players" : 1,
           "name" : "name",
           "player-names-visible" : true,
+          "fill-with-bots" : false,
           "robots-per-player" : 2
         },
         "properties" : {
@@ -1547,6 +1834,11 @@
             "minLength" : 4,
             "title" : "Password",
             "type" : "string"
+          },
+          "fill-with-bots" : {
+            "default" : false,
+            "description" : "If true emply player slots are going to be filled up with AI enemys",
+            "type" : "boolean"
           }
         },
         "required" : [ "name" ],
@@ -1921,10 +2213,12 @@
         "type" : "string"
       },
       "Player" : {
+        "additionalProperties" : false,
         "description" : "A player attending in a game.\n#### Warning\nThis is **not** permanent. It is created and removed with the game (or with you joining and leaving the game)",
         "example" : {
           "on-turn" : false,
           "controlled_entities" : [ null, null ],
+          "active" : true,
           "id" : 3
         },
         "properties" : {
@@ -1948,6 +2242,11 @@
           "on-turn" : {
             "default" : false,
             "description" : "Îf this is true rhe player is able to interact at the moment",
+            "type" : "boolean"
+          },
+          "active" : {
+            "default" : true,
+            "description" : "Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects",
             "type" : "boolean"
           }
         },
@@ -1977,7 +2276,7 @@
       },
       "ActionType" : {
         "description" : "Defines what an action will do",
-        "enum" : [ "PAUSE", "UNPAUSE" ],
+        "enum" : [ "PAUSE", "UNPAUSE", "START_GAME" ],
         "title" : "ActionType",
         "type" : "string"
       },
@@ -2349,7 +2648,7 @@
         "title" : "EntityUseUpgradeAction"
       },
       "Robots" : {
-        "enum" : [ "dicer" ],
+        "enum" : [ "dicer", "tank" ],
         "title" : "Robots",
         "type" : "string"
       },
@@ -2378,6 +2677,38 @@
         "pattern" : "[A-Za-z0-9+*~-_=?]+",
         "title" : "PlayerAccessToken",
         "type" : "string"
+      },
+      "GameActionEvent" : {
+        "description" : "This event is triggerd if a game action is committed",
+        "properties" : {
+          "action" : {
+            "$ref" : "#/components/schemas/Action"
+          }
+        },
+        "title" : "GameActionEvent",
+        "type" : "object"
+      },
+      "RobotPickEvent" : {
+        "description" : "Triggered when a robot is assigned to a player",
+        "properties" : {
+          "player" : {
+            "description" : "This id uniquely identifys the player (in a game).\n\n **Not** to be confused with the `uid` which is used for authentication",
+            "example" : 3,
+            "maximum" : 8,
+            "minimum" : 0,
+            "title" : "PlayerID",
+            "type" : "integer"
+          },
+          "robot" : {
+            "description" : "The unique identification of this entity. <br>\n*!!!* This is not the id of the player<br>\nThis value will be autogenerated by the api and is read only",
+            "format" : "int32",
+            "minimum" : 0,
+            "title" : "EntityID",
+            "type" : "integer"
+          }
+        },
+        "title" : "RobotPickEvent",
+        "type" : "object"
       },
       "inline_response_200" : {
         "example" : { },
@@ -2450,6 +2781,9 @@
             "maximum" : 4,
             "minimum" : 0,
             "type" : "integer"
+          },
+          "type" : {
+            "$ref" : "#/components/schemas/Robots"
           }
         }
       },

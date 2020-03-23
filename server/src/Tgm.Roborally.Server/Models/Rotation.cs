@@ -30,15 +30,15 @@ namespace Tgm.Roborally.Server.Models
         {
             
             /// <summary>
-            /// Enum LeftEnum for left
+            /// Enum Left for left
             /// </summary>
             [EnumMember(Value = "left")]
-            LeftEnum = 1,
+            Left = 1,
             
             /// <summary>
-            /// Enum RightEnum for right
+            /// Enum Right for right
             /// </summary>
             [EnumMember(Value = "right")]
-            RightEnum = 2
+            Right = 2
         }
 }

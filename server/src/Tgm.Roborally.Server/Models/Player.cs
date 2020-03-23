@@ -65,7 +65,11 @@ namespace Tgm.Roborally.Server.Models
         [DataMember(Name="on-turn", EmitDefaultValue=false)]
         public bool OnTurn { get; set; } = false;
 
-        [DataMember(Name = "active", EmitDefaultValue = false)]
+        /// <summary>
+        /// Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects
+        /// </summary>
+        /// <value>Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects</value>
+        [DataMember(Name="active", EmitDefaultValue=false)]
         public bool Active { get; set; } = true;
 
         /// <summary>
@@ -79,6 +83,7 @@ namespace Tgm.Roborally.Server.Models
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  ControlledEntities: ").Append(ControlledEntities).Append("\n");
             sb.Append("  OnTurn: ").Append(OnTurn).Append("\n");
+            sb.Append("  Active: ").Append(Active).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

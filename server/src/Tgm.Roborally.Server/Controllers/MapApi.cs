@@ -33,17 +33,21 @@ namespace Tgm.Roborally.Server.Controllers
         /// <remarks>Get meta information abouzt the map of the game</remarks>
         /// <param name="gameId"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/map/info")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("GetMapInfo")]
         [SwaggerResponse(statusCode: 200, type: typeof(MapInfo), description: "OK")]
-        public virtual IActionResult GetMapInfo([FromRoute][Required]string gameId)
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        public virtual IActionResult GetMapInfo([FromRoute][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(MapInfo));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
             string exampleJson = null;
             exampleJson = "{\r\n  \"width\" : 43,\r\n  \"prioBeacon\" : {\r\n    \"x\" : 1,\r\n    \"y\" : 5\r\n  },\r\n  \"height\" : 302\r\n}";
             
@@ -62,17 +66,21 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/map/tiles/{x}/{y}")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("GetTile")]
         [SwaggerResponse(statusCode: 200, type: typeof(Tile), description: "OK")]
-        public virtual IActionResult GetTile([FromRoute][Required]string gameId, [FromRoute][Required]string x, [FromRoute][Required]string y)
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        public virtual IActionResult GetTile([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]string x, [FromRoute][Required]string y)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Tile));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
             string exampleJson = null;
             exampleJson = "{\r\n  \"empty\" : true\r\n}";
             

@@ -30,21 +30,21 @@ namespace Tgm.Roborally.Server.Models
         {
             
             /// <summary>
-            /// Enum UpgradeEnum for upgrade
+            /// Enum Upgrade for upgrade
             /// </summary>
             [EnumMember(Value = "upgrade")]
-            UpgradeEnum = 1,
+            Upgrade = 1,
             
             /// <summary>
-            /// Enum ProgrammingEnum for programming
+            /// Enum Programming for programming
             /// </summary>
             [EnumMember(Value = "programming")]
-            ProgrammingEnum = 2,
+            Programming = 2,
             
             /// <summary>
-            /// Enum ActivationEnum for activation
+            /// Enum Activation for activation
             /// </summary>
             [EnumMember(Value = "activation")]
-            ActivationEnum = 3
+            Activation = 3
         }
 }

@@ -95,6 +95,12 @@ namespace Tgm.Roborally.Server.Models
         public int Attitude { get; set; } = 0;
 
         /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name="type", EmitDefaultValue=false)]
+        public Robots Type { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -111,6 +117,7 @@ namespace Tgm.Roborally.Server.Models
             sb.Append("  IsMine: ").Append(IsMine).Append("\n");
             sb.Append("  HandCards: ").Append(HandCards).Append("\n");
             sb.Append("  Attitude: ").Append(Attitude).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -191,6 +198,11 @@ namespace Tgm.Roborally.Server.Models
                     Attitude == other.Attitude ||
                     
                     Attitude.Equals(other.Attitude)
+                ) && 
+                (
+                    Type == other.Type ||
+                    
+                    Type.Equals(other.Type)
                 );
         }
 
@@ -222,6 +234,8 @@ namespace Tgm.Roborally.Server.Models
                     hashCode = hashCode * 59 + HandCards.GetHashCode();
                     
                     hashCode = hashCode * 59 + Attitude.GetHashCode();
+                    
+                    hashCode = hashCode * 59 + Type.GetHashCode();
                 return hashCode;
             }
         }

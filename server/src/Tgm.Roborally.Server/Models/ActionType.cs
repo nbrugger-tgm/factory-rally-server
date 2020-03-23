@@ -39,6 +39,12 @@ namespace Tgm.Roborally.Server.Models
             /// Enum UNPAUSE for UNPAUSE
             /// </summary>
             [EnumMember(Value = "UNPAUSE")]
-            UNPAUSE = 2
+            UNPAUSE = 2,
+            
+            /// <summary>
+            /// Enum STARTGAME for START_GAME
+            /// </summary>
+            [EnumMember(Value = "START_GAME")]
+            STARTGAME = 3
         }
 }

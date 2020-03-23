@@ -35,16 +35,20 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="upgrade"></param>
         /// <param name="exchange"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpPatch]
         [Route("/v1/games/{game_id}/upgrades/shop")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("BuyUpgrade")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult BuyUpgrade([FromRoute][Required][Range(0, 2048)]int gameId, [FromQuery][Required()][Range(0, 10000)]int upgrade, [FromQuery][Range(0, 10000)]int exchange)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200);
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
 
             throw new NotImplementedException();
         }
@@ -55,17 +59,21 @@ namespace Tgm.Roborally.Server.Controllers
         /// <remarks>Returns a list of all Upgrade IDs</remarks>
         /// <param name="gameId"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/upgrades/")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("GetAllUpgradeIDs")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult GetAllUpgradeIDs([FromRoute][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(List<int>));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
             string exampleJson = null;
             exampleJson = "null";
             
@@ -83,17 +91,21 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="gameId"></param>
         /// <param name="upgradeId"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/upgrades/{upgrade_id}")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("GetUpgradeInformation")]
         [SwaggerResponse(statusCode: 200, type: typeof(Upgrade), description: "OK")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult GetUpgradeInformation([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required][Range(0, 10000)]int upgradeId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Upgrade));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
             string exampleJson = null;
             exampleJson = "{\r\n  \"cost\" : 0,\r\n  \"permanent\" : true,\r\n  \"values\" : [ {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  } ],\r\n  \"name\" : \"Penetration Lazer Mk.2\",\r\n  \"description\" : \"null\",\r\n  \"id\" : 5962,\r\n  \"rounds\" : 6\r\n}";
             
@@ -110,17 +122,21 @@ namespace Tgm.Roborally.Server.Controllers
         /// <remarks>Retuns a list of all cards in the upgrade shop</remarks>
         /// <param name="gameId"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/upgrades/shop")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("GetUpgradeShop")]
         [SwaggerResponse(statusCode: 200, type: typeof(UpgradeShop), description: "OK")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult GetUpgradeShop([FromRoute][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(UpgradeShop));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
             string exampleJson = null;
             exampleJson = "{\r\n  \"information\" : {\r\n    \"open\" : true\r\n  },\r\n  \"upgrades\" : [ null, null, null, null, null ]\r\n}";
             

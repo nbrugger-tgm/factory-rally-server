@@ -21,37 +21,16 @@ using Tgm.Roborally.Server.Converters;
 namespace Tgm.Roborally.Server.Models
 { 
     /// <summary>
-    /// A queued action. Actions are executed in their adding sequence which is represented by their index
+    /// This event is triggerd if a game action is committed
     /// </summary>
     [DataContract]
-    public partial class Action : IEquatable<Action>
+    public partial class GameActionEvent : IEquatable<GameActionEvent>
     {
         /// <summary>
-        /// The queue index of the action
+        /// Gets or Sets Action
         /// </summary>
-        /// <value>The queue index of the action</value>
-        [DataMember(Name="index", EmitDefaultValue=false)]
-        public int Index { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        public ActionType Type { get; set; }
-
-        /// <summary>
-        /// true if the action was allready executed
-        /// </summary>
-        /// <value>true if the action was allready executed</value>
-        [DataMember(Name="executed", EmitDefaultValue=false)]
-        public bool Executed { get; set; }
-
-        /// <summary>
-        /// The index of the player this instruction came from
-        /// </summary>
-        /// <value>The index of the player this instruction came from</value>
-        [DataMember(Name="requestor", EmitDefaultValue=false)]
-        public int Requestor { get; set; }
+        [DataMember(Name="action", EmitDefaultValue=false)]
+        public Action Action { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -60,11 +39,8 @@ namespace Tgm.Roborally.Server.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class Action {\n");
-            sb.Append("  Index: ").Append(Index).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  Executed: ").Append(Executed).Append("\n");
-            sb.Append("  Requestor: ").Append(Requestor).Append("\n");
+            sb.Append("class GameActionEvent {\n");
+            sb.Append("  Action: ").Append(Action).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -87,39 +63,24 @@ namespace Tgm.Roborally.Server.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((Action)obj);
+            return obj.GetType() == GetType() && Equals((GameActionEvent)obj);
         }
 
         /// <summary>
-        /// Returns true if Action instances are equal
+        /// Returns true if GameActionEvent instances are equal
         /// </summary>
-        /// <param name="other">Instance of Action to be compared</param>
+        /// <param name="other">Instance of GameActionEvent to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(Action other)
+        public bool Equals(GameActionEvent other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
             return 
                 (
-                    Index == other.Index ||
-                    
-                    Index.Equals(other.Index)
-                ) && 
-                (
-                    Type == other.Type ||
-                    
-                    Type.Equals(other.Type)
-                ) && 
-                (
-                    Executed == other.Executed ||
-                    
-                    Executed.Equals(other.Executed)
-                ) && 
-                (
-                    Requestor == other.Requestor ||
-                    
-                    Requestor.Equals(other.Requestor)
+                    Action == other.Action ||
+                    Action != null &&
+                    Action.Equals(other.Action)
                 );
         }
 
@@ -133,14 +94,8 @@ namespace Tgm.Roborally.Server.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    
-                    hashCode = hashCode * 59 + Index.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + Type.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + Executed.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + Requestor.GetHashCode();
+                    if (Action != null)
+                    hashCode = hashCode * 59 + Action.GetHashCode();
                 return hashCode;
             }
         }
@@ -148,12 +103,12 @@ namespace Tgm.Roborally.Server.Models
         #region Operators
         #pragma warning disable 1591
 
-        public static bool operator ==(Action left, Action right)
+        public static bool operator ==(GameActionEvent left, GameActionEvent right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(Action left, Action right)
+        public static bool operator !=(GameActionEvent left, GameActionEvent right)
         {
             return !Equals(left, right);
         }

@@ -29,9 +29,15 @@ namespace Tgm.Roborally.Server.Models
         {
             
             /// <summary>
-            /// Enum DicerEnum for dicer
+            /// Enum Dicer for dicer
             /// </summary>
             [EnumMember(Value = "dicer")]
-            DicerEnum = 1
+            Dicer = 1,
+            
+            /// <summary>
+            /// Enum Tank for tank
+            /// </summary>
+            [EnumMember(Value = "tank")]
+            Tank = 2
         }
 }

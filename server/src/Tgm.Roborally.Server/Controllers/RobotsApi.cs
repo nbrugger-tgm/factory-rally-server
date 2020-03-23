@@ -34,16 +34,20 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpDelete]
         [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("ClearRegisters")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult ClearRegisters([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int robotId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200);
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
 
             throw new NotImplementedException();
         }
@@ -55,16 +59,20 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpDelete]
         [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("ClearUpgrades")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult ClearUpgrades([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int robotId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200);
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
 
             throw new NotImplementedException();
         }
@@ -77,16 +85,20 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="robotId"></param>
         /// <param name="entityAction"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpPost]
         [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/stack/")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("DoEntityAction")]
-        public virtual IActionResult DoEntityAction([FromRoute][Required]string gameId, [FromRoute][Required]string robotId, [FromBody]EntityAction entityAction)
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        public virtual IActionResult DoEntityAction([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]string robotId, [FromBody]EntityAction entityAction)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200);
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
 
             throw new NotImplementedException();
         }
@@ -98,17 +110,21 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/stack/")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("GetActionStack")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<EntityAction>), description: "OK")]
-        public virtual IActionResult GetActionStack([FromRoute][Required]string gameId, [FromRoute][Required]string robotId)
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        public virtual IActionResult GetActionStack([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]string robotId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(List<EntityAction>));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
             string exampleJson = null;
             exampleJson = "{ }";
             
@@ -126,17 +142,21 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("GetInstalledUpgrades")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult GetInstalledUpgrades([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int robotId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(List<int>));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
             string exampleJson = null;
             exampleJson = "null";
             
@@ -154,17 +174,21 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/avinable")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("GetPossibleActions")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<EntityEventOportunity>), description: "OK")]
-        public virtual IActionResult GetPossibleActions([FromRoute][Required]string gameId, [FromRoute][Required]string robotId)
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        public virtual IActionResult GetPossibleActions([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]string robotId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(List<EntityEventOportunity>));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
             string exampleJson = null;
             exampleJson = "{\r\n  \"end-time\" : 0,\r\n  \"time-left\" : 1\r\n}";
             
@@ -182,17 +206,21 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="gameId"></param>
         /// <param name="robotId"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("GetRegisters")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<RobotCommand>), description: "OK")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult GetRegisters([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int robotId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(List<RobotCommand>));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
             string exampleJson = null;
             exampleJson = "{\r\n  \"times\" : 1,\r\n  \"name\" : \"Penetration Lazer Mk.2\",\r\n  \"description\" : \"null\",\r\n  \"parameters\" : [ {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  } ]\r\n}";
             
@@ -204,22 +232,58 @@ namespace Tgm.Roborally.Server.Controllers
         }
 
         /// <summary>
+        /// Get Robot Informations
+        /// </summary>
+        /// <remarks>Returns the status and info about the robot</remarks>
+        /// <param name="gameId"></param>
+        /// <param name="robotId"></param>
+        /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
+        [HttpGet]
+        [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/info")]
+        [Authorize(Policy = "Player-Access-Token")]
+        [ValidateModelState]
+        [SwaggerOperation("GetRobotStats")]
+        [SwaggerResponse(statusCode: 200, type: typeof(RobotInfo), description: "OK")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        public virtual IActionResult GetRobotStats([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]string robotId)
+        { 
+
+            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(200, default(RobotInfo));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
+            string exampleJson = null;
+            exampleJson = "null";
+            
+            var example = exampleJson != null
+            ? JsonConvert.DeserializeObject<RobotInfo>(exampleJson)
+            : default(RobotInfo);
+            //TODO: Change the data returned
+            return new ObjectResult(example);
+        }
+
+        /// <summary>
         /// Get all robots
         /// </summary>
         /// <remarks>Returns a list of all robot IDs in this game. &gt; A robot is not a player as a player is able to controll multiple robots</remarks>
         /// <param name="gameId"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/entitys/robots/")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("GetRobots")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult GetRobots([FromRoute][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(List<int>));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
             string exampleJson = null;
             exampleJson = "null";
             
@@ -238,16 +302,20 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="robotId"></param>
         /// <param name="upgrade"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpPatch]
         [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("RemoveRobotUpgrade")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult RemoveRobotUpgrade([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int robotId, [FromQuery][Range(0, 10000)]int upgrade)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200);
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
 
             throw new NotImplementedException();
         }
@@ -261,7 +329,7 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="200">OK</response>
         [HttpPatch]
         [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("UpdateRegister")]
         public virtual IActionResult UpdateRegister([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int robotId)

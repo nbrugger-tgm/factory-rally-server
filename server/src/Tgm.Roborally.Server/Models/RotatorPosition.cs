@@ -30,27 +30,27 @@ namespace Tgm.Roborally.Server.Models
         {
             
             /// <summary>
-            /// Enum UpLeftEnum for up_left
+            /// Enum UpLeft for up_left
             /// </summary>
             [EnumMember(Value = "up_left")]
-            UpLeftEnum = 1,
+            UpLeft = 1,
             
             /// <summary>
-            /// Enum UpRightEnum for up_right
+            /// Enum UpRight for up_right
             /// </summary>
             [EnumMember(Value = "up_right")]
-            UpRightEnum = 2,
+            UpRight = 2,
             
             /// <summary>
-            /// Enum DownLeftEnum for down_left
+            /// Enum DownLeft for down_left
             /// </summary>
             [EnumMember(Value = "down_left")]
-            DownLeftEnum = 3,
+            DownLeft = 3,
             
             /// <summary>
-            /// Enum DownRightEnum for down_right
+            /// Enum DownRight for down_right
             /// </summary>
             [EnumMember(Value = "down_right")]
-            DownRightEnum = 4
+            DownRight = 4
         }
 }

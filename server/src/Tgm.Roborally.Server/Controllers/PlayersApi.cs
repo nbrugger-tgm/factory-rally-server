@@ -28,23 +28,37 @@ namespace Tgm.Roborally.Server.Controllers
     public class PlayersApiController : ControllerBase
     { 
         /// <summary>
+        /// Set Robots
+        /// </summary>
+        /// <remarks># DEPRECATET &gt; This feature is useless in this version. It will be usefull in newer versions  Sets the type of robot(s) the player is controlling</remarks>
+        /// <param name="gameId"></param>
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player</param>
+        /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
+        [HttpPatch]
+        [Route("/v1/games/{game_id}/players/{player_id}")]
+        [Authorize(Policy = "Player-Access-Token")]
+        [ValidateModelState]
+        [SwaggerOperation("ChooseRobot")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        public virtual IActionResult ChooseRobot([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required][Range(0, 8)]int playerId, [FromBody]List<Robots> robots)
+        { 
+        /// <summary>
         /// Get all players
         /// </summary>
         /// <remarks>Returns the index of all players</remarks>
         /// <param name="gameId"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/players/")]
         [ValidateModelState]
         [SwaggerOperation("GetAllPlayers")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
-        public virtual IActionResult GetAllPlayers([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
-        {
-            IActionResult response = null;
-            
-            GameLogic game = GameManager.instance.GetGame(gameId, ref response);
-            if (response != null)
-                return response;
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        public virtual IActionResult GetAllPlayers([FromRoute][Required][Range(0, 2048)]int gameId)
+        { 
             
             return new ObjectResult(game.PlayerIds);
         }
@@ -56,12 +70,14 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="gameId"></param>
         /// <param name="playerId"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/players/{player_id}")]
         [ValidateModelState]
         [SwaggerOperation("GetPlayer")]
         [SwaggerResponse(statusCode: 200, type: typeof(Player), description: "OK")]
-        public virtual IActionResult GetPlayer([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "player_id")][Required][Range(0, 8)]int playerId)
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        public virtual IActionResult GetPlayer([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required][Range(0, 8)]int playerId)
         { 
 
             IActionResult response = null;
@@ -83,15 +99,18 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="password">The password of the game if the lobby is password protected</param>
         /// <response code="200">Joined</response>
         /// <response code="401">Wrong/No password</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="409">Not Joinable</response>
         [HttpPost]
         [Route("/v1/games/{game_id}/players/")]
         [ValidateModelState]
         [SwaggerOperation("Join")]
         [SwaggerResponse(statusCode: 200, type: typeof(JoinResponse), description: "Joined")]
         [SwaggerResponse(statusCode: 401, type: typeof(ErrorMessage), description: "Wrong/No password")]
-        public virtual IActionResult Join([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromQuery]string password)
-        {
-            IActionResult response = null;
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        [SwaggerResponse(statusCode: 409, type: typeof(ErrorMessage), description: "Not Joinable")]
+        public virtual IActionResult Join([FromRoute][Required][Range(0, 2048)]int gameId, [FromQuery]string password)
+        { 
             
             GameLogic game = GameManager.instance.GetGame(gameId, ref response);
             if (response != null)
@@ -107,13 +126,15 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="gameId"></param>
         /// <param name="playerId"></param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpDelete]
         [Route("/v1/games/{game_id}/players/{player_id}")]
         [Authorize(Policy = "Host-token-access")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("KickPlayer")]
-        public virtual IActionResult KickPlayer([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "player_id")][Required][Range(0, 8)]int playerId)
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        public virtual IActionResult KickPlayer([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required][Range(0, 8)]int playerId)
         { 
             IActionResult response = null;
             

@@ -67,6 +67,13 @@ namespace Tgm.Roborally.Server.Models
         public string Password { get; set; }
 
         /// <summary>
+        /// If true emply player slots are going to be filled up with AI enemys
+        /// </summary>
+        /// <value>If true emply player slots are going to be filled up with AI enemys</value>
+        [DataMember(Name="fill-with-bots", EmitDefaultValue=false)]
+        public bool FillWithBots { get; set; } = false;
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -79,6 +86,7 @@ namespace Tgm.Roborally.Server.Models
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  RobotsPerPlayer: ").Append(RobotsPerPlayer).Append("\n");
             sb.Append("  Password: ").Append(Password).Append("\n");
+            sb.Append("  FillWithBots: ").Append(FillWithBots).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -139,6 +147,11 @@ namespace Tgm.Roborally.Server.Models
                     Password == other.Password ||
                     Password != null &&
                     Password.Equals(other.Password)
+                ) && 
+                (
+                    FillWithBots == other.FillWithBots ||
+                    
+                    FillWithBots.Equals(other.FillWithBots)
                 );
         }
 
@@ -162,6 +175,8 @@ namespace Tgm.Roborally.Server.Models
                     hashCode = hashCode * 59 + RobotsPerPlayer.GetHashCode();
                     if (Password != null)
                     hashCode = hashCode * 59 + Password.GetHashCode();
+                    
+                    hashCode = hashCode * 59 + FillWithBots.GetHashCode();
                 return hashCode;
             }
         }

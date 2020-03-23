@@ -30,15 +30,15 @@ namespace Tgm.Roborally.Server.Models
         {
             
             /// <summary>
-            /// Enum PreRegisterEnum for pre_register
+            /// Enum PreRegister for pre_register
             /// </summary>
             [EnumMember(Value = "pre_register")]
-            PreRegisterEnum = 1,
+            PreRegister = 1,
             
             /// <summary>
-            /// Enum AfterRegisterEnum for after_register
+            /// Enum AfterRegister for after_register
             /// </summary>
             [EnumMember(Value = "after_register")]
-            AfterRegisterEnum = 2
+            AfterRegister = 2
         }
 }

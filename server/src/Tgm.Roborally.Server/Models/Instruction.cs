@@ -30,15 +30,15 @@ namespace Tgm.Roborally.Server.Models
         {
             
             /// <summary>
-            /// Enum MoveEnum for move
+            /// Enum Move for move
             /// </summary>
             [EnumMember(Value = "move")]
-            MoveEnum = 1,
+            Move = 1,
             
             /// <summary>
-            /// Enum RotateEnum for rotate
+            /// Enum Rotate for rotate
             /// </summary>
             [EnumMember(Value = "rotate")]
-            RotateEnum = 2
+            Rotate = 2
         }
 }

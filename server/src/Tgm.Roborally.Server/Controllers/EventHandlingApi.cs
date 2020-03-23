@@ -37,11 +37,11 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="417">The next event is not a movement event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/damage")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("FetchNextDamageEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(DamageEvent), description: "OK")]
-        public virtual IActionResult FetchNextDamageEvent([FromRoute][Required]string gameId)
+        public virtual IActionResult FetchNextDamageEvent([FromRoute][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -70,11 +70,11 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="417">The next event is not a movement event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/lazer-hit")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("FetchNextLazerHitEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(LazerHitEvent), description: "OK")]
-        public virtual IActionResult FetchNextLazerHitEvent([FromRoute][Required]string gameId)
+        public virtual IActionResult FetchNextLazerHitEvent([FromRoute][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -103,11 +103,11 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="417">The next event is not a movement event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/map")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("FetchNextMapEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(MapEvent), description: "OK")]
-        public virtual IActionResult FetchNextMapEvent([FromRoute][Required]string gameId)
+        public virtual IActionResult FetchNextMapEvent([FromRoute][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -136,11 +136,11 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="417">The next event is not a movement event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/movement")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("FetchNextMovementEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(MovementEvent), description: "OK")]
-        public virtual IActionResult FetchNextMovementEvent([FromRoute][Required]string gameId)
+        public virtual IActionResult FetchNextMovementEvent([FromRoute][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -169,11 +169,11 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="417">The next event is not a movement event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/push")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("FetchNextPushEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(PushEvent), description: "OK")]
-        public virtual IActionResult FetchNextPushEvent([FromRoute][Required]string gameId)
+        public virtual IActionResult FetchNextPushEvent([FromRoute][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -202,11 +202,11 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="417">The next event is not a movement event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/shoot")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("FetchNextShootEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(ShootEvent), description: "OK")]
-        public virtual IActionResult FetchNextShootEvent([FromRoute][Required]string gameId)
+        public virtual IActionResult FetchNextShootEvent([FromRoute][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -235,11 +235,11 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="417">The next event is not a movement event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/shutdown")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("FetchNextShutdownEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(ShutdownEvent), description: "OK")]
-        public virtual IActionResult FetchNextShutdownEvent([FromRoute][Required]string gameId)
+        public virtual IActionResult FetchNextShutdownEvent([FromRoute][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -266,17 +266,21 @@ namespace Tgm.Roborally.Server.Controllers
         /// <param name="batch">If true you will get all past events at once</param>
         /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client</param>
         /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/type")]
-        [Authorize(Policy = "Player-Token-Access")]
+        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("TraceEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(InlineResponse200), description: "OK")]
-        public virtual IActionResult TraceEvent([FromRoute][Required]string gameId, [FromQuery]bool batch, [FromQuery]bool wait)
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+        public virtual IActionResult TraceEvent([FromRoute][Required][Range(0, 2048)]int gameId, [FromQuery]bool batch, [FromQuery]bool wait)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(InlineResponse200));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorMessage));
             string exampleJson = null;
             exampleJson = "{ }";
             
