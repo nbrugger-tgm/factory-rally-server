@@ -1,7 +1,7 @@
-**/Models/*.cs
 **/Filters/*.cs
-**/Controllers/*.cs
 **.csproj
+**.snl
+**.sln
 **/Startup.cs
 **/Program.cs
 
