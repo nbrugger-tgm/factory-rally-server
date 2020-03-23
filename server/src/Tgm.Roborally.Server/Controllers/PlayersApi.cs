@@ -26,7 +26,7 @@ namespace Tgm.Roborally.Server.Controllers
     /// </summary>
     [ApiController]
     public class PlayersApiController : ControllerBase
-    { 
+    {
         /// <summary>
         /// Set Robots
         /// </summary>
@@ -42,8 +42,12 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("ChooseRobot")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult ChooseRobot([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required][Range(0, 8)]int playerId, [FromBody]List<Robots> robots)
-        { 
+        public virtual IActionResult ChooseRobot([FromRoute] [Required] [Range(0, 2048)]
+            int gameId, [FromRoute] [Required] [Range(0, 8)] int playerId, [FromBody] List<Robots> robots)
+        {
+            throw new NotImplementedException("Not implemented in this version");
+        }
+
         /// <summary>
         /// Get all players
         /// </summary>
@@ -59,7 +63,11 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult GetAllPlayers([FromRoute][Required][Range(0, 2048)]int gameId)
         { 
+            IActionResult response = null;
             
+            GameLogic game = GameManager.instance.GetGame(gameId, ref response);
+            if (response != null)
+                return response;
             return new ObjectResult(game.PlayerIds);
         }
 
@@ -110,8 +118,8 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         [SwaggerResponse(statusCode: 409, type: typeof(ErrorMessage), description: "Not Joinable")]
         public virtual IActionResult Join([FromRoute][Required][Range(0, 2048)]int gameId, [FromQuery]string password)
-        { 
-            
+        {
+            IActionResult response = null;
             GameLogic game = GameManager.instance.GetGame(gameId, ref response);
             if (response != null)
                 return response;

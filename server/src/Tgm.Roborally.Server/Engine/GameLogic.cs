@@ -133,7 +133,16 @@ namespace Tgm.Roborally.Server.Engine
 			{
 				throw new WrongStateException(GameState.LOBBY, _state, "Start Game");
 			}
-			if(Players.Count < MaxPlayers)
+
+			if (Players.Count == 0)
+			{
+				throw new PlayerCountException(">0",Players.Count,"Start Game");
+			}
+
+			if (Players.Count < MaxPlayers && CreatedBy.FillWithBots)
+			{
+				//Todo fill with bots
+			}
 		}
 	}
 }
