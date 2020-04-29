@@ -38,7 +38,6 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="404">Not Found</response>
         [HttpPatch]
         [Route("/v1/games/{game_id}/upgrades/shop")]
-        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("BuyUpgrade")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
@@ -62,7 +61,6 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/upgrades/")]
-        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("GetAllUpgradeIDs")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
@@ -94,7 +92,6 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/upgrades/{upgrade_id}")]
-        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("GetUpgradeInformation")]
         [SwaggerResponse(statusCode: 200, type: typeof(Upgrade), description: "OK")]
@@ -125,7 +122,6 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/upgrades/shop")]
-        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("GetUpgradeShop")]
         [SwaggerResponse(statusCode: 200, type: typeof(UpgradeShop), description: "OK")]

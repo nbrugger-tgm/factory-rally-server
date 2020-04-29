@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using Tgm.Roborally.Server.Attributes;
 using Microsoft.AspNetCore.Authorization;
+using Tgm.Roborally.Server.Authentication;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Controllers
@@ -37,7 +38,6 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="417">The next event is not a movement event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/damage")]
-        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("FetchNextDamageEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(DamageEvent), description: "OK")]
@@ -70,7 +70,6 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="417">The next event is not a movement event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/lazer-hit")]
-        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("FetchNextLazerHitEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(LazerHitEvent), description: "OK")]
@@ -103,7 +102,6 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="417">The next event is not a movement event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/map")]
-        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("FetchNextMapEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(MapEvent), description: "OK")]
@@ -136,7 +134,6 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="417">The next event is not a movement event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/movement")]
-        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("FetchNextMovementEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(MovementEvent), description: "OK")]
@@ -169,7 +166,6 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="417">The next event is not a movement event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/push")]
-        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("FetchNextPushEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(PushEvent), description: "OK")]
@@ -202,7 +198,6 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="417">The next event is not a movement event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/shoot")]
-        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("FetchNextShootEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(ShootEvent), description: "OK")]
@@ -235,7 +230,6 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="417">The next event is not a movement event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/shutdown")]
-        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("FetchNextShutdownEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(ShutdownEvent), description: "OK")]
@@ -269,7 +263,6 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="404">Not Found</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/type")]
-        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("TraceEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(InlineResponse200), description: "OK")]

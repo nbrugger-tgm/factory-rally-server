@@ -38,7 +38,6 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="404">Not Found</response>
         [HttpPatch]
         [Route("/v1/games/{game_id}/players/{player_id}")]
-        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("ChooseRobot")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
@@ -137,8 +136,6 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="404">Not Found</response>
         [HttpDelete]
         [Route("/v1/games/{game_id}/players/{player_id}")]
-        [Authorize(Policy = "Host-token-access")]
-        [Authorize(Policy = "Player-Access-Token")]
         [ValidateModelState]
         [SwaggerOperation("KickPlayer")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]

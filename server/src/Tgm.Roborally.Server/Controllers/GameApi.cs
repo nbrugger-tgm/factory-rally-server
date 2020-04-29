@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using Tgm.Roborally.Server.Attributes;
+using Tgm.Roborally.Server.Authentication;
 using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Models;
@@ -39,7 +40,6 @@ namespace Tgm.Roborally.Server.Controllers
 		/// <response code="409">Conflict</response>
 		[HttpPut]
 		[Route("/v1/games/{game_id}/actions")]
-		[Authorize(Policy = "Host-token-access")]
 		[ValidateModelState]
 		[SwaggerOperation("CommitAction")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
@@ -74,7 +74,6 @@ namespace Tgm.Roborally.Server.Controllers
 		/// <response code="200">OK</response>
 		[HttpPost]
 		[Route("/v1/games/")]
-		[Authorize(Policy = "Host-token-access")]
 		[ValidateModelState]
 		[SwaggerOperation("CreateGame")]
 		public virtual IActionResult CreateGame([FromBody] GameRules gameRules)
@@ -94,7 +93,6 @@ namespace Tgm.Roborally.Server.Controllers
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/actions")]
-		[Authorize(Policy = "Host-token-access")]
 		[ValidateModelState]
 		[SwaggerOperation("GetActions")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<Action>), description: "OK")]
@@ -118,7 +116,6 @@ namespace Tgm.Roborally.Server.Controllers
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/status")]
-		[Authorize(Policy = "Player-Access-Token")]
 		[ValidateModelState]
 		[SwaggerOperation("GetGameState")]
 		[SwaggerResponse(statusCode: 200, type: typeof(GameInfo), description: "OK")]
@@ -143,6 +140,7 @@ namespace Tgm.Roborally.Server.Controllers
 		[HttpGet]
 		[Route("/v1/games/")]
 		[ValidateModelState]
+		[GameAuth(Role.ADMIN)]
 		[SwaggerOperation("GetGames")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
 		public virtual IActionResult GetGames([FromQuery] bool joinable, [FromQuery] bool unprotected)
