@@ -143,6 +143,9 @@ namespace Tgm.Roborally.Server.Engine
 			{
 				//Todo fill with bots
 			}
+			thread.Notify(ActionType.STARTGAME);
 		}
+
+		public void NotifyThread(ActionType type) => thread.Notify(type);
 	}
 }

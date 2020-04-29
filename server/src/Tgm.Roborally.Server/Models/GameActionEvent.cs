@@ -9,14 +9,10 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
+using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models
 { 
@@ -24,8 +20,13 @@ namespace Tgm.Roborally.Server.Models
     /// This event is triggerd if a game action is committed
     /// </summary>
     [DataContract]
-    public partial class GameActionEvent : IEquatable<GameActionEvent>
+    public partial class GameActionEvent : IEquatable<GameActionEvent> , Event
     {
+        public GameActionEvent(ActionType type)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Gets or Sets Action
         /// </summary>

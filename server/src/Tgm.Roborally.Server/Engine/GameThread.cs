@@ -20,6 +20,9 @@ namespace Tgm.Roborally.Server.Engine
 		{
 			LobbyPhase phase = new LobbyPhase();
 			phase.Start(game);
+		public void Notify(ActionType action)
+		{
+			currentPhase.Notify(action);
 		}
 	}
 }
