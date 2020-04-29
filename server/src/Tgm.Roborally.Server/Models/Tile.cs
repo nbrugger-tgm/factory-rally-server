@@ -145,19 +145,29 @@ namespace Tgm.Roborally.Server.Models
         }
 
         #region Operators
-        #pragma warning disable 1591
 
+        /// <summary>
+        /// EQUALS
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator ==(Tile left, Tile right)
         {
             return Equals(left, right);
         }
 
+        /// <summary>
+        /// NOT EQUALS
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator !=(Tile left, Tile right)
         {
             return !Equals(left, right);
         }
 
-        #pragma warning restore 1591
         #endregion Operators
     }
 }

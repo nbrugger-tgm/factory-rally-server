@@ -16,6 +16,8 @@ namespace Tgm.Roborally.Server
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
+            Console.WriteLine("Config : ");
+            Console.WriteLine(ServerProperties.mapRepo);
             CreateWebHostBuilder(args).Build().Run();
             Thread.Sleep(2000);
         }
