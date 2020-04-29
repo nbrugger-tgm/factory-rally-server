@@ -17,6 +17,8 @@ namespace Tgm.Roborally.Server.Engine
 		public int playerOnTurn;
 		private readonly List<Player> Players = new List<Player>();
 		private readonly GameThread thread;
+		public Map Map => _map;
+		private Map _map; 
 
 		public GameLogic(GameRules r)
 		{
@@ -34,6 +36,7 @@ namespace Tgm.Roborally.Server.Engine
 
 		public EventManager EventManager { get; }
 		public HardwareManager Hardware { get; }
+		public EntityManager Entitys { get; }
 
 		public GameActionHandler ActionHandler { get; }
 
@@ -143,6 +146,7 @@ namespace Tgm.Roborally.Server.Engine
 			{
 				//Todo fill with bots
 			}
+			_map = new Map(20,20);
 			thread.Notify(ActionType.STARTGAME);
 		}
 
