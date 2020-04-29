@@ -17,6 +17,8 @@ using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using Tgm.Roborally.Server.Attributes;
 using Microsoft.AspNetCore.Authorization;
+using Tgm.Roborally.Server.Authentication;
+using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Controllers
@@ -38,23 +40,16 @@ namespace Tgm.Roborally.Server.Controllers
         [Route("/v1/games/{game_id}/map/info")]
         [ValidateModelState]
         [SwaggerOperation("GetMapInfo")]
+        [GameAuth(Role.PLAYER)]
         [SwaggerResponse(statusCode: 200, type: typeof(MapInfo), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult GetMapInfo([FromRoute][Required][Range(0, 2048)]int gameId)
-        { 
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(MapInfo));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"width\" : 43,\r\n  \"prioBeacon\" : {\r\n    \"x\" : 1,\r\n    \"y\" : 5\r\n  },\r\n  \"height\" : 302\r\n}";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<MapInfo>(exampleJson)
-            : default(MapInfo);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+        {
+            IActionResult response = null;
+            GameLogic game = GameManager.instance.GetGame(gameId, ref response);
+            if (response != null)
+                return response;
+            return new ObjectResult(game.Map.Info);
         }
 
         /// <summary>
@@ -72,21 +67,13 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetTile")]
         [SwaggerResponse(statusCode: 200, type: typeof(Tile), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetTile([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]string x, [FromRoute][Required]string y)
+        public virtual IActionResult GetTile([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int x, [FromRoute][Required]int y)
         { 
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Tile));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"empty\" : true\r\n}";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Tile>(exampleJson)
-            : default(Tile);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+            IActionResult response = null;
+            GameLogic game = GameManager.instance.GetGame(gameId, ref response);
+            if (response != null)
+                return response;
+            return new ObjectResult(game.Map[x,y]);
         }
     }
 }

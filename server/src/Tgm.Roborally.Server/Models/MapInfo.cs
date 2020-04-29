@@ -26,25 +26,32 @@ namespace Tgm.Roborally.Server.Models
     [DataContract]
     public partial class MapInfo : IEquatable<MapInfo>
     {
+        private Map _map;
+
+        public MapInfo(Map map)
+        {
+            _map = map;
+        }
+
         /// <summary>
         /// Gets or Sets Width
         /// </summary>
         [Range(4, 500)]
-        [DataMember(Name="width", EmitDefaultValue=false)]
-        public int Width { get; set; }
+        [DataMember(Name = "width", EmitDefaultValue = false)]
+        public int Width => _map.Width;
 
         /// <summary>
         /// Gets or Sets Height
         /// </summary>
         [Range(4, 500)]
-        [DataMember(Name="height", EmitDefaultValue=false)]
-        public int Height { get; set; }
+        [DataMember(Name = "height", EmitDefaultValue = false)]
+        public int Height => _map.Height;
 
         /// <summary>
         /// Gets or Sets PrioBeacon
         /// </summary>
-        [DataMember(Name="prioBeacon", EmitDefaultValue=false)]
-        public Position PrioBeacon { get; set; }
+        [DataMember(Name = "prioBeacon", EmitDefaultValue = false)]
+        public Position PrioBeacon => _map.PrioCorePos;
 
         /// <summary>
         /// Returns the string presentation of the object

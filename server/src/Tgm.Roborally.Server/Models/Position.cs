@@ -26,6 +26,12 @@ namespace Tgm.Roborally.Server.Models
     [DataContract]
     public partial class Position : IEquatable<Position>
     {
+        public Position(in int x, in int y)
+        {
+            X = x;
+            Y = y;
+        }
+
         /// <summary>
         /// The X cordinate
         /// </summary>
