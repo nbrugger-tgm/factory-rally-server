@@ -1,8 +1,0 @@
-Name Deutsch;Name API;Parameter;Kosten;permanent
-Krabbelbeine;spider_jump;direction,jump-side;5;true
-Zwischenspeicher;cache;discarded card;4;true
-Register-Refresh;register-refresh;change to card;2;false
-Speichertausch;storage-swap;3x discard cards;1;false
-Jumper;jumper;direction;1;false
-rotation;rotation;direction;1;false
-Seitenausleger;sidekick;side;3;true

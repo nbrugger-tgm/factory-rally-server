@@ -17,12 +17,13 @@ Extend hardware compatibility conditions
 - [x] Add Player "active" attribute
 - [x] Add `ActionType` `Start Game`
 - [x] Mark `PATCH /games/{game_id}/players/{player_id}` as deprecated
-- [ ] Make `GET /games/{game_id}/actions` return whole actions not only types
+- [x] Make `GET /games/{game_id}/actions` return whole actions not only types
 
 Events
 
 - [x] GameActionEvent
 - [x] RobotPickEvent
+- [x] GamePhaseChangedEvent
 
 ## Structure
 

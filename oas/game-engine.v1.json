@@ -916,78 +916,6 @@
         ]
       }
     },
-    "/games/{game_id}/events/type": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "trace event",
-        "operationId": "traceEvent",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "event-type": {
-                      "$ref": "#/components/schemas/EventType"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "description": "All events needed by the client are accessible here. (Usefull for animations)\nMore about this function is found in the [regarding Github Issue](https://github.com/FactoryRally/game-controller/issues/6)\n\n**This function only returns the type of the event you need to fetch the data seperately**\n> Read more at [api-usage.md](https://github.com/FactoryRally/game-controller/blob/master/documentation/rest/api-usage.md#events--updates)",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ],
-        "parameters": [
-          {
-            "schema": {
-              "type": "boolean",
-              "default": "false"
-            },
-            "in": "query",
-            "name": "batch",
-            "description": "If true you will get all past events at once"
-          },
-          {
-            "schema": {
-              "type": "boolean",
-              "default": "false"
-            },
-            "in": "query",
-            "name": "wait",
-            "description": "If true the server will not responde until a event is added to the queue\n\nRrequires less traffic but might impacts the servers performance or cause timeouts at the client"
-          }
-        ],
-        "tags": [
-          "EventHandling"
-        ]
-      }
-    },
     "/games/{game_id}/map/tiles/{x}/{y}": {
       "parameters": [
         {
@@ -1399,7 +1327,101 @@
         ]
       }
     },
-    "/games/{game_id}/entitys/robots/{robot_id}/info": {
+    "/games/{game_id}/map": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "get": {
+        "summary": "Get Map",
+        "tags": [
+          "Map"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Map"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "operationId": "getGameMap",
+        "description": "Returns the map of this specific game including the tiles (data)",
+        "security": [
+          {
+            "player-auth": []
+          }
+        ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/": {
+      "parameters": [
+        {
+          "schema": {
+            "$ref": "#/components/schemas/GameID"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get all robots",
+        "tags": [
+          "Robots"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EntityID"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getRobots",
+        "description": "Returns a list of all robot IDs in this game.\n> A robot is not a player as a player is able to controll multiple robots",
+        "security": [
+          {
+            "player-auth": []
+          }
+        ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/{robot_id}/actions/avinable": {
       "parameters": [
         {
           "schema": {
@@ -1419,7 +1441,7 @@
         }
       ],
       "get": {
-        "summary": "Get Robot Informations",
+        "summary": "Get Aviable actions",
         "tags": [
           "Robots"
         ],
@@ -1429,7 +1451,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RobotInfo"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EntityEventOportunity"
+                  }
                 }
               }
             }
@@ -1445,8 +1470,8 @@
             }
           }
         },
-        "operationId": "getRobotStats",
-        "description": "Returns the status and info about the robot",
+        "operationId": "getPossibleActions",
+        "description": "Returns a list of EntityActionTypes which are possible to be executed at the moment.",
         "security": [
           {
             "player-auth": []
@@ -1549,7 +1574,7 @@
         ]
       }
     },
-    "/games/{game_id}/entitys/robots/{robot_id}/actions/avinable": {
+    "/games/{game_id}/entitys/robots/{robot_id}/info": {
       "parameters": [
         {
           "schema": {
@@ -1569,7 +1594,7 @@
         }
       ],
       "get": {
-        "summary": "Get Aviable actions",
+        "summary": "Get Robot Informations",
         "tags": [
           "Robots"
         ],
@@ -1579,10 +1604,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EntityEventOportunity"
-                  }
+                  "$ref": "#/components/schemas/RobotInfo"
                 }
               }
             }
@@ -1598,8 +1620,8 @@
             }
           }
         },
-        "operationId": "getPossibleActions",
-        "description": "Returns a list of EntityActionTypes which are possible to be executed at the moment.",
+        "operationId": "getRobotStats",
+        "description": "Returns the status and info about the robot",
         "security": [
           {
             "player-auth": []
@@ -1607,7 +1629,7 @@
         ]
       }
     },
-    "/games/{game_id}/entitys/robots/": {
+    "/games/{game_id}/events/type": {
       "parameters": [
         {
           "schema": {
@@ -1619,19 +1641,19 @@
         }
       ],
       "get": {
-        "summary": "Get all robots",
-        "tags": [
-          "Robots"
-        ],
+        "summary": "trace event",
+        "operationId": "traceEvent",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EntityID"
+                  "type": "object",
+                  "properties": {
+                    "event-type": {
+                      "$ref": "#/components/schemas/EventType"
+                    }
                   }
                 }
               }
@@ -1648,12 +1670,34 @@
             }
           }
         },
-        "operationId": "getRobots",
-        "description": "Returns a list of all robot IDs in this game.\n> A robot is not a player as a player is able to controll multiple robots",
+        "description": "All events needed by the client are accessible here. (Usefull for animations)\nMore about this function is found in the [regarding Github Issue](https://github.com/FactoryRally/game-controller/issues/6)\n\n**This function only returns the type of the event you need to fetch the data seperately**\n> Read more at [api-usage.md](https://github.com/FactoryRally/game-controller/blob/master/documentation/rest/api-usage.md#events--updates)",
         "security": [
           {
             "player-auth": []
           }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "boolean",
+              "default": "false"
+            },
+            "in": "query",
+            "name": "batch",
+            "description": "If true you will get all past events at once"
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "default": "false"
+            },
+            "in": "query",
+            "name": "wait",
+            "description": "If true the server will not responde until a event is added to the queue\n\nRrequires less traffic but might impacts the servers performance or cause timeouts at the client"
+          }
+        ],
+        "tags": [
+          "EventHandling"
         ]
       }
     }
@@ -2276,7 +2320,9 @@
           "programming timer stop",
           "random card distribution",
           "take card event",
-          "activate checkpoint"
+          "activate checkpoint",
+          "game_phase_changed",
+          "game_round_phase_changed"
         ]
       },
       "MovementEvent": {
@@ -2695,6 +2741,35 @@
           },
           "robot": {
             "$ref": "#/components/schemas/EntityID"
+          }
+        }
+      },
+      "Map": {
+        "title": "Map",
+        "type": "object",
+        "description": "The map including the tiles",
+        "properties": {
+          "info": {
+            "$ref": "#/components/schemas/MapInfo"
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Tile"
+              }
+            }
+          }
+        }
+      },
+      "GamePhaseChangeEvent": {
+        "title": "GamePhaseChangeEvent",
+        "type": "object",
+        "description": "When the next game phase started",
+        "properties": {
+          "new status": {
+            "$ref": "#/components/schemas/GameState"
           }
         }
       }
