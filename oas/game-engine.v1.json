@@ -1700,6 +1700,160 @@
           "EventHandling"
         ]
       }
+    },
+    "/maps/": {
+      "get": {
+        "summary": "Get Map Names",
+        "tags": [
+          "Map Repo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Name"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getMaps",
+        "description": "Returns a list of all map names",
+        "security": [
+          {
+            "admin-access": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Save Map",
+        "operationId": "saveMap",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Saves a map to the repository",
+        "security": [
+          {
+            "admin-access": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Map"
+              }
+            }
+          },
+          "description": "The map to save"
+        },
+        "tags": [
+          "Map Repo"
+        ]
+      }
+    },
+    "/maps/{map_name}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "map_name",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get map",
+        "tags": [
+          "Map Repo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapInfo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getMap",
+        "description": "Get a map by its name",
+        "security": [
+          {
+            "admin-access": []
+          }
+        ],
+        "requestBody": {}
+      },
+      "delete": {
+        "summary": "Delete Map",
+        "operationId": "deleteMap",
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error-Message"
+                }
+              }
+            }
+          }
+        },
+        "description": "Delete a map by its name",
+        "security": [
+          {
+            "admin-access": []
+          }
+        ],
+        "tags": [
+          "Map Repo"
+        ]
+      }
     }
   },
   "components": {
@@ -1929,7 +2083,7 @@
         "example": "Niton 1",
         "minLength": 3,
         "maxLength": 13,
-        "pattern": "[A-Za-z]+[A-Za-z0-9 _-]+"
+        "pattern": "[A-Za-z]+[A-Za-z0-9 _- ]+"
       },
       "GameInfo": {
         "title": "Game Info",
@@ -2384,6 +2538,9 @@
         "title": "MapInfo",
         "type": "object",
         "description": "Describes the map *without* the tiles",
+        "x-tags": [
+          "Map"
+        ],
         "properties": {
           "width": {
             "type": "integer",
@@ -2397,11 +2554,11 @@
           },
           "prioBeacon": {
             "$ref": "#/components/schemas/Position"
+          },
+          "name": {
+            "$ref": "#/components/schemas/Name"
           }
-        },
-        "x-tags": [
-          "Map"
-        ]
+        }
       },
       "PushEvent": {
         "title": "PushEvent",
