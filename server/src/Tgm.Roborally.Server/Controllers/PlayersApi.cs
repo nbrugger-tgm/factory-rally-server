@@ -62,12 +62,10 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult GetAllPlayers([FromRoute][Required][Range(0, 2048)]int gameId)
         { 
-            IActionResult response = null;
-            
-            GameLogic game = GameManager.instance.GetGame(gameId, ref response);
-            if (response != null)
-                return response;
-            return new ObjectResult(game.PlayerIds);
+            return new GameRequestPipeline()
+                .game(gameId)
+                .compute(c => c.Response = new ObjectResult(c.Game.PlayerIds))
+                .execute();
         }
 
         /// <summary>
@@ -87,15 +85,11 @@ namespace Tgm.Roborally.Server.Controllers
         public virtual IActionResult GetPlayer([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required][Range(0, 8)]int playerId)
         { 
 
-            IActionResult response = null;
-            
-            GameLogic game = GameManager.instance.GetGame(gameId, ref response);
-            if (response != null)
-                return response;
-            Player p = game.GetPlayer(playerId, ref response);
-            if (response != null)
-                return response;
-            return new ObjectResult(p);
+            return new GameRequestPipeline()
+                .game(gameId)
+                .player(playerId)
+                .compute(c => c.Response = new ObjectResult(c.Player))
+                .execute();
         }
 
         /// <summary>
@@ -118,12 +112,10 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerResponse(statusCode: 409, type: typeof(ErrorMessage), description: "Not Joinable")]
         public virtual IActionResult Join([FromRoute][Required][Range(0, 2048)]int gameId, [FromQuery]string password)
         {
-            IActionResult response = null;
-            GameLogic game = GameManager.instance.GetGame(gameId, ref response);
-            if (response != null)
-                return response;
-            game.Join(password,ref response);
-            return response;
+            return new GameRequestPipeline()
+                .game(gameId)
+                .compute(c => c.Response = new ObjectResult(new JoinResponse(c.Game.Join(password))))
+                .execute();
         }
 
         /// <summary>
@@ -140,12 +132,8 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("KickPlayer")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult KickPlayer([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required][Range(0, 8)]int playerId)
-        { 
-            IActionResult response = null;
-            
-            GameLogic game = GameManager.instance.GetGame(gameId, ref response);
-            game.RemovePlayer(playerId,ref response);
-            return response;
+        {
+            return new GameRequestPipeline().game(gameId).compute(context => context.Game.RemovePlayer(playerId)).execute();
         }
     }
 }
