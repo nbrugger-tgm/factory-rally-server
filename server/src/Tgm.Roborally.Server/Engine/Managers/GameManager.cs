@@ -26,13 +26,10 @@ namespace Tgm.Roborally.Server.Engine
 
 		public static int randomID => new Random().Next(2048);
 
-		public GameLogic GetGame(int gameId, ref IActionResult response)
+		public GameLogic GetGame(int gameId)
 		{
-			if (response != null)
-				return null;
 			if (!games.ContainsKey(gameId))
 			{
-				response = new NotFoundResult();
 				return null;
 			}
 			return games[gameId];
