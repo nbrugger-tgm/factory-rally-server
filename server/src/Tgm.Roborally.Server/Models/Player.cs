@@ -135,6 +135,11 @@ namespace Tgm.Roborally.Server.Models
                     OnTurn == other.OnTurn ||
                     
                     OnTurn.Equals(other.OnTurn)
+                ) && 
+                (
+                    Active == other.Active ||
+                    
+                    Active.Equals(other.Active)
                 );
         }
 
@@ -154,6 +159,8 @@ namespace Tgm.Roborally.Server.Models
                     hashCode = hashCode * 59 + ControlledEntities.GetHashCode();
                     
                     hashCode = hashCode * 59 + OnTurn.GetHashCode();
+                    
+                    hashCode = hashCode * 59 + Active.GetHashCode();
                 return hashCode;
             }
         }

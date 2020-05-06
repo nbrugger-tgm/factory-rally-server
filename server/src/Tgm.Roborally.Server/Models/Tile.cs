@@ -53,6 +53,14 @@ namespace Tgm.Roborally.Server.Models
         public Rotation RotatorDirection { get; set; }
 
         /// <summary>
+        /// The height of the tile. 1 &#x3D; default
+        /// </summary>
+        /// <value>The height of the tile. 1 &#x3D; default</value>
+        [Range(1, 3)]
+        [DataMember(Name="level", EmitDefaultValue=false)]
+        public int Level { get; set; } = 1;
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -64,6 +72,7 @@ namespace Tgm.Roborally.Server.Models
             sb.Append("  Empty: ").Append(Empty).Append("\n");
             sb.Append("  Direction: ").Append(Direction).Append("\n");
             sb.Append("  RotatorDirection: ").Append(RotatorDirection).Append("\n");
+            sb.Append("  Level: ").Append(Level).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -119,6 +128,11 @@ namespace Tgm.Roborally.Server.Models
                     RotatorDirection == other.RotatorDirection ||
                     
                     RotatorDirection.Equals(other.RotatorDirection)
+                ) && 
+                (
+                    Level == other.Level ||
+                    
+                    Level.Equals(other.Level)
                 );
         }
 
@@ -140,34 +154,26 @@ namespace Tgm.Roborally.Server.Models
                     hashCode = hashCode * 59 + Direction.GetHashCode();
                     
                     hashCode = hashCode * 59 + RotatorDirection.GetHashCode();
+                    
+                    hashCode = hashCode * 59 + Level.GetHashCode();
                 return hashCode;
             }
         }
 
         #region Operators
+        #pragma warning disable 1591
 
-        /// <summary>
-        /// EQUALS
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
         public static bool operator ==(Tile left, Tile right)
         {
             return Equals(left, right);
         }
 
-        /// <summary>
-        /// NOT EQUALS
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
         public static bool operator !=(Tile left, Tile right)
         {
             return !Equals(left, right);
         }
 
+        #pragma warning restore 1591
         #endregion Operators
     }
 }

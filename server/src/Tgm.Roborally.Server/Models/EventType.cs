@@ -111,6 +111,18 @@ namespace Tgm.Roborally.Server.Models
             /// Enum ActivateCheckpoint for activate checkpoint
             /// </summary>
             [EnumMember(Value = "activate checkpoint")]
-            ActivateCheckpoint = 14
+            ActivateCheckpoint = 14,
+            
+            /// <summary>
+            /// Enum GamePhaseChanged for game_phase_changed
+            /// </summary>
+            [EnumMember(Value = "game_phase_changed")]
+            GamePhaseChanged = 15,
+            
+            /// <summary>
+            /// Enum GameRoundPhaseChanged for game_round_phase_changed
+            /// </summary>
+            [EnumMember(Value = "game_round_phase_changed")]
+            GameRoundPhaseChanged = 16
         }
 }

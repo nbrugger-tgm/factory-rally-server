@@ -4,7 +4,7 @@
 **.sln
 **/Startup.cs
 **/Program.cs
-
+**/Authentication/
 !**/*Type.cs
 !**/GameState.cs
 !**/GameRules.cs

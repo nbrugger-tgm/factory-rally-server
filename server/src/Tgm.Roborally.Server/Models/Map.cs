@@ -21,45 +21,22 @@ using Tgm.Roborally.Server.Converters;
 namespace Tgm.Roborally.Server.Models
 { 
     /// <summary>
-    /// Describes the map *without* the tiles
+    /// The map including the tiles
     /// </summary>
     [DataContract]
-    public partial class MapInfo : IEquatable<MapInfo>
+    public partial class Map : IEquatable<Map>
     {
-        private Map _map;
-
-        public MapInfo(Map map)
-        {
-            _map = map;
-        }
-
         /// <summary>
-        /// Gets or Sets Width
+        /// Gets or Sets Info
         /// </summary>
-        [Range(4, 500)]
-        [DataMember(Name = "width", EmitDefaultValue = false)]
-        public int Width => _map.Width;
+        [DataMember(Name="info", EmitDefaultValue=false)]
+        public MapInfo Info { get; set; }
 
         /// <summary>
-        /// Gets or Sets Height
+        /// Gets or Sets Rows
         /// </summary>
-        [Range(4, 500)]
-        [DataMember(Name = "height", EmitDefaultValue = false)]
-        public int Height => _map.Height;
-
-        /// <summary>
-        /// Gets or Sets PrioBeacon
-        /// </summary>
-        [DataMember(Name = "prioBeacon", EmitDefaultValue = false)]
-        public Position PrioBeacon => _map.PrioCorePos;
-        /// <summary>
-        /// The default rule for names in the game
-        /// </summary>
-        /// <value>The default rule for names in the game</value>
-        [RegularExpression("[A-Za-z]+[A-Za-z0-9 _- ]+")]
-        [StringLength(13, MinimumLength=3)]
-        [DataMember(Name="name", EmitDefaultValue=false)]
-        public string Name { get; set; }
+        [DataMember(Name="rows", EmitDefaultValue=false)]
+        public List<List<Tile>> Rows { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -68,11 +45,9 @@ namespace Tgm.Roborally.Server.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class MapInfo {\n");
-            sb.Append("  Width: ").Append(Width).Append("\n");
-            sb.Append("  Height: ").Append(Height).Append("\n");
-            sb.Append("  PrioBeacon: ").Append(PrioBeacon).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("class Map {\n");
+            sb.Append("  Info: ").Append(Info).Append("\n");
+            sb.Append("  Rows: ").Append(Rows).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -95,39 +70,30 @@ namespace Tgm.Roborally.Server.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((MapInfo)obj);
+            return obj.GetType() == GetType() && Equals((Map)obj);
         }
 
         /// <summary>
-        /// Returns true if MapInfo instances are equal
+        /// Returns true if Map instances are equal
         /// </summary>
-        /// <param name="other">Instance of MapInfo to be compared</param>
+        /// <param name="other">Instance of Map to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(MapInfo other)
+        public bool Equals(Map other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
             return 
                 (
-                    Width == other.Width ||
-                    
-                    Width.Equals(other.Width)
+                    Info == other.Info ||
+                    Info != null &&
+                    Info.Equals(other.Info)
                 ) && 
                 (
-                    Height == other.Height ||
-                    
-                    Height.Equals(other.Height)
-                ) && 
-                (
-                    PrioBeacon == other.PrioBeacon ||
-                    PrioBeacon != null &&
-                    PrioBeacon.Equals(other.PrioBeacon)
-                ) && 
-                (
-                    Name == other.Name ||
-                    Name != null &&
-                    Name.Equals(other.Name)
+                    Rows == other.Rows ||
+                    Rows != null &&
+                    other.Rows != null &&
+                    Rows.SequenceEqual(other.Rows)
                 );
         }
 
@@ -141,14 +107,10 @@ namespace Tgm.Roborally.Server.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    
-                    hashCode = hashCode * 59 + Width.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + Height.GetHashCode();
-                    if (PrioBeacon != null)
-                    hashCode = hashCode * 59 + PrioBeacon.GetHashCode();
-                    if (Name != null)
-                    hashCode = hashCode * 59 + Name.GetHashCode();
+                    if (Info != null)
+                    hashCode = hashCode * 59 + Info.GetHashCode();
+                    if (Rows != null)
+                    hashCode = hashCode * 59 + Rows.GetHashCode();
                 return hashCode;
             }
         }
@@ -156,12 +118,12 @@ namespace Tgm.Roborally.Server.Models
         #region Operators
         #pragma warning disable 1591
 
-        public static bool operator ==(MapInfo left, MapInfo right)
+        public static bool operator ==(Map left, Map right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(MapInfo left, MapInfo right)
+        public static bool operator !=(Map left, Map right)
         {
             return !Equals(left, right);
         }
