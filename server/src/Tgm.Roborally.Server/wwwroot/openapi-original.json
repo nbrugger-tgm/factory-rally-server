@@ -106,7 +106,7 @@
           }
         },
         "security" : [ {
-          "Host-token-access" : [ ]
+          "admin-access" : [ ]
         } ],
         "summary" : "Create Game",
         "tags" : [ "Game" ]
@@ -149,7 +149,7 @@
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "player-auth" : [ ]
         } ],
         "summary" : "Get game status",
         "tags" : [ "Game" ]
@@ -210,7 +210,7 @@
           }
         },
         "security" : [ {
-          "Host-token-access" : [ ]
+          "admin-access" : [ ]
         } ],
         "summary" : "Get games actions",
         "tags" : [ "Game" ]
@@ -263,7 +263,7 @@
           }
         },
         "security" : [ {
-          "Host-token-access" : [ ]
+          "admin-access" : [ ]
         } ],
         "summary" : "Commit Action",
         "tags" : [ "Game" ]
@@ -419,9 +419,9 @@
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "player-auth" : [ ]
         }, {
-          "Host-token-access" : [ ]
+          "admin-access" : [ ]
         } ],
         "summary" : "Remove Player",
         "tags" : [ "Players" ]
@@ -524,7 +524,7 @@
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "player-auth" : [ ]
         } ],
         "summary" : "Set Robots",
         "tags" : [ "Players" ]
@@ -567,7 +567,7 @@
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "player-auth" : [ ]
         } ],
         "summary" : "Get upgrade shop",
         "tags" : [ "Upgrades" ]
@@ -619,7 +619,7 @@
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "player-auth" : [ ]
         } ],
         "summary" : "Buy Upgrade",
         "tags" : [ "Upgrades" ]
@@ -671,7 +671,7 @@
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "player-auth" : [ ]
         } ],
         "summary" : "Get upgrade information",
         "tags" : [ "Upgrades" ]
@@ -717,7 +717,7 @@
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "player-auth" : [ ]
         } ],
         "summary" : "get all Upgrades",
         "tags" : [ "Upgrades" ]
@@ -762,7 +762,7 @@
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "player-auth" : [ ]
         } ],
         "summary" : "clear registers",
         "tags" : [ "Robots" ]
@@ -815,7 +815,7 @@
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "player-auth" : [ ]
         } ],
         "summary" : "Get register information",
         "tags" : [ "Robots" ]
@@ -848,7 +848,7 @@
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "player-auth" : [ ]
         } ],
         "summary" : "change register content",
         "tags" : [ "Robots" ]
@@ -893,7 +893,7 @@
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "player-auth" : [ ]
         } ],
         "summary" : "Clear Robot Upgrades",
         "tags" : [ "Robots" ]
@@ -946,7 +946,7 @@
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "player-auth" : [ ]
         } ],
         "summary" : "Get Robot Upgrades",
         "tags" : [ "Robots" ]
@@ -998,9 +998,685 @@
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "player-auth" : [ ]
         } ],
         "summary" : "Remove Upgrade",
+        "tags" : [ "Robots" ]
+      }
+    },
+    "/games/{game_id}/map/tiles/{x}/{y}" : {
+      "get" : {
+        "description" : "Inspect a tile of the map",
+        "operationId" : "getTile",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "x",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "y",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Tile"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get tile",
+        "tags" : [ "Map" ]
+      }
+    },
+    "/games/{game_id}/map/info" : {
+      "get" : {
+        "description" : "Get meta information abouzt the map of the game",
+        "operationId" : "getMapInfo",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MapInfo"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get Map info",
+        "tags" : [ "Map" ]
+      }
+    },
+    "/games/{game_id}/events/movement" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextMovementEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MovementEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last movement event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/games/{game_id}/events/damage" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the damage type.\n\nIf the event is not of the damage type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextDamageEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DamageEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last damage event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/games/{game_id}/events/lazer-hit" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the lazer hit type.\n\nIf the event is not of the lazer hit type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextLazerHitEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/LazerHitEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last Lazer hit event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/games/{game_id}/events/map" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the  Map Event type.\nMap Events activeata all active components of a type at once\n\nIf the event is not of the map event type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextMapEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MapEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last map event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/games/{game_id}/events/push" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the push type.\n\nIf the event is not of the push  type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextPushEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PushEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last push event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/games/{game_id}/events/shoot" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextShootEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ShootEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last shoot event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/games/{game_id}/events/shutdown" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextShutdownEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ShutdownEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last shutdown event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/games/{game_id}/map" : {
+      "get" : {
+        "description" : "Returns the map of this specific game including the tiles (data)",
+        "operationId" : "getGameMap",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Map"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get Map",
+        "tags" : [ "Map" ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/" : {
+      "get" : {
+        "description" : "Returns a list of all robot IDs in this game.\n> A robot is not a player as a player is able to controll multiple robots",
+        "operationId" : "getRobots",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/EntityID"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get all robots",
+        "tags" : [ "Robots" ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/{robot_id}/actions/avinable" : {
+      "get" : {
+        "description" : "Returns a list of EntityActionTypes which are possible to be executed at the moment.",
+        "operationId" : "getPossibleActions",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "robot_id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/EntityEventOportunity"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get Aviable actions",
+        "tags" : [ "Robots" ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/{robot_id}/actions/stack/" : {
+      "get" : {
+        "description" : "Retuns a list od all actions in the stack",
+        "operationId" : "getActionStack",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "robot_id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/EntityAction"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get Robot action stack",
+        "tags" : [ "Robots" ]
+      },
+      "post" : {
+        "description" : "Adds an action to the stack. The stack is processed using *first in first out*",
+        "operationId" : "doEntityAction",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "robot_id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/EntityAction"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Add Entity Action to stack",
+        "tags" : [ "Robots" ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/{robot_id}/info" : {
+      "get" : {
+        "description" : "Returns the status and info about the robot",
+        "operationId" : "getRobotStats",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "robot_id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RobotInfo"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get Robot Informations",
         "tags" : [ "Robots" ]
       }
     },
@@ -1063,38 +1739,70 @@
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "player-auth" : [ ]
         } ],
         "summary" : "trace event",
         "tags" : [ "EventHandling" ]
       }
     },
-    "/games/{game_id}/map/tiles/{x}/{y}" : {
+    "/maps/" : {
       "get" : {
-        "description" : "Inspect a tile of the map",
-        "operationId" : "getTile",
+        "description" : "Returns a list of all map names",
+        "operationId" : "getMaps",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Name"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          }
+        },
+        "security" : [ {
+          "admin-access" : [ ]
+        } ],
+        "summary" : "Get Map Names",
+        "tags" : [ "Map Repo" ]
+      },
+      "post" : {
+        "description" : "Saves a map to the repository",
+        "operationId" : "saveMap",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Map"
+              }
+            }
+          },
+          "description" : "The map to save"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "security" : [ {
+          "admin-access" : [ ]
+        } ],
+        "summary" : "Save Map",
+        "tags" : [ "Map Repo" ]
+      }
+    },
+    "/maps/{map_name}" : {
+      "delete" : {
+        "description" : "Delete a map by its name",
+        "operationId" : "deleteMap",
         "parameters" : [ {
           "explode" : false,
           "in" : "path",
-          "name" : "game_id",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/GameID"
-          },
-          "style" : "simple"
-        }, {
-          "explode" : false,
-          "in" : "path",
-          "name" : "x",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          },
-          "style" : "simple"
-        }, {
-          "explode" : false,
-          "in" : "path",
-          "name" : "y",
+          "name" : "map_name",
           "required" : true,
           "schema" : {
             "type" : "string"
@@ -1102,15 +1810,8 @@
           "style" : "simple"
         } ],
         "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Tile"
-                }
-              }
-            },
-            "description" : "OK"
+          "204" : {
+            "description" : "Deleted"
           },
           "404" : {
             "content" : {
@@ -1121,26 +1822,34 @@
               }
             },
             "description" : "Not Found"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "admin-access" : [ ]
         } ],
-        "summary" : "Get tile",
-        "tags" : [ "Map" ]
-      }
-    },
-    "/games/{game_id}/map/info" : {
+        "summary" : "Delete Map",
+        "tags" : [ "Map Repo" ]
+      },
       "get" : {
-        "description" : "Get meta information abouzt the map of the game",
-        "operationId" : "getMapInfo",
+        "description" : "Get a map by its name",
+        "operationId" : "getMap",
         "parameters" : [ {
           "explode" : false,
           "in" : "path",
-          "name" : "game_id",
+          "name" : "map_name",
           "required" : true,
           "schema" : {
-            "$ref" : "#/components/schemas/GameID"
+            "type" : "string"
           },
           "style" : "simple"
         } ],
@@ -1164,323 +1873,8 @@
               }
             },
             "description" : "Not Found"
-          }
-        },
-        "security" : [ {
-          "Player-Access-Token" : [ ]
-        } ],
-        "summary" : "Get Map info",
-        "tags" : [ "Map" ]
-      }
-    },
-    "/games/{game_id}/events/movement" : {
-      "get" : {
-        "description" : "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
-        "operationId" : "fetchNextMovementEvent",
-        "parameters" : [ {
-          "explode" : false,
-          "in" : "path",
-          "name" : "game_id",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/GameID"
           },
-          "style" : "simple"
-        } ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/MovementEvent"
-                }
-              }
-            },
-            "description" : "OK"
-          },
-          "404" : {
-            "description" : "No unfetched event"
-          },
-          "417" : {
-            "description" : "The next event is not a movement event"
-          }
-        },
-        "security" : [ {
-          "Player-Access-Token" : [ ]
-        } ],
-        "summary" : "Get next / last movement event",
-        "tags" : [ "EventHandling" ]
-      }
-    },
-    "/games/{game_id}/events/damage" : {
-      "get" : {
-        "description" : "Returns the next unfetched event of the damage type.\n\nIf the event is not of the damage type you will get a `400` status and the event stays unfetched",
-        "operationId" : "fetchNextDamageEvent",
-        "parameters" : [ {
-          "explode" : false,
-          "in" : "path",
-          "name" : "game_id",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/GameID"
-          },
-          "style" : "simple"
-        } ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/DamageEvent"
-                }
-              }
-            },
-            "description" : "OK"
-          },
-          "404" : {
-            "description" : "No unfetched event"
-          },
-          "417" : {
-            "description" : "The next event is not a movement event"
-          }
-        },
-        "security" : [ {
-          "Player-Access-Token" : [ ]
-        } ],
-        "summary" : "Get next / last damage event",
-        "tags" : [ "EventHandling" ]
-      }
-    },
-    "/games/{game_id}/events/lazer-hit" : {
-      "get" : {
-        "description" : "Returns the next unfetched event of the lazer hit type.\n\nIf the event is not of the lazer hit type you will get a `400` status and the event stays unfetched",
-        "operationId" : "fetchNextLazerHitEvent",
-        "parameters" : [ {
-          "explode" : false,
-          "in" : "path",
-          "name" : "game_id",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/GameID"
-          },
-          "style" : "simple"
-        } ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/LazerHitEvent"
-                }
-              }
-            },
-            "description" : "OK"
-          },
-          "404" : {
-            "description" : "No unfetched event"
-          },
-          "417" : {
-            "description" : "The next event is not a movement event"
-          }
-        },
-        "security" : [ {
-          "Player-Access-Token" : [ ]
-        } ],
-        "summary" : "Get next / last Lazer hit event",
-        "tags" : [ "EventHandling" ]
-      }
-    },
-    "/games/{game_id}/events/map" : {
-      "get" : {
-        "description" : "Returns the next unfetched event of the  Map Event type.\nMap Events activeata all active components of a type at once\n\nIf the event is not of the map event type you will get a `400` status and the event stays unfetched",
-        "operationId" : "fetchNextMapEvent",
-        "parameters" : [ {
-          "explode" : false,
-          "in" : "path",
-          "name" : "game_id",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/GameID"
-          },
-          "style" : "simple"
-        } ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/MapEvent"
-                }
-              }
-            },
-            "description" : "OK"
-          },
-          "404" : {
-            "description" : "No unfetched event"
-          },
-          "417" : {
-            "description" : "The next event is not a movement event"
-          }
-        },
-        "security" : [ {
-          "Player-Access-Token" : [ ]
-        } ],
-        "summary" : "Get next / last map event",
-        "tags" : [ "EventHandling" ]
-      }
-    },
-    "/games/{game_id}/events/push" : {
-      "get" : {
-        "description" : "Returns the next unfetched event of the push type.\n\nIf the event is not of the push  type you will get a `400` status and the event stays unfetched",
-        "operationId" : "fetchNextPushEvent",
-        "parameters" : [ {
-          "explode" : false,
-          "in" : "path",
-          "name" : "game_id",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/GameID"
-          },
-          "style" : "simple"
-        } ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/PushEvent"
-                }
-              }
-            },
-            "description" : "OK"
-          },
-          "404" : {
-            "description" : "No unfetched event"
-          },
-          "417" : {
-            "description" : "The next event is not a movement event"
-          }
-        },
-        "security" : [ {
-          "Player-Access-Token" : [ ]
-        } ],
-        "summary" : "Get next / last push event",
-        "tags" : [ "EventHandling" ]
-      }
-    },
-    "/games/{game_id}/events/shoot" : {
-      "get" : {
-        "description" : "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
-        "operationId" : "fetchNextShootEvent",
-        "parameters" : [ {
-          "explode" : false,
-          "in" : "path",
-          "name" : "game_id",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/GameID"
-          },
-          "style" : "simple"
-        } ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ShootEvent"
-                }
-              }
-            },
-            "description" : "OK"
-          },
-          "404" : {
-            "description" : "No unfetched event"
-          },
-          "417" : {
-            "description" : "The next event is not a movement event"
-          }
-        },
-        "security" : [ {
-          "Player-Access-Token" : [ ]
-        } ],
-        "summary" : "Get next / last shoot event",
-        "tags" : [ "EventHandling" ]
-      }
-    },
-    "/games/{game_id}/events/shutdown" : {
-      "get" : {
-        "description" : "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
-        "operationId" : "fetchNextShutdownEvent",
-        "parameters" : [ {
-          "explode" : false,
-          "in" : "path",
-          "name" : "game_id",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/GameID"
-          },
-          "style" : "simple"
-        } ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ShutdownEvent"
-                }
-              }
-            },
-            "description" : "OK"
-          },
-          "404" : {
-            "description" : "No unfetched event"
-          },
-          "417" : {
-            "description" : "The next event is not a movement event"
-          }
-        },
-        "security" : [ {
-          "Player-Access-Token" : [ ]
-        } ],
-        "summary" : "Get next / last shutdown event",
-        "tags" : [ "EventHandling" ]
-      }
-    },
-    "/games/{game_id}/entitys/robots/{robot_id}/info" : {
-      "get" : {
-        "description" : "Returns the status and info about the robot",
-        "operationId" : "getRobotStats",
-        "parameters" : [ {
-          "explode" : false,
-          "in" : "path",
-          "name" : "game_id",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/GameID"
-          },
-          "style" : "simple"
-        }, {
-          "explode" : false,
-          "in" : "path",
-          "name" : "robot_id",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          },
-          "style" : "simple"
-        } ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RobotInfo"
-                }
-              }
-            },
-            "description" : "OK"
-          },
-          "404" : {
+          "500" : {
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1488,222 +1882,14 @@
                 }
               }
             },
-            "description" : "Not Found"
+            "description" : "Internal Server Error"
           }
         },
         "security" : [ {
-          "Player-Access-Token" : [ ]
+          "admin-access" : [ ]
         } ],
-        "summary" : "Get Robot Informations",
-        "tags" : [ "Robots" ]
-      }
-    },
-    "/games/{game_id}/entitys/robots/{robot_id}/actions/stack/" : {
-      "get" : {
-        "description" : "Retuns a list od all actions in the stack",
-        "operationId" : "getActionStack",
-        "parameters" : [ {
-          "explode" : false,
-          "in" : "path",
-          "name" : "game_id",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/GameID"
-          },
-          "style" : "simple"
-        }, {
-          "explode" : false,
-          "in" : "path",
-          "name" : "robot_id",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          },
-          "style" : "simple"
-        } ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "items" : {
-                    "$ref" : "#/components/schemas/EntityAction"
-                  },
-                  "type" : "array"
-                }
-              }
-            },
-            "description" : "OK"
-          },
-          "404" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Error-Message"
-                }
-              }
-            },
-            "description" : "Not Found"
-          }
-        },
-        "security" : [ {
-          "Player-Access-Token" : [ ]
-        } ],
-        "summary" : "Get Robot action stack",
-        "tags" : [ "Robots" ]
-      },
-      "post" : {
-        "description" : "Adds an action to the stack. The stack is processed using *first in first out*",
-        "operationId" : "doEntityAction",
-        "parameters" : [ {
-          "explode" : false,
-          "in" : "path",
-          "name" : "game_id",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/GameID"
-          },
-          "style" : "simple"
-        }, {
-          "explode" : false,
-          "in" : "path",
-          "name" : "robot_id",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          },
-          "style" : "simple"
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/EntityAction"
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "OK"
-          },
-          "404" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Error-Message"
-                }
-              }
-            },
-            "description" : "Not Found"
-          }
-        },
-        "security" : [ {
-          "Player-Access-Token" : [ ]
-        } ],
-        "summary" : "Add Entity Action to stack",
-        "tags" : [ "Robots" ]
-      }
-    },
-    "/games/{game_id}/entitys/robots/{robot_id}/actions/avinable" : {
-      "get" : {
-        "description" : "Returns a list of EntityActionTypes which are possible to be executed at the moment.",
-        "operationId" : "getPossibleActions",
-        "parameters" : [ {
-          "explode" : false,
-          "in" : "path",
-          "name" : "game_id",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/GameID"
-          },
-          "style" : "simple"
-        }, {
-          "explode" : false,
-          "in" : "path",
-          "name" : "robot_id",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          },
-          "style" : "simple"
-        } ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "items" : {
-                    "$ref" : "#/components/schemas/EntityEventOportunity"
-                  },
-                  "type" : "array"
-                }
-              }
-            },
-            "description" : "OK"
-          },
-          "404" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Error-Message"
-                }
-              }
-            },
-            "description" : "Not Found"
-          }
-        },
-        "security" : [ {
-          "Player-Access-Token" : [ ]
-        } ],
-        "summary" : "Get Aviable actions",
-        "tags" : [ "Robots" ]
-      }
-    },
-    "/games/{game_id}/entitys/robots/" : {
-      "get" : {
-        "description" : "Returns a list of all robot IDs in this game.\n> A robot is not a player as a player is able to controll multiple robots",
-        "operationId" : "getRobots",
-        "parameters" : [ {
-          "explode" : false,
-          "in" : "path",
-          "name" : "game_id",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/GameID"
-          },
-          "style" : "simple"
-        } ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "items" : {
-                    "$ref" : "#/components/schemas/EntityID"
-                  },
-                  "type" : "array"
-                }
-              }
-            },
-            "description" : "OK"
-          },
-          "404" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Error-Message"
-                }
-              }
-            },
-            "description" : "Not Found"
-          }
-        },
-        "security" : [ {
-          "Player-Access-Token" : [ ]
-        } ],
-        "summary" : "Get all robots",
-        "tags" : [ "Robots" ]
+        "summary" : "Get map",
+        "tags" : [ "Map Repo" ]
       }
     }
   },
@@ -1713,6 +1899,7 @@
         "additionalProperties" : false,
         "description" : "A tile is a square at the Game field<br>\n**Note:** \n* `direction` is only aviable for belts\n* properties with a `rotator-` prefix are only aviable for rotator (parts)",
         "example" : {
+          "level" : 1,
           "empty" : true
         },
         "properties" : {
@@ -1728,17 +1915,27 @@
           },
           "rotator-direction" : {
             "$ref" : "#/components/schemas/Rotation"
+          },
+          "level" : {
+            "default" : 1,
+            "description" : "The height of the tile. 1 = default",
+            "format" : "int32",
+            "maximum" : 3,
+            "minimum" : 1,
+            "type" : "integer"
           }
         },
         "required" : [ "type" ],
         "title" : "Tile",
-        "type" : "object"
+        "type" : "object",
+        "x-tags" : [ "Map" ]
       },
       "TileType" : {
         "description" : "The type defines the function of a tile and how it is displayed. The behaviour is unknown to the client",
         "enum" : [ "normal", "rotator", "wall", "prio_core", "conveyor", "trap-door", "stomper", "radioactive", "repair site", "Button", "One Way Wall", "Puddle", "pit", "Ramp" ],
         "title" : "TileType",
-        "type" : "string"
+        "type" : "string",
+        "x-tags" : [ "Map" ]
       },
       "Direction" : {
         "default" : "up",
@@ -1772,7 +1969,7 @@
             "example" : "Niton 1",
             "maxLength" : 13,
             "minLength" : 3,
-            "pattern" : "[A-Za-z]+[A-Za-z0-9 _-]+",
+            "pattern" : "[A-Za-z]+[A-Za-z0-9 _- ]+",
             "title" : "Name",
             "type" : "string"
           },
@@ -1895,7 +2092,7 @@
         "example" : "Niton 1",
         "maxLength" : 13,
         "minLength" : 3,
-        "pattern" : "[A-Za-z]+[A-Za-z0-9 _-]+",
+        "pattern" : "[A-Za-z]+[A-Za-z0-9 _- ]+",
         "title" : "Name",
         "type" : "string"
       },
@@ -2329,7 +2526,7 @@
       },
       "EventType" : {
         "description" : "Describes what the event is about",
-        "enum" : [ "movement", "upgrade purchase", "fill register", "activate upgrade", "lazer shot", "game start", "clear shop", "fill shop", "register clear", "programming timer start", "programming timer stop", "random card distribution", "take card event", "activate checkpoint" ],
+        "enum" : [ "movement", "upgrade purchase", "fill register", "activate upgrade", "lazer shot", "game start", "clear shop", "fill shop", "register clear", "programming timer start", "programming timer stop", "random card distribution", "take card event", "activate checkpoint", "game_phase_changed", "game_round_phase_changed" ],
         "title" : "EventType",
         "type" : "string"
       },
@@ -2410,6 +2607,7 @@
         "description" : "Describes the map *without* the tiles",
         "example" : {
           "width" : 43,
+          "name" : "Niton 1",
           "prioBeacon" : {
             "x" : 1,
             "y" : 5
@@ -2429,10 +2627,20 @@
           },
           "prioBeacon" : {
             "$ref" : "#/components/schemas/Position"
+          },
+          "name" : {
+            "description" : "The default rule for names in the game",
+            "example" : "Niton 1",
+            "maxLength" : 13,
+            "minLength" : 3,
+            "pattern" : "[A-Za-z]+[A-Za-z0-9 _- ]+",
+            "title" : "Name",
+            "type" : "string"
           }
         },
         "title" : "MapInfo",
-        "type" : "object"
+        "type" : "object",
+        "x-tags" : [ "Map" ]
       },
       "PushEvent" : {
         "description" : "When entities push each other",
@@ -2710,6 +2918,59 @@
         "title" : "RobotPickEvent",
         "type" : "object"
       },
+      "Map" : {
+        "description" : "The map including the tiles",
+        "example" : {
+          "rows" : [ [ {
+            "level" : 1,
+            "empty" : true
+          }, {
+            "level" : 1,
+            "empty" : true
+          } ], [ {
+            "level" : 1,
+            "empty" : true
+          }, {
+            "level" : 1,
+            "empty" : true
+          } ] ],
+          "info" : {
+            "width" : 43,
+            "name" : "Niton 1",
+            "prioBeacon" : {
+              "x" : 1,
+              "y" : 5
+            },
+            "height" : 302
+          }
+        },
+        "properties" : {
+          "info" : {
+            "$ref" : "#/components/schemas/MapInfo"
+          },
+          "rows" : {
+            "items" : {
+              "items" : {
+                "$ref" : "#/components/schemas/Tile"
+              },
+              "type" : "array"
+            },
+            "type" : "array"
+          }
+        },
+        "title" : "Map",
+        "type" : "object"
+      },
+      "GamePhaseChangeEvent" : {
+        "description" : "When the next game phase started",
+        "properties" : {
+          "new status" : {
+            "$ref" : "#/components/schemas/GameState"
+          }
+        },
+        "title" : "GamePhaseChangeEvent",
+        "type" : "object"
+      },
       "inline_response_200" : {
         "example" : { },
         "properties" : {
@@ -2805,13 +3066,13 @@
       }
     },
     "securitySchemes" : {
-      "Host-token-access" : {
-        "description" : "The Host of the game (and of the API) has an unique identificaton granting him game manipulating abilities. By this means it is also possible to have a host and a client at the same machine. \n> This could be used for AI`s (bot players)",
+      "admin-access" : {
+        "description" : "This is a static key needed for administrative operations like creating games and can only be obtained inside the servers runtime.\n\n``",
         "in" : "query",
-        "name" : "hid",
+        "name" : "skey",
         "type" : "apiKey"
       },
-      "Player-Access-Token" : {
+      "player-auth" : {
         "description" : "Players need a token to join a lobby/game. If the host sets a password the player needs the password to get the token",
         "in" : "query",
         "name" : "pat",
