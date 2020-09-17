@@ -71,7 +71,7 @@ namespace Tgm.Roborally.Server
 					{
 						Version = "0.1.0",
 						Title = "Robot Rally Game logic engine",
-						Description = "Robot Rally Game logic engine (ASP.NET Core 2.0)",
+						Description = "Robot Rally Game logic engine (ASP.NET Core 3.1)",
 						Contact = new OpenApiContact()
 						{
 							Name = "Nils Brugger",
@@ -85,7 +85,7 @@ namespace Tgm.Roborally.Server
 					c.IncludeXmlComments(
 						$"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{Assembly.GetEntryAssembly().GetName().Name}.xml");
 					// Sets the basePath property in the Swagger document generated
-					c.DocumentFilter<BasePathFilter>("/v1");
+	//				c.DocumentFilter<BasePathFilter>("/v1/");
 
 					// Include DataAnnotation attributes on Controller Action parameters as Swagger validation rules (e.g required, pattern, ..)
 					// Use [ValidateModelState] on Actions to actually validate it in C# as well!
