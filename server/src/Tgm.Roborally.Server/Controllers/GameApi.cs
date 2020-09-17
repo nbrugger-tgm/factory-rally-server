@@ -135,7 +135,6 @@ namespace Tgm.Roborally.Server.Controllers
 		[HttpGet]
 		[Route("/v1/games/")]
 		[ValidateModelState]
-		[GameAuth(Role.ADMIN)]
 		[SwaggerOperation("GetGames")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
 		public virtual IActionResult GetGames([FromQuery] bool joinable, [FromQuery] bool unprotected)
