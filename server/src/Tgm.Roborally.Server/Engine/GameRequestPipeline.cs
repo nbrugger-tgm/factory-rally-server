@@ -27,7 +27,7 @@ namespace Tgm.Roborally.Server.Engine
 			set { _response = value; }
 		}
 
-		private bool done => response == null;
+		private bool done => response != null;
 
 		public GameRequestPipeline game(int game)
 		{
@@ -91,10 +91,6 @@ namespace Tgm.Roborally.Server.Engine
 			}
 		}
 
-		public interface IPipelineComputing
-		{
-			public void execute(PipelineContext context);
-		}
 
 		public GameRequestPipeline player(int playerId)
 		{
