@@ -18,6 +18,7 @@ using System.ComponentModel.DataAnnotations;
 using Tgm.Roborally.Server.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Tgm.Roborally.Server.Models;
+using Tgm.Roborally.Server.Authentication;
 
 namespace Tgm.Roborally.Server.Controllers
 { 
@@ -37,7 +38,7 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="500">Internal Server Error</response>
         [HttpDelete]
         [Route("/v1/maps/{map_name}")]
-        [Authorize(Policy = "admin-access")]
+        [GameAuth(Role.ADMIN)]
         [ValidateModelState]
         [SwaggerOperation("DeleteMap")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
@@ -65,7 +66,7 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("/v1/maps/{map_name}")]
-        [Authorize(Policy = "admin-access")]
+        [GameAuth(Role.ADMIN)]
         [ValidateModelState]
         [SwaggerOperation("GetMap")]
         [SwaggerResponse(statusCode: 200, type: typeof(MapInfo), description: "OK")]
@@ -97,7 +98,7 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="200">OK</response>
         [HttpGet]
         [Route("/v1/maps/")]
-        [Authorize(Policy = "admin-access")]
+        [GameAuth(Role.ADMIN)]
         [ValidateModelState]
         [SwaggerOperation("GetMaps")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<string>), description: "OK")]
@@ -124,7 +125,7 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="200">OK</response>
         [HttpPost]
         [Route("/v1/maps/")]
-        [Authorize(Policy = "admin-access")]
+        [GameAuth(Role.ADMIN)]
         [ValidateModelState]
         [SwaggerOperation("SaveMap")]
         public virtual IActionResult SaveMap([FromBody]Map map)
