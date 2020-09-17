@@ -9,14 +9,16 @@ namespace Tgm.Roborally.Server.Authentication
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
 	public class GameAuth : Attribute, IAuthorizationFilter 
 	{
-		private static readonly string _key = RandomString(256,false);
+		private static string _key = RandomString(256,false);
+
+		public static void ChangeAdminKey(string key) => _key = key;
 
 		public GameAuth(Role neededRole)
 		{
 			_needed_role = neededRole;
 		}
 
-		public string AdminKey => _key;
+		public static string AdminKey => _key;
 		
 		private AuthResult _result = new AuthResult();
 		private Role _needed_role;
