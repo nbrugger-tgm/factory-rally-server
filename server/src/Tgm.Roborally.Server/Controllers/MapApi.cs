@@ -43,7 +43,7 @@ namespace Tgm.Roborally.Server.Controllers
         [GameAuth(Role.PLAYER)]
         [SwaggerResponse(statusCode: 200, type: typeof(MapInfo), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetMapInfo([FromRoute][Required][Range(0, 2048)]int gameId)
+        public virtual IActionResult GetMapInfo([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
         {
             return new GameRequestPipeline()
                 .game(gameId)
@@ -66,7 +66,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetTile")]
         [SwaggerResponse(statusCode: 200, type: typeof(Tile), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetTile([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int x, [FromRoute][Required]int y)
+        public virtual IActionResult GetTile([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int x, [FromRoute][Required]int y)
         { 
             return new GameRequestPipeline()
                 .game(gameId)

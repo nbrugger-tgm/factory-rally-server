@@ -37,9 +37,9 @@ namespace Tgm.Roborally.Server.Models
         /// The maximum ammount of players able to join the game
         /// </summary>
         /// <value>The maximum ammount of players able to join the game</value>
-        [Range(1, 10)]
+        [Range(1, 6)]
         [DataMember(Name="max-players", EmitDefaultValue=false)]
-        public int MaxPlayers { get; set; } = 4;
+        public int MaxPlayers { get; set; } = 6;
 
         /// <summary>
         /// The visible name of the game

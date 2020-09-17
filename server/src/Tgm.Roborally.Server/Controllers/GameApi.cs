@@ -48,7 +48,7 @@ namespace Tgm.Roborally.Server.Controllers
 		[SwaggerOperation("CommitAction")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
 		[SwaggerResponse(statusCode: 409, type: typeof(ErrorMessage), description: "Conflict")]
-		public virtual IActionResult CommitAction([FromRoute] [Required] [Range(0, 2048)]
+		public virtual IActionResult CommitAction([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 			int gameId, [FromQuery] [Required()] ActionType action)
 		{
 			return 
@@ -93,7 +93,7 @@ namespace Tgm.Roborally.Server.Controllers
 		[SwaggerOperation("GetActions")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<Action>), description: "OK")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-		public virtual IActionResult GetActions([FromRoute] [Required] [Range(0, 2048)]
+		public virtual IActionResult GetActions([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 			int gameId, [FromQuery] string mode)
 		{
 			return 
@@ -116,7 +116,7 @@ namespace Tgm.Roborally.Server.Controllers
 		[SwaggerOperation("GetGameState")]
 		[SwaggerResponse(statusCode: 200, type: typeof(GameInfo), description: "OK")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-		public virtual IActionResult GetGameState([FromRoute] [Required] [Range(0, 2048)]
+		public virtual IActionResult GetGameState([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 			int gameId)
 		{
 			return new GameRequestPipeline()

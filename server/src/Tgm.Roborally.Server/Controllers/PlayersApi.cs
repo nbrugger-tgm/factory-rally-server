@@ -41,8 +41,8 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("ChooseRobot")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult ChooseRobot([FromRoute] [Required] [Range(0, 2048)]
-            int gameId, [FromRoute] [Required] [Range(0, 8)] int playerId, [FromBody] List<Robots> robots)
+        public virtual IActionResult ChooseRobot([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+            int gameId, [FromRoute(Name = "player_id")] [Required] [Range(0, 8)] int playerId, [FromBody] List<Robots> robots)
         {
             throw new NotImplementedException("Not implemented in this version");
         }
@@ -60,7 +60,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetAllPlayers")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetAllPlayers([FromRoute][Required][Range(0, 2048)]int gameId)
+        public virtual IActionResult GetAllPlayers([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
         { 
             return new GameRequestPipeline()
                 .game(gameId)
@@ -82,7 +82,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetPlayer")]
         [SwaggerResponse(statusCode: 200, type: typeof(Player), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetPlayer([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required][Range(0, 8)]int playerId)
+        public virtual IActionResult GetPlayer([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "player_id")][Required][Range(0, 8)]int playerId)
         { 
 
             return new GameRequestPipeline()
@@ -110,7 +110,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerResponse(statusCode: 401, type: typeof(ErrorMessage), description: "Wrong/No password")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         [SwaggerResponse(statusCode: 409, type: typeof(ErrorMessage), description: "Not Joinable")]
-        public virtual IActionResult Join([FromRoute][Required][Range(0, 2048)]int gameId, [FromQuery]string password)
+        public virtual IActionResult Join([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromQuery]string password)
         {
             return new GameRequestPipeline()
                 .game(gameId)
@@ -131,7 +131,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("KickPlayer")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult KickPlayer([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required][Range(0, 8)]int playerId)
+        public virtual IActionResult KickPlayer([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "player_id")][Required][Range(0, 8)]int playerId)
         {
             return new GameRequestPipeline().game(gameId).compute(context => context.Game.RemovePlayer(playerId)).execute();
         }

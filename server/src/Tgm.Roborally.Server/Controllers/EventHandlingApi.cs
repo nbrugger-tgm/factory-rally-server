@@ -41,7 +41,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("FetchNextDamageEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(DamageEvent), description: "OK")]
-        public virtual IActionResult FetchNextDamageEvent([FromRoute][Required][Range(0, 2048)]int gameId)
+        public virtual IActionResult FetchNextDamageEvent([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -73,7 +73,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("FetchNextLazerHitEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(LazerHitEvent), description: "OK")]
-        public virtual IActionResult FetchNextLazerHitEvent([FromRoute][Required][Range(0, 2048)]int gameId)
+        public virtual IActionResult FetchNextLazerHitEvent([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -105,7 +105,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("FetchNextMapEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(MapEvent), description: "OK")]
-        public virtual IActionResult FetchNextMapEvent([FromRoute][Required][Range(0, 2048)]int gameId)
+        public virtual IActionResult FetchNextMapEvent([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -137,7 +137,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("FetchNextMovementEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(MovementEvent), description: "OK")]
-        public virtual IActionResult FetchNextMovementEvent([FromRoute][Required][Range(0, 2048)]int gameId)
+        public virtual IActionResult FetchNextMovementEvent([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -169,7 +169,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("FetchNextPushEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(PushEvent), description: "OK")]
-        public virtual IActionResult FetchNextPushEvent([FromRoute][Required][Range(0, 2048)]int gameId)
+        public virtual IActionResult FetchNextPushEvent([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -201,7 +201,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("FetchNextShootEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(ShootEvent), description: "OK")]
-        public virtual IActionResult FetchNextShootEvent([FromRoute][Required][Range(0, 2048)]int gameId)
+        public virtual IActionResult FetchNextShootEvent([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -233,7 +233,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("FetchNextShutdownEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(ShutdownEvent), description: "OK")]
-        public virtual IActionResult FetchNextShutdownEvent([FromRoute][Required][Range(0, 2048)]int gameId)
+        public virtual IActionResult FetchNextShutdownEvent([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -267,7 +267,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("TraceEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(InlineResponse200), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult TraceEvent([FromRoute][Required][Range(0, 2048)]int gameId, [FromQuery]bool batch, [FromQuery]bool wait)
+        public virtual IActionResult TraceEvent([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromQuery]bool batch, [FromQuery]bool wait)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...

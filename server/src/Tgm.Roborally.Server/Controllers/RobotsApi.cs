@@ -40,7 +40,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("ClearRegisters")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult ClearRegisters([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int robotId)
+        public virtual IActionResult ClearRegisters([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]int robotId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -64,7 +64,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("ClearUpgrades")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult ClearUpgrades([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int robotId)
+        public virtual IActionResult ClearUpgrades([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]int robotId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -89,7 +89,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("DoEntityAction")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult DoEntityAction([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]string robotId, [FromBody]EntityAction entityAction)
+        public virtual IActionResult DoEntityAction([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]string robotId, [FromBody]EntityAction entityAction)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -114,7 +114,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetActionStack")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<EntityAction>), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetActionStack([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]string robotId)
+        public virtual IActionResult GetActionStack([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]string robotId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -145,7 +145,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetInstalledUpgrades")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetInstalledUpgrades([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int robotId)
+        public virtual IActionResult GetInstalledUpgrades([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]int robotId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -176,7 +176,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetPossibleActions")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<EntityEventOportunity>), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetPossibleActions([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]string robotId)
+        public virtual IActionResult GetPossibleActions([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]string robotId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -207,7 +207,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetRegisters")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<RobotCommand>), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetRegisters([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int robotId)
+        public virtual IActionResult GetRegisters([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]int robotId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -238,7 +238,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetRobotStats")]
         [SwaggerResponse(statusCode: 200, type: typeof(RobotInfo), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetRobotStats([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]string robotId)
+        public virtual IActionResult GetRobotStats([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]string robotId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -268,7 +268,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetRobots")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetRobots([FromRoute][Required][Range(0, 2048)]int gameId)
+        public virtual IActionResult GetRobots([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -299,7 +299,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("RemoveRobotUpgrade")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult RemoveRobotUpgrade([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int robotId, [FromQuery][Range(0, 10000)]int upgrade)
+        public virtual IActionResult RemoveRobotUpgrade([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]int robotId, [FromQuery][Range(0, 10000)]int upgrade)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -321,7 +321,7 @@ namespace Tgm.Roborally.Server.Controllers
         [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
         [ValidateModelState]
         [SwaggerOperation("UpdateRegister")]
-        public virtual IActionResult UpdateRegister([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int robotId)
+        public virtual IActionResult UpdateRegister([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]int robotId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...

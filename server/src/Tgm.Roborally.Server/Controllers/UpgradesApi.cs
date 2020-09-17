@@ -41,7 +41,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("BuyUpgrade")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult BuyUpgrade([FromRoute][Required][Range(0, 2048)]int gameId, [FromQuery][Required()][Range(0, 10000)]int upgrade, [FromQuery][Range(0, 10000)]int exchange)
+        public virtual IActionResult BuyUpgrade([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromQuery][Required()][Range(0, 10000)]int upgrade, [FromQuery][Range(0, 10000)]int exchange)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -65,7 +65,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetAllUpgradeIDs")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetAllUpgradeIDs([FromRoute][Required][Range(0, 2048)]int gameId)
+        public virtual IActionResult GetAllUpgradeIDs([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -96,7 +96,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetUpgradeInformation")]
         [SwaggerResponse(statusCode: 200, type: typeof(Upgrade), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetUpgradeInformation([FromRoute][Required][Range(0, 2048)]int gameId, [FromRoute][Required][Range(0, 10000)]int upgradeId)
+        public virtual IActionResult GetUpgradeInformation([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "upgrade_id")][Required][Range(0, 10000)]int upgradeId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -126,7 +126,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetUpgradeShop")]
         [SwaggerResponse(statusCode: 200, type: typeof(UpgradeShop), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetUpgradeShop([FromRoute][Required][Range(0, 2048)]int gameId)
+        public virtual IActionResult GetUpgradeShop([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...

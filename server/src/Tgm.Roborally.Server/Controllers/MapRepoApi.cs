@@ -43,7 +43,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("DeleteMap")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         [SwaggerResponse(statusCode: 500, type: typeof(ErrorMessage), description: "Internal Server Error")]
-        public virtual IActionResult DeleteMap([FromRoute][Required]string mapName)
+        public virtual IActionResult DeleteMap([FromRoute(Name = "map_name")][Required]string mapName)
         { 
 
             //TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -72,7 +72,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(MapInfo), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         [SwaggerResponse(statusCode: 500, type: typeof(ErrorMessage), description: "Internal Server Error")]
-        public virtual IActionResult GetMap([FromRoute][Required]string mapName)
+        public virtual IActionResult GetMap([FromRoute(Name = "map_name")][Required]string mapName)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
