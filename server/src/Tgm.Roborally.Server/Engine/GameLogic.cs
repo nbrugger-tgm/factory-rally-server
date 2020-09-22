@@ -65,12 +65,12 @@ namespace Tgm.Roborally.Server.Engine
 
 		public bool Joinable => (State == GameState.LOBBY && Players.Count < MaxPlayers);
 
-		public int NextPlayerID()
+		public int NewPlayerID()
 		{
 			int id;
 			do
 			{
-				id = new Random().Next(8);
+				id = new Random().Next(MaxPlayers);
 			} while (GetPlayer(id) != null);
 
 			return id;
@@ -88,6 +88,8 @@ namespace Tgm.Roborally.Server.Engine
 			}
 		}
 
+		public Player Join() => Join(null);
+
 		public Player Join(string password)
 		{
 			if (!Joinable)
@@ -95,21 +97,19 @@ namespace Tgm.Roborally.Server.Engine
 				throw new GameNotJoinableException("The game cannot be joined at the moment");
 			}
 
-			if (Rules.Password != null && !password.Equals(Rules.Password))
+			if (Rules.Password != null && !password.Equals(this.Password))
 			{
 				throw new AuthenticationException("The provided password was wrong");
 			}
 
-			Player p = new Player {Id = NextPlayerID()};
+			Player p = new Player {Id = NewPlayerID()};
 			Players.Add(p);
 			return p;
 		}
 
 		public class GameNotJoinableException : Exception
 		{
-			public GameNotJoinableException(string theGameCannotBeJoinedAtTheMoment) : base(
-				theGameCannotBeJoinedAtTheMoment)
-			{
+			public GameNotJoinableException(string theGameCannotBeJoinedAtTheMoment) : base(theGameCannotBeJoinedAtTheMoment) {
 			}
 		}
 

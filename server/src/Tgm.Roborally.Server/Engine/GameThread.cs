@@ -22,7 +22,7 @@ namespace Tgm.Roborally.Server.Engine
 			currentPhase = new LobbyPhase();
 			while (currentPhase != null)
 			{
-				//TODO game.ComittEvent(new GamePhaseChangedEvent());
+				//TODO game.CommitEvent(new GamePhaseChangedEvent());
 				currentPhase = currentPhase.Start(game);
 			}
 		}
