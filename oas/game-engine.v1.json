@@ -1649,11 +1649,9 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "event-type": {
-                      "$ref": "#/components/schemas/EventType"
-                    }
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventType"
                   }
                 }
               }
@@ -1684,7 +1682,7 @@
             },
             "in": "query",
             "name": "batch",
-            "description": "If true you will get all past events at once"
+            "description": "If true you will get all past events at once\nIf false the list only contains the oldest unfetched event"
           },
           {
             "schema": {
@@ -1693,7 +1691,8 @@
             },
             "in": "query",
             "name": "wait",
-            "description": "If true the server will not responde until a event is added to the queue\n\nRrequires less traffic but might impacts the servers performance or cause timeouts at the client"
+            "description": "If true the server will not responde until a event is added to the queue\n\nRrequires less traffic but might impacts the servers performance or cause timeouts at the client",
+            "required": true
           }
         ],
         "tags": [
@@ -1851,6 +1850,46 @@
         ],
         "tags": [
           "Map Repo"
+        ]
+      }
+    },
+    "/games/{game_id}/events/head": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get next event",
+        "tags": [
+          "EventHandling"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericEvent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No unfetched event"
+          }
+        },
+        "operationId": "fetchNextEvent",
+        "description": "Returns the next unfetched event of the ***any*** type.",
+        "security": [
+          {
+            "player-auth": []
+          }
         ]
       }
     }
@@ -2082,7 +2121,7 @@
         "example": "Niton 1",
         "minLength": 3,
         "maxLength": 13,
-        "pattern": "[A-Za-z]+[A-Za-z0-9 _- ]+"
+        "pattern": "[A-Za-z]+[A-Za-z0-9 _- ]+[A-Za-z0-9]{1}"
       },
       "GameInfo": {
         "title": "Game Info",
@@ -2928,6 +2967,20 @@
             "$ref": "#/components/schemas/GameState"
           }
         }
+      },
+      "GenericEvent": {
+        "title": "GenericEvent",
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/EventType"
+          },
+          "data": {
+            "type": "object",
+            "description": "This is the data for the Event. In the case of type beeing `lazer hit`, data will be of the type `LazerHitEvent`. So the object-type allways matches to the `type` field "
+          }
+        },
+        "description": "Used to store any event and generalize them into a single type"
       }
     }
   },

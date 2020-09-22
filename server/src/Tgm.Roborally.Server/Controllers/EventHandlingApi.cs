@@ -61,6 +61,36 @@ namespace Tgm.Roborally.Server.Controllers
         }
 
         /// <summary>
+        /// Get next event
+        /// </summary>
+        /// <remarks>Returns the next unfetched event of the ***any*** type.</remarks>
+        /// <param name="gameId"></param>
+        /// <response code="200">OK</response>
+        /// <response code="404">No unfetched event</response>
+        [HttpGet]
+        [Route("/v1/games/{game_id}/events/head")]
+        [Authorize(Policy = "player-auth")]
+        [ValidateModelState]
+        [SwaggerOperation("FetchNextEvent")]
+        [SwaggerResponse(statusCode: 200, type: typeof(GenericEvent), description: "OK")]
+        public virtual IActionResult FetchNextEvent([FromRoute][Required]string gameId)
+        { 
+
+            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(200, default(GenericEvent));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404);
+            string exampleJson = null;
+            exampleJson = "{\n  \"data\" : \"{}\"\n}";
+            
+            var example = exampleJson != null
+            ? JsonConvert.DeserializeObject<GenericEvent>(exampleJson)
+            : default(GenericEvent);
+            //TODO: Change the data returned
+            return new ObjectResult(example);
+        }
+
+        /// <summary>
         /// Get next / last Lazer hit event
         /// </summary>
         /// <remarks>Returns the next unfetched event of the lazer hit type.  If the event is not of the lazer hit type you will get a &#x60;400&#x60; status and the event stays unfetched</remarks>

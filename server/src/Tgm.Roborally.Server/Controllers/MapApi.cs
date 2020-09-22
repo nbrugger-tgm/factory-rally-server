@@ -30,6 +30,39 @@ namespace Tgm.Roborally.Server.Controllers
     public class MapApiController : ControllerBase
     { 
         /// <summary>
+        /// Get Map
+        /// </summary>
+        /// <remarks>Returns the map of this specific game including the tiles (data)</remarks>
+        /// <param name="gameId"></param>
+        /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="500">Internal Server Error</response>
+        [HttpGet]
+        [Route("/v1/games/{game_id}/map")]
+        [Authorize(Policy = "player-auth")]
+        [ValidateModelState]
+        [SwaggerOperation("GetGameMap")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Map), description: "OK")]
+        public virtual IActionResult GetGameMap([FromRoute][Required]string gameId)
+        { 
+
+            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(200, default(Map));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404);
+            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(500);
+            string exampleJson = null;
+            exampleJson = "{\n  \"rows\" : [ [ {\n    \"level\" : 1,\n    \"empty\" : true\n  }, {\n    \"level\" : 1,\n    \"empty\" : true\n  } ], [ {\n    \"level\" : 1,\n    \"empty\" : true\n  }, {\n    \"level\" : 1,\n    \"empty\" : true\n  } ] ],\n  \"info\" : {\n    \"width\" : 43,\n    \"name\" : \"Niton 1\",\n    \"prioBeacon\" : {\n      \"x\" : 1,\n      \"y\" : 5\n    },\n    \"height\" : 302\n  }\n}";
+            
+            var example = exampleJson != null
+            ? JsonConvert.DeserializeObject<Map>(exampleJson)
+            : default(Map);
+            //TODO: Change the data returned
+            return new ObjectResult(example);
+        }
+
+        /// <summary>
         /// Get Map info
         /// </summary>
         /// <remarks>Get meta information abouzt the map of the game</remarks>

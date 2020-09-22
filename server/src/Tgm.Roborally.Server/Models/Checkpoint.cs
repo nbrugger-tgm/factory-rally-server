@@ -52,7 +52,7 @@ namespace Tgm.Roborally.Server.Models
         /// </summary>
         /// <value>The default rule for names in the game</value>
         [Required]
-        [RegularExpression("[A-Za-z]+[A-Za-z0-9 _- ]+")]
+        [RegularExpression("[A-Za-z]+[A-Za-z0-9 _- ]+[A-Za-z0-9]{1}")]
         [StringLength(13, MinimumLength=3)]
         [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }

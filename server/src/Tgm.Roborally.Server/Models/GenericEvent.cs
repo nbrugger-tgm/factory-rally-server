@@ -17,50 +17,27 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
-using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models
 { 
     /// <summary>
-    /// Describes the map *without* the tiles
+    /// Used to store any event and generalize them into a single type
     /// </summary>
     [DataContract]
-    public partial class MapInfo : IEquatable<MapInfo>
+    public partial class GenericEvent : IEquatable<GenericEvent>
     {
-        private Tgm.Roborally.Server.Engine.Map _map;
-
-        public MapInfo(Tgm.Roborally.Server.Engine.Map map)
-        {
-            _map = map;
-        }
-
         /// <summary>
-        /// Gets or Sets Width
+        /// Gets or Sets Type
         /// </summary>
-        [Range(4, 500)]
-        [DataMember(Name = "width", EmitDefaultValue = false)]
-        public int Width => _map.Width;
+        [DataMember(Name="type", EmitDefaultValue=false)]
+        public EventType Type { get; set; }
 
         /// <summary>
-        /// Gets or Sets Height
+        /// This is the data for the Event. In the case of type beeing &#x60;lazer hit&#x60;, data will be of the type &#x60;LazerHitEvent&#x60;. So the object-type allways matches to the &#x60;type&#x60; field 
         /// </summary>
-        [Range(4, 500)]
-        [DataMember(Name = "height", EmitDefaultValue = false)]
-        public int Height => _map.Height;
-
-        /// <summary>
-        /// Gets or Sets PrioBeacon
-        /// </summary>
-        [DataMember(Name = "prioBeacon", EmitDefaultValue = false)]
-        public Position PrioBeacon => _map.PrioCorePos;
-        /// <summary>
-        /// The default rule for names in the game
-        /// </summary>
-        /// <value>The default rule for names in the game</value>
-        [RegularExpression("[A-Za-z]+[A-Za-z0-9 _- ]+[A-Za-z0-9]{1}")]
-        [StringLength(13, MinimumLength=3)]
-        [DataMember(Name="name", EmitDefaultValue=false)]
-        public string Name { get; set; }
+        /// <value>This is the data for the Event. In the case of type beeing &#x60;lazer hit&#x60;, data will be of the type &#x60;LazerHitEvent&#x60;. So the object-type allways matches to the &#x60;type&#x60; field </value>
+        [DataMember(Name="data", EmitDefaultValue=false)]
+        public Object Data { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -69,11 +46,9 @@ namespace Tgm.Roborally.Server.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class MapInfo {\n");
-            sb.Append("  Width: ").Append(Width).Append("\n");
-            sb.Append("  Height: ").Append(Height).Append("\n");
-            sb.Append("  PrioBeacon: ").Append(PrioBeacon).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("class GenericEvent {\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  Data: ").Append(Data).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -96,39 +71,29 @@ namespace Tgm.Roborally.Server.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((MapInfo)obj);
+            return obj.GetType() == GetType() && Equals((GenericEvent)obj);
         }
 
         /// <summary>
-        /// Returns true if MapInfo instances are equal
+        /// Returns true if GenericEvent instances are equal
         /// </summary>
-        /// <param name="other">Instance of MapInfo to be compared</param>
+        /// <param name="other">Instance of GenericEvent to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(MapInfo other)
+        public bool Equals(GenericEvent other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
             return 
                 (
-                    Width == other.Width ||
+                    Type == other.Type ||
                     
-                    Width.Equals(other.Width)
+                    Type.Equals(other.Type)
                 ) && 
                 (
-                    Height == other.Height ||
-                    
-                    Height.Equals(other.Height)
-                ) && 
-                (
-                    PrioBeacon == other.PrioBeacon ||
-                    PrioBeacon != null &&
-                    PrioBeacon.Equals(other.PrioBeacon)
-                ) && 
-                (
-                    Name == other.Name ||
-                    Name != null &&
-                    Name.Equals(other.Name)
+                    Data == other.Data ||
+                    Data != null &&
+                    Data.Equals(other.Data)
                 );
         }
 
@@ -143,13 +108,9 @@ namespace Tgm.Roborally.Server.Models
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
                     
-                    hashCode = hashCode * 59 + Width.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + Height.GetHashCode();
-                    if (PrioBeacon != null)
-                    hashCode = hashCode * 59 + PrioBeacon.GetHashCode();
-                    if (Name != null)
-                    hashCode = hashCode * 59 + Name.GetHashCode();
+                    hashCode = hashCode * 59 + Type.GetHashCode();
+                    if (Data != null)
+                    hashCode = hashCode * 59 + Data.GetHashCode();
                 return hashCode;
             }
         }
@@ -157,12 +118,12 @@ namespace Tgm.Roborally.Server.Models
         #region Operators
         #pragma warning disable 1591
 
-        public static bool operator ==(MapInfo left, MapInfo right)
+        public static bool operator ==(GenericEvent left, GenericEvent right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(MapInfo left, MapInfo right)
+        public static bool operator !=(GenericEvent left, GenericEvent right)
         {
             return !Equals(left, right);
         }

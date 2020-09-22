@@ -1,4 +1,4 @@
-# Tgm.Roborally.Server - ASP.NET Core 2.0 Server
+# Tgm.Roborally.Server - ASP.NET Core 3.0 Server
 
 This api controlls the flow of a game and provides it's data.
 It is desiged to be RESTfull so the structure works simmilar as file system.
