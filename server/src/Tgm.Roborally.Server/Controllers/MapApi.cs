@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Authorization;
 using Tgm.Roborally.Server.Authentication;
 using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Models;
+using Map = Tgm.Roborally.Server.Models.Map;
 
 namespace Tgm.Roborally.Server.Controllers
 { 
