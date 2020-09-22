@@ -139,9 +139,12 @@ namespace Tgm.Roborally.Server.Controllers
 		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
 		public virtual IActionResult GetGames([FromQuery] bool joinable, [FromQuery] bool unprotected)
 		{
-			return new ObjectResult(GameManager.instance.games.Where(pair =>
-					(!joinable || pair.Value.Joinable) && (!unprotected || pair.Value.Password == null))
-				.Select(e => e.Key));
+			return new ObjectResult(
+				GameManager.instance.games
+					.Where(pair => (!joinable || pair.Value.Joinable) && (!unprotected || pair.Value.Password == null))
+					.Select(e => e.Key)
+					.ToList()
+				);
 		}
 	}
 }

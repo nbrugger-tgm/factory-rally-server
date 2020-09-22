@@ -15,7 +15,7 @@ namespace Tgm.Roborally.Server.Engine
 		public int Id;
 		public GameState LastState => _lastState;
 		private GameState _lastState;
-		public readonly string Password;
+		public string Password => Rules.Password;
 		public int playerOnTurn;
 		private readonly List<Player> Players = new List<Player>();
 		private readonly GameThread thread;
@@ -24,7 +24,7 @@ namespace Tgm.Roborally.Server.Engine
 
 		public GameLogic(GameRules r)
 		{
-			CreatedBy = r;
+			Rules = r;
 			EventManager = new EventManager(this);
 			ActionHandler = new GameActionHandler(this);
 			Hardware = new HardwareManager(this);
@@ -56,10 +56,11 @@ namespace Tgm.Roborally.Server.Engine
 		}
 
 
-		private GameRules CreatedBy { get; }
-		public bool PlayerNamesVisible => CreatedBy.PlayerNamesVisible;
-		public string Name => CreatedBy.Name;
-		public int MaxPlayers => CreatedBy.MaxPlayers;
+		private GameRules Rules { get; }
+		
+		public bool PlayerNamesVisible => Rules.PlayerNamesVisible;
+		public string Name => Rules.Name;
+		public int MaxPlayers => Rules.MaxPlayers;
 		public List<int> PlayerIds => Players.Select(e => e.Id).ToList();
 
 		public bool Joinable => (State == GameState.LOBBY && Players.Count < MaxPlayers);
@@ -94,7 +95,7 @@ namespace Tgm.Roborally.Server.Engine
 				throw new GameNotJoinableException("The game cannot be joined at the moment");
 			}
 
-			if (CreatedBy.Password != null && !password.Equals(CreatedBy.Password))
+			if (Rules.Password != null && !password.Equals(Rules.Password))
 			{
 				throw new AuthenticationException("The provided password was wrong");
 			}
@@ -146,7 +147,7 @@ namespace Tgm.Roborally.Server.Engine
 				throw new PlayerCountException(">0", Players.Count, "Start Game");
 			}
 
-			if (Players.Count < MaxPlayers && CreatedBy.FillWithBots)
+			if (Players.Count < MaxPlayers && Rules.FillWithBots)
 			{
 				//Todo fill with bots
 			}
