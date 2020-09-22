@@ -60,19 +60,36 @@ namespace Tgm.Roborally.Server.Engine
 			catch (Exception ex)
 			{
 				ErrorMessage err = new ErrorMessage {Message = ex.Message, Error = ex.GetType().Name};
-				response = new NotFoundObjectResult(err);
+				response = new ObjectResult(err)
+				{
+					StatusCode = 500
+				};
 			}
 
 			return this;
 		}
 
-		public IActionResult execute()
+		public IActionResult executeAction()
+		{
+			return execute(new OkResult());
+		}
+		public IActionResult executeSecure()
+		{
+			ObjectResult result = new ObjectResult("The request was not processed properly and didn't produced a result");
+			result.StatusCode = 500;
+			return result;
+
+			return execute(result);
+		}
+		private IActionResult execute(IActionResult Default)
 		{
 			if (response == null)
-				return new OkResult();
+			{
+				return Default;
+			}
+
 			return response;
 		}
-
 		public class PipelineContext
 		{
 			private GameRequestPipeline pipe;

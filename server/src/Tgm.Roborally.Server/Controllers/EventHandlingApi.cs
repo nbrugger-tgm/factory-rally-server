@@ -234,8 +234,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("FetchNextShutdownEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(ShutdownEvent), description: "OK")]
         public virtual IActionResult FetchNextShutdownEvent([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
-        { 
-
+        {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(ShutdownEvent));
             //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...

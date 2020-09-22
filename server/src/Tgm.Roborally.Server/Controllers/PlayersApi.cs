@@ -65,7 +65,7 @@ namespace Tgm.Roborally.Server.Controllers
             return new GameRequestPipeline()
                 .game(gameId)
                 .compute(c => c.Response = new ObjectResult(c.Game.PlayerIds))
-                .execute();
+                .executeAction();
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Tgm.Roborally.Server.Controllers
                 .game(gameId)
                 .player(playerId)
                 .compute(c => c.Response = new ObjectResult(c.Player))
-                .execute();
+                .executeAction();
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace Tgm.Roborally.Server.Controllers
             return new GameRequestPipeline()
                 .game(gameId)
                 .compute(c => c.Response = new ObjectResult(new JoinResponse(c.Game.Join(password))))
-                .execute();
+                .executeAction();
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult KickPlayer([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "player_id")][Required][Range(0, 8)]int playerId)
         {
-            return new GameRequestPipeline().game(gameId).compute(context => context.Game.RemovePlayer(playerId)).execute();
+            return new GameRequestPipeline().game(gameId).compute(context => context.Game.RemovePlayer(playerId)).executeAction();
         }
     }
 }

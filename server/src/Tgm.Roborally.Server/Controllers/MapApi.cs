@@ -48,7 +48,7 @@ namespace Tgm.Roborally.Server.Controllers
             return new GameRequestPipeline()
                 .game(gameId)
                 .compute(c => c.Response = new ObjectResult(c.Game.Map.Info))
-                .execute();
+                .executeAction();
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Tgm.Roborally.Server.Controllers
             return new GameRequestPipeline()
                 .game(gameId)
                 .compute(c => c.Response = new ObjectResult(c.Game.Map[x,y]))
-                .execute();
+                .executeAction();
         }
     }
 }
