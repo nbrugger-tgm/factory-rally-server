@@ -1,3070 +1,3152 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "Robot Rally Game logic engine",
-    "version": "0.1.0",
-    "description": "This api controlls the flow of a game and provides it's data.\nIt is desiged to be RESTfull so the structure works simmilar as file system.\nThe service will run and only work in a local network, `game.host` is the IP of the Computer hosting the game and will be found via a IP scan",
-    "contact": {
-      "name": "Nils Brugger",
-      "email": "nbrugger@student.tgm.ac.at"
+  "openapi" : "3.0.0",
+  "info" : {
+    "contact" : {
+      "email" : "nbrugger@student.tgm.ac.at",
+      "name" : "Nils Brugger"
     },
-    "license": {
-      "name": "Apache 2.0"
-    }
+    "description" : "This api controlls the flow of a game and provides it's data.\nIt is desiged to be RESTfull so the structure works simmilar as file system.\nThe service will run and only work in a local network, `game.host` is the IP of the Computer hosting the game and will be found via a IP scan",
+    "license" : {
+      "name" : "Apache 2.0"
+    },
+    "title" : "Robot Rally Game logic engine",
+    "version" : "0.1.0"
   },
-  "servers": [
-    {
-      "url": "http://game.host/v1",
-      "description": "Production"
-    },
-    {
-      "url": "http://localhost:5050/v1",
-      "description": "Debug"
-    }
-  ],
-  "paths": {
-    "/games/": {
-      "get": {
-        "summary": "Get all games",
-        "tags": [
-          "Game"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "uniqueItems": true,
-                  "minItems": 0,
-                  "items": {
-                    "$ref": "#/components/schemas/GameID"
-                  }
+  "servers" : [ {
+    "description" : "Production",
+    "url" : "http://game.host/v1"
+  }, {
+    "description" : "Debug",
+    "url" : "http://localhost:5050/v1"
+  } ],
+  "tags" : [ {
+    "description" : "All actions needed to interact with players.<br>Keep in mid that a player is *not* a robot",
+    "name" : "Players"
+  }, {
+    "description" : "All actions needed to interact with the game itself and mostly to get information",
+    "name" : "Game"
+  }, {
+    "description" : "All actions directly done with the robots and other robot related actions",
+    "name" : "Robots"
+  }, {
+    "description" : "Buying and reading upgrades",
+    "name" : "Upgrades"
+  }, {
+    "description" : "Iterct with the the map",
+    "name" : "Map"
+  }, {
+    "description" : "Recive and react to events",
+    "name" : "EventHandling"
+  } ],
+  "paths" : {
+    "/games/" : {
+      "get" : {
+        "description" : "Returns a list of all hosted games",
+        "operationId" : "getGames",
+        "parameters" : [ {
+          "description" : "true: only return joinable games",
+          "explode" : true,
+          "in" : "query",
+          "name" : "joinable",
+          "required" : false,
+          "schema" : {
+            "default" : false,
+            "type" : "boolean"
+          },
+          "style" : "form"
+        }, {
+          "description" : "true: only display games with no password set",
+          "explode" : true,
+          "in" : "query",
+          "name" : "unprotected",
+          "required" : false,
+          "schema" : {
+            "default" : false,
+            "type" : "boolean"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/GameID"
+                  },
+                  "minItems" : 0,
+                  "type" : "array",
+                  "uniqueItems" : true
                 }
               }
-            }
-          }
-        },
-        "operationId": "getGames",
-        "description": "Returns a list of all hosted games",
-        "parameters": [
-          {
-            "schema": {
-              "type": "boolean",
-              "default": "false"
             },
-            "in": "query",
-            "name": "joinable",
-            "description": "true: only return joinable games"
+            "description" : "OK"
+          }
+        },
+        "summary" : "Get all games",
+        "tags" : [ "Game" ]
+      },
+      "post" : {
+        "description" : "Creates a random game by your defined rules",
+        "operationId" : "createGame",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/GameRules"
+              }
+            }
           },
-          {
-            "schema": {
-              "type": "boolean",
-              "default": "false"
+          "description" : "*Optional*\nThis rules define how your game will behave"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "security" : [ {
+          "admin-access" : [ ]
+        } ],
+        "summary" : "Create Game",
+        "tags" : [ "Game" ]
+      }
+    },
+    "/games/{game_id}/status" : {
+      "get" : {
+        "description" : "Returns the status of a game",
+        "operationId" : "getGameState",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/GameInfo"
+                }
+              }
             },
-            "in": "query",
-            "name": "unprotected",
-            "description": "true: only display games with no password set"
-          }
-        ]
-      },
-      "post": {
-        "summary": "Create Game",
-        "operationId": "createGame",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "description": "Creates a random game by your defined rules",
-        "security": [
-          {
-            "admin-access": []
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GameRules"
-              }
-            }
+            "description" : "OK"
           },
-          "description": "*Optional*\nThis rules define how your game will behave"
-        },
-        "tags": [
-          "Game"
-        ]
-      },
-      "parameters": []
-    },
-    "/games/{game_id}/status": {
-      "parameters": [
-        {
-          "name": "game_id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          }
-        }
-      ],
-      "get": {
-        "summary": "Get game status",
-        "tags": [
-          "Game"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GameInfo"
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
                 }
               }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getGameState",
-        "description": "Returns the status of a game",
-        "parameters": [],
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/actions": {
-      "get": {
-        "summary": "Get games actions",
-        "tags": [
-          "Game"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Action"
-                  }
-                }
-              }
-            }
-          },
-          "201": {
-            "description": "Created"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getActions",
-        "security": [
-          {
-            "admin-access": []
-          }
-        ],
-        "description": "Get all (**not robot related**) actions comitted to this game.",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "enum": [
-                "PENDING",
-                "EXECUTED",
-                "ALL"
-              ],
-              "default": "ALL"
             },
-            "in": "query",
-            "name": "mode",
-            "description": "Defines wich entries to return"
-          }
-        ]
-      },
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "put": {
-        "summary": "Commit Action",
-        "operationId": "commitAction",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
+            "description" : "Not Found"
           }
         },
-        "description": "Queues an action to be executed",
-        "parameters": [
-          {
-            "schema": {
-              "$ref": "#/components/schemas/ActionType"
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get game status",
+        "tags" : [ "Game" ]
+      }
+    },
+    "/games/{game_id}/actions" : {
+      "get" : {
+        "description" : "Get all (**not robot related**) actions comitted to this game.",
+        "operationId" : "getActions",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "description" : "Defines wich entries to return",
+          "explode" : true,
+          "in" : "query",
+          "name" : "mode",
+          "required" : false,
+          "schema" : {
+            "default" : "ALL",
+            "enum" : [ "PENDING", "EXECUTED", "ALL" ],
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Action"
+                  },
+                  "type" : "array"
+                }
+              }
             },
-            "in": "query",
-            "name": "action",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "admin-access": []
-          }
-        ],
-        "tags": [
-          "Game"
-        ]
-      }
-    },
-    "/games/{game_id}/players/": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
+            "description" : "OK"
           },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get all players",
-        "tags": [
-          "Players"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/PlayerID"
-                  }
-                }
-              }
-            }
+          "201" : {
+            "description" : "Created"
           },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
                 }
               }
-            }
-          }
-        },
-        "operationId": "getAllPlayers",
-        "description": "Returns the index of all players"
-      },
-      "post": {
-        "summary": "Join game",
-        "operationId": "join",
-        "responses": {
-          "200": {
-            "description": "Joined",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JoinResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Wrong/No password",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Not Joinable",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "description": "Join the given game.\nYou will get your ID by doing this, if you already in the game you can get your ID again if you lost it.<br>\nThe id is neccessary for any further API calls",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
             },
-            "in": "query",
-            "name": "password",
-            "description": "The password of the game if the lobby is password protected"
-          }
-        ],
-        "tags": [
-          "Players"
-        ]
-      }
-    },
-    "/games/{game_id}/players/{player_id}": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        },
-        {
-          "schema": {
-            "$ref": "#/components/schemas/PlayerID"
-          },
-          "name": "player_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get player",
-        "tags": [
-          "Players"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Player"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
+            "description" : "Not Found"
           }
         },
-        "operationId": "getPlayer",
-        "description": "Get closer information about the player"
+        "security" : [ {
+          "admin-access" : [ ]
+        } ],
+        "summary" : "Get games actions",
+        "tags" : [ "Game" ]
       },
-      "delete": {
-        "summary": "Remove Player",
-        "operationId": "kickPlayer",
-        "responses": {
-          "200": {
-            "description": "OK"
+      "put" : {
+        "description" : "Queues an action to be executed",
+        "operationId" : "commitAction",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
           },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
+          "style" : "simple"
+        }, {
+          "explode" : true,
+          "in" : "query",
+          "name" : "action",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/ActionType"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
                 }
               }
-            }
-          }
-        },
-        "description": "Removes a player from the game. This can be done by the player itsself or by the host.",
-        "security": [
-          {
-            "player-auth": []
-          },
-          {
-            "admin-access": []
-          }
-        ],
-        "tags": [
-          "Players"
-        ]
-      },
-      "patch": {
-        "summary": "Set Robots",
-        "operationId": "chooseRobot",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "description": "# DEPRECATET\n> This feature is useless in this version. It will be usefull in newer versions\n\nSets the type of robot(s) the player is controlling",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/Robots"
-                }
-              }
-            }
-          },
-          "description": "The robots assigned to the player"
-        },
-        "tags": [
-          "Players"
-        ]
-      }
-    },
-    "/games/{game_id}/upgrades/shop": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get upgrade shop",
-        "tags": [
-          "Upgrades"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpgradeShop"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getUpgradeShop",
-        "description": "Retuns a list of all cards in the upgrade shop",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      },
-      "patch": {
-        "summary": "Buy Upgrade",
-        "operationId": "buyUpgrade",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "description": "Buy this Upgrade from the shop.\n### Note\nIf your robot allready owns 3 Upgrades you have to use the `exchange` parameter. This is the ID of the Upgrade to replace with the bought one",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ],
-        "parameters": [
-          {
-            "schema": {
-              "$ref": "#/components/schemas/UpgradeID"
             },
-            "in": "query",
-            "name": "upgrade",
-            "required": true
+            "description" : "Not Found"
           },
-          {
-            "schema": {
-              "$ref": "#/components/schemas/UpgradeID"
+          "409" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
             },
-            "in": "query",
-            "name": "exchange"
+            "description" : "Conflict"
           }
-        ],
-        "tags": [
-          "Upgrades"
-        ]
+        },
+        "security" : [ {
+          "admin-access" : [ ]
+        } ],
+        "summary" : "Commit Action",
+        "tags" : [ "Game" ]
       }
     },
-    "/games/{game_id}/upgrades/{upgrade_id}": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
+    "/games/{game_id}/players/" : {
+      "get" : {
+        "description" : "Returns the index of all players",
+        "operationId" : "getAllPlayers",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
           },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        },
-        {
-          "schema": {
-            "$ref": "#/components/schemas/UpgradeID"
-          },
-          "name": "upgrade_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get upgrade information",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Upgrade"
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/PlayerID"
+                  },
+                  "type" : "array"
                 }
               }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getUpgradeInformation",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ],
-        "description": "Get detailed information about the Upgrade",
-        "tags": [
-          "Upgrades"
-        ]
-      }
-    },
-    "/games/{game_id}/upgrades/": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "get all Upgrades",
-        "tags": [
-          "Upgrades"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UpgradeID"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getAllUpgradeIDs",
-        "description": "Returns a list of all Upgrade IDs",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/entitys/robots/{robot_id}/registers": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        },
-        {
-          "schema": {
-            "$ref": "#/components/schemas/EntityID"
-          },
-          "name": "robot_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get register information",
-        "tags": [
-          "Robots"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/RobotCommand"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getRegisters",
-        "description": "Returns the content of the registers",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      },
-      "patch": {
-        "summary": "change register content",
-        "operationId": "updateRegister",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "tags": [
-          "Robots"
-        ],
-        "description": "Updates the card in a register",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      },
-      "delete": {
-        "summary": "clear registers",
-        "operationId": "clearRegisters",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Robots"
-        ],
-        "description": "Emptys all register of the robot",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/entitys/robots/{robot_id}/upgrades": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        },
-        {
-          "schema": {
-            "$ref": "#/components/schemas/EntityID"
-          },
-          "name": "robot_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get Robot Upgrades",
-        "tags": [
-          "Robots"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UpgradeID"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getInstalledUpgrades",
-        "description": "Returns the upgrades installed on the robot",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      },
-      "delete": {
-        "summary": "Clear Robot Upgrades",
-        "operationId": "clearUpgrades",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "description": "Removes all upgrades from a robot",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ],
-        "tags": [
-          "Robots"
-        ]
-      },
-      "patch": {
-        "summary": "Remove Upgrade",
-        "operationId": "removeRobotUpgrade",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "description": "Removes a paticular upgrade from the robot",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ],
-        "parameters": [
-          {
-            "schema": {
-              "$ref": "#/components/schemas/UpgradeID"
             },
-            "in": "query",
-            "name": "upgrade"
-          }
-        ],
-        "tags": [
-          "Robots"
-        ]
-      }
-    },
-    "/games/{game_id}/map/tiles/{x}/{y}": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
+            "description" : "OK"
           },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        },
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "x",
-          "in": "path",
-          "required": true
-        },
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "y",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get tile",
-        "tags": [
-          "Map"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tile"
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
                 }
               }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getTile",
-        "description": "Inspect a tile of the map",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/map/info": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get Map info",
-        "tags": [
-          "Map"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MapInfo"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getMapInfo",
-        "description": "Get meta information abouzt the map of the game",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/movement": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last movement event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MovementEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextMovementEvent",
-        "description": "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/damage": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last damage event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DamageEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextDamageEvent",
-        "description": "Returns the next unfetched event of the damage type.\n\nIf the event is not of the damage type you will get a `400` status and the event stays unfetched",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/lazer-hit": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last Lazer hit event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LazerHitEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextLazerHitEvent",
-        "description": "Returns the next unfetched event of the lazer hit type.\n\nIf the event is not of the lazer hit type you will get a `400` status and the event stays unfetched",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/map": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last map event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MapEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextMapEvent",
-        "description": "Returns the next unfetched event of the  Map Event type.\nMap Events activeata all active components of a type at once\n\nIf the event is not of the map event type you will get a `400` status and the event stays unfetched",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/push": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last push event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PushEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextPushEvent",
-        "description": "Returns the next unfetched event of the push type.\n\nIf the event is not of the push  type you will get a `400` status and the event stays unfetched",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/shoot": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last shoot event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ShootEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextShootEvent",
-        "description": "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/shutdown": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last shutdown event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ShutdownEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextShutdownEvent",
-        "description": "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/pause": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last pause event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ShutdownEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextPauseEvent",
-        "description": "Returns the next unfetched event of the pause or unpause type.\n\nIf the event is not of the pause type you will get a `400` status and the event stays unfetched",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/map": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true,
-          "description": ""
-        }
-      ],
-      "get": {
-        "summary": "Get Map",
-        "tags": [
-          "Map"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Map"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "operationId": "getGameMap",
-        "description": "Returns the map of this specific game including the tiles (data)",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/entitys/robots/": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get all robots",
-        "tags": [
-          "Robots"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EntityID"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getRobots",
-        "description": "Returns a list of all robot IDs in this game.\n> A robot is not a player as a player is able to controll multiple robots",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/entitys/robots/{robot_id}/actions/avinable": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        },
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "robot_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get Aviable actions",
-        "tags": [
-          "Robots"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EntityEventOportunity"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getPossibleActions",
-        "description": "Returns a list of EntityActionTypes which are possible to be executed at the moment.",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/entitys/robots/{robot_id}/actions/stack/": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        },
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "robot_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "post": {
-        "summary": "Add Entity Action to stack",
-        "operationId": "doEntityAction",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "description": "Adds an action to the stack. The stack is processed using *first in first out*",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EntityAction"
-              }
-            }
-          }
-        },
-        "tags": [
-          "Robots"
-        ]
-      },
-      "get": {
-        "summary": "Get Robot action stack",
-        "operationId": "getActionStack",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EntityAction"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "description": "Retuns a list od all actions in the stack",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ],
-        "tags": [
-          "Robots"
-        ]
-      }
-    },
-    "/games/{game_id}/entitys/robots/{robot_id}/info": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        },
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "robot_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get Robot Informations",
-        "tags": [
-          "Robots"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RobotInfo"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getRobotStats",
-        "description": "Returns the status and info about the robot",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/type": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "trace event",
-        "operationId": "traceEvent",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EventType"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "description": "All events needed by the client are accessible here. (Usefull for animations)\nMore about this function is found in the [regarding Github Issue](https://github.com/FactoryRally/game-controller/issues/6)\n\n**This function only returns the type of the event you need to fetch the data seperately**\n> Read more at [api-usage.md](https://github.com/FactoryRally/game-controller/blob/master/documentation/rest/api-usage.md#events--updates)",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ],
-        "parameters": [
-          {
-            "schema": {
-              "type": "boolean",
-              "default": "false"
             },
-            "in": "query",
-            "name": "batch",
-            "description": "If true you will get all past events at once\nIf false the list only contains the oldest unfetched event"
+            "description" : "Not Found"
+          }
+        },
+        "summary" : "Get all players",
+        "tags" : [ "Players" ]
+      },
+      "post" : {
+        "description" : "Join the given game.\nYou will get your ID by doing this, if you already in the game you can get your ID again if you lost it.<br>\nThe id is neccessary for any further API calls",
+        "operationId" : "join",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
           },
-          {
-            "schema": {
-              "type": "boolean",
-              "default": "false"
+          "style" : "simple"
+        }, {
+          "description" : "The password of the game if the lobby is password protected",
+          "explode" : true,
+          "in" : "query",
+          "name" : "password",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JoinResponse"
+                }
+              }
             },
-            "in": "query",
-            "name": "wait",
-            "description": "If true the server will not responde until a event is added to the queue\n\nRrequires less traffic but might impacts the servers performance or cause timeouts at the client",
-            "required": true
-          }
-        ],
-        "tags": [
-          "EventHandling"
-        ]
-      }
-    },
-    "/maps/": {
-      "get": {
-        "summary": "Get Map Names",
-        "tags": [
-          "Map Repo"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Name"
-                  }
+            "description" : "Joined"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
                 }
               }
-            }
+            },
+            "description" : "Wrong/No password"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          },
+          "409" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Joinable"
           }
         },
-        "operationId": "getMaps",
-        "description": "Returns a list of all map names",
-        "security": [
-          {
-            "admin-access": []
+        "summary" : "Join game",
+        "tags" : [ "Players" ]
+      }
+    },
+    "/games/{game_id}/players/{player_id}" : {
+      "delete" : {
+        "description" : "Removes a player from the game. This can be done by the player itsself or by the host.",
+        "operationId" : "kickPlayer",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "player_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/PlayerID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
           }
-        ]
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        }, {
+          "admin-access" : [ ]
+        } ],
+        "summary" : "Remove Player",
+        "tags" : [ "Players" ]
       },
-      "post": {
-        "summary": "Save Map",
-        "operationId": "saveMap",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "description": "Saves a map to the repository",
-        "security": [
-          {
-            "admin-access": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Map"
-              }
-            }
+      "get" : {
+        "description" : "Get closer information about the player",
+        "operationId" : "getPlayer",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
           },
-          "description": "The map to save"
-        },
-        "tags": [
-          "Map Repo"
-        ]
-      }
-    },
-    "/maps/{map_name}": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "player_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/PlayerID"
           },
-          "name": "map_name",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get map",
-        "tags": [
-          "Map Repo"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MapInfo"
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Player"
                 }
               }
-            }
+            },
+            "description" : "OK"
           },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
                 }
               }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
+            },
+            "description" : "Not Found"
           }
         },
-        "operationId": "getMap",
-        "description": "Get a map by its name",
-        "security": [
-          {
-            "admin-access": []
-          }
-        ]
+        "summary" : "Get player",
+        "tags" : [ "Players" ]
       },
-      "delete": {
-        "summary": "Delete Map",
-        "operationId": "deleteMap",
-        "responses": {
-          "204": {
-            "description": "Deleted"
+      "patch" : {
+        "description" : "# DEPRECATET\n> This feature is useless in this version. It will be usefull in newer versions\n\nSets the type of robot(s) the player is controlling",
+        "operationId" : "chooseRobot",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
           },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "player_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/PlayerID"
+          },
+          "style" : "simple"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/Robots"
+                },
+                "type" : "array"
               }
             }
           },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
+          "description" : "The robots assigned to the player"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
                 }
               }
-            }
+            },
+            "description" : "Not Found"
           }
         },
-        "description": "Delete a map by its name",
-        "security": [
-          {
-            "admin-access": []
-          }
-        ],
-        "tags": [
-          "Map Repo"
-        ]
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Set Robots",
+        "tags" : [ "Players" ]
       }
     },
-    "/games/{game_id}/events/head": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
+    "/games/{game_id}/upgrades/shop" : {
+      "get" : {
+        "description" : "Retuns a list of all cards in the upgrade shop",
+        "operationId" : "getUpgradeShop",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
           },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GenericEvent"
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UpgradeShop"
                 }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get upgrade shop",
+        "tags" : [ "Upgrades" ]
+      },
+      "patch" : {
+        "description" : "Buy this Upgrade from the shop.\n### Note\nIf your robot allready owns 3 Upgrades you have to use the `exchange` parameter. This is the ID of the Upgrade to replace with the bought one",
+        "operationId" : "buyUpgrade",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : true,
+          "in" : "query",
+          "name" : "upgrade",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UpgradeID"
+          },
+          "style" : "form"
+        }, {
+          "explode" : true,
+          "in" : "query",
+          "name" : "exchange",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/UpgradeID"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Buy Upgrade",
+        "tags" : [ "Upgrades" ]
+      }
+    },
+    "/games/{game_id}/upgrades/{upgrade_id}" : {
+      "get" : {
+        "description" : "Get detailed information about the Upgrade",
+        "operationId" : "getUpgradeInformation",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "upgrade_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UpgradeID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Upgrade"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get upgrade information",
+        "tags" : [ "Upgrades" ]
+      }
+    },
+    "/games/{game_id}/upgrades/" : {
+      "get" : {
+        "description" : "Returns a list of all Upgrade IDs",
+        "operationId" : "getAllUpgradeIDs",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/UpgradeID"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "get all Upgrades",
+        "tags" : [ "Upgrades" ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/{robot_id}/registers" : {
+      "delete" : {
+        "description" : "Emptys all register of the robot",
+        "operationId" : "clearRegisters",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "robot_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/EntityID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "clear registers",
+        "tags" : [ "Robots" ]
+      },
+      "get" : {
+        "description" : "Returns the content of the registers",
+        "operationId" : "getRegisters",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "robot_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/EntityID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/RobotCommand"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get register information",
+        "tags" : [ "Robots" ]
+      },
+      "patch" : {
+        "description" : "Updates the card in a register",
+        "operationId" : "updateRegister",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "robot_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/EntityID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "change register content",
+        "tags" : [ "Robots" ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/{robot_id}/upgrades" : {
+      "delete" : {
+        "description" : "Removes all upgrades from a robot",
+        "operationId" : "clearUpgrades",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "robot_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/EntityID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Clear Robot Upgrades",
+        "tags" : [ "Robots" ]
+      },
+      "get" : {
+        "description" : "Returns the upgrades installed on the robot",
+        "operationId" : "getInstalledUpgrades",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "robot_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/EntityID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/UpgradeID"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get Robot Upgrades",
+        "tags" : [ "Robots" ]
+      },
+      "patch" : {
+        "description" : "Removes a paticular upgrade from the robot",
+        "operationId" : "removeRobotUpgrade",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "robot_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/EntityID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : true,
+          "in" : "query",
+          "name" : "upgrade",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/UpgradeID"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Remove Upgrade",
+        "tags" : [ "Robots" ]
+      }
+    },
+    "/games/{game_id}/map/tiles/{x}/{y}" : {
+      "get" : {
+        "description" : "Inspect a tile of the map",
+        "operationId" : "getTile",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "x",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "y",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Tile"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get tile",
+        "tags" : [ "Map" ]
+      }
+    },
+    "/games/{game_id}/map/info" : {
+      "get" : {
+        "description" : "Get meta information abouzt the map of the game",
+        "operationId" : "getMapInfo",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MapInfo"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get Map info",
+        "tags" : [ "Map" ]
+      }
+    },
+    "/games/{game_id}/events/movement" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextMovementEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MovementEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last movement event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/games/{game_id}/events/damage" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the damage type.\n\nIf the event is not of the damage type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextDamageEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DamageEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last damage event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/games/{game_id}/events/lazer-hit" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the lazer hit type.\n\nIf the event is not of the lazer hit type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextLazerHitEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/LazerHitEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last Lazer hit event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/games/{game_id}/events/map" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the  Map Event type.\nMap Events activeata all active components of a type at once\n\nIf the event is not of the map event type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextMapEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MapEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last map event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/games/{game_id}/events/push" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the push type.\n\nIf the event is not of the push  type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextPushEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PushEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last push event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/games/{game_id}/events/shoot" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextShootEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ShootEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last shoot event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/games/{game_id}/events/shutdown" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextShutdownEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ShutdownEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last shutdown event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/games/{game_id}/map" : {
+      "get" : {
+        "description" : "Returns the map of this specific game including the tiles (data)",
+        "operationId" : "getGameMap",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Map"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get Map",
+        "tags" : [ "Map" ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/" : {
+      "get" : {
+        "description" : "Returns a list of all robot IDs in this game.\n> A robot is not a player as a player is able to controll multiple robots",
+        "operationId" : "getRobots",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/EntityID"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get all robots",
+        "tags" : [ "Robots" ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/{robot_id}/actions/avinable" : {
+      "get" : {
+        "description" : "Returns a list of EntityActionTypes which are possible to be executed at the moment.",
+        "operationId" : "getPossibleActions",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "robot_id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/EntityEventOportunity"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get Aviable actions",
+        "tags" : [ "Robots" ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/{robot_id}/actions/stack/" : {
+      "get" : {
+        "description" : "Retuns a list od all actions in the stack",
+        "operationId" : "getActionStack",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "robot_id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/EntityAction"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get Robot action stack",
+        "tags" : [ "Robots" ]
+      },
+      "post" : {
+        "description" : "Adds an action to the stack. The stack is processed using *first in first out*",
+        "operationId" : "doEntityAction",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "robot_id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/EntityAction"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Add Entity Action to stack",
+        "tags" : [ "Robots" ]
+      }
+    },
+    "/games/{game_id}/entitys/robots/{robot_id}/info" : {
+      "get" : {
+        "description" : "Returns the status and info about the robot",
+        "operationId" : "getRobotStats",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "robot_id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RobotInfo"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get Robot Informations",
+        "tags" : [ "Robots" ]
+      }
+    },
+    "/games/{game_id}/events/type" : {
+      "get" : {
+        "description" : "All events needed by the client are accessible here. (Usefull for animations)\nMore about this function is found in the [regarding Github Issue](https://github.com/FactoryRally/game-controller/issues/6)\n\n**This function only returns the type of the event you need to fetch the data seperately**\n> Read more at [api-usage.md](https://github.com/FactoryRally/game-controller/blob/master/documentation/rest/api-usage.md#events--updates)",
+        "operationId" : "traceEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        }, {
+          "description" : "If true you will get all past events at once\nIf false the list only contains the oldest unfetched event",
+          "explode" : true,
+          "in" : "query",
+          "name" : "batch",
+          "required" : false,
+          "schema" : {
+            "default" : false,
+            "type" : "boolean"
+          },
+          "style" : "form"
+        }, {
+          "description" : "If true the server will not responde until a event is added to the queue\n\nRrequires less traffic but might impacts the servers performance or cause timeouts at the client",
+          "explode" : true,
+          "in" : "query",
+          "name" : "wait",
+          "required" : true,
+          "schema" : {
+            "default" : false,
+            "type" : "boolean"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/EventType"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "trace event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
+    "/maps/" : {
+      "get" : {
+        "description" : "Returns a list of all map names",
+        "operationId" : "getMaps",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Name"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          }
+        },
+        "security" : [ {
+          "admin-access" : [ ]
+        } ],
+        "summary" : "Get Map Names",
+        "tags" : [ "Map Repo" ]
+      },
+      "post" : {
+        "description" : "Saves a map to the repository",
+        "operationId" : "saveMap",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Map"
               }
             }
           },
-          "404": {
-            "description": "No unfetched event"
+          "description" : "The map to save"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
           }
         },
-        "operationId": "fetchNextEvent",
-        "description": "Returns the next unfetched event of the ***any*** type.",
-        "security": [
-          {
-            "player-auth": []
+        "security" : [ {
+          "admin-access" : [ ]
+        } ],
+        "summary" : "Save Map",
+        "tags" : [ "Map Repo" ]
+      }
+    },
+    "/maps/{map_name}" : {
+      "delete" : {
+        "description" : "Delete a map by its name",
+        "operationId" : "deleteMap",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "map_name",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Deleted"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
           }
-        ]
+        },
+        "security" : [ {
+          "admin-access" : [ ]
+        } ],
+        "summary" : "Delete Map",
+        "tags" : [ "Map Repo" ]
+      },
+      "get" : {
+        "description" : "Get a map by its name",
+        "operationId" : "getMap",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "map_name",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MapInfo"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Not Found"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error-Message"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "security" : [ {
+          "admin-access" : [ ]
+        } ],
+        "summary" : "Get map",
+        "tags" : [ "Map Repo" ]
+      }
+    },
+    "/games/{game_id}/events/head" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the ***any*** type.",
+        "operationId" : "fetchNextEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/GenericEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next event",
+        "tags" : [ "EventHandling" ]
       }
     }
   },
-  "components": {
-    "securitySchemes": {
-      "admin-access": {
-        "type": "apiKey",
-        "in": "query",
-        "name": "skey",
-        "description": "This is a static key needed for administrative operations like creating games and can only be obtained inside the servers runtime.\n\n``"
+  "components" : {
+    "schemas" : {
+      "Tile" : {
+        "additionalProperties" : false,
+        "description" : "A tile is a square at the Game field<br>\n**Note:** \n* `direction` is only aviable for belts\n* properties with a `rotator-` prefix are only aviable for rotator (parts)",
+        "example" : {
+          "level" : 1,
+          "empty" : true
+        },
+        "properties" : {
+          "type" : {
+            "$ref" : "#/components/schemas/TileType"
+          },
+          "empty" : {
+            "description" : "If there is no player at the tile this is true",
+            "type" : "boolean"
+          },
+          "direction" : {
+            "$ref" : "#/components/schemas/Direction"
+          },
+          "rotator-direction" : {
+            "$ref" : "#/components/schemas/Rotation"
+          },
+          "level" : {
+            "default" : 1,
+            "description" : "The height of the tile. 1 = default",
+            "format" : "int32",
+            "maximum" : 3,
+            "minimum" : 1,
+            "type" : "integer"
+          }
+        },
+        "required" : [ "type" ],
+        "title" : "Tile",
+        "type" : "object",
+        "x-tags" : [ "Map" ]
       },
-      "player-auth": {
-        "in": "query",
-        "description": "Players need a token to join a lobby/game. If the host sets a password the player needs the password to get the token",
-        "name": "pat",
-        "type": "apiKey"
+      "TileType" : {
+        "description" : "The type defines the function of a tile and how it is displayed. The behaviour is unknown to the client",
+        "enum" : [ "normal", "rotator", "wall", "prio_core", "conveyor", "trap-door", "stomper", "radioactive", "repair site", "Button", "One Way Wall", "Puddle", "pit", "Ramp" ],
+        "title" : "TileType",
+        "type" : "string",
+        "x-tags" : [ "Map" ]
+      },
+      "Direction" : {
+        "default" : "up",
+        "description" : "Defines a direction in a 2D system. the X and Y values can be defined by the client.",
+        "enum" : [ "up", "down", "left", "right" ],
+        "title" : "Direction",
+        "type" : "string"
+      },
+      "RotatorPosition" : {
+        "description" : "The rotator blocks consist of 4 blocks. This 4 blocks can be differenciated by this property",
+        "enum" : [ "up_left", "up_right", "down_left", "down_right" ],
+        "title" : "RotatorPosition",
+        "type" : "string"
+      },
+      "Rotation" : {
+        "default" : "left",
+        "description" : "Defines wether to turn left or right",
+        "enum" : [ "left", "right" ],
+        "title" : "Rotation",
+        "type" : "string"
+      },
+      "Entity" : {
+        "additionalProperties" : false,
+        "description" : "Describes a actor at the game board. Not to be confused with `Player` which is the person controlling the Entity.\n<br>\nthis will *most likely* be a player controlled robot but it also can be a AI controlled Entity or robot\n> We did use Entity instead of the word Robot or bot because the word *bot* is used for the AIs controlling the robot. And also because theoretial a entity can be a not robot entity",
+        "properties" : {
+          "direction" : {
+            "$ref" : "#/components/schemas/Direction"
+          },
+          "name" : {
+            "description" : "The default rule for names in the game",
+            "example" : "Niton 1",
+            "maxLength" : 13,
+            "minLength" : 3,
+            "pattern" : "[A-Za-z]+[A-Za-z0-9 _- ]+[A-Za-z0-9]{1}",
+            "title" : "Name",
+            "type" : "string"
+          },
+          "id" : {
+            "description" : "The unique identification of this entity. <br>\n*!!!* This is not the id of the player<br>\nThis value will be autogenerated by the api and is read only",
+            "format" : "int32",
+            "minimum" : 1,
+            "type" : "integer"
+          },
+          "location" : {
+            "$ref" : "#/components/schemas/Position"
+          }
+        },
+        "required" : [ "direction", "location", "name" ],
+        "title" : "Entity",
+        "type" : "object"
+      },
+      "GameRules" : {
+        "description" : "Game Rules define the rules for a Game",
+        "example" : {
+          "password" : "QWer7zÜ",
+          "max-players" : 1,
+          "name" : "name",
+          "player-names-visible" : true,
+          "fill-with-bots" : false,
+          "robots-per-player" : 2
+        },
+        "properties" : {
+          "player-names-visible" : {
+            "default" : true,
+            "description" : "If true players can see the name of the player controlling a robot",
+            "type" : "boolean"
+          },
+          "max-players" : {
+            "default" : 4,
+            "description" : "The maximum ammount of players able to join the game",
+            "maximum" : 10,
+            "minimum" : 1,
+            "type" : "integer"
+          },
+          "name" : {
+            "description" : "The visible name of the game",
+            "maxLength" : 50,
+            "minLength" : 3,
+            "type" : "string"
+          },
+          "robots-per-player" : {
+            "description" : "Defines the number of robots per player",
+            "format" : "int32",
+            "maximum" : 3,
+            "minimum" : 1,
+            "type" : "integer"
+          },
+          "password" : {
+            "description" : "The password of a game",
+            "example" : "QWer7zÜ",
+            "format" : "password",
+            "maxLength" : 18,
+            "minLength" : 4,
+            "title" : "Password",
+            "type" : "string"
+          },
+          "fill-with-bots" : {
+            "default" : false,
+            "description" : "If true emply player slots are going to be filled up with AI enemys",
+            "type" : "boolean"
+          }
+        },
+        "required" : [ "name" ],
+        "title" : "GameRules",
+        "type" : "object"
+      },
+      "Game" : {
+        "description" : "A Game is like a lobby, people can join/leave.<br>\nA Game is created by a host who does *not* needs to attend the game as a player but in the most cases he will.\nThis is *read-only*",
+        "properties" : {
+          "id" : {
+            "description" : "**Unique**<br>\nThis is the parameter a game is identified by",
+            "example" : 537,
+            "format" : "int32",
+            "maximum" : 2048,
+            "minimum" : 0,
+            "title" : "GameID",
+            "type" : "integer"
+          },
+          "name" : {
+            "description" : "The name is **unique** but it should ***not*** be used as identifer (it's not natively supportet)\nIt is used to display the game's name",
+            "example" : "Nitons Game 1",
+            "maxLength" : 20,
+            "minLength" : 3,
+            "pattern" : "[A-Za-z]+[A-Za-z0-9 _-]+",
+            "type" : "string"
+          },
+          "players" : {
+            "description" : "The list of players attending the game.\n(Only contains the name of the players)",
+            "items" : {
+              "$ref" : "#/components/schemas/PlayerID"
+            },
+            "minItems" : 0,
+            "type" : "array"
+          },
+          "runtime_info" : {
+            "$ref" : "#/components/schemas/GameState"
+          }
+        },
+        "required" : [ "name" ],
+        "title" : "Game",
+        "type" : "object"
+      },
+      "GameID" : {
+        "description" : "**Unique**<br>\nThis is the parameter a game is identified by",
+        "example" : 537,
+        "format" : "int32",
+        "maximum" : 2048,
+        "minimum" : 0,
+        "title" : "GameID",
+        "type" : "integer"
+      },
+      "Name" : {
+        "description" : "The default rule for names in the game",
+        "example" : "Niton 1",
+        "maxLength" : 13,
+        "minLength" : 3,
+        "pattern" : "[A-Za-z]+[A-Za-z0-9 _- ]+[A-Za-z0-9]{1}",
+        "title" : "Name",
+        "type" : "string"
+      },
+      "GameInfo" : {
+        "description" : "Describes the current state of the game. It does not includes the gamedata (like players/poitions/field) but general information.\n\nThis is read only",
+        "example" : {
+          "hardware-attached" : false,
+          "hardware-compatible" : false,
+          "player-on-turn" : 3,
+          "passed-time" : 240
+        },
+        "properties" : {
+          "passed-time" : {
+            "default" : -1,
+            "description" : "The time passed since the game started in secconds. If the game is not started it will be `0`",
+            "example" : 240,
+            "format" : "int32",
+            "minimum" : -1,
+            "type" : "integer"
+          },
+          "state" : {
+            "$ref" : "#/components/schemas/GameState"
+          },
+          "hardware-compatible" : {
+            "default" : false,
+            "description" : "Not every game can be connected to hardware (for example to many bots)\n\nIf this is true it means you can use this game with hardware",
+            "type" : "boolean"
+          },
+          "hardware-attached" : {
+            "default" : false,
+            "description" : "Is a hardware boead connected",
+            "type" : "boolean"
+          },
+          "player-on-turn" : {
+            "description" : "This id uniquely identifys the player (in a game).\n\n **Not** to be confused with the `uid` which is used for authentication",
+            "example" : 3,
+            "maximum" : 8,
+            "minimum" : 0,
+            "title" : "PlayerID",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "hardware-attached", "hardware-compatible", "passed-time", "player-on-turn", "state" ],
+        "title" : "Game Info",
+        "type" : "object"
+      },
+      "GameState" : {
+        "description" : "The phase the game is currently in\n* `Lobby`: Players are able to join, Bots able to be added. Host can decide to start the game and leave the phase\n* `Planning`: **[BETA - Not in game]** Players can choose their type of robot/bots bots autopick\n* `Playing`: The game is running and the players can do interactions\n* `Break`: The game is paused by the host. Players can still do interactions but they wont be executed as long as the break lasts\n* `Finished` : The game is over and there is a winner. This is the time to save the game for a replay\n",
+        "enum" : [ "LOBBY", "PLANNING", "PLAYING", "FINISHED", "BREAK" ],
+        "title" : "GameStatus",
+        "type" : "string"
+      },
+      "Password" : {
+        "description" : "The password of a game",
+        "example" : "QWer7zÜ",
+        "format" : "password",
+        "maxLength" : 18,
+        "minLength" : 4,
+        "title" : "Password",
+        "type" : "string"
+      },
+      "Error-Message" : {
+        "description" : "A message about that went wrong. Usefull to display users a short and usefull prompt",
+        "properties" : {
+          "message" : {
+            "description" : "A short message describing what happened in human words",
+            "type" : "string"
+          },
+          "error" : {
+            "description" : "The error/exception",
+            "type" : "string"
+          }
+        },
+        "required" : [ "message" ],
+        "title" : "Error-Message",
+        "type" : "object"
+      },
+      "Action" : {
+        "description" : "A queued action.\nActions are executed in their adding sequence which is represented by their index",
+        "example" : {
+          "index" : 0,
+          "executed" : true,
+          "requestor" : 6
+        },
+        "properties" : {
+          "index" : {
+            "description" : "The queue index of the action",
+            "type" : "integer"
+          },
+          "type" : {
+            "$ref" : "#/components/schemas/ActionType"
+          },
+          "executed" : {
+            "description" : "true if the action was allready executed",
+            "type" : "boolean"
+          },
+          "requestor" : {
+            "description" : "The index of the player this instruction came from",
+            "type" : "integer"
+          }
+        },
+        "title" : "Action",
+        "type" : "object"
+      },
+      "RoundPhase" : {
+        "description" : "A round consits of 3 Phases each phase does different things\n* `Upgrade` : Purchase Upgrades with energy cubes\n* `Programming` : Programm your robot(s)\n* `Activation` : The robots execute their code",
+        "enum" : [ "upgrade", "programming", "activation" ],
+        "title" : "RoundPhase",
+        "type" : "string"
+      },
+      "UpgradeShop" : {
+        "description" : "A shop to buy upgrades from. Each element is buyable once and then vanishes from the list",
+        "example" : {
+          "information" : {
+            "open" : true
+          },
+          "upgrades" : [ null, null, null, null, null ]
+        },
+        "properties" : {
+          "upgrades" : {
+            "items" : {
+              "$ref" : "#/components/schemas/UpgradeID"
+            },
+            "maxItems" : 10,
+            "minItems" : 3,
+            "title" : "UpgradeShop",
+            "type" : "array"
+          },
+          "information" : {
+            "$ref" : "#/components/schemas/UpgradeShopInformation"
+          }
+        },
+        "type" : "object"
+      },
+      "Upgrade" : {
+        "additionalProperties" : false,
+        "description" : "A upgrade is a module making a robot stronger",
+        "example" : {
+          "cost" : 0,
+          "permanent" : true,
+          "values" : [ {
+            "name" : "name",
+            "value" : 1
+          }, {
+            "name" : "name",
+            "value" : 1
+          }, {
+            "name" : "name",
+            "value" : 1
+          }, {
+            "name" : "name",
+            "value" : 1
+          }, {
+            "name" : "name",
+            "value" : 1
+          } ],
+          "name" : "Penetration Lazer Mk.2",
+          "description" : "null",
+          "id" : 5962,
+          "rounds" : 6
+        },
+        "minProperties" : 4,
+        "properties" : {
+          "cost" : {
+            "default" : 2,
+            "description" : "The energy cost to buy this upgrade",
+            "maximum" : 5,
+            "minimum" : 0,
+            "type" : "integer"
+          },
+          "name" : {
+            "description" : "The ame to display for this Upgrade. ***Not*** unique (identifying)",
+            "example" : "Penetration Lazer Mk.2",
+            "maxLength" : 27,
+            "minLength" : 2,
+            "type" : "string"
+          },
+          "permanent" : {
+            "default" : true,
+            "description" : "if true the card belongs to the player for the rest of the game",
+            "type" : "boolean"
+          },
+          "description" : {
+            "default" : "null",
+            "description" : "A description about the effect of the card.\nVariables are using the format `{name}` where *name* refers to the names in `values`. ",
+            "maxLength" : 300,
+            "type" : "string"
+          },
+          "rounds" : {
+            "description" : "If the Upgrade is not permanent this variable defines the number of rounds this Upgrade works",
+            "maximum" : 10,
+            "minimum" : 1,
+            "type" : "integer"
+          },
+          "values" : {
+            "description" : "Defines number values for the upgrade.<br>Example:\nEffect: \"You have {registers} additonal Registers\"<br> `{registers}` is the number of the regsiters (that will be added) and the exact value will be defined in here (`values`)",
+            "items" : {
+              "$ref" : "#/components/schemas/Pair"
+            },
+            "maxItems" : 10,
+            "type" : "array",
+            "uniqueItems" : true
+          },
+          "type" : {
+            "$ref" : "#/components/schemas/UpgradeType"
+          },
+          "id" : {
+            "description" : "The id of an upgrade. **Unique**",
+            "maximum" : 10000,
+            "minimum" : 0,
+            "title" : "UpgradeID",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "cost", "name", "type" ],
+        "title" : "Upgrade",
+        "type" : "object"
+      },
+      "RobotCommand" : {
+        "description" : "A command for a robot to execute",
+        "example" : {
+          "times" : 1,
+          "name" : "Penetration Lazer Mk.2",
+          "description" : "null",
+          "parameters" : [ {
+            "name" : "name",
+            "value" : 1
+          }, {
+            "name" : "name",
+            "value" : 1
+          }, {
+            "name" : "name",
+            "value" : 1
+          }, {
+            "name" : "name",
+            "value" : 1
+          }, {
+            "name" : "name",
+            "value" : 1
+          } ]
+        },
+        "properties" : {
+          "type" : {
+            "$ref" : "#/components/schemas/Instruction"
+          },
+          "parameters" : {
+            "description" : "Defines parameters for the instruction.<br>Example:\nEffect: \"Move {steps} steps forward\"<br> `{steps}` is the number of steps the robot will do. And the exact value (of steps) will be defined in here (`values`)",
+            "items" : {
+              "$ref" : "#/components/schemas/Pair"
+            },
+            "maxItems" : 10,
+            "type" : "array",
+            "uniqueItems" : true
+          },
+          "description" : {
+            "default" : "null",
+            "description" : "A description about the effect of the command.\nVariables are using the format `{name}` where *name* refers to the names in `values`. ",
+            "maxLength" : 300,
+            "type" : "string"
+          },
+          "name" : {
+            "description" : "The ame to display for this Command. ***Not*** unique (identifying)",
+            "example" : "Penetration Lazer Mk.2",
+            "maxLength" : 27,
+            "minLength" : 2,
+            "type" : "string"
+          },
+          "times" : {
+            "default" : 1,
+            "description" : "Describes how often this command is going to be executed",
+            "maximum" : 10,
+            "minimum" : 1,
+            "type" : "integer"
+          }
+        },
+        "required" : [ "type" ],
+        "title" : "RobotCommand",
+        "type" : "object"
+      },
+      "Pair" : {
+        "additionalProperties" : false,
+        "description" : "A named value. A pair of an index and value. (Part of a map)",
+        "example" : {
+          "name" : "name",
+          "value" : 1
+        },
+        "maxProperties" : 2,
+        "minProperties" : 1,
+        "properties" : {
+          "name" : {
+            "description" : "The name the value is bound to",
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "value" : {
+            "description" : "The value behind the name. Can be null",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "name" ],
+        "title" : "Pair",
+        "type" : "object"
+      },
+      "UpgradeType" : {
+        "description" : "Defines the type (the code/actions) this card will have\n* `generator` : Generates *x* energy every round",
+        "enum" : [ "generator" ],
+        "maxLength" : 300,
+        "title" : "UpgradeType",
+        "type" : "string"
+      },
+      "Instruction" : {
+        "description" : "Defines what a command will do",
+        "enum" : [ "move", "rotate" ],
+        "title" : "Instruction",
+        "type" : "string"
+      },
+      "Player" : {
+        "additionalProperties" : false,
+        "description" : "A player attending in a game.\n#### Warning\nThis is **not** permanent. It is created and removed with the game (or with you joining and leaving the game)",
+        "example" : {
+          "on-turn" : false,
+          "controlled_entities" : [ null, null ],
+          "active" : true,
+          "id" : 3
+        },
+        "properties" : {
+          "id" : {
+            "description" : "This id uniquely identifys the player (in a game).\n\n **Not** to be confused with the `uid` which is used for authentication",
+            "example" : 3,
+            "maximum" : 8,
+            "minimum" : 0,
+            "title" : "PlayerID",
+            "type" : "integer"
+          },
+          "controlled_entities" : {
+            "description" : "The list of entities controlled by this player",
+            "items" : {
+              "$ref" : "#/components/schemas/EntityID"
+            },
+            "minItems" : 1,
+            "type" : "array",
+            "uniqueItems" : true
+          },
+          "on-turn" : {
+            "default" : false,
+            "description" : "Îf this is true rhe player is able to interact at the moment",
+            "type" : "boolean"
+          },
+          "active" : {
+            "default" : true,
+            "description" : "Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects",
+            "type" : "boolean"
+          }
+        },
+        "required" : [ "controlled_entities", "id" ],
+        "title" : "Player",
+        "type" : "object"
+      },
+      "PlayerID" : {
+        "description" : "This id uniquely identifys the player (in a game).\n\n **Not** to be confused with the `uid` which is used for authentication",
+        "example" : 3,
+        "maximum" : 8,
+        "minimum" : 0,
+        "title" : "PlayerID",
+        "type" : "integer"
+      },
+      "EntityID" : {
+        "description" : "The unique identification of this entity. <br>\n*!!!* This is not the id of the player<br>\nThis value will be autogenerated by the api and is read only",
+        "format" : "int32",
+        "minimum" : 0,
+        "title" : "EntityID",
+        "type" : "integer"
+      },
+      "Replay" : {
+        "description" : "## BETA (Adressed in V0.1.2)\nA replay consists of all data needed to replay a game. Means starting conditions and every change that was made",
+        "title" : "Replay",
+        "type" : "object"
+      },
+      "ActionType" : {
+        "description" : "Defines what an action will do",
+        "enum" : [ "PAUSE", "UNPAUSE", "START_GAME" ],
+        "title" : "ActionType",
+        "type" : "string"
+      },
+      "JoinResponse" : {
+        "description" : "All the data you need as you joined a game.",
+        "example" : {
+          "pat" : 8017480,
+          "id" : 3
+        },
+        "properties" : {
+          "id" : {
+            "description" : "This id uniquely identifys the player (in a game).\n\n **Not** to be confused with the `uid` which is used for authentication",
+            "example" : 3,
+            "maximum" : 8,
+            "minimum" : 0,
+            "title" : "PlayerID",
+            "type" : "integer"
+          },
+          "pat" : {
+            "description" : "The uid is the key for the joined player. You need this key for authentication",
+            "maximum" : 99999999,
+            "minimum" : 9999,
+            "type" : "integer"
+          }
+        },
+        "required" : [ "id", "pat" ],
+        "title" : "JoinResponse",
+        "type" : "object"
+      },
+      "UpgradeID" : {
+        "description" : "The id of an upgrade. **Unique**",
+        "maximum" : 10000,
+        "minimum" : 0,
+        "title" : "UpgradeID",
+        "type" : "integer"
+      },
+      "UpgradeShopInformation" : {
+        "example" : {
+          "open" : true
+        },
+        "properties" : {
+          "open" : {
+            "default" : true,
+            "description" : "if true you can buy uprades",
+            "type" : "boolean"
+          }
+        },
+        "title" : "UpgradeShopInformation",
+        "type" : "object"
+      },
+      "EventType" : {
+        "description" : "Describes what the event is about",
+        "enum" : [ "movement", "upgrade purchase", "fill register", "activate upgrade", "lazer shot", "game start", "clear shop", "fill shop", "register clear", "programming timer start", "programming timer stop", "random card distribution", "take card event", "activate checkpoint", "game_phase_changed", "game_round_phase_changed", "pause", "unpause" ],
+        "title" : "EventType",
+        "type" : "string"
+      },
+      "MovementEvent" : {
+        "description" : "Describes the movement of a entity",
+        "example" : {
+          "movement-ammount" : 30,
+          "rotation-times" : 0,
+          "from" : {
+            "x" : 1,
+            "y" : 5
+          },
+          "to" : {
+            "x" : 1,
+            "y" : 5
+          },
+          "entity" : 0
+        },
+        "properties" : {
+          "entity" : {
+            "description" : "The unique identification of this entity. <br>\n*!!!* This is not the id of the player<br>\nThis value will be autogenerated by the api and is read only",
+            "format" : "int32",
+            "minimum" : 0,
+            "title" : "EntityID",
+            "type" : "integer"
+          },
+          "direction" : {
+            "$ref" : "#/components/schemas/Direction"
+          },
+          "movement-ammount" : {
+            "description" : "How far (in tiles) the movement was executed",
+            "maximum" : 50,
+            "minimum" : 0,
+            "type" : "integer"
+          },
+          "rotation" : {
+            "$ref" : "#/components/schemas/Rotation"
+          },
+          "rotation-times" : {
+            "description" : "The number of times (90°) the robot turns",
+            "maximum" : 2,
+            "minimum" : 0,
+            "type" : "integer"
+          },
+          "from" : {
+            "$ref" : "#/components/schemas/Position"
+          },
+          "to" : {
+            "$ref" : "#/components/schemas/Position"
+          }
+        },
+        "title" : "MovementEvent",
+        "type" : "object"
+      },
+      "Position" : {
+        "description" : "Describes a point in a 2D system, without decimals",
+        "example" : {
+          "x" : 1,
+          "y" : 5
+        },
+        "properties" : {
+          "x" : {
+            "description" : "The X cordinate",
+            "multipleOf" : 1,
+            "type" : "integer"
+          },
+          "y" : {
+            "description" : "Position on the Y axis (top-down on screen)",
+            "multipleOf" : 1,
+            "type" : "integer"
+          }
+        },
+        "required" : [ "x", "y" ],
+        "title" : "Position",
+        "type" : "object"
+      },
+      "MapInfo" : {
+        "description" : "Describes the map *without* the tiles",
+        "example" : {
+          "width" : 43,
+          "name" : "Niton 1",
+          "prioBeacon" : {
+            "x" : 1,
+            "y" : 5
+          },
+          "height" : 302
+        },
+        "properties" : {
+          "width" : {
+            "maximum" : 500,
+            "minimum" : 4,
+            "type" : "integer"
+          },
+          "height" : {
+            "maximum" : 500,
+            "minimum" : 4,
+            "type" : "integer"
+          },
+          "prioBeacon" : {
+            "$ref" : "#/components/schemas/Position"
+          },
+          "name" : {
+            "description" : "The default rule for names in the game",
+            "example" : "Niton 1",
+            "maxLength" : 13,
+            "minLength" : 3,
+            "pattern" : "[A-Za-z]+[A-Za-z0-9 _- ]+[A-Za-z0-9]{1}",
+            "title" : "Name",
+            "type" : "string"
+          }
+        },
+        "title" : "MapInfo",
+        "type" : "object",
+        "x-tags" : [ "Map" ]
+      },
+      "PushEvent" : {
+        "description" : "When entities push each other",
+        "example" : {
+          "pusher-id" : 0,
+          "pushed-id" : 0,
+          "ammount" : 1
+        },
+        "properties" : {
+          "pusher-id" : {
+            "description" : "The unique identification of this entity. <br>\n*!!!* This is not the id of the player<br>\nThis value will be autogenerated by the api and is read only",
+            "format" : "int32",
+            "minimum" : 0,
+            "title" : "EntityID",
+            "type" : "integer"
+          },
+          "ammount" : {
+            "description" : "The number of tiles the pushed entity is pushed",
+            "minimum" : 1,
+            "type" : "integer"
+          },
+          "push-directon" : {
+            "$ref" : "#/components/schemas/Direction"
+          },
+          "pushed-id" : {
+            "description" : "The unique identification of this entity. <br>\n*!!!* This is not the id of the player<br>\nThis value will be autogenerated by the api and is read only",
+            "format" : "int32",
+            "minimum" : 0,
+            "title" : "EntityID",
+            "type" : "integer"
+          }
+        },
+        "title" : "PushEvent",
+        "type" : "object"
+      },
+      "ShootEvent" : {
+        "description" : "Event if a player shoots a lazer",
+        "example" : {
+          "shooter" : 0,
+          "to" : {
+            "x" : 1,
+            "y" : 5
+          },
+          "hit-entitys" : [ null, null ]
+        },
+        "properties" : {
+          "shooter" : {
+            "description" : "The unique identification of this entity. <br>\n*!!!* This is not the id of the player<br>\nThis value will be autogenerated by the api and is read only",
+            "format" : "int32",
+            "minimum" : 0,
+            "title" : "EntityID",
+            "type" : "integer"
+          },
+          "direction" : {
+            "$ref" : "#/components/schemas/Direction"
+          },
+          "to" : {
+            "$ref" : "#/components/schemas/Position"
+          },
+          "hit-entitys" : {
+            "description" : "The entitys hit by the ray",
+            "items" : {
+              "$ref" : "#/components/schemas/EntityID"
+            },
+            "minItems" : 0,
+            "type" : "array",
+            "uniqueItems" : true
+          }
+        },
+        "title" : "ShootEvent",
+        "type" : "object"
+      },
+      "DamageEvent" : {
+        "description" : "Happens when a entity takes damage",
+        "example" : {
+          "ammount" : 3,
+          "entity" : 0
+        },
+        "properties" : {
+          "entity" : {
+            "description" : "The unique identification of this entity. <br>\n*!!!* This is not the id of the player<br>\nThis value will be autogenerated by the api and is read only",
+            "format" : "int32",
+            "minimum" : 0,
+            "title" : "EntityID",
+            "type" : "integer"
+          },
+          "ammount" : {
+            "description" : "The number of damage points",
+            "maximum" : 5,
+            "minimum" : 0,
+            "type" : "integer"
+          }
+        },
+        "title" : "DamageEvent",
+        "type" : "object"
+      },
+      "MapEventType" : {
+        "description" : "The event that occurs if the active map elements are activated",
+        "enum" : [ "lazer", "rotator", "conveyor-belts", "stomper", "hole", "hole-trap", "pusher", "flamethrower", "portal", "toggle-ramps", "repair" ],
+        "title" : "MapEventType",
+        "type" : "string"
+      },
+      "MapEvent" : {
+        "description" : "Events that takes place with the active components of the map",
+        "example" : { },
+        "properties" : {
+          "type" : {
+            "$ref" : "#/components/schemas/MapEventType"
+          }
+        },
+        "title" : "MapEvent",
+        "type" : "object"
+      },
+      "LazerHitEvent" : {
+        "description" : "Called when a player is hit by an ",
+        "example" : {
+          "id" : "id"
+        },
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          }
+        },
+        "title" : "LazerHitEvent",
+        "type" : "object"
+      },
+      "ShutdownEvent" : {
+        "description" : "When a robot reboots",
+        "example" : {
+          "entity" : 0
+        },
+        "properties" : {
+          "entity" : {
+            "description" : "The unique identification of this entity. <br>\n*!!!* This is not the id of the player<br>\nThis value will be autogenerated by the api and is read only",
+            "format" : "int32",
+            "minimum" : 0,
+            "title" : "EntityID",
+            "type" : "integer"
+          }
+        },
+        "title" : "ShutdownEvent",
+        "type" : "object"
+      },
+      "EntityAction" : {
+        "description" : "The base type for entity actions between registers",
+        "example" : { },
+        "properties" : {
+          "phase" : {
+            "$ref" : "#/components/schemas/EntityActionPhase"
+          },
+          "type" : {
+            "$ref" : "#/components/schemas/EntityActionType"
+          }
+        },
+        "title" : "EntityAction",
+        "type" : "object"
+      },
+      "EntityActionType" : {
+        "default" : "none",
+        "description" : "Defines the action itsselft (what the action is doing)",
+        "enum" : [ "reboot", "use upgrade", "spider_jump", "Cache", "register-refresh", "storage-swap", "jumper", "teleporter", "magnet-ray", "pushray", "rotation", "sidekick" ],
+        "title" : "EntityActionType",
+        "type" : "string"
+      },
+      "EntityActionPhase" : {
+        "description" : "The moment at which a entity action can be performed",
+        "enum" : [ "pre_register", "after_register" ],
+        "title" : "EntityActionPhase",
+        "type" : "string"
+      },
+      "EntityEventOportunity" : {
+        "description" : "The oportunity to perfom an action / event",
+        "example" : {
+          "end-time" : 0,
+          "time-left" : 1
+        },
+        "properties" : {
+          "type" : {
+            "$ref" : "#/components/schemas/EntityActionType"
+          },
+          "time-left" : {
+            "description" : "The time in ms left to do this action",
+            "format" : "int64",
+            "minimum" : 1,
+            "type" : "integer"
+          },
+          "end-time" : {
+            "description" : "The in most languages avinable system time in MS as of which the action cant be committed any more",
+            "format" : "int64",
+            "minimum" : 0,
+            "type" : "integer"
+          }
+        },
+        "title" : "EntityEventOportunity",
+        "type" : "object"
+      },
+      "SimpleUpgradeActivation" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/EntityAction"
+        }, {
+          "$ref" : "#/components/schemas/SimpleUpgradeActivation_allOf"
+        } ],
+        "description" : "type is allways `use-upgrade`",
+        "title" : "SimpleUpgradeActivation"
+      },
+      "EntityUseUpgradeAction" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/EntityAction"
+        }, {
+          "$ref" : "#/components/schemas/SimpleUpgradeActivation_allOf"
+        } ],
+        "description" : "The action to make an entity use an upgade card (including the actions which require additional information)",
+        "title" : "EntityUseUpgradeAction"
+      },
+      "Robots" : {
+        "enum" : [ "dicer", "tank" ],
+        "title" : "Robots",
+        "type" : "string"
+      },
+      "RobotInfo" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Entity"
+        }, {
+          "$ref" : "#/components/schemas/RobotInfo_allOf"
+        } ],
+        "description" : "Describes the state/stats of a robot",
+        "title" : "RobotInfo"
+      },
+      "Checkpoint" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Checkpoint_allOf"
+        }, {
+          "$ref" : "#/components/schemas/Entity"
+        } ],
+        "description" : "Checkpoints are entities",
+        "title" : "Checkpoint"
+      },
+      "PlayerAccessToken" : {
+        "description" : "The token used to authorize a player",
+        "maxLength" : 75,
+        "minLength" : 10,
+        "pattern" : "[A-Za-z0-9+*~-_=?]+",
+        "title" : "PlayerAccessToken",
+        "type" : "string"
+      },
+      "GameActionEvent" : {
+        "description" : "This event is triggerd if a game action is committed",
+        "properties" : {
+          "action" : {
+            "$ref" : "#/components/schemas/Action"
+          }
+        },
+        "title" : "GameActionEvent",
+        "type" : "object"
+      },
+      "RobotPickEvent" : {
+        "description" : "Triggered when a robot is assigned to a player",
+        "properties" : {
+          "player" : {
+            "description" : "This id uniquely identifys the player (in a game).\n\n **Not** to be confused with the `uid` which is used for authentication",
+            "example" : 3,
+            "maximum" : 8,
+            "minimum" : 0,
+            "title" : "PlayerID",
+            "type" : "integer"
+          },
+          "robot" : {
+            "description" : "The unique identification of this entity. <br>\n*!!!* This is not the id of the player<br>\nThis value will be autogenerated by the api and is read only",
+            "format" : "int32",
+            "minimum" : 0,
+            "title" : "EntityID",
+            "type" : "integer"
+          }
+        },
+        "title" : "RobotPickEvent",
+        "type" : "object"
+      },
+      "Map" : {
+        "description" : "The map including the tiles",
+        "example" : {
+          "rows" : [ [ {
+            "level" : 1,
+            "empty" : true
+          }, {
+            "level" : 1,
+            "empty" : true
+          } ], [ {
+            "level" : 1,
+            "empty" : true
+          }, {
+            "level" : 1,
+            "empty" : true
+          } ] ],
+          "info" : {
+            "width" : 43,
+            "name" : "Niton 1",
+            "prioBeacon" : {
+              "x" : 1,
+              "y" : 5
+            },
+            "height" : 302
+          }
+        },
+        "properties" : {
+          "info" : {
+            "$ref" : "#/components/schemas/MapInfo"
+          },
+          "rows" : {
+            "items" : {
+              "items" : {
+                "$ref" : "#/components/schemas/Tile"
+              },
+              "type" : "array"
+            },
+            "type" : "array"
+          }
+        },
+        "title" : "Map",
+        "type" : "object"
+      },
+      "GamePhaseChangeEvent" : {
+        "description" : "When the next game phase started",
+        "properties" : {
+          "new status" : {
+            "$ref" : "#/components/schemas/GameState"
+          }
+        },
+        "title" : "GamePhaseChangeEvent",
+        "type" : "object"
+      },
+      "GenericEvent" : {
+        "description" : "Used to store any event and generalize them into a single type",
+        "example" : {
+          "data" : "{}"
+        },
+        "properties" : {
+          "type" : {
+            "$ref" : "#/components/schemas/EventType"
+          },
+          "data" : {
+            "description" : "This is the data for the Event. In the case of type beeing `lazer hit`, data will be of the type `LazerHitEvent`. So the object-type allways matches to the `type` field ",
+            "type" : "object"
+          }
+        },
+        "title" : "GenericEvent",
+        "type" : "object"
+      },
+      "PauseEvent" : {
+        "description" : "Describes the event when the game is paused or unpaused",
+        "properties" : {
+          "state" : {
+            "enum" : [ "UNPAUSE", "PAUSE" ],
+            "type" : "string"
+          }
+        },
+        "title" : "PauseEvent",
+        "type" : "object"
+      },
+      "ActionEvent" : {
+        "description" : "Describes an event from an action without additionaly information",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          }
+        },
+        "title" : "ActionEvent",
+        "type" : "object"
+      },
+      "SimpleUpgradeActivation_allOf" : {
+        "properties" : {
+          "upgrade" : {
+            "description" : "The id of an upgrade. **Unique**",
+            "maximum" : 10000,
+            "minimum" : 0,
+            "title" : "UpgradeID",
+            "type" : "integer"
+          }
+        }
+      },
+      "RobotInfo_allOf" : {
+        "properties" : {
+          "energy-cubes" : {
+            "default" : 3,
+            "description" : "The number of avainable energy cubes",
+            "maximum" : 20,
+            "minimum" : 0,
+            "type" : "integer"
+          },
+          "health" : {
+            "default" : 10,
+            "description" : "The remaining health points",
+            "maximum" : 10,
+            "minimum" : 1,
+            "type" : "integer"
+          },
+          "active" : {
+            "default" : true,
+            "description" : "True if the robot is not in rebooting mode",
+            "type" : "boolean"
+          },
+          "virtual" : {
+            "default" : false,
+            "description" : "If the robot is in virtual mode",
+            "type" : "boolean"
+          },
+          "priority" : {
+            "description" : "The priority of this player. Higher is more priority. 1 = lowest. max = number of players",
+            "maximum" : 8,
+            "minimum" : 1,
+            "type" : "integer"
+          },
+          "on-turn" : {
+            "description" : "True if the robot is currently active (executing a register)",
+            "type" : "boolean"
+          },
+          "is-mine" : {
+            "description" : "True if you are the one controlling the robot",
+            "type" : "boolean"
+          },
+          "hand-cards" : {
+            "description" : "The cards in the hand of the robot",
+            "maximum" : 9,
+            "minimum" : 0,
+            "type" : "integer"
+          },
+          "attitude" : {
+            "default" : 0,
+            "description" : "The height level of the robot",
+            "maximum" : 4,
+            "minimum" : 0,
+            "type" : "integer"
+          },
+          "type" : {
+            "$ref" : "#/components/schemas/Robots"
+          }
+        }
+      },
+      "Checkpoint_allOf" : {
+        "properties" : {
+          "number" : {
+            "description" : "The number of the checkpoint defining the order they need to be called in",
+            "minimum" : 0,
+            "type" : "integer"
+          },
+          "checked-by" : {
+            "description" : "The entities (robots) which allready were at this point",
+            "items" : {
+              "$ref" : "#/components/schemas/EntityID"
+            },
+            "type" : "array"
+          }
+        }
       }
     },
-    "schemas": {
-      "Tile": {
-        "type": "object",
-        "title": "Tile",
-        "description": "A tile is a square at the Game field<br>\n**Note:** \n* `direction` is only aviable for belts\n* properties with a `rotator-` prefix are only aviable for rotator (parts)",
-        "additionalProperties": false,
-        "properties": {
-          "type": {
-            "$ref": "#/components/schemas/TileType"
-          },
-          "empty": {
-            "type": "boolean",
-            "description": "If there is no player at the tile this is true"
-          },
-          "direction": {
-            "$ref": "#/components/schemas/Direction"
-          },
-          "rotator-direction": {
-            "$ref": "#/components/schemas/Rotation"
-          },
-          "level": {
-            "type": "integer",
-            "default": 1,
-            "description": "The height of the tile. 1 = default",
-            "format": "int32",
-            "minimum": 1,
-            "maximum": 3
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "x-tags": [
-          "Map"
-        ]
+    "securitySchemes" : {
+      "admin-access" : {
+        "description" : "This is a static key needed for administrative operations like creating games and can only be obtained inside the servers runtime.\n\n``",
+        "in" : "query",
+        "name" : "skey",
+        "type" : "apiKey"
       },
-      "TileType": {
-        "type": "string",
-        "title": "TileType",
-        "description": "The type defines the function of a tile and how it is displayed. The behaviour is unknown to the client",
-        "enum": [
-          "normal",
-          "rotator",
-          "wall",
-          "prio_core",
-          "conveyor",
-          "trap-door",
-          "stomper",
-          "radioactive",
-          "repair site",
-          "Button",
-          "One Way Wall",
-          "Puddle",
-          "pit",
-          "Ramp"
-        ],
-        "x-tags": [
-          "Map"
-        ]
-      },
-      "Direction": {
-        "type": "string",
-        "title": "Direction",
-        "default": "up",
-        "description": "Defines a direction in a 2D system. the X and Y values can be defined by the client.",
-        "enum": [
-          "up",
-          "down",
-          "left",
-          "right"
-        ]
-      },
-      "RotatorPosition": {
-        "type": "string",
-        "title": "RotatorPosition",
-        "description": "The rotator blocks consist of 4 blocks. This 4 blocks can be differenciated by this property",
-        "enum": [
-          "up_left",
-          "up_right",
-          "down_left",
-          "down_right"
-        ]
-      },
-      "Rotation": {
-        "type": "string",
-        "title": "Rotation",
-        "default": "left",
-        "description": "Defines wether to turn left or right",
-        "enum": [
-          "left",
-          "right"
-        ]
-      },
-      "Entity": {
-        "type": "object",
-        "title": "Entity",
-        "description": "Describes a actor at the game board. Not to be confused with `Player` which is the person controlling the Entity.\n<br>\nthis will *most likely* be a player controlled robot but it also can be a AI controlled Entity or robot\n> We did use Entity instead of the word Robot or bot because the word *bot* is used for the AIs controlling the robot. And also because theoretial a entity can be a not robot entity",
-        "additionalProperties": false,
-        "properties": {
-          "direction": {
-            "$ref": "#/components/schemas/Direction"
-          },
-          "name": {
-            "$ref": "#/components/schemas/Name"
-          },
-          "id": {
-            "type": "integer",
-            "format": "int32",
-            "minimum": 1,
-            "description": "The unique identification of this entity. <br>\n*!!!* This is not the id of the player<br>\nThis value will be autogenerated by the api and is read only"
-          },
-          "location": {
-            "$ref": "#/components/schemas/Position"
-          }
-        },
-        "required": [
-          "direction",
-          "name",
-          "location"
-        ]
-      },
-      "GameRules": {
-        "title": "GameRules",
-        "type": "object",
-        "description": "Game Rules define the rules for a Game",
-        "properties": {
-          "player-names-visible": {
-            "type": "boolean",
-            "default": true,
-            "description": "If true players can see the name of the player controlling a robot"
-          },
-          "max-players": {
-            "type": "integer",
-            "default": 4,
-            "minimum": 1,
-            "maximum": 10,
-            "description": "The maximum ammount of players able to join the game"
-          },
-          "name": {
-            "type": "string",
-            "description": "The visible name of the game",
-            "minLength": 3,
-            "maxLength": 50
-          },
-          "robots-per-player": {
-            "type": "integer",
-            "format": "int32",
-            "minimum": 1,
-            "maximum": 3,
-            "description": "Defines the number of robots per player"
-          },
-          "password": {
-            "$ref": "#/components/schemas/Password"
-          },
-          "fill-with-bots": {
-            "type": "boolean",
-            "default": false,
-            "description": "If true emply player slots are going to be filled up with AI enemys"
-          }
-        },
-        "required": [
-          "name"
-        ]
-      },
-      "Game": {
-        "title": "Game",
-        "type": "object",
-        "description": "A Game is like a lobby, people can join/leave.<br>\nA Game is created by a host who does *not* needs to attend the game as a player but in the most cases he will.\nThis is *read-only*",
-        "properties": {
-          "id": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": {
-            "type": "string",
-            "example": "Nitons Game 1",
-            "minLength": 3,
-            "maxLength": 20,
-            "pattern": "[A-Za-z]+[A-Za-z0-9 _-]+",
-            "description": "The name is **unique** but it should ***not*** be used as identifer (it's not natively supportet)\nIt is used to display the game's name"
-          },
-          "players": {
-            "type": "array",
-            "minItems": 0,
-            "description": "The list of players attending the game.\n(Only contains the name of the players)",
-            "items": {
-              "$ref": "#/components/schemas/PlayerID"
-            }
-          },
-          "runtime_info": {
-            "$ref": "#/components/schemas/GameState"
-          }
-        },
-        "required": [
-          "name"
-        ]
-      },
-      "GameID": {
-        "type": "integer",
-        "title": "GameID",
-        "description": "**Unique**<br>\nThis is the parameter a game is identified by",
-        "format": "int32",
-        "example": 537,
-        "minimum": 0,
-        "maximum": 2048
-      },
-      "Name": {
-        "type": "string",
-        "title": "Name",
-        "description": "The default rule for names in the game",
-        "example": "Niton 1",
-        "minLength": 3,
-        "maxLength": 13,
-        "pattern": "[A-Za-z]+[A-Za-z0-9 _- ]+[A-Za-z0-9]{1}"
-      },
-      "GameInfo": {
-        "title": "Game Info",
-        "type": "object",
-        "description": "Describes the current state of the game. It does not includes the gamedata (like players/poitions/field) but general information.\n\nThis is read only",
-        "properties": {
-          "passed-time": {
-            "type": "integer",
-            "default": -1,
-            "description": "The time passed since the game started in secconds. If the game is not started it will be `0`",
-            "format": "int32",
-            "example": 240,
-            "minimum": -1
-          },
-          "state": {
-            "$ref": "#/components/schemas/GameState"
-          },
-          "hardware-compatible": {
-            "type": "boolean",
-            "default": false,
-            "description": "Not every game can be connected to hardware (for example to many bots)\n\nIf this is true it means you can use this game with hardware"
-          },
-          "hardware-attached": {
-            "type": "boolean",
-            "default": false,
-            "description": "Is a hardware boead connected"
-          },
-          "player-on-turn": {
-            "$ref": "#/components/schemas/PlayerID"
-          }
-        },
-        "required": [
-          "passed-time",
-          "state",
-          "hardware-compatible",
-          "hardware-attached",
-          "player-on-turn"
-        ]
-      },
-      "GameState": {
-        "type": "string",
-        "title": "GameStatus",
-        "description": "The phase the game is currently in\n* `Lobby`: Players are able to join, Bots able to be added. Host can decide to start the game and leave the phase\n* `Planning`: **[BETA - Not in game]** Players can choose their type of robot/bots bots autopick\n* `Playing`: The game is running and the players can do interactions\n* `Break`: The game is paused by the host. Players can still do interactions but they wont be executed as long as the break lasts\n* `Finished` : The game is over and there is a winner. This is the time to save the game for a replay\n",
-        "enum": [
-          "LOBBY",
-          "PLANNING",
-          "PLAYING",
-          "FINISHED",
-          "BREAK"
-        ]
-      },
-      "Password": {
-        "type": "string",
-        "title": "Password",
-        "description": "The password of a game",
-        "format": "password",
-        "example": "QWer7zÜ",
-        "minLength": 4,
-        "maxLength": 18
-      },
-      "Error-Message": {
-        "title": "Error-Message",
-        "type": "object",
-        "description": "A message about that went wrong. Usefull to display users a short and usefull prompt",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "A short message describing what happened in human words"
-          },
-          "error": {
-            "type": "string",
-            "description": "The error/exception"
-          }
-        },
-        "required": [
-          "message"
-        ]
-      },
-      "Action": {
-        "title": "Action",
-        "type": "object",
-        "description": "A queued action.\nActions are executed in their adding sequence which is represented by their index",
-        "properties": {
-          "index": {
-            "type": "integer",
-            "description": "The queue index of the action"
-          },
-          "type": {
-            "$ref": "#/components/schemas/ActionType"
-          },
-          "executed": {
-            "type": "boolean",
-            "description": "true if the action was allready executed"
-          },
-          "requestor": {
-            "type": "integer",
-            "description": "The index of the player this instruction came from"
-          }
-        }
-      },
-      "RoundPhase": {
-        "type": "string",
-        "title": "RoundPhase",
-        "description": "A round consits of 3 Phases each phase does different things\n* `Upgrade` : Purchase Upgrades with energy cubes\n* `Programming` : Programm your robot(s)\n* `Activation` : The robots execute their code",
-        "enum": [
-          "upgrade",
-          "programming",
-          "activation"
-        ]
-      },
-      "UpgradeShop": {
-        "type": "object",
-        "description": "A shop to buy upgrades from. Each element is buyable once and then vanishes from the list",
-        "properties": {
-          "upgrades": {
-            "type": "array",
-            "minItems": 3,
-            "maxItems": 10,
-            "title": "UpgradeShop",
-            "items": {
-              "$ref": "#/components/schemas/UpgradeID"
-            }
-          },
-          "information": {
-            "$ref": "#/components/schemas/UpgradeShopInformation"
-          }
-        }
-      },
-      "Upgrade": {
-        "type": "object",
-        "title": "Upgrade",
-        "description": "A upgrade is a module making a robot stronger",
-        "additionalProperties": false,
-        "minProperties": 4,
-        "properties": {
-          "cost": {
-            "type": "integer",
-            "default": 2,
-            "description": "The energy cost to buy this upgrade",
-            "minimum": 0,
-            "maximum": 5
-          },
-          "name": {
-            "type": "string",
-            "description": "The ame to display for this Upgrade. ***Not*** unique (identifying)",
-            "example": "Penetration Lazer Mk.2",
-            "minLength": 2,
-            "maxLength": 27
-          },
-          "permanent": {
-            "type": "boolean",
-            "default": true,
-            "description": "if true the card belongs to the player for the rest of the game"
-          },
-          "description": {
-            "type": "string",
-            "default": null,
-            "description": "A description about the effect of the card.\nVariables are using the format `{name}` where *name* refers to the names in `values`. ",
-            "maxLength": 300
-          },
-          "rounds": {
-            "type": "integer",
-            "description": "If the Upgrade is not permanent this variable defines the number of rounds this Upgrade works",
-            "minimum": 1,
-            "maximum": 10
-          },
-          "values": {
-            "type": "array",
-            "description": "Defines number values for the upgrade.<br>Example:\nEffect: \"You have {registers} additonal Registers\"<br> `{registers}` is the number of the regsiters (that will be added) and the exact value will be defined in here (`values`)",
-            "uniqueItems": true,
-            "maxItems": 10,
-            "items": {
-              "$ref": "#/components/schemas/Pair"
-            }
-          },
-          "type": {
-            "$ref": "#/components/schemas/UpgradeType"
-          },
-          "id": {
-            "$ref": "#/components/schemas/UpgradeID"
-          }
-        },
-        "required": [
-          "cost",
-          "name",
-          "type"
-        ]
-      },
-      "RobotCommand": {
-        "title": "RobotCommand",
-        "type": "object",
-        "description": "A command for a robot to execute",
-        "properties": {
-          "type": {
-            "$ref": "#/components/schemas/Instruction"
-          },
-          "parameters": {
-            "type": "array",
-            "description": "Defines parameters for the instruction.<br>Example:\nEffect: \"Move {steps} steps forward\"<br> `{steps}` is the number of steps the robot will do. And the exact value (of steps) will be defined in here (`values`)",
-            "uniqueItems": true,
-            "maxItems": 10,
-            "items": {
-              "$ref": "#/components/schemas/Pair"
-            }
-          },
-          "description": {
-            "type": "string",
-            "default": null,
-            "description": "A description about the effect of the command.\nVariables are using the format `{name}` where *name* refers to the names in `values`. ",
-            "maxLength": 300
-          },
-          "name": {
-            "type": "string",
-            "description": "The ame to display for this Command. ***Not*** unique (identifying)",
-            "example": "Penetration Lazer Mk.2",
-            "minLength": 2,
-            "maxLength": 27
-          },
-          "times": {
-            "type": "integer",
-            "default": 1,
-            "minimum": 1,
-            "maximum": 10,
-            "description": "Describes how often this command is going to be executed"
-          }
-        },
-        "required": [
-          "type"
-        ]
-      },
-      "Pair": {
-        "type": "object",
-        "title": "Pair",
-        "additionalProperties": false,
-        "minProperties": 1,
-        "maxProperties": 2,
-        "description": "A named value. A pair of an index and value. (Part of a map)",
-        "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "description": "The name the value is bound to"
-          },
-          "value": {
-            "description": "The value behind the name. Can be null",
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name"
-        ]
-      },
-      "UpgradeType": {
-        "type": "string",
-        "title": "UpgradeType",
-        "description": "Defines the type (the code/actions) this card will have\n* `generator` : Generates *x* energy every round",
-        "enum": [
-          "generator"
-        ],
-        "maxLength": 300
-      },
-      "Instruction": {
-        "type": "string",
-        "title": "Instruction",
-        "description": "Defines what a command will do",
-        "enum": [
-          "move",
-          "rotate"
-        ]
-      },
-      "Player": {
-        "type": "object",
-        "title": "Player",
-        "description": "A player attending in a game.\n#### Warning\nThis is **not** permanent. It is created and removed with the game (or with you joining and leaving the game)",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "$ref": "#/components/schemas/PlayerID"
-          },
-          "controlled_entities": {
-            "type": "array",
-            "description": "The list of entities controlled by this player",
-            "uniqueItems": true,
-            "minItems": 1,
-            "items": {
-              "$ref": "#/components/schemas/EntityID"
-            }
-          },
-          "on-turn": {
-            "type": "boolean",
-            "default": false,
-            "description": "Îf this is true rhe player is able to interact at the moment"
-          },
-          "active": {
-            "type": "boolean",
-            "default": true,
-            "description": "Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects"
-          }
-        },
-        "required": [
-          "id",
-          "controlled_entities"
-        ]
-      },
-      "PlayerID": {
-        "type": "integer",
-        "title": "PlayerID",
-        "description": "This id uniquely identifys the player (in a game).\n\n **Not** to be confused with the `uid` which is used for authentication",
-        "example": 3,
-        "minimum": 0,
-        "maximum": 8
-      },
-      "EntityID": {
-        "type": "integer",
-        "title": "EntityID",
-        "description": "The unique identification of this entity. <br>\n*!!!* This is not the id of the player<br>\nThis value will be autogenerated by the api and is read only",
-        "format": "int32",
-        "minimum": 0
-      },
-      "Replay": {
-        "title": "Replay",
-        "type": "object",
-        "description": "## BETA (Adressed in V0.1.2)\nA replay consists of all data needed to replay a game. Means starting conditions and every change that was made"
-      },
-      "ActionType": {
-        "type": "string",
-        "title": "ActionType",
-        "description": "Defines what an action will do",
-        "enum": [
-          "PAUSE",
-          "UNPAUSE",
-          "START_GAME"
-        ]
-      },
-      "JoinResponse": {
-        "title": "JoinResponse",
-        "type": "object",
-        "description": "All the data you need as you joined a game.",
-        "properties": {
-          "id": {
-            "$ref": "#/components/schemas/PlayerID"
-          },
-          "pat": {
-            "type": "integer",
-            "description": "The uid is the key for the joined player. You need this key for authentication",
-            "minimum": 9999,
-            "maximum": 99999999
-          }
-        },
-        "required": [
-          "id",
-          "pat"
-        ]
-      },
-      "UpgradeID": {
-        "type": "integer",
-        "title": "UpgradeID",
-        "minimum": 0,
-        "maximum": 10000,
-        "description": "The id of an upgrade. **Unique**"
-      },
-      "UpgradeShopInformation": {
-        "title": "UpgradeShopInformation",
-        "type": "object",
-        "properties": {
-          "open": {
-            "type": "boolean",
-            "default": true,
-            "description": "if true you can buy uprades"
-          }
-        }
-      },
-      "EventType": {
-        "type": "string",
-        "title": "EventType",
-        "description": "Describes what the event is about",
-        "enum": [
-          "movement",
-          "upgrade purchase",
-          "fill register",
-          "activate upgrade",
-          "lazer shot",
-          "game start",
-          "clear shop",
-          "fill shop",
-          "register clear",
-          "programming timer start",
-          "programming timer stop",
-          "random card distribution",
-          "take card event",
-          "activate checkpoint",
-          "game_phase_changed",
-          "game_round_phase_changed"
-        ]
-      },
-      "MovementEvent": {
-        "title": "MovementEvent",
-        "type": "object",
-        "description": "Describes the movement of a entity",
-        "properties": {
-          "entity": {
-            "$ref": "#/components/schemas/EntityID"
-          },
-          "direction": {
-            "$ref": "#/components/schemas/Direction"
-          },
-          "movement-ammount": {
-            "type": "integer",
-            "minimum": 0,
-            "maximum": 50,
-            "description": "How far (in tiles) the movement was executed"
-          },
-          "rotation": {
-            "$ref": "#/components/schemas/Rotation"
-          },
-          "rotation-times": {
-            "type": "integer",
-            "minimum": 0,
-            "maximum": 2,
-            "description": "The number of times (90°) the robot turns"
-          },
-          "from": {
-            "$ref": "#/components/schemas/Position"
-          },
-          "to": {
-            "$ref": "#/components/schemas/Position"
-          }
-        }
-      },
-      "Position": {
-        "title": "Position",
-        "type": "object",
-        "description": "Describes a point in a 2D system, without decimals",
-        "properties": {
-          "x": {
-            "type": "integer",
-            "description": "The X cordinate",
-            "multipleOf": 1
-          },
-          "y": {
-            "type": "integer",
-            "description": "Position on the Y axis (top-down on screen)",
-            "multipleOf": 1
-          }
-        },
-        "required": [
-          "x",
-          "y"
-        ]
-      },
-      "MapInfo": {
-        "title": "MapInfo",
-        "type": "object",
-        "description": "Describes the map *without* the tiles",
-        "x-tags": [
-          "Map"
-        ],
-        "properties": {
-          "width": {
-            "type": "integer",
-            "minimum": 4,
-            "maximum": 500
-          },
-          "height": {
-            "type": "integer",
-            "minimum": 4,
-            "maximum": 500
-          },
-          "prioBeacon": {
-            "$ref": "#/components/schemas/Position"
-          },
-          "name": {
-            "$ref": "#/components/schemas/Name"
-          }
-        }
-      },
-      "PushEvent": {
-        "title": "PushEvent",
-        "type": "object",
-        "description": "When entities push each other",
-        "properties": {
-          "pusher-id": {
-            "$ref": "#/components/schemas/EntityID"
-          },
-          "ammount": {
-            "type": "integer",
-            "minimum": 1,
-            "description": "The number of tiles the pushed entity is pushed"
-          },
-          "push-directon": {
-            "$ref": "#/components/schemas/Direction"
-          },
-          "pushed-id": {
-            "$ref": "#/components/schemas/EntityID"
-          }
-        }
-      },
-      "ShootEvent": {
-        "title": "ShootEvent",
-        "type": "object",
-        "description": "Event if a player shoots a lazer",
-        "properties": {
-          "shooter": {
-            "$ref": "#/components/schemas/EntityID"
-          },
-          "direction": {
-            "$ref": "#/components/schemas/Direction"
-          },
-          "to": {
-            "$ref": "#/components/schemas/Position"
-          },
-          "hit-entitys": {
-            "type": "array",
-            "uniqueItems": true,
-            "minItems": 0,
-            "description": "The entitys hit by the ray",
-            "items": {
-              "$ref": "#/components/schemas/EntityID"
-            }
-          }
-        }
-      },
-      "DamageEvent": {
-        "title": "DamageEvent",
-        "type": "object",
-        "description": "Happens when a entity takes damage",
-        "properties": {
-          "entity": {
-            "$ref": "#/components/schemas/EntityID"
-          },
-          "ammount": {
-            "type": "integer",
-            "description": "The number of damage points",
-            "minimum": 0,
-            "maximum": 5
-          }
-        }
-      },
-      "MapEventType": {
-        "type": "string",
-        "title": "MapEventType",
-        "description": "The event that occurs if the active map elements are activated",
-        "enum": [
-          "lazer",
-          "rotator",
-          "conveyor-belts",
-          "stomper",
-          "hole",
-          "hole-trap",
-          "pusher",
-          "flamethrower",
-          "portal",
-          "toggle-ramps",
-          "repair"
-        ]
-      },
-      "MapEvent": {
-        "title": "MapEvent",
-        "type": "object",
-        "properties": {
-          "type": {
-            "$ref": "#/components/schemas/MapEventType"
-          }
-        },
-        "description": "Events that takes place with the active components of the map"
-      },
-      "LazerHitEvent": {
-        "title": "LazerHitEvent",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          }
-        },
-        "description": "Called when a player is hit by an "
-      },
-      "ShutdownEvent": {
-        "title": "ShutdownEvent",
-        "description": "When a robot reboots",
-        "type": "object",
-        "properties": {
-          "entity": {
-            "$ref": "#/components/schemas/EntityID"
-          }
-        }
-      },
-      "EntityAction": {
-        "title": "EntityAction",
-        "type": "object",
-        "properties": {
-          "phase": {
-            "$ref": "#/components/schemas/EntityActionPhase"
-          },
-          "type": {
-            "$ref": "#/components/schemas/EntityActionType"
-          }
-        },
-        "description": "The base type for entity actions between registers"
-      },
-      "EntityActionType": {
-        "type": "string",
-        "title": "EntityActionType",
-        "default": "none",
-        "description": "Defines the action itsselft (what the action is doing)",
-        "enum": [
-          "reboot",
-          "use upgrade",
-          "spider_jump",
-          "Cache",
-          "register-refresh",
-          "storage-swap",
-          "jumper",
-          "teleporter",
-          "magnet-ray",
-          "pushray",
-          "rotation",
-          "sidekick"
-        ]
-      },
-      "EntityActionPhase": {
-        "type": "string",
-        "title": "EntityActionPhase",
-        "enum": [
-          "pre_register",
-          "after_register"
-        ],
-        "description": "The moment at which a entity action can be performed"
-      },
-      "EntityEventOportunity": {
-        "title": "EntityEventOportunity",
-        "type": "object",
-        "description": "The oportunity to perfom an action / event",
-        "properties": {
-          "type": {
-            "$ref": "#/components/schemas/EntityActionType"
-          },
-          "time-left": {
-            "type": "integer",
-            "description": "The time in ms left to do this action",
-            "format": "int64",
-            "minimum": 1
-          },
-          "end-time": {
-            "type": "integer",
-            "format": "int64",
-            "minimum": 0,
-            "description": "The in most languages avinable system time in MS as of which the action cant be committed any more"
-          }
-        }
-      },
-      "SimpleUpgradeActivation": {
-        "title": "SimpleUpgradeActivation",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/EntityAction"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "upgrade": {
-                "$ref": "#/components/schemas/UpgradeID"
-              }
-            }
-          }
-        ],
-        "description": "type is allways `use-upgrade`"
-      },
-      "EntityUseUpgradeAction": {
-        "title": "EntityUseUpgradeAction",
-        "description": "The action to make an entity use an upgade card (including the actions which require additional information)",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/EntityAction"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "upgrade": {
-                "$ref": "#/components/schemas/UpgradeID"
-              }
-            }
-          }
-        ]
-      },
-      "Robots": {
-        "type": "string",
-        "title": "Robots",
-        "enum": [
-          "dicer",
-          "tank"
-        ]
-      },
-      "RobotInfo": {
-        "title": "RobotInfo",
-        "description": "Describes the state/stats of a robot",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Entity"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "energy-cubes": {
-                "type": "integer",
-                "default": 3,
-                "description": "The number of avainable energy cubes",
-                "minimum": 0,
-                "maximum": 20
-              },
-              "health": {
-                "type": "integer",
-                "default": 10,
-                "description": "The remaining health points",
-                "minimum": 1,
-                "maximum": 10
-              },
-              "active": {
-                "type": "boolean",
-                "default": true,
-                "description": "True if the robot is not in rebooting mode"
-              },
-              "virtual": {
-                "type": "boolean",
-                "default": false,
-                "description": "If the robot is in virtual mode"
-              },
-              "priority": {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 8,
-                "description": "The priority of this player. Higher is more priority. 1 = lowest. max = number of players"
-              },
-              "on-turn": {
-                "type": "boolean",
-                "description": "True if the robot is currently active (executing a register)"
-              },
-              "is-mine": {
-                "type": "boolean",
-                "description": "True if you are the one controlling the robot"
-              },
-              "hand-cards": {
-                "type": "integer",
-                "minimum": 0,
-                "maximum": 9,
-                "description": "The cards in the hand of the robot"
-              },
-              "attitude": {
-                "type": "integer",
-                "default": 0,
-                "minimum": 0,
-                "maximum": 4,
-                "description": "The height level of the robot"
-              },
-              "type": {
-                "$ref": "#/components/schemas/Robots"
-              }
-            }
-          }
-        ]
-      },
-      "Checkpoint": {
-        "title": "Checkpoint",
-        "allOf": [
-          {
-            "type": "object",
-            "properties": {
-              "number": {
-                "type": "integer",
-                "minimum": 0,
-                "description": "The number of the checkpoint defining the order they need to be called in"
-              },
-              "checked-by": {
-                "type": "array",
-                "description": "The entities (robots) which allready were at this point",
-                "items": {
-                  "$ref": "#/components/schemas/EntityID"
-                }
-              }
-            }
-          },
-          {
-            "$ref": "#/components/schemas/Entity"
-          }
-        ],
-        "description": "Checkpoints are entities"
-      },
-      "PlayerAccessToken": {
-        "title": "PlayerAccessToken",
-        "description": "The token used to authorize a player",
-        "pattern": "[A-Za-z0-9+*~-_=?]+",
-        "maxLength": 75,
-        "minLength": 10,
-        "type": "string"
-      },
-      "GameActionEvent": {
-        "title": "GameActionEvent",
-        "type": "object",
-        "description": "This event is triggerd if a game action is committed",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/Action"
-          }
-        }
-      },
-      "RobotPickEvent": {
-        "title": "RobotPickEvent",
-        "type": "object",
-        "description": "Triggered when a robot is assigned to a player",
-        "properties": {
-          "player": {
-            "$ref": "#/components/schemas/PlayerID"
-          },
-          "robot": {
-            "$ref": "#/components/schemas/EntityID"
-          }
-        }
-      },
-      "Map": {
-        "title": "Map",
-        "type": "object",
-        "description": "The map including the tiles",
-        "properties": {
-          "info": {
-            "$ref": "#/components/schemas/MapInfo"
-          },
-          "rows": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/Tile"
-              }
-            }
-          }
-        }
-      },
-      "GamePhaseChangeEvent": {
-        "title": "GamePhaseChangeEvent",
-        "type": "object",
-        "description": "When the next game phase started",
-        "properties": {
-          "new status": {
-            "$ref": "#/components/schemas/GameState"
-          }
-        }
-      },
-      "GenericEvent": {
-        "title": "GenericEvent",
-        "type": "object",
-        "properties": {
-          "type": {
-            "$ref": "#/components/schemas/EventType"
-          },
-          "data": {
-            "type": "object",
-            "description": "This is the data for the Event. In the case of type beeing `lazer hit`, data will be of the type `LazerHitEvent`. So the object-type allways matches to the `type` field "
-          }
-        },
-        "description": "Used to store any event and generalize them into a single type"
-      },
-      "PauseEvent": {
-        "title": "PauseEvent",
-        "type": "object",
-        "properties": {
-          "state": {
-            "type": "string",
-            "enum": [
-              "UNPAUSE",
-              "PAUSE"
-            ]
-          }
-        },
-        "description": "Describes the event when the game is paused or unpaused"
+      "player-auth" : {
+        "description" : "Players need a token to join a lobby/game. If the host sets a password the player needs the password to get the token",
+        "in" : "query",
+        "name" : "pat",
+        "type" : "apiKey"
       }
     }
-  },
-  "tags": [
-    {
-      "description": "All actions needed to interact with players.<br>Keep in mid that a player is *not* a robot",
-      "name": "Players"
-    },
-    {
-      "description": "All actions needed to interact with the game itself and mostly to get information",
-      "name": "Game"
-    },
-    {
-      "description": "All actions directly done with the robots and other robot related actions",
-      "name": "Robots"
-    },
-    {
-      "description": "Buying and reading upgrades",
-      "name": "Upgrades"
-    },
-    {
-      "description": "Iterct with the the map",
-      "name": "Map"
-    },
-    {
-      "description": "Recive and react to events",
-      "name": "EventHandling"
-    }
-  ]
+  }
 }
