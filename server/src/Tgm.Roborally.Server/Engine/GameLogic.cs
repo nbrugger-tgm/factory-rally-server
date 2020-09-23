@@ -34,7 +34,7 @@ namespace Tgm.Roborally.Server.Engine
 			thread.Start();
 		}
 
-		public void ComittEvent(Event e) => EventManager.notify(e);
+		public void CommitEvent(Event e) => EventManager.notify(e);
 
 		public EventManager EventManager { get; }
 		public HardwareManager Hardware { get; }

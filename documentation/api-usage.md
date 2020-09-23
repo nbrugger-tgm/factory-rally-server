@@ -9,10 +9,10 @@ Detecting one or more updates includes three mayor steps:
 > Note that the code below is `pseudo code` in JS, means the names of the classes and functions are not the one from the api
 
 ```javascript
-var wait = true; // false if you do not like to block the thread
-var type = eventAPI.fetchNextEventType(game_id,wait);
+let wait = true; // false if you do not like to block the thread
+let type = eventAPI.fetchNextEventType(game_id,wait);
 if(type == EventType.MOVE_EVENT){//you could also use switch
-     var moveEvent = eventAPI.fetchNextMovementEvent(game_id);
+     let moveEvent = eventAPI.fetchNextMovementEvent(game_id);
      ... 
 }
 ```
@@ -20,7 +20,7 @@ This system is needed to provide type savety in languages such as Java and C#
 
 if you do not like to wait you will need something like this
 ```javascript
-var wait = false; // false if you do not like to block the thread
+let wait = false; // false if you do not like to block the thread
 try{
     var type = eventAPI.fetchNextEventType(game_id,wait);
 }catch(e){
@@ -33,3 +33,14 @@ if(type == EventType.MOVE_EVENT){//you could also use switch
      ... 
 }
 ```
+
+If you use an "typeless" language like JS you can do the following
+
+```javascript
+let wait = true;
+let anyEvent = eventAPI.getNextEvent(game_id,wait);
+let eventType = anyEvent.type;
+let eventData = anyEvent.data;
+...
+```
+

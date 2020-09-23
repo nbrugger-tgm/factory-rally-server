@@ -17,7 +17,7 @@ using Tgm.Roborally.Server.Engine;
 namespace Tgm.Roborally.Server.Models
 { 
     /// <summary>
-    /// This event is triggerd if a game action is committed
+    /// This event is triggered if a game action is committed
     /// </summary>
     [DataContract]
     public partial class GameActionEvent : IEquatable<GameActionEvent> , Event
@@ -44,6 +44,11 @@ namespace Tgm.Roborally.Server.Models
             sb.Append("  Action: ").Append(Action).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
+        }
+
+        public EventType GetEventType()
+        {
+            return EventType.GameStart
         }
 
         /// <summary>

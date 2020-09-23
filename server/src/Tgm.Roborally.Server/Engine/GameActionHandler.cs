@@ -23,7 +23,7 @@ namespace Tgm.Roborally.Server.Engine
 		{
 			ActionType type = _Queue[_queuePos++];
 			ActionMap[type].Invoke();
-			game.ComittEvent(new GameActionEvent(type));
+			game.CommitEvent(new GameActionEvent(type));
 			game.NotifyThread(type);
 		}
 
