@@ -1381,6 +1381,45 @@
         "tags" : [ "EventHandling" ]
       }
     },
+    "/games/{game_id}/events/pause" : {
+      "get" : {
+        "description" : "Returns the next unfetched event of the pause or unpause type.\n\nIf the event is not of the pause type you will get a `400` status and the event stays unfetched",
+        "operationId" : "fetchNextPauseEvent",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "game_id",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameID"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ShutdownEvent"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "No unfetched event"
+          },
+          "417" : {
+            "description" : "The next event is not a movement event"
+          }
+        },
+        "security" : [ {
+          "player-auth" : [ ]
+        } ],
+        "summary" : "Get next / last pause event",
+        "tags" : [ "EventHandling" ]
+      }
+    },
     "/games/{game_id}/map" : {
       "get" : {
         "description" : "Returns the map of this specific game including the tiles (data)",
@@ -3025,6 +3064,17 @@
           }
         },
         "title" : "GenericEvent",
+        "type" : "object"
+      },
+      "PauseEvent" : {
+        "description" : "Describes the event when the game is paused or unpaused",
+        "properties" : {
+          "state" : {
+            "enum" : [ "UNPAUSE", "PAUSE" ],
+            "type" : "string"
+          }
+        },
+        "title" : "PauseEvent",
         "type" : "object"
       },
       "SimpleUpgradeActivation_allOf" : {

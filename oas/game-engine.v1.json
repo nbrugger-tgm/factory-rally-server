@@ -1327,6 +1327,49 @@
         ]
       }
     },
+    "/games/{game_id}/events/pause": {
+      "parameters": [
+        {
+          "schema": {
+            "$ref": "#/components/schemas/GameID"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get next / last pause event",
+        "tags": [
+          "EventHandling"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShutdownEvent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No unfetched event"
+          },
+          "417": {
+            "description": "The next event is not a movement event"
+          }
+        },
+        "operationId": "fetchNextPauseEvent",
+        "description": "Returns the next unfetched event of the pause or unpause type.\n\nIf the event is not of the pause type you will get a `400` status and the event stays unfetched",
+        "security": [
+          {
+            "player-auth": []
+          }
+        ]
+      }
+    },
     "/games/{game_id}/map": {
       "parameters": [
         {
@@ -2981,6 +3024,20 @@
           }
         },
         "description": "Used to store any event and generalize them into a single type"
+      },
+      "PauseEvent": {
+        "title": "PauseEvent",
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "UNPAUSE",
+              "PAUSE"
+            ]
+          }
+        },
+        "description": "Describes the event when the game is paused or unpaused"
       }
     }
   },

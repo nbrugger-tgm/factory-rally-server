@@ -187,6 +187,39 @@ namespace Tgm.Roborally.Server.Controllers
         }
 
         /// <summary>
+        /// Get next / last pause event
+        /// </summary>
+        /// <remarks>Returns the next unfetched event of the pause or unpause type.  If the event is not of the pause type you will get a &#x60;400&#x60; status and the event stays unfetched</remarks>
+        /// <param name="gameId"></param>
+        /// <response code="200">OK</response>
+        /// <response code="404">No unfetched event</response>
+        /// <response code="417">The next event is not a movement event</response>
+        [HttpGet]
+        [Route("/v1/games/{game_id}/events/pause")]
+        [Authorize(Policy = "player-auth")]
+        [ValidateModelState]
+        [SwaggerOperation("FetchNextPauseEvent")]
+        [SwaggerResponse(statusCode: 200, type: typeof(ShutdownEvent), description: "OK")]
+        public virtual IActionResult FetchNextPauseEvent([FromRoute][Required][Range(0, 2048)]int gameId)
+        { 
+
+            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(200, default(ShutdownEvent));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404);
+            //TODO: Uncomment the next line to return response 417 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(417);
+            string exampleJson = null;
+            exampleJson = "{\n  \"entity\" : 0\n}";
+            
+            var example = exampleJson != null
+            ? JsonConvert.DeserializeObject<ShutdownEvent>(exampleJson)
+            : default(ShutdownEvent);
+            //TODO: Change the data returned
+            return new ObjectResult(example);
+        }
+
+        /// <summary>
         /// Get next / last push event
         /// </summary>
         /// <remarks>Returns the next unfetched event of the push type.  If the event is not of the push  type you will get a &#x60;400&#x60; status and the event stays unfetched</remarks>
