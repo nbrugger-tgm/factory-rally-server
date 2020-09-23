@@ -158,5 +158,7 @@ namespace Tgm.Roborally.Server.Engine
 		}
 
 		public void NotifyThread(ActionType type) => thread.Notify(type);
+
+		public Player AuthPlayer(string authKey) => Players.Find(p => p.auth.Equals(authKey));
 	}
 }

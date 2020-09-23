@@ -35,8 +35,11 @@ namespace Tgm.Roborally.Server.Models
         [DataMember(Name="id", EmitDefaultValue=false)]
         public int Id { get; set; }
         
-        public string auth { get; } = AuthID();
-        private const string chars = "ABCDEFGHIJKLMNOPQRSTabcdefghijklmnopqrst1234567890-_+~*=?";
+        /// <summary>
+        /// This is the ID used for authentication
+        /// </summary>
+        public readonly string auth = AuthID();
+        private const string chars = "ABCDEFGHIJKLMNOPQRSTabcdefghijklmnopqrst1234567890-_+?:!";
         private static string AuthID()
         {
             Random r = new Random();
@@ -66,7 +69,7 @@ namespace Tgm.Roborally.Server.Models
         public bool OnTurn { get; set; } = false;
 
         /// <summary>
-        /// Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects
+        /// Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects and is AFK for a certain time
         /// </summary>
         /// <value>Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects</value>
         [DataMember(Name="active", EmitDefaultValue=false)]
