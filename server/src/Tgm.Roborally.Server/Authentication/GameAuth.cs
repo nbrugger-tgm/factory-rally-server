@@ -92,6 +92,9 @@ namespace Tgm.Roborally.Server.Authentication
 	public class AuthResult
 	{
 		public bool isAdmin = false;
+		/// <summary>
+		/// -1 means not a player
+		/// </summary>
 		public int player = -1;
 	}
 }

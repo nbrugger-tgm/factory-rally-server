@@ -44,3 +44,6 @@ let eventData = anyEvent.data;
 ...
 ```
 
+### Generic Events
+
+Generics events are such that do not need additional information and only consist of a type. For them there are no seperate paths, you have to use `getNextEvent` to fetch them.

@@ -153,7 +153,8 @@ namespace Tgm.Roborally.Server.Engine
 			}
 
 			_map = new Map(20, 20);
-			thread.Notify(ActionType.STARTGAME);
+			ActionHandler.Add(ActionType.STARTGAME);
+			ActionHandler.ExecuteNext();
 		}
 
 		public void NotifyThread(ActionType type) => thread.Notify(type);

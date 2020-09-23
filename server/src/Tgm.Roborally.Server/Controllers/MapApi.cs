@@ -40,13 +40,12 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/map")]
-        [Authorize(Policy = "player-auth")]
+        [GameAuth(Role.PLAYER)]
         [ValidateModelState]
         [SwaggerOperation("GetGameMap")]
         [SwaggerResponse(statusCode: 200, type: typeof(Map), description: "OK")]
         public virtual IActionResult GetGameMap([FromRoute][Required]string gameId)
-        { 
-
+        {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Map));
             //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...

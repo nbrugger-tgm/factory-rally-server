@@ -17,6 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
+using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models
 { 
@@ -24,8 +25,13 @@ namespace Tgm.Roborally.Server.Models
     /// Used to store any event and generalize them into a single type
     /// </summary>
     [DataContract]
-    public partial class GenericEvent : IEquatable<GenericEvent>
+    public partial class GenericEvent : IEquatable<GenericEvent> , Event
     {
+        public GenericEvent(EventType type)
+        {
+            Type = type;
+        }
+
         /// <summary>
         /// Gets or Sets Type
         /// </summary>
@@ -51,6 +57,11 @@ namespace Tgm.Roborally.Server.Models
             sb.Append("  Data: ").Append(Data).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
+        }
+
+        public EventType GetEventType()
+        {
+            return Type;
         }
 
         /// <summary>

@@ -17,13 +17,14 @@ namespace Tgm.Roborally.Server.Engine
 		private int _queuePos;
 		public int QueuePos => _queuePos;
 		private Dictionary<ActionType, Action> ActionMap = new Dictionary<ActionType, Action>();
+		private Dictionary<ActionType, EventType> EventMap = new Dictionary<ActionType, EventType>();
 
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void ExecuteNext()
 		{
 			ActionType type = _Queue[_queuePos++];
 			ActionMap[type].Invoke();
-			game.CommitEvent(new GameActionEvent(type));
+			game.CommitEvent(new GenericEvent(EventMap[type]));
 			game.NotifyThread(type);
 		}
 
@@ -32,15 +33,21 @@ namespace Tgm.Roborally.Server.Engine
 		{
 			this.game = game;
 			InitActionMap();
+			InitEventMap();
 		}
 
 		private void InitActionMap()
 		{
 			ActionMap[ActionType.PAUSE] = () => { game.State = GameState.BREAK; };
 			ActionMap[ActionType.UNPAUSE] = () => { game.State = game.LastState; };
-			//TODO: Change to Start_Game ActionMap[ActionType.UNPAUSE] = () => { game. };
+			//TODO: Change to Start_Game ActionMap[ActionType.GAMESTART] = () => { game. };
 		}
-
+		private void InitEventMap()
+		{
+			EventMap[ActionType.PAUSE] = EventType.Pause;
+			EventMap[ActionType.UNPAUSE] = EventType.Unpause;
+			EventMap[ActionType.STARTGAME] = EventType.GameStart;
+		}
 		
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void Add(ActionType t) => _Queue.Add(t);

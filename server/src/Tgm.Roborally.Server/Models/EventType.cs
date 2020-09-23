@@ -123,6 +123,20 @@ namespace Tgm.Roborally.Server.Models
             /// Enum GameRoundPhaseChanged for game_round_phase_changed
             /// </summary>
             [EnumMember(Value = "game_round_phase_changed")]
-            GameRoundPhaseChanged = 16
+            GameRoundPhaseChanged = 16,
+            
+            
+            /// <summary>
+            /// Enum GameRoundPhaseChanged for pause
+            /// </summary>
+            [EnumMember(Value = "pause")]
+            Pause = 17,
+            
+            
+            /// <summary>
+            /// Enum GameRoundPhaseChanged for pause
+            /// </summary>
+            [EnumMember(Value = "unpause")]
+            Unpause = 18
         }
 }
