@@ -42,7 +42,7 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="type">type.</param>
         /// <param name="timeLeft">The time in ms left to do this action.</param>
         /// <param name="endTime">The in most languages avinable system time in MS as of which the action cant be committed any more.</param>
-        public EntityEventOportunity(EntityActionType type = default(EntityActionType), long timeLeft = default(long), long endTime = default(long))
+        public EntityEventOportunity(EntityActionType? type = default(EntityActionType?), long timeLeft = default(long), long endTime = default(long))
         {
             this.Type = type;
             this.TimeLeft = timeLeft;

@@ -28,6 +28,27 @@ namespace Tgm.Roborally.Api.Api
     {
         #region Synchronous Operations
         /// <summary>
+        /// Get Map
+        /// </summary>
+        /// <remarks>
+        /// Returns the map of this specific game including the tiles (data)
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>Map</returns>
+        Map GetGameMap (string gameId);
+
+        /// <summary>
+        /// Get Map
+        /// </summary>
+        /// <remarks>
+        /// Returns the map of this specific game including the tiles (data)
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>ApiResponse of Map</returns>
+        ApiResponse<Map> GetGameMapWithHttpInfo (string gameId);
+        /// <summary>
         /// Get Map info
         /// </summary>
         /// <remarks>
@@ -82,6 +103,27 @@ namespace Tgm.Roborally.Api.Api
     public interface IMapApiAsync : IApiAccessor
     {
         #region Asynchronous Operations
+        /// <summary>
+        /// Get Map
+        /// </summary>
+        /// <remarks>
+        /// Returns the map of this specific game including the tiles (data)
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>Task of Map</returns>
+        System.Threading.Tasks.Task<Map> GetGameMapAsync (string gameId);
+
+        /// <summary>
+        /// Get Map
+        /// </summary>
+        /// <remarks>
+        /// Returns the map of this specific game including the tiles (data)
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>Task of ApiResponse (Map)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Map>> GetGameMapAsyncWithHttpInfo (string gameId);
         /// <summary>
         /// Get Map info
         /// </summary>
@@ -249,6 +291,129 @@ namespace Tgm.Roborally.Api.Api
         }
 
         /// <summary>
+        /// Get Map Returns the map of this specific game including the tiles (data)
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>Map</returns>
+        public Map GetGameMap (string gameId)
+        {
+             Tgm.Roborally.Api.Client.ApiResponse<Map> localVarResponse = GetGameMapWithHttpInfo(gameId);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get Map Returns the map of this specific game including the tiles (data)
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>ApiResponse of Map</returns>
+        public Tgm.Roborally.Api.Client.ApiResponse< Map > GetGameMapWithHttpInfo (string gameId)
+        {
+            // verify the required parameter 'gameId' is set
+            if (gameId == null)
+                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling MapApi->GetGameMap");
+
+            Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
+
+            String[] _contentTypes = new String[] {
+            };
+
+            // to determine the Accept header
+            String[] _accepts = new String[] {
+                "application/json"
+            };
+
+            var localVarContentType = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+
+            // authentication (player-auth) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
+            {
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get< Map >("/games/{game_id}/map", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetGameMap", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get Map Returns the map of this specific game including the tiles (data)
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>Task of Map</returns>
+        public async System.Threading.Tasks.Task<Map> GetGameMapAsync (string gameId)
+        {
+             Tgm.Roborally.Api.Client.ApiResponse<Map> localVarResponse = await GetGameMapAsyncWithHttpInfo(gameId);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Get Map Returns the map of this specific game including the tiles (data)
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>Task of ApiResponse (Map)</returns>
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<Map>> GetGameMapAsyncWithHttpInfo (string gameId)
+        {
+            // verify the required parameter 'gameId' is set
+            if (gameId == null)
+                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling MapApi->GetGameMap");
+
+
+            Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
+
+            String[] _contentTypes = new String[] {
+            };
+
+            // to determine the Accept header
+            String[] _accepts = new String[] {
+                "application/json"
+            };
+            
+            foreach (var _contentType in _contentTypes)
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", _contentType);
+            
+            foreach (var _accept in _accepts)
+                localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
+            
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+
+            // authentication (player-auth) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
+            {
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<Map>("/games/{game_id}/map", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetGameMap", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
         /// Get Map info Get meta information abouzt the map of the game
         /// </summary>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
@@ -286,16 +451,10 @@ namespace Tgm.Roborally.Api.Api
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -350,16 +509,10 @@ namespace Tgm.Roborally.Api.Api
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -424,21 +577,13 @@ namespace Tgm.Roborally.Api.Api
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
-            if (x != null)
-                localVarRequestOptions.PathParameters.Add("x", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(x)); // path parameter
-            if (y != null)
-                localVarRequestOptions.PathParameters.Add("y", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(y)); // path parameter
+            localVarRequestOptions.PathParameters.Add("x", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(x)); // path parameter
+            localVarRequestOptions.PathParameters.Add("y", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(y)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -504,21 +649,13 @@ namespace Tgm.Roborally.Api.Api
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
-            if (x != null)
-                localVarRequestOptions.PathParameters.Add("x", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(x)); // path parameter
-            if (y != null)
-                localVarRequestOptions.PathParameters.Add("y", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(y)); // path parameter
+            localVarRequestOptions.PathParameters.Add("x", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(x)); // path parameter
+            localVarRequestOptions.PathParameters.Add("y", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(y)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request

@@ -4,9 +4,87 @@ All URIs are relative to *http://game.host/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**GetGameMap**](MapApi.md#getgamemap) | **GET** /games/{game_id}/map | Get Map
 [**GetMapInfo**](MapApi.md#getmapinfo) | **GET** /games/{game_id}/map/info | Get Map info
 [**GetTile**](MapApi.md#gettile) | **GET** /games/{game_id}/map/tiles/{x}/{y} | Get tile
 
+
+<a name="getgamemap"></a>
+# **GetGameMap**
+> Map GetGameMap (string gameId)
+
+Get Map
+
+Returns the map of this specific game including the tiles (data)
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using Tgm.Roborally.Api.Api;
+using Tgm.Roborally.Api.Client;
+using Tgm.Roborally.Api.Model;
+
+namespace Example
+{
+    public class GetGameMapExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: player-auth
+            config.AddApiKey("pat", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("pat", "Bearer");
+
+            var apiInstance = new MapApi(config);
+            var gameId = gameId_example;  // string | 
+
+            try
+            {
+                // Get Map
+                Map result = apiInstance.GetGameMap(gameId);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling MapApi.GetGameMap: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **gameId** | **string**|  | 
+
+### Return type
+
+[**Map**](Map.md)
+
+### Authorization
+
+[player-auth](../README.md#player-auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a name="getmapinfo"></a>
 # **GetMapInfo**
@@ -32,7 +110,7 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
@@ -69,7 +147,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
@@ -80,6 +158,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -107,7 +186,7 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
@@ -148,7 +227,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
@@ -159,6 +238,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -694,6 +694,7 @@ namespace Tgm.Roborally.Api.Api
 
             // to determine the Accept header
             String[] _accepts = new String[] {
+                "application/json"
             };
 
             var localVarContentType = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -705,16 +706,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -759,6 +754,7 @@ namespace Tgm.Roborally.Api.Api
 
             // to determine the Accept header
             String[] _accepts = new String[] {
+                "application/json"
             };
             
             foreach (var _contentType in _contentTypes)
@@ -770,16 +766,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -823,6 +813,7 @@ namespace Tgm.Roborally.Api.Api
 
             // to determine the Accept header
             String[] _accepts = new String[] {
+                "application/json"
             };
 
             var localVarContentType = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -834,16 +825,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -888,6 +873,7 @@ namespace Tgm.Roborally.Api.Api
 
             // to determine the Accept header
             String[] _accepts = new String[] {
+                "application/json"
             };
             
             foreach (var _contentType in _contentTypes)
@@ -899,16 +885,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -959,6 +939,7 @@ namespace Tgm.Roborally.Api.Api
 
             // to determine the Accept header
             String[] _accepts = new String[] {
+                "application/json"
             };
 
             var localVarContentType = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -968,20 +949,13 @@ namespace Tgm.Roborally.Api.Api
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
-            if (robotId != null)
-                localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
             localVarRequestOptions.Data = entityAction;
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1033,6 +1007,7 @@ namespace Tgm.Roborally.Api.Api
 
             // to determine the Accept header
             String[] _accepts = new String[] {
+                "application/json"
             };
             
             foreach (var _contentType in _contentTypes)
@@ -1042,20 +1017,13 @@ namespace Tgm.Roborally.Api.Api
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
-            if (robotId != null)
-                localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
             localVarRequestOptions.Data = entityAction;
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1114,19 +1082,12 @@ namespace Tgm.Roborally.Api.Api
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
-            if (robotId != null)
-                localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1186,19 +1147,12 @@ namespace Tgm.Roborally.Api.Api
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
-            if (robotId != null)
-                localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1255,16 +1209,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1322,16 +1270,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1390,19 +1332,12 @@ namespace Tgm.Roborally.Api.Api
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
-            if (robotId != null)
-                localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1462,19 +1397,12 @@ namespace Tgm.Roborally.Api.Api
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
-            if (robotId != null)
-                localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1531,16 +1459,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1598,16 +1520,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1666,19 +1582,12 @@ namespace Tgm.Roborally.Api.Api
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
-            if (robotId != null)
-                localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1738,19 +1647,12 @@ namespace Tgm.Roborally.Api.Api
                 localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
-            if (robotId != null)
-                localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1804,16 +1706,10 @@ namespace Tgm.Roborally.Api.Api
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1868,16 +1764,10 @@ namespace Tgm.Roborally.Api.Api
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1923,6 +1813,7 @@ namespace Tgm.Roborally.Api.Api
 
             // to determine the Accept header
             String[] _accepts = new String[] {
+                "application/json"
             };
 
             var localVarContentType = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -1935,25 +1826,13 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
             if (upgrade != null)
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "upgrade", upgrade))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "upgrade", upgrade));
             }
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -2000,6 +1879,7 @@ namespace Tgm.Roborally.Api.Api
 
             // to determine the Accept header
             String[] _accepts = new String[] {
+                "application/json"
             };
             
             foreach (var _contentType in _contentTypes)
@@ -2012,25 +1892,13 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
             if (upgrade != null)
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "upgrade", upgrade))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "upgrade", upgrade));
             }
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -2085,16 +1953,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -2150,16 +2012,10 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("robot_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(robotId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request

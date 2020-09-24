@@ -43,7 +43,7 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="direction">direction.</param>
         /// <param name="to">to.</param>
         /// <param name="hitEntitys">The entitys hit by the ray.</param>
-        public ShootEvent(int shooter = default(int), Direction direction = default(Direction), Position to = default(Position), List<int> hitEntitys = default(List<int>))
+        public ShootEvent(int shooter = default(int), Direction? direction = default(Direction?), Position to = default(Position), List<int> hitEntitys = default(List<int>))
         {
             this.Shooter = shooter;
             this.Direction = direction;

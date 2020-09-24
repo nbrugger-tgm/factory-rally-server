@@ -116,7 +116,31 @@ namespace Tgm.Roborally.Api.Model
         /// Enum Activatecheckpoint for value: activate checkpoint
         /// </summary>
         [EnumMember(Value = "activate checkpoint")]
-        Activatecheckpoint = 14
+        Activatecheckpoint = 14,
+
+        /// <summary>
+        /// Enum Gamephasechanged for value: game_phase_changed
+        /// </summary>
+        [EnumMember(Value = "game_phase_changed")]
+        Gamephasechanged = 15,
+
+        /// <summary>
+        /// Enum Gameroundphasechanged for value: game_round_phase_changed
+        /// </summary>
+        [EnumMember(Value = "game_round_phase_changed")]
+        Gameroundphasechanged = 16,
+
+        /// <summary>
+        /// Enum Pause for value: pause
+        /// </summary>
+        [EnumMember(Value = "pause")]
+        Pause = 17,
+
+        /// <summary>
+        /// Enum Unpause for value: unpause
+        /// </summary>
+        [EnumMember(Value = "unpause")]
+        Unpause = 18
 
     }
 

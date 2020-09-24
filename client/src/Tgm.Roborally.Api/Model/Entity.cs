@@ -50,12 +50,11 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="location">location (required).</param>
         public Entity(Direction direction = default(Direction), string name = default(string), int id = default(int), Position location = default(Position))
         {
-            // to ensure "direction" is required (not null)
             this.Direction = direction;
             // to ensure "name" is required (not null)
-            this.Name = name ?? throw new ArgumentNullException("name is a required property for Entity and cannot be null");;
+            this.Name = name ?? throw new ArgumentNullException("name is a required property for Entity and cannot be null");
             // to ensure "location" is required (not null)
-            this.Location = location ?? throw new ArgumentNullException("location is a required property for Entity and cannot be null");;
+            this.Location = location ?? throw new ArgumentNullException("location is a required property for Entity and cannot be null");
             this.Id = id;
         }
         
@@ -184,7 +183,7 @@ namespace Tgm.Roborally.Api.Model
             }
 
             // Name (string) pattern
-            Regex regexName = new Regex(@"[A-Za-z]+[A-Za-z0-9 _-]+", RegexOptions.CultureInvariant);
+            Regex regexName = new Regex(@"[A-Za-z]+[A-Za-z0-9 _- ]+[A-Za-z0-9]{1}", RegexOptions.CultureInvariant);
             if (false == regexName.Match(this.Name).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, must match a pattern of " + regexName, new [] { "Name" });

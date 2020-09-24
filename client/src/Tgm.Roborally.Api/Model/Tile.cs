@@ -58,13 +58,14 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="empty">If there is no player at the tile this is true.</param>
         /// <param name="direction">direction.</param>
         /// <param name="rotatorDirection">rotatorDirection.</param>
-        public Tile(TileType type = default(TileType), bool empty = default(bool), Direction direction = default(Direction), Rotation rotatorDirection = default(Rotation))
+        /// <param name="level">The height of the tile. 1 &#x3D; default (default to 1).</param>
+        public Tile(TileType type = default(TileType), bool empty = default(bool), Direction? direction = default(Direction?), Rotation? rotatorDirection = default(Rotation?), int level = 1)
         {
-            // to ensure "type" is required (not null)
             this.Type = type;
             this.Empty = empty;
             this.Direction = direction;
             this.RotatorDirection = rotatorDirection;
+            this.Level = level;
         }
         
         /// <summary>
@@ -73,6 +74,13 @@ namespace Tgm.Roborally.Api.Model
         /// <value>If there is no player at the tile this is true</value>
         [DataMember(Name="empty", EmitDefaultValue=false)]
         public bool Empty { get; set; }
+
+        /// <summary>
+        /// The height of the tile. 1 &#x3D; default
+        /// </summary>
+        /// <value>The height of the tile. 1 &#x3D; default</value>
+        [DataMember(Name="level", EmitDefaultValue=false)]
+        public int Level { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -86,6 +94,7 @@ namespace Tgm.Roborally.Api.Model
             sb.Append("  Empty: ").Append(Empty).Append("\n");
             sb.Append("  Direction: ").Append(Direction).Append("\n");
             sb.Append("  RotatorDirection: ").Append(RotatorDirection).Append("\n");
+            sb.Append("  Level: ").Append(Level).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -135,6 +144,10 @@ namespace Tgm.Roborally.Api.Model
                 (
                     this.RotatorDirection == input.RotatorDirection ||
                     this.RotatorDirection.Equals(input.RotatorDirection)
+                ) && 
+                (
+                    this.Level == input.Level ||
+                    this.Level.Equals(input.Level)
                 );
         }
 
@@ -151,6 +164,7 @@ namespace Tgm.Roborally.Api.Model
                 hashCode = hashCode * 59 + this.Empty.GetHashCode();
                 hashCode = hashCode * 59 + this.Direction.GetHashCode();
                 hashCode = hashCode * 59 + this.RotatorDirection.GetHashCode();
+                hashCode = hashCode * 59 + this.Level.GetHashCode();
                 return hashCode;
             }
         }
@@ -162,6 +176,18 @@ namespace Tgm.Roborally.Api.Model
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            // Level (int) maximum
+            if(this.Level > (int)3)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Level, must be a value less than or equal to 3.", new [] { "Level" });
+            }
+
+            // Level (int) minimum
+            if(this.Level < (int)1)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Level, must be a value greater than or equal to 1.", new [] { "Level" });
+            }
+
             yield break;
         }
     }

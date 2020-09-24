@@ -5,6 +5,7 @@ All URIs are relative to *http://game.host/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**FetchNextDamageEvent**](EventHandlingApi.md#fetchnextdamageevent) | **GET** /games/{game_id}/events/damage | Get next / last damage event
+[**FetchNextEvent**](EventHandlingApi.md#fetchnextevent) | **GET** /games/{game_id}/events/head | Get next event
 [**FetchNextLazerHitEvent**](EventHandlingApi.md#fetchnextlazerhitevent) | **GET** /games/{game_id}/events/lazer-hit | Get next / last Lazer hit event
 [**FetchNextMapEvent**](EventHandlingApi.md#fetchnextmapevent) | **GET** /games/{game_id}/events/map | Get next / last map event
 [**FetchNextMovementEvent**](EventHandlingApi.md#fetchnextmovementevent) | **GET** /games/{game_id}/events/movement | Get next / last movement event
@@ -38,7 +39,7 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
@@ -75,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
@@ -88,6 +89,82 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | No unfetched event |  -  |
 | **417** | The next event is not a movement event |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="fetchnextevent"></a>
+# **FetchNextEvent**
+> GenericEvent FetchNextEvent (string gameId)
+
+Get next event
+
+Returns the next unfetched event of the ***any*** type.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using Tgm.Roborally.Api.Api;
+using Tgm.Roborally.Api.Client;
+using Tgm.Roborally.Api.Model;
+
+namespace Example
+{
+    public class FetchNextEventExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "http://game.host/v1";
+            // Configure API key authorization: player-auth
+            config.AddApiKey("pat", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("pat", "Bearer");
+
+            var apiInstance = new EventHandlingApi(config);
+            var gameId = gameId_example;  // string | 
+
+            try
+            {
+                // Get next event
+                GenericEvent result = apiInstance.FetchNextEvent(gameId);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling EventHandlingApi.FetchNextEvent: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **gameId** | **string**|  | 
+
+### Return type
+
+[**GenericEvent**](GenericEvent.md)
+
+### Authorization
+
+[player-auth](../README.md#player-auth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **404** | No unfetched event |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -115,7 +192,7 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
@@ -152,7 +229,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
@@ -192,7 +269,7 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
@@ -229,7 +306,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
@@ -269,7 +346,7 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
@@ -306,7 +383,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
@@ -346,7 +423,7 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
@@ -383,7 +460,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
@@ -423,7 +500,7 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
@@ -460,7 +537,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
@@ -500,7 +577,7 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
@@ -537,7 +614,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
@@ -555,7 +632,7 @@ Name | Type | Description  | Notes
 
 <a name="traceevent"></a>
 # **TraceEvent**
-> InlineResponse200 TraceEvent (int gameId, bool? batch = null, bool? wait = null)
+> List&lt;EventType&gt; TraceEvent (int gameId, bool wait, bool? batch = null)
 
 trace event
 
@@ -577,20 +654,20 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
 
             var apiInstance = new EventHandlingApi(config);
             var gameId = 56;  // int | 
-            var batch = true;  // bool? | If true you will get all past events at once (optional)  (default to false)
-            var wait = true;  // bool? | If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional)  (default to false)
+            var wait = true;  // bool | If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (default to false)
+            var batch = true;  // bool? | If true you will get all past events at once If false the list only contains the oldest unfetched event (optional)  (default to false)
 
             try
             {
                 // trace event
-                InlineResponse200 result = apiInstance.TraceEvent(gameId, batch, wait);
+                List<EventType> result = apiInstance.TraceEvent(gameId, wait, batch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -609,16 +686,16 @@ namespace Example
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **gameId** | **int**|  | 
- **batch** | **bool?**| If true you will get all past events at once | [optional] [default to false]
- **wait** | **bool?**| If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client | [optional] [default to false]
+ **wait** | **bool**| If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client | [default to false]
+ **batch** | **bool?**| If true you will get all past events at once If false the list only contains the oldest unfetched event | [optional] [default to false]
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**List&lt;EventType&gt;**](EventType.md)
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
@@ -629,6 +706,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

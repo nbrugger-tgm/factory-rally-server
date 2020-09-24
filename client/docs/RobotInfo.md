@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **IsMine** | **bool** | True if you are the one controlling the robot | [optional] 
 **HandCards** | **int** | The cards in the hand of the robot | [optional] 
 **Attitude** | **int** | The height level of the robot | [optional] [default to 0]
+**Type** | **Robots** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

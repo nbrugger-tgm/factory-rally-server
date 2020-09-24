@@ -47,7 +47,7 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="phase">phase.</param>
         /// <param name="type">type.</param>
         /// <param name="upgrade">The id of an upgrade. **Unique**.</param>
-        public EntityUseUpgradeAction(EntityActionPhase phase = default(EntityActionPhase), EntityActionType type = default(EntityActionType), int upgrade = default(int))
+        public EntityUseUpgradeAction(EntityActionPhase? phase = default(EntityActionPhase?), EntityActionType? type = default(EntityActionType?), int upgrade = default(int))
         {
             this.Phase = phase;
             this.Type = type;

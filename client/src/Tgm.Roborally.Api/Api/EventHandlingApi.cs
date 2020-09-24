@@ -49,6 +49,27 @@ namespace Tgm.Roborally.Api.Api
         /// <returns>ApiResponse of DamageEvent</returns>
         ApiResponse<DamageEvent> FetchNextDamageEventWithHttpInfo (int gameId);
         /// <summary>
+        /// Get next event
+        /// </summary>
+        /// <remarks>
+        /// Returns the next unfetched event of the ***any*** type.
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>GenericEvent</returns>
+        GenericEvent FetchNextEvent (string gameId);
+
+        /// <summary>
+        /// Get next event
+        /// </summary>
+        /// <remarks>
+        /// Returns the next unfetched event of the ***any*** type.
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>ApiResponse of GenericEvent</returns>
+        ApiResponse<GenericEvent> FetchNextEventWithHttpInfo (string gameId);
+        /// <summary>
         /// Get next / last Lazer hit event
         /// </summary>
         /// <remarks>
@@ -182,10 +203,10 @@ namespace Tgm.Roborally.Api.Api
         /// </remarks>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
-        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
-        /// <returns>InlineResponse200</returns>
-        InlineResponse200 TraceEvent (int gameId, bool? batch = default(bool?), bool? wait = default(bool?));
+        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client</param>
+        /// <param name="batch">If true you will get all past events at once If false the list only contains the oldest unfetched event (optional, default to false)</param>
+        /// <returns>List&lt;EventType&gt;</returns>
+        List<EventType> TraceEvent (int gameId, bool wait, bool? batch = default(bool?));
 
         /// <summary>
         /// trace event
@@ -195,10 +216,10 @@ namespace Tgm.Roborally.Api.Api
         /// </remarks>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
-        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
-        /// <returns>ApiResponse of InlineResponse200</returns>
-        ApiResponse<InlineResponse200> TraceEventWithHttpInfo (int gameId, bool? batch = default(bool?), bool? wait = default(bool?));
+        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client</param>
+        /// <param name="batch">If true you will get all past events at once If false the list only contains the oldest unfetched event (optional, default to false)</param>
+        /// <returns>ApiResponse of List&lt;EventType&gt;</returns>
+        ApiResponse<List<EventType>> TraceEventWithHttpInfo (int gameId, bool wait, bool? batch = default(bool?));
         #endregion Synchronous Operations
     }
 
@@ -229,6 +250,27 @@ namespace Tgm.Roborally.Api.Api
         /// <param name="gameId"></param>
         /// <returns>Task of ApiResponse (DamageEvent)</returns>
         System.Threading.Tasks.Task<ApiResponse<DamageEvent>> FetchNextDamageEventAsyncWithHttpInfo (int gameId);
+        /// <summary>
+        /// Get next event
+        /// </summary>
+        /// <remarks>
+        /// Returns the next unfetched event of the ***any*** type.
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>Task of GenericEvent</returns>
+        System.Threading.Tasks.Task<GenericEvent> FetchNextEventAsync (string gameId);
+
+        /// <summary>
+        /// Get next event
+        /// </summary>
+        /// <remarks>
+        /// Returns the next unfetched event of the ***any*** type.
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>Task of ApiResponse (GenericEvent)</returns>
+        System.Threading.Tasks.Task<ApiResponse<GenericEvent>> FetchNextEventAsyncWithHttpInfo (string gameId);
         /// <summary>
         /// Get next / last Lazer hit event
         /// </summary>
@@ -363,10 +405,10 @@ namespace Tgm.Roborally.Api.Api
         /// </remarks>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
-        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
-        /// <returns>Task of InlineResponse200</returns>
-        System.Threading.Tasks.Task<InlineResponse200> TraceEventAsync (int gameId, bool? batch = default(bool?), bool? wait = default(bool?));
+        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client</param>
+        /// <param name="batch">If true you will get all past events at once If false the list only contains the oldest unfetched event (optional, default to false)</param>
+        /// <returns>Task of List&lt;EventType&gt;</returns>
+        System.Threading.Tasks.Task<List<EventType>> TraceEventAsync (int gameId, bool wait, bool? batch = default(bool?));
 
         /// <summary>
         /// trace event
@@ -376,10 +418,10 @@ namespace Tgm.Roborally.Api.Api
         /// </remarks>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
-        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
-        /// <returns>Task of ApiResponse (InlineResponse200)</returns>
-        System.Threading.Tasks.Task<ApiResponse<InlineResponse200>> TraceEventAsyncWithHttpInfo (int gameId, bool? batch = default(bool?), bool? wait = default(bool?));
+        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client</param>
+        /// <param name="batch">If true you will get all past events at once If false the list only contains the oldest unfetched event (optional, default to false)</param>
+        /// <returns>Task of ApiResponse (List&lt;EventType&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<EventType>>> TraceEventAsyncWithHttpInfo (int gameId, bool wait, bool? batch = default(bool?));
         #endregion Asynchronous Operations
     }
 
@@ -538,16 +580,10 @@ namespace Tgm.Roborally.Api.Api
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -602,16 +638,10 @@ namespace Tgm.Roborally.Api.Api
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -621,6 +651,129 @@ namespace Tgm.Roborally.Api.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("FetchNextDamageEvent", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get next event Returns the next unfetched event of the ***any*** type.
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>GenericEvent</returns>
+        public GenericEvent FetchNextEvent (string gameId)
+        {
+             Tgm.Roborally.Api.Client.ApiResponse<GenericEvent> localVarResponse = FetchNextEventWithHttpInfo(gameId);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get next event Returns the next unfetched event of the ***any*** type.
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>ApiResponse of GenericEvent</returns>
+        public Tgm.Roborally.Api.Client.ApiResponse< GenericEvent > FetchNextEventWithHttpInfo (string gameId)
+        {
+            // verify the required parameter 'gameId' is set
+            if (gameId == null)
+                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextEvent");
+
+            Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
+
+            String[] _contentTypes = new String[] {
+            };
+
+            // to determine the Accept header
+            String[] _accepts = new String[] {
+                "application/json"
+            };
+
+            var localVarContentType = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+
+            // authentication (player-auth) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
+            {
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get< GenericEvent >("/games/{game_id}/events/head", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("FetchNextEvent", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get next event Returns the next unfetched event of the ***any*** type.
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>Task of GenericEvent</returns>
+        public async System.Threading.Tasks.Task<GenericEvent> FetchNextEventAsync (string gameId)
+        {
+             Tgm.Roborally.Api.Client.ApiResponse<GenericEvent> localVarResponse = await FetchNextEventAsyncWithHttpInfo(gameId);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Get next event Returns the next unfetched event of the ***any*** type.
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <returns>Task of ApiResponse (GenericEvent)</returns>
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<GenericEvent>> FetchNextEventAsyncWithHttpInfo (string gameId)
+        {
+            // verify the required parameter 'gameId' is set
+            if (gameId == null)
+                throw new Tgm.Roborally.Api.Client.ApiException(400, "Missing required parameter 'gameId' when calling EventHandlingApi->FetchNextEvent");
+
+
+            Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
+
+            String[] _contentTypes = new String[] {
+            };
+
+            // to determine the Accept header
+            String[] _accepts = new String[] {
+                "application/json"
+            };
+            
+            foreach (var _contentType in _contentTypes)
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", _contentType);
+            
+            foreach (var _accept in _accepts)
+                localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
+            
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+
+            // authentication (player-auth) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
+            {
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<GenericEvent>("/games/{game_id}/events/head", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("FetchNextEvent", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 
@@ -665,16 +818,10 @@ namespace Tgm.Roborally.Api.Api
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -729,16 +876,10 @@ namespace Tgm.Roborally.Api.Api
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -792,16 +933,10 @@ namespace Tgm.Roborally.Api.Api
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -856,16 +991,10 @@ namespace Tgm.Roborally.Api.Api
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -919,16 +1048,10 @@ namespace Tgm.Roborally.Api.Api
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -983,16 +1106,10 @@ namespace Tgm.Roborally.Api.Api
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1046,16 +1163,10 @@ namespace Tgm.Roborally.Api.Api
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1110,16 +1221,10 @@ namespace Tgm.Roborally.Api.Api
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1173,16 +1278,10 @@ namespace Tgm.Roborally.Api.Api
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1237,16 +1336,10 @@ namespace Tgm.Roborally.Api.Api
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1300,16 +1393,10 @@ namespace Tgm.Roborally.Api.Api
 
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1364,16 +1451,10 @@ namespace Tgm.Roborally.Api.Api
             
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -1394,12 +1475,12 @@ namespace Tgm.Roborally.Api.Api
         /// </summary>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
-        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
-        /// <returns>InlineResponse200</returns>
-        public InlineResponse200 TraceEvent (int gameId, bool? batch = default(bool?), bool? wait = default(bool?))
+        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client</param>
+        /// <param name="batch">If true you will get all past events at once If false the list only contains the oldest unfetched event (optional, default to false)</param>
+        /// <returns>List&lt;EventType&gt;</returns>
+        public List<EventType> TraceEvent (int gameId, bool wait, bool? batch = default(bool?))
         {
-             Tgm.Roborally.Api.Client.ApiResponse<InlineResponse200> localVarResponse = TraceEventWithHttpInfo(gameId, batch, wait);
+             Tgm.Roborally.Api.Client.ApiResponse<List<EventType>> localVarResponse = TraceEventWithHttpInfo(gameId, wait, batch);
              return localVarResponse.Data;
         }
 
@@ -1408,10 +1489,10 @@ namespace Tgm.Roborally.Api.Api
         /// </summary>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
-        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
-        /// <returns>ApiResponse of InlineResponse200</returns>
-        public Tgm.Roborally.Api.Client.ApiResponse< InlineResponse200 > TraceEventWithHttpInfo (int gameId, bool? batch = default(bool?), bool? wait = default(bool?))
+        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client</param>
+        /// <param name="batch">If true you will get all past events at once If false the list only contains the oldest unfetched event (optional, default to false)</param>
+        /// <returns>ApiResponse of List&lt;EventType&gt;</returns>
+        public Tgm.Roborally.Api.Client.ApiResponse< List<EventType> > TraceEventWithHttpInfo (int gameId, bool wait, bool? batch = default(bool?))
         {
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
 
@@ -1432,39 +1513,18 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             if (batch != null)
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "batch", batch))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "batch", batch));
             }
-            if (wait != null)
-            {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "wait", wait))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
-            }
+            localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "wait", wait));
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get< InlineResponse200 >("/games/{game_id}/events/type", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get< List<EventType> >("/games/{game_id}/events/type", localVarRequestOptions, this.Configuration);
 
             if (this.ExceptionFactory != null)
             {
@@ -1480,12 +1540,12 @@ namespace Tgm.Roborally.Api.Api
         /// </summary>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
-        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
-        /// <returns>Task of InlineResponse200</returns>
-        public async System.Threading.Tasks.Task<InlineResponse200> TraceEventAsync (int gameId, bool? batch = default(bool?), bool? wait = default(bool?))
+        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client</param>
+        /// <param name="batch">If true you will get all past events at once If false the list only contains the oldest unfetched event (optional, default to false)</param>
+        /// <returns>Task of List&lt;EventType&gt;</returns>
+        public async System.Threading.Tasks.Task<List<EventType>> TraceEventAsync (int gameId, bool wait, bool? batch = default(bool?))
         {
-             Tgm.Roborally.Api.Client.ApiResponse<InlineResponse200> localVarResponse = await TraceEventAsyncWithHttpInfo(gameId, batch, wait);
+             Tgm.Roborally.Api.Client.ApiResponse<List<EventType>> localVarResponse = await TraceEventAsyncWithHttpInfo(gameId, wait, batch);
              return localVarResponse.Data;
 
         }
@@ -1495,10 +1555,10 @@ namespace Tgm.Roborally.Api.Api
         /// </summary>
         /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="gameId"></param>
-        /// <param name="batch">If true you will get all past events at once (optional, default to false)</param>
-        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (optional, default to false)</param>
-        /// <returns>Task of ApiResponse (InlineResponse200)</returns>
-        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<InlineResponse200>> TraceEventAsyncWithHttpInfo (int gameId, bool? batch = default(bool?), bool? wait = default(bool?))
+        /// <param name="wait">If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client</param>
+        /// <param name="batch">If true you will get all past events at once If false the list only contains the oldest unfetched event (optional, default to false)</param>
+        /// <returns>Task of ApiResponse (List&lt;EventType&gt;)</returns>
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<List<EventType>>> TraceEventAsyncWithHttpInfo (int gameId, bool wait, bool? batch = default(bool?))
         {
 
             Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
@@ -1520,40 +1580,19 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             if (batch != null)
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "batch", batch))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "batch", batch));
             }
-            if (wait != null)
-            {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "wait", wait))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
-            }
+            localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "wait", wait));
 
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
 
-            var localVarResponse = await this.AsynchronousClient.GetAsync<InlineResponse200>("/games/{game_id}/events/type", localVarRequestOptions, this.Configuration);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<EventType>>("/games/{game_id}/events/type", localVarRequestOptions, this.Configuration);
 
             if (this.ExceptionFactory != null)
             {

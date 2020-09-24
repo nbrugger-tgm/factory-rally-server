@@ -44,14 +44,16 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="name">The visible name of the game (required).</param>
         /// <param name="robotsPerPlayer">Defines the number of robots per player.</param>
         /// <param name="password">The password of a game.</param>
-        public GameRules(bool playerNamesVisible = true, int maxPlayers = 4, string name = default(string), int robotsPerPlayer = default(int), string password = default(string))
+        /// <param name="fillWithBots">If true emply player slots are going to be filled up with AI enemys (default to false).</param>
+        public GameRules(bool playerNamesVisible = true, int maxPlayers = 4, string name = default(string), int robotsPerPlayer = default(int), string password = default(string), bool fillWithBots = false)
         {
             // to ensure "name" is required (not null)
-            this.Name = name ?? throw new ArgumentNullException("name is a required property for GameRules and cannot be null");;
+            this.Name = name ?? throw new ArgumentNullException("name is a required property for GameRules and cannot be null");
             this.PlayerNamesVisible = playerNamesVisible;
             this.MaxPlayers = maxPlayers;
             this.RobotsPerPlayer = robotsPerPlayer;
             this.Password = password;
+            this.FillWithBots = fillWithBots;
         }
         
         /// <summary>
@@ -90,6 +92,13 @@ namespace Tgm.Roborally.Api.Model
         public string Password { get; set; }
 
         /// <summary>
+        /// If true emply player slots are going to be filled up with AI enemys
+        /// </summary>
+        /// <value>If true emply player slots are going to be filled up with AI enemys</value>
+        [DataMember(Name="fill-with-bots", EmitDefaultValue=false)]
+        public bool FillWithBots { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -102,6 +111,7 @@ namespace Tgm.Roborally.Api.Model
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  RobotsPerPlayer: ").Append(RobotsPerPlayer).Append("\n");
             sb.Append("  Password: ").Append(Password).Append("\n");
+            sb.Append("  FillWithBots: ").Append(FillWithBots).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -157,6 +167,10 @@ namespace Tgm.Roborally.Api.Model
                     this.Password == input.Password ||
                     (this.Password != null &&
                     this.Password.Equals(input.Password))
+                ) && 
+                (
+                    this.FillWithBots == input.FillWithBots ||
+                    this.FillWithBots.Equals(input.FillWithBots)
                 );
         }
 
@@ -176,6 +190,7 @@ namespace Tgm.Roborally.Api.Model
                 hashCode = hashCode * 59 + this.RobotsPerPlayer.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
+                hashCode = hashCode * 59 + this.FillWithBots.GetHashCode();
                 return hashCode;
             }
         }

@@ -46,7 +46,7 @@ namespace Tgm.Roborally.Api.Model
         /// </summary>
         /// <param name="phase">phase.</param>
         /// <param name="type">type.</param>
-        public EntityAction(EntityActionPhase phase = default(EntityActionPhase), EntityActionType type = default(EntityActionType))
+        public EntityAction(EntityActionPhase? phase = default(EntityActionPhase?), EntityActionType? type = default(EntityActionType?))
         {
             this.Phase = phase;
             this.Type = type;

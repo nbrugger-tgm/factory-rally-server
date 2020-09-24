@@ -44,7 +44,7 @@ namespace Tgm.Roborally.Api.Model
         public Pair(string name = default(string), int value = default(int))
         {
             // to ensure "name" is required (not null)
-            this.Name = name ?? throw new ArgumentNullException("name is a required property for Pair and cannot be null");;
+            this.Name = name ?? throw new ArgumentNullException("name is a required property for Pair and cannot be null");
             this.Value = value;
         }
         

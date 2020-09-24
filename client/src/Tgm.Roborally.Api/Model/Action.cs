@@ -43,7 +43,7 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="type">type.</param>
         /// <param name="executed">true if the action was allready executed.</param>
         /// <param name="requestor">The index of the player this instruction came from.</param>
-        public Action(int index = default(int), ActionType type = default(ActionType), bool executed = default(bool), int requestor = default(int))
+        public Action(int index = default(int), ActionType? type = default(ActionType?), bool executed = default(bool), int requestor = default(int))
         {
             this.Index = index;
             this.Type = type;

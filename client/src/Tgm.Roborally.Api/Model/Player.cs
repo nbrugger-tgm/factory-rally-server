@@ -42,12 +42,14 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="id">This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication (required).</param>
         /// <param name="controlledEntities">The list of entities controlled by this player (required).</param>
         /// <param name="onTurn">Îf this is true rhe player is able to interact at the moment (default to false).</param>
-        public Player(int id = default(int), List<int> controlledEntities = default(List<int>), bool onTurn = false)
+        /// <param name="active">Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects (default to true).</param>
+        public Player(int id = default(int), List<int> controlledEntities = default(List<int>), bool onTurn = false, bool active = true)
         {
             this.Id = id;
             // to ensure "controlledEntities" is required (not null)
-            this.ControlledEntities = controlledEntities ?? throw new ArgumentNullException("controlledEntities is a required property for Player and cannot be null");;
+            this.ControlledEntities = controlledEntities ?? throw new ArgumentNullException("controlledEntities is a required property for Player and cannot be null");
             this.OnTurn = onTurn;
+            this.Active = active;
         }
         
         /// <summary>
@@ -72,6 +74,13 @@ namespace Tgm.Roborally.Api.Model
         public bool OnTurn { get; set; }
 
         /// <summary>
+        /// Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects
+        /// </summary>
+        /// <value>Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects</value>
+        [DataMember(Name="active", EmitDefaultValue=false)]
+        public bool Active { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -82,6 +91,7 @@ namespace Tgm.Roborally.Api.Model
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  ControlledEntities: ").Append(ControlledEntities).Append("\n");
             sb.Append("  OnTurn: ").Append(OnTurn).Append("\n");
+            sb.Append("  Active: ").Append(Active).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -129,6 +139,10 @@ namespace Tgm.Roborally.Api.Model
                 (
                     this.OnTurn == input.OnTurn ||
                     this.OnTurn.Equals(input.OnTurn)
+                ) && 
+                (
+                    this.Active == input.Active ||
+                    this.Active.Equals(input.Active)
                 );
         }
 
@@ -145,6 +159,7 @@ namespace Tgm.Roborally.Api.Model
                 if (this.ControlledEntities != null)
                     hashCode = hashCode * 59 + this.ControlledEntities.GetHashCode();
                 hashCode = hashCode * 59 + this.OnTurn.GetHashCode();
+                hashCode = hashCode * 59 + this.Active.GetHashCode();
                 return hashCode;
             }
         }

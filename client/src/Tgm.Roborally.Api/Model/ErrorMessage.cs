@@ -44,7 +44,7 @@ namespace Tgm.Roborally.Api.Model
         public ErrorMessage(string message = default(string), string error = default(string))
         {
             // to ensure "message" is required (not null)
-            this.Message = message ?? throw new ArgumentNullException("message is a required property for ErrorMessage and cannot be null");;
+            this.Message = message ?? throw new ArgumentNullException("message is a required property for ErrorMessage and cannot be null");
             this.Error = error;
         }
         

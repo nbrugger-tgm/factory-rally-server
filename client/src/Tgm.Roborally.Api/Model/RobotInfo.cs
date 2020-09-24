@@ -37,6 +37,11 @@ namespace Tgm.Roborally.Api.Model
         [DataMember(Name="direction", EmitDefaultValue=false)]
         public Direction Direction { get; set; }
         /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name="type", EmitDefaultValue=false)]
+        public Robots? Type { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="RobotInfo" /> class.
         /// </summary>
         [JsonConstructorAttribute]
@@ -57,14 +62,14 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="isMine">True if you are the one controlling the robot.</param>
         /// <param name="handCards">The cards in the hand of the robot.</param>
         /// <param name="attitude">The height level of the robot (default to 0).</param>
-        public RobotInfo(Direction direction = default(Direction), string name = default(string), int id = default(int), Position location = default(Position), int energyCubes = 3, int health = 10, bool active = true, bool _virtual = false, int priority = default(int), bool onTurn = default(bool), bool isMine = default(bool), int handCards = default(int), int attitude = 0)
+        /// <param name="type">type.</param>
+        public RobotInfo(Direction direction = default(Direction), string name = default(string), int id = default(int), Position location = default(Position), int energyCubes = 3, int health = 10, bool active = true, bool _virtual = false, int priority = default(int), bool onTurn = default(bool), bool isMine = default(bool), int handCards = default(int), int attitude = 0, Robots? type = default(Robots?))
         {
-            // to ensure "direction" is required (not null)
             this.Direction = direction;
             // to ensure "name" is required (not null)
-            this.Name = name ?? throw new ArgumentNullException("name is a required property for RobotInfo and cannot be null");;
+            this.Name = name ?? throw new ArgumentNullException("name is a required property for RobotInfo and cannot be null");
             // to ensure "location" is required (not null)
-            this.Location = location ?? throw new ArgumentNullException("location is a required property for RobotInfo and cannot be null");;
+            this.Location = location ?? throw new ArgumentNullException("location is a required property for RobotInfo and cannot be null");
             this.Id = id;
             this.EnergyCubes = energyCubes;
             this.Health = health;
@@ -75,6 +80,7 @@ namespace Tgm.Roborally.Api.Model
             this.IsMine = isMine;
             this.HandCards = handCards;
             this.Attitude = attitude;
+            this.Type = type;
         }
         
         /// <summary>
@@ -181,6 +187,7 @@ namespace Tgm.Roborally.Api.Model
             sb.Append("  IsMine: ").Append(IsMine).Append("\n");
             sb.Append("  HandCards: ").Append(HandCards).Append("\n");
             sb.Append("  Attitude: ").Append(Attitude).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -268,6 +275,10 @@ namespace Tgm.Roborally.Api.Model
                 (
                     this.Attitude == input.Attitude ||
                     this.Attitude.Equals(input.Attitude)
+                ) && 
+                (
+                    this.Type == input.Type ||
+                    this.Type.Equals(input.Type)
                 );
         }
 
@@ -295,6 +306,7 @@ namespace Tgm.Roborally.Api.Model
                 hashCode = hashCode * 59 + this.IsMine.GetHashCode();
                 hashCode = hashCode * 59 + this.HandCards.GetHashCode();
                 hashCode = hashCode * 59 + this.Attitude.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }
@@ -319,7 +331,7 @@ namespace Tgm.Roborally.Api.Model
             }
 
             // Name (string) pattern
-            Regex regexName = new Regex(@"[A-Za-z]+[A-Za-z0-9 _-]+", RegexOptions.CultureInvariant);
+            Regex regexName = new Regex(@"[A-Za-z]+[A-Za-z0-9 _- ]+[A-Za-z0-9]{1}", RegexOptions.CultureInvariant);
             if (false == regexName.Match(this.Name).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, must match a pattern of " + regexName, new [] { "Name" });

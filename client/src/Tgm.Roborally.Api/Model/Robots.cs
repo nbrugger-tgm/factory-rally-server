@@ -37,7 +37,13 @@ namespace Tgm.Roborally.Api.Model
         /// Enum Dicer for value: dicer
         /// </summary>
         [EnumMember(Value = "dicer")]
-        Dicer = 1
+        Dicer = 1,
+
+        /// <summary>
+        /// Enum Tank for value: tank
+        /// </summary>
+        [EnumMember(Value = "tank")]
+        Tank = 2
 
     }
 

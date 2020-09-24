@@ -40,7 +40,7 @@ namespace Tgm.Roborally.Api.Model
         /// Initializes a new instance of the <see cref="MapEvent" /> class.
         /// </summary>
         /// <param name="type">type.</param>
-        public MapEvent(MapEventType type = default(MapEventType))
+        public MapEvent(MapEventType? type = default(MapEventType?))
         {
             this.Type = type;
         }

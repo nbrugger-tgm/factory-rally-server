@@ -51,7 +51,6 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="times">Describes how often this command is going to be executed (default to 1).</param>
         public RobotCommand(Instruction type = default(Instruction), List<Pair> parameters = default(List<Pair>), string description = "null", string name = default(string), int times = 1)
         {
-            // to ensure "type" is required (not null)
             this.Type = type;
             this.Parameters = parameters;
             // use default value if no "description" provided

@@ -1,5 +1,4 @@
 {
-	"netCoreProjectFile" : true,
 	"optionalMethodArgument" : true,
 	"packageName" : "Tgm.Roborally.Api"
 }

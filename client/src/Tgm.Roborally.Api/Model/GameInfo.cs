@@ -52,7 +52,6 @@ namespace Tgm.Roborally.Api.Model
         public GameInfo(int passedTime = -1, GameState state = default(GameState), bool hardwareCompatible = false, bool hardwareAttached = false, int playerOnTurn = default(int))
         {
             this.PassedTime = passedTime;
-            // to ensure "state" is required (not null)
             this.State = state;
             this.HardwareCompatible = hardwareCompatible;
             this.HardwareAttached = hardwareAttached;

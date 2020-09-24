@@ -34,7 +34,7 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
@@ -74,17 +74,18 @@ void (empty response body)
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -112,7 +113,7 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
@@ -149,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
@@ -160,6 +161,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -187,7 +189,7 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
@@ -226,7 +228,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
@@ -237,6 +239,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -264,7 +267,7 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
@@ -301,7 +304,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
@@ -312,6 +315,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

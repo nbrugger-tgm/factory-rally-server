@@ -37,11 +37,13 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="width">width.</param>
         /// <param name="height">height.</param>
         /// <param name="prioBeacon">prioBeacon.</param>
-        public MapInfo(int width = default(int), int height = default(int), Position prioBeacon = default(Position))
+        /// <param name="name">The default rule for names in the game.</param>
+        public MapInfo(int width = default(int), int height = default(int), Position prioBeacon = default(Position), string name = default(string))
         {
             this.Width = width;
             this.Height = height;
             this.PrioBeacon = prioBeacon;
+            this.Name = name;
         }
         
         /// <summary>
@@ -63,6 +65,13 @@ namespace Tgm.Roborally.Api.Model
         public Position PrioBeacon { get; set; }
 
         /// <summary>
+        /// The default rule for names in the game
+        /// </summary>
+        /// <value>The default rule for names in the game</value>
+        [DataMember(Name="name", EmitDefaultValue=false)]
+        public string Name { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -73,6 +82,7 @@ namespace Tgm.Roborally.Api.Model
             sb.Append("  Width: ").Append(Width).Append("\n");
             sb.Append("  Height: ").Append(Height).Append("\n");
             sb.Append("  PrioBeacon: ").Append(PrioBeacon).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -119,6 +129,11 @@ namespace Tgm.Roborally.Api.Model
                     this.PrioBeacon == input.PrioBeacon ||
                     (this.PrioBeacon != null &&
                     this.PrioBeacon.Equals(input.PrioBeacon))
+                ) && 
+                (
+                    this.Name == input.Name ||
+                    (this.Name != null &&
+                    this.Name.Equals(input.Name))
                 );
         }
 
@@ -135,6 +150,8 @@ namespace Tgm.Roborally.Api.Model
                 hashCode = hashCode * 59 + this.Height.GetHashCode();
                 if (this.PrioBeacon != null)
                     hashCode = hashCode * 59 + this.PrioBeacon.GetHashCode();
+                if (this.Name != null)
+                    hashCode = hashCode * 59 + this.Name.GetHashCode();
                 return hashCode;
             }
         }
@@ -168,6 +185,25 @@ namespace Tgm.Roborally.Api.Model
             if(this.Height < (int)4)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Height, must be a value greater than or equal to 4.", new [] { "Height" });
+            }
+
+            // Name (string) maxLength
+            if(this.Name != null && this.Name.Length > 13)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, length must be less than 13.", new [] { "Name" });
+            }
+
+            // Name (string) minLength
+            if(this.Name != null && this.Name.Length < 3)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, length must be greater than 3.", new [] { "Name" });
+            }
+
+            // Name (string) pattern
+            Regex regexName = new Regex(@"[A-Za-z]+[A-Za-z0-9 _- ]+[A-Za-z0-9]{1}", RegexOptions.CultureInvariant);
+            if (false == regexName.Match(this.Name).Success)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, must match a pattern of " + regexName, new [] { "Name" });
             }
 
             yield break;

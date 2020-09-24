@@ -35,14 +35,14 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Host-token-access
-            config.AddApiKey("hid", "YOUR_API_KEY");
+            // Configure API key authorization: admin-access
+            config.AddApiKey("skey", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("hid", "Bearer");
+            // config.AddApiKeyPrefix("skey", "Bearer");
 
             var apiInstance = new GameApi(config);
             var gameId = 56;  // int | 
-            var action = new ActionType(); // ActionType | 
+            var action = ;  // ActionType | 
 
             try
             {
@@ -65,7 +65,7 @@ namespace Example
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **gameId** | **int**|  | 
- **action** | [**ActionType**](ActionType.md)|  | 
+ **action** | **ActionType**|  | 
 
 ### Return type
 
@@ -73,17 +73,19 @@ void (empty response body)
 
 ### Authorization
 
-[Host-token-access](../README.md#Host-token-access)
+[admin-access](../README.md#admin-access)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **404** | Not Found |  -  |
+| **409** | Conflict |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -111,10 +113,10 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Host-token-access
-            config.AddApiKey("hid", "YOUR_API_KEY");
+            // Configure API key authorization: admin-access
+            config.AddApiKey("skey", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("hid", "Bearer");
+            // config.AddApiKeyPrefix("skey", "Bearer");
 
             var apiInstance = new GameApi(config);
             var gameRules = new GameRules(); // GameRules | *Optional* This rules define how your game will behave (optional) 
@@ -147,7 +149,7 @@ void (empty response body)
 
 ### Authorization
 
-[Host-token-access](../README.md#Host-token-access)
+[admin-access](../README.md#admin-access)
 
 ### HTTP request headers
 
@@ -163,7 +165,7 @@ void (empty response body)
 
 <a name="getactions"></a>
 # **GetActions**
-> List&lt;Action&gt; GetActions (int gameId)
+> List&lt;Action&gt; GetActions (int gameId, string mode = null)
 
 Get games actions
 
@@ -185,18 +187,19 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Host-token-access
-            config.AddApiKey("hid", "YOUR_API_KEY");
+            // Configure API key authorization: admin-access
+            config.AddApiKey("skey", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("hid", "Bearer");
+            // config.AddApiKeyPrefix("skey", "Bearer");
 
             var apiInstance = new GameApi(config);
             var gameId = 56;  // int | 
+            var mode = mode_example;  // string | Defines wich entries to return (optional)  (default to ALL)
 
             try
             {
                 // Get games actions
-                List<Action> result = apiInstance.GetActions(gameId);
+                List<Action> result = apiInstance.GetActions(gameId, mode);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -215,6 +218,7 @@ namespace Example
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **gameId** | **int**|  | 
+ **mode** | **string**| Defines wich entries to return | [optional] [default to ALL]
 
 ### Return type
 
@@ -222,7 +226,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Host-token-access](../README.md#Host-token-access)
+[admin-access](../README.md#admin-access)
 
 ### HTTP request headers
 
@@ -233,6 +237,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **201** | Created |  -  |
+| **404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -260,7 +266,7 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "http://game.host/v1";
-            // Configure API key authorization: Player-Access-Token
+            // Configure API key authorization: player-auth
             config.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // config.AddApiKeyPrefix("pat", "Bearer");
@@ -297,7 +303,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Player-Access-Token](../README.md#Player-Access-Token)
+[player-auth](../README.md#player-auth)
 
 ### HTTP request headers
 
@@ -308,6 +314,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

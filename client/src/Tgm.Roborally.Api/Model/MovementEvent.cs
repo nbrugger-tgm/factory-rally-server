@@ -51,7 +51,7 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="rotationTimes">The number of times (90°) the robot turns.</param>
         /// <param name="from">from.</param>
         /// <param name="to">to.</param>
-        public MovementEvent(int entity = default(int), Direction direction = default(Direction), int movementAmmount = default(int), Rotation rotation = default(Rotation), int rotationTimes = default(int), Position from = default(Position), Position to = default(Position))
+        public MovementEvent(int entity = default(int), Direction? direction = default(Direction?), int movementAmmount = default(int), Rotation? rotation = default(Rotation?), int rotationTimes = default(int), Position from = default(Position), Position to = default(Position))
         {
             this.Entity = entity;
             this.Direction = direction;

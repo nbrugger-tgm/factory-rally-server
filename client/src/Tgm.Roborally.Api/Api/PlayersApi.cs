@@ -28,6 +28,31 @@ namespace Tgm.Roborally.Api.Api
     {
         #region Synchronous Operations
         /// <summary>
+        /// Set Robots
+        /// </summary>
+        /// <remarks>
+        /// # DEPRECATET &gt; This feature is useless in this version. It will be usefull in newer versions  Sets the type of robot(s) the player is controlling
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns></returns>
+        void ChooseRobot (int gameId, int playerId, List<Robots> robots = default(List<Robots>));
+
+        /// <summary>
+        /// Set Robots
+        /// </summary>
+        /// <remarks>
+        /// # DEPRECATET &gt; This feature is useless in this version. It will be usefull in newer versions  Sets the type of robot(s) the player is controlling
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> ChooseRobotWithHttpInfo (int gameId, int playerId, List<Robots> robots = default(List<Robots>));
+        /// <summary>
         /// Get all players
         /// </summary>
         /// <remarks>
@@ -126,6 +151,31 @@ namespace Tgm.Roborally.Api.Api
     public interface IPlayersApiAsync : IApiAccessor
     {
         #region Asynchronous Operations
+        /// <summary>
+        /// Set Robots
+        /// </summary>
+        /// <remarks>
+        /// # DEPRECATET &gt; This feature is useless in this version. It will be usefull in newer versions  Sets the type of robot(s) the player is controlling
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task ChooseRobotAsync (int gameId, int playerId, List<Robots> robots = default(List<Robots>));
+
+        /// <summary>
+        /// Set Robots
+        /// </summary>
+        /// <remarks>
+        /// # DEPRECATET &gt; This feature is useless in this version. It will be usefull in newer versions  Sets the type of robot(s) the player is controlling
+        /// </remarks>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> ChooseRobotAsyncWithHttpInfo (int gameId, int playerId, List<Robots> robots = default(List<Robots>));
         /// <summary>
         /// Get all players
         /// </summary>
@@ -334,6 +384,133 @@ namespace Tgm.Roborally.Api.Api
                 return _exceptionFactory;
             }
             set { _exceptionFactory = value; }
+        }
+
+        /// <summary>
+        /// Set Robots # DEPRECATET &gt; This feature is useless in this version. It will be usefull in newer versions  Sets the type of robot(s) the player is controlling
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns></returns>
+        public void ChooseRobot (int gameId, int playerId, List<Robots> robots = default(List<Robots>))
+        {
+             ChooseRobotWithHttpInfo(gameId, playerId, robots);
+        }
+
+        /// <summary>
+        /// Set Robots # DEPRECATET &gt; This feature is useless in this version. It will be usefull in newer versions  Sets the type of robot(s) the player is controlling
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public Tgm.Roborally.Api.Client.ApiResponse<Object> ChooseRobotWithHttpInfo (int gameId, int playerId, List<Robots> robots = default(List<Robots>))
+        {
+            Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
+
+            String[] _contentTypes = new String[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            String[] _accepts = new String[] {
+                "application/json"
+            };
+
+            var localVarContentType = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("player_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(playerId)); // path parameter
+            localVarRequestOptions.Data = robots;
+
+            // authentication (player-auth) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
+            {
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Patch<Object>("/games/{game_id}/players/{player_id}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("ChooseRobot", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Set Robots # DEPRECATET &gt; This feature is useless in this version. It will be usefull in newer versions  Sets the type of robot(s) the player is controlling
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task ChooseRobotAsync (int gameId, int playerId, List<Robots> robots = default(List<Robots>))
+        {
+             await ChooseRobotAsyncWithHttpInfo(gameId, playerId, robots);
+
+        }
+
+        /// <summary>
+        /// Set Robots # DEPRECATET &gt; This feature is useless in this version. It will be usefull in newer versions  Sets the type of robot(s) the player is controlling
+        /// </summary>
+        /// <exception cref="Tgm.Roborally.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="gameId"></param>
+        /// <param name="playerId"></param>
+        /// <param name="robots">The robots assigned to the player (optional)</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<Tgm.Roborally.Api.Client.ApiResponse<Object>> ChooseRobotAsyncWithHttpInfo (int gameId, int playerId, List<Robots> robots = default(List<Robots>))
+        {
+
+            Tgm.Roborally.Api.Client.RequestOptions localVarRequestOptions = new Tgm.Roborally.Api.Client.RequestOptions();
+
+            String[] _contentTypes = new String[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            String[] _accepts = new String[] {
+                "application/json"
+            };
+            
+            foreach (var _contentType in _contentTypes)
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", _contentType);
+            
+            foreach (var _accept in _accepts)
+                localVarRequestOptions.HeaderParameters.Add("Accept", _accept);
+            
+            localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("player_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(playerId)); // path parameter
+            localVarRequestOptions.Data = robots;
+
+            // authentication (player-auth) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
+            {
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PatchAsync<Object>("/games/{game_id}/players/{player_id}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("ChooseRobot", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
         }
 
         /// <summary>
@@ -593,13 +770,7 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             if (password != null)
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "password", password))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "password", password));
             }
 
 
@@ -658,13 +829,7 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             if (password != null)
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "password", password))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "password", password));
             }
 
 
@@ -709,6 +874,7 @@ namespace Tgm.Roborally.Api.Api
 
             // to determine the Accept header
             String[] _accepts = new String[] {
+                "application/json"
             };
 
             var localVarContentType = Tgm.Roborally.Api.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -720,27 +886,15 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("player_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(playerId)); // path parameter
 
-            // authentication (Host-token-access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("hid")))
+            // authentication (admin-access) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("skey")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "hid", this.Configuration.GetApiKeyWithPrefix("hid")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "skey", this.Configuration.GetApiKeyWithPrefix("skey")));
             }
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request
@@ -785,6 +939,7 @@ namespace Tgm.Roborally.Api.Api
 
             // to determine the Accept header
             String[] _accepts = new String[] {
+                "application/json"
             };
             
             foreach (var _contentType in _contentTypes)
@@ -796,27 +951,15 @@ namespace Tgm.Roborally.Api.Api
             localVarRequestOptions.PathParameters.Add("game_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(gameId)); // path parameter
             localVarRequestOptions.PathParameters.Add("player_id", Tgm.Roborally.Api.Client.ClientUtils.ParameterToString(playerId)); // path parameter
 
-            // authentication (Host-token-access) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("hid")))
+            // authentication (admin-access) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("skey")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "hid", this.Configuration.GetApiKeyWithPrefix("hid")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "skey", this.Configuration.GetApiKeyWithPrefix("skey")));
             }
-            // authentication (Player-Access-Token) required
+            // authentication (player-auth) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("pat")))
             {
-                foreach (var _kvp in Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")))
-                {
-                    foreach (var _kvpValue in _kvp.Value)
-                    {
-                        localVarRequestOptions.QueryParameters.Add(_kvp.Key, _kvpValue);
-                    }
-                }
+                localVarRequestOptions.QueryParameters.Add(Tgm.Roborally.Api.Client.ClientUtils.ParameterToMultiMap("", "pat", this.Configuration.GetApiKeyWithPrefix("pat")));
             }
 
             // make the HTTP request

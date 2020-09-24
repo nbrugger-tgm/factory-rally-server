@@ -32,6 +32,11 @@ namespace Tgm.Roborally.Api.Model
     public partial class RobotInfoAllOf :  IEquatable<RobotInfoAllOf>, IValidatableObject
     {
         /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name="type", EmitDefaultValue=false)]
+        public Robots? Type { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="RobotInfoAllOf" /> class.
         /// </summary>
         /// <param name="energyCubes">The number of avainable energy cubes (default to 3).</param>
@@ -43,7 +48,8 @@ namespace Tgm.Roborally.Api.Model
         /// <param name="isMine">True if you are the one controlling the robot.</param>
         /// <param name="handCards">The cards in the hand of the robot.</param>
         /// <param name="attitude">The height level of the robot (default to 0).</param>
-        public RobotInfoAllOf(int energyCubes = 3, int health = 10, bool active = true, bool _virtual = false, int priority = default(int), bool onTurn = default(bool), bool isMine = default(bool), int handCards = default(int), int attitude = 0)
+        /// <param name="type">type.</param>
+        public RobotInfoAllOf(int energyCubes = 3, int health = 10, bool active = true, bool _virtual = false, int priority = default(int), bool onTurn = default(bool), bool isMine = default(bool), int handCards = default(int), int attitude = 0, Robots? type = default(Robots?))
         {
             this.EnergyCubes = energyCubes;
             this.Health = health;
@@ -54,6 +60,7 @@ namespace Tgm.Roborally.Api.Model
             this.IsMine = isMine;
             this.HandCards = handCards;
             this.Attitude = attitude;
+            this.Type = type;
         }
         
         /// <summary>
@@ -136,6 +143,7 @@ namespace Tgm.Roborally.Api.Model
             sb.Append("  IsMine: ").Append(IsMine).Append("\n");
             sb.Append("  HandCards: ").Append(HandCards).Append("\n");
             sb.Append("  Attitude: ").Append(Attitude).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -205,6 +213,10 @@ namespace Tgm.Roborally.Api.Model
                 (
                     this.Attitude == input.Attitude ||
                     this.Attitude.Equals(input.Attitude)
+                ) && 
+                (
+                    this.Type == input.Type ||
+                    this.Type.Equals(input.Type)
                 );
         }
 
@@ -226,6 +238,7 @@ namespace Tgm.Roborally.Api.Model
                 hashCode = hashCode * 59 + this.IsMine.GetHashCode();
                 hashCode = hashCode * 59 + this.HandCards.GetHashCode();
                 hashCode = hashCode * 59 + this.Attitude.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }
