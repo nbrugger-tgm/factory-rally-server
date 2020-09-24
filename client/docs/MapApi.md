@@ -9,8 +9,9 @@ Method | HTTP request | Description
 [**GetTile**](MapApi.md#gettile) | **GET** /games/{game_id}/map/tiles/{x}/{y} | Get tile
 
 
-<a name="getgamemap"></a>
-# **GetGameMap**
+
+## GetGameMap
+
 > Map GetGameMap (string gameId)
 
 Get Map
@@ -18,6 +19,7 @@ Get Map
 Returns the map of this specific game including the tiles (data)
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,14 +33,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new MapApi(config);
+            var apiInstance = new MapApi(Configuration.Default);
             var gameId = gameId_example;  // string | 
 
             try
@@ -47,7 +48,7 @@ namespace Example
                 Map result = apiInstance.GetGameMap(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling MapApi.GetGameMap: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -59,6 +60,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -74,8 +76,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -84,10 +86,14 @@ Name | Type | Description  | Notes
 | **404** | Not Found |  -  |
 | **500** | Internal Server Error |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getmapinfo"></a>
-# **GetMapInfo**
+
+## GetMapInfo
+
 > MapInfo GetMapInfo (int gameId)
 
 Get Map info
@@ -95,6 +101,7 @@ Get Map info
 Get meta information abouzt the map of the game
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -108,14 +115,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new MapApi(config);
+            var apiInstance = new MapApi(Configuration.Default);
             var gameId = 56;  // int | 
 
             try
@@ -124,7 +130,7 @@ namespace Example
                 MapInfo result = apiInstance.GetMapInfo(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling MapApi.GetMapInfo: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -136,6 +142,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -151,8 +158,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -160,10 +167,14 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="gettile"></a>
-# **GetTile**
+
+## GetTile
+
 > Tile GetTile (int gameId, string x, string y)
 
 Get tile
@@ -171,6 +182,7 @@ Get tile
 Inspect a tile of the map
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -184,14 +196,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new MapApi(config);
+            var apiInstance = new MapApi(Configuration.Default);
             var gameId = 56;  // int | 
             var x = x_example;  // string | 
             var y = y_example;  // string | 
@@ -202,7 +213,7 @@ namespace Example
                 Tile result = apiInstance.GetTile(gameId, x, y);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling MapApi.GetTile: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -214,6 +225,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -231,8 +243,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -240,5 +252,8 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

@@ -1,5 +1,6 @@
+
 # Tgm.Roborally.Api.Model.RobotInfo
-Describes the state/stats of a robot
+
 ## Properties
 
 Name | Type | Description | Notes
@@ -19,5 +20,7 @@ Name | Type | Description | Notes
 **Attitude** | **int** | The height level of the robot | [optional] [default to 0]
 **Type** | **Robots** |  | [optional] 
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to README]](../README.md)
 

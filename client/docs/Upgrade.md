@@ -1,5 +1,6 @@
+
 # Tgm.Roborally.Api.Model.Upgrade
-A upgrade is a module making a robot stronger
+
 ## Properties
 
 Name | Type | Description | Notes
@@ -13,5 +14,7 @@ Name | Type | Description | Notes
 **Type** | **UpgradeType** |  | 
 **Id** | **int** | The id of an upgrade. **Unique** | [optional] 
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to README]](../README.md)
 

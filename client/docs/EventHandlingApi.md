@@ -15,8 +15,9 @@ Method | HTTP request | Description
 [**TraceEvent**](EventHandlingApi.md#traceevent) | **GET** /games/{game_id}/events/type | trace event
 
 
-<a name="fetchnextdamageevent"></a>
-# **FetchNextDamageEvent**
+
+## FetchNextDamageEvent
+
 > DamageEvent FetchNextDamageEvent (int gameId)
 
 Get next / last damage event
@@ -24,6 +25,7 @@ Get next / last damage event
 Returns the next unfetched event of the damage type.  If the event is not of the damage type you will get a `400` status and the event stays unfetched
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -37,14 +39,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new EventHandlingApi(config);
+            var apiInstance = new EventHandlingApi(Configuration.Default);
             var gameId = 56;  // int | 
 
             try
@@ -53,7 +54,7 @@ namespace Example
                 DamageEvent result = apiInstance.FetchNextDamageEvent(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling EventHandlingApi.FetchNextDamageEvent: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -65,6 +66,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -80,8 +82,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -90,10 +92,14 @@ Name | Type | Description  | Notes
 | **404** | No unfetched event |  -  |
 | **417** | The next event is not a movement event |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="fetchnextevent"></a>
-# **FetchNextEvent**
+
+## FetchNextEvent
+
 > GenericEvent FetchNextEvent (string gameId)
 
 Get next event
@@ -101,6 +107,7 @@ Get next event
 Returns the next unfetched event of the ***any*** type.
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -114,14 +121,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new EventHandlingApi(config);
+            var apiInstance = new EventHandlingApi(Configuration.Default);
             var gameId = gameId_example;  // string | 
 
             try
@@ -130,7 +136,7 @@ namespace Example
                 GenericEvent result = apiInstance.FetchNextEvent(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling EventHandlingApi.FetchNextEvent: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -142,6 +148,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -157,8 +164,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -166,10 +173,14 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | No unfetched event |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="fetchnextlazerhitevent"></a>
-# **FetchNextLazerHitEvent**
+
+## FetchNextLazerHitEvent
+
 > LazerHitEvent FetchNextLazerHitEvent (int gameId)
 
 Get next / last Lazer hit event
@@ -177,6 +188,7 @@ Get next / last Lazer hit event
 Returns the next unfetched event of the lazer hit type.  If the event is not of the lazer hit type you will get a `400` status and the event stays unfetched
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -190,14 +202,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new EventHandlingApi(config);
+            var apiInstance = new EventHandlingApi(Configuration.Default);
             var gameId = 56;  // int | 
 
             try
@@ -206,7 +217,7 @@ namespace Example
                 LazerHitEvent result = apiInstance.FetchNextLazerHitEvent(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling EventHandlingApi.FetchNextLazerHitEvent: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -218,6 +229,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -233,8 +245,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -243,10 +255,14 @@ Name | Type | Description  | Notes
 | **404** | No unfetched event |  -  |
 | **417** | The next event is not a movement event |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="fetchnextmapevent"></a>
-# **FetchNextMapEvent**
+
+## FetchNextMapEvent
+
 > MapEvent FetchNextMapEvent (int gameId)
 
 Get next / last map event
@@ -254,6 +270,7 @@ Get next / last map event
 Returns the next unfetched event of the  Map Event type. Map Events activeata all active components of a type at once  If the event is not of the map event type you will get a `400` status and the event stays unfetched
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -267,14 +284,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new EventHandlingApi(config);
+            var apiInstance = new EventHandlingApi(Configuration.Default);
             var gameId = 56;  // int | 
 
             try
@@ -283,7 +299,7 @@ namespace Example
                 MapEvent result = apiInstance.FetchNextMapEvent(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling EventHandlingApi.FetchNextMapEvent: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -295,6 +311,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -310,8 +327,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -320,10 +337,14 @@ Name | Type | Description  | Notes
 | **404** | No unfetched event |  -  |
 | **417** | The next event is not a movement event |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="fetchnextmovementevent"></a>
-# **FetchNextMovementEvent**
+
+## FetchNextMovementEvent
+
 > MovementEvent FetchNextMovementEvent (int gameId)
 
 Get next / last movement event
@@ -331,6 +352,7 @@ Get next / last movement event
 Returns the next unfetched event of the movement type.  If the event is not of the movement type you will get a `400` status and the event stays unfetched
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -344,14 +366,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new EventHandlingApi(config);
+            var apiInstance = new EventHandlingApi(Configuration.Default);
             var gameId = 56;  // int | 
 
             try
@@ -360,7 +381,7 @@ namespace Example
                 MovementEvent result = apiInstance.FetchNextMovementEvent(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling EventHandlingApi.FetchNextMovementEvent: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -372,6 +393,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -387,8 +409,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -397,10 +419,14 @@ Name | Type | Description  | Notes
 | **404** | No unfetched event |  -  |
 | **417** | The next event is not a movement event |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="fetchnextpushevent"></a>
-# **FetchNextPushEvent**
+
+## FetchNextPushEvent
+
 > PushEvent FetchNextPushEvent (int gameId)
 
 Get next / last push event
@@ -408,6 +434,7 @@ Get next / last push event
 Returns the next unfetched event of the push type.  If the event is not of the push  type you will get a `400` status and the event stays unfetched
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -421,14 +448,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new EventHandlingApi(config);
+            var apiInstance = new EventHandlingApi(Configuration.Default);
             var gameId = 56;  // int | 
 
             try
@@ -437,7 +463,7 @@ namespace Example
                 PushEvent result = apiInstance.FetchNextPushEvent(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling EventHandlingApi.FetchNextPushEvent: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -449,6 +475,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -464,8 +491,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -474,10 +501,14 @@ Name | Type | Description  | Notes
 | **404** | No unfetched event |  -  |
 | **417** | The next event is not a movement event |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="fetchnextshootevent"></a>
-# **FetchNextShootEvent**
+
+## FetchNextShootEvent
+
 > ShootEvent FetchNextShootEvent (int gameId)
 
 Get next / last shoot event
@@ -485,6 +516,7 @@ Get next / last shoot event
 Returns the next unfetched event of the movement type.  If the event is not of the movement type you will get a `400` status and the event stays unfetched
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -498,14 +530,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new EventHandlingApi(config);
+            var apiInstance = new EventHandlingApi(Configuration.Default);
             var gameId = 56;  // int | 
 
             try
@@ -514,7 +545,7 @@ namespace Example
                 ShootEvent result = apiInstance.FetchNextShootEvent(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling EventHandlingApi.FetchNextShootEvent: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -526,6 +557,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -541,8 +573,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -551,10 +583,14 @@ Name | Type | Description  | Notes
 | **404** | No unfetched event |  -  |
 | **417** | The next event is not a movement event |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="fetchnextshutdownevent"></a>
-# **FetchNextShutdownEvent**
+
+## FetchNextShutdownEvent
+
 > ShutdownEvent FetchNextShutdownEvent (int gameId)
 
 Get next / last shutdown event
@@ -562,6 +598,7 @@ Get next / last shutdown event
 Returns the next unfetched event of the movement type.  If the event is not of the movement type you will get a `400` status and the event stays unfetched
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -575,14 +612,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new EventHandlingApi(config);
+            var apiInstance = new EventHandlingApi(Configuration.Default);
             var gameId = 56;  // int | 
 
             try
@@ -591,7 +627,7 @@ namespace Example
                 ShutdownEvent result = apiInstance.FetchNextShutdownEvent(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling EventHandlingApi.FetchNextShutdownEvent: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -603,6 +639,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -618,8 +655,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -628,10 +665,14 @@ Name | Type | Description  | Notes
 | **404** | No unfetched event |  -  |
 | **417** | The next event is not a movement event |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="traceevent"></a>
-# **TraceEvent**
+
+## TraceEvent
+
 > List&lt;EventType&gt; TraceEvent (int gameId, bool wait, bool? batch = null)
 
 trace event
@@ -639,6 +680,7 @@ trace event
 All events needed by the client are accessible here. (Usefull for animations) More about this function is found in the [regarding Github Issue](https://github.com/FactoryRally/game-controller/issues/6)  **This function only returns the type of the event you need to fetch the data seperately** > Read more at [api-usage.md](https://github.com/FactoryRally/game-controller/blob/master/documentation/rest/api-usage.md#events- -updates)
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -652,14 +694,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new EventHandlingApi(config);
+            var apiInstance = new EventHandlingApi(Configuration.Default);
             var gameId = 56;  // int | 
             var wait = true;  // bool | If true the server will not responde until a event is added to the queue  Rrequires less traffic but might impacts the servers performance or cause timeouts at the client (default to false)
             var batch = true;  // bool? | If true you will get all past events at once If false the list only contains the oldest unfetched event (optional)  (default to false)
@@ -670,7 +711,7 @@ namespace Example
                 List<EventType> result = apiInstance.TraceEvent(gameId, wait, batch);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling EventHandlingApi.TraceEvent: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -682,6 +723,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -699,8 +741,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -708,5 +750,8 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

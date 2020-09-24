@@ -11,8 +11,9 @@ Method | HTTP request | Description
 [**GetGames**](GameApi.md#getgames) | **GET** /games/ | Get all games
 
 
-<a name="commitaction"></a>
-# **CommitAction**
+
+## CommitAction
+
 > void CommitAction (int gameId, ActionType action)
 
 Commit Action
@@ -20,6 +21,7 @@ Commit Action
 Queues an action to be executed
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,14 +35,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: admin-access
-            config.AddApiKey("skey", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("skey", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("skey", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("skey", "Bearer");
 
-            var apiInstance = new GameApi(config);
+            var apiInstance = new GameApi(Configuration.Default);
             var gameId = 56;  // int | 
             var action = ;  // ActionType | 
 
@@ -49,7 +50,7 @@ namespace Example
                 // Commit Action
                 apiInstance.CommitAction(gameId, action);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling GameApi.CommitAction: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -61,6 +62,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -77,8 +79,8 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -87,10 +89,14 @@ void (empty response body)
 | **404** | Not Found |  -  |
 | **409** | Conflict |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="creategame"></a>
-# **CreateGame**
+
+## CreateGame
+
 > void CreateGame (GameRules gameRules = null)
 
 Create Game
@@ -98,6 +104,7 @@ Create Game
 Creates a random game by your defined rules
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -111,14 +118,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: admin-access
-            config.AddApiKey("skey", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("skey", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("skey", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("skey", "Bearer");
 
-            var apiInstance = new GameApi(config);
+            var apiInstance = new GameApi(Configuration.Default);
             var gameRules = new GameRules(); // GameRules | *Optional* This rules define how your game will behave (optional) 
 
             try
@@ -126,7 +132,7 @@ namespace Example
                 // Create Game
                 apiInstance.CreateGame(gameRules);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling GameApi.CreateGame: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -138,6 +144,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -153,18 +160,22 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getactions"></a>
-# **GetActions**
+
+## GetActions
+
 > List&lt;Action&gt; GetActions (int gameId, string mode = null)
 
 Get games actions
@@ -172,6 +183,7 @@ Get games actions
 Get all (**not robot related**) actions comitted to this game.
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -185,14 +197,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: admin-access
-            config.AddApiKey("skey", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("skey", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("skey", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("skey", "Bearer");
 
-            var apiInstance = new GameApi(config);
+            var apiInstance = new GameApi(Configuration.Default);
             var gameId = 56;  // int | 
             var mode = mode_example;  // string | Defines wich entries to return (optional)  (default to ALL)
 
@@ -202,7 +213,7 @@ namespace Example
                 List<Action> result = apiInstance.GetActions(gameId, mode);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling GameApi.GetActions: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -214,6 +225,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -230,8 +242,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -240,10 +252,14 @@ Name | Type | Description  | Notes
 | **201** | Created |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getgamestate"></a>
-# **GetGameState**
+
+## GetGameState
+
 > GameInfo GetGameState (int gameId)
 
 Get game status
@@ -251,6 +267,7 @@ Get game status
 Returns the status of a game
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -264,14 +281,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new GameApi(config);
+            var apiInstance = new GameApi(Configuration.Default);
             var gameId = 56;  // int | 
 
             try
@@ -280,7 +296,7 @@ namespace Example
                 GameInfo result = apiInstance.GetGameState(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling GameApi.GetGameState: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -292,6 +308,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -307,8 +324,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -316,10 +333,14 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getgames"></a>
-# **GetGames**
+
+## GetGames
+
 > List&lt;int&gt; GetGames (bool? joinable = null, bool? unprotected = null)
 
 Get all games
@@ -327,6 +348,7 @@ Get all games
 Returns a list of all hosted games
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -340,9 +362,8 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
-            var apiInstance = new GameApi(config);
+            Configuration.Default.BasePath = "http://game.host/v1";
+            var apiInstance = new GameApi(Configuration.Default);
             var joinable = true;  // bool? | true: only return joinable games (optional)  (default to false)
             var unprotected = true;  // bool? | true: only display games with no password set (optional)  (default to false)
 
@@ -352,7 +373,7 @@ namespace Example
                 List<int> result = apiInstance.GetGames(joinable, unprotected);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling GameApi.GetGames: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -364,6 +385,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -380,13 +402,16 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

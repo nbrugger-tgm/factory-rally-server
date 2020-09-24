@@ -1,5 +1,6 @@
+
 # Tgm.Roborally.Api.Model.GameRules
-Game Rules define the rules for a Game
+
 ## Properties
 
 Name | Type | Description | Notes
@@ -11,5 +12,7 @@ Name | Type | Description | Notes
 **Password** | **string** | The password of a game | [optional] 
 **FillWithBots** | **bool** | If true emply player slots are going to be filled up with AI enemys | [optional] [default to false]
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to README]](../README.md)
 

@@ -17,8 +17,9 @@ Method | HTTP request | Description
 [**UpdateRegister**](RobotsApi.md#updateregister) | **PATCH** /games/{game_id}/entitys/robots/{robot_id}/registers | change register content
 
 
-<a name="clearregisters"></a>
-# **ClearRegisters**
+
+## ClearRegisters
+
 > void ClearRegisters (int gameId, int robotId)
 
 clear registers
@@ -26,6 +27,7 @@ clear registers
 Emptys all register of the robot
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -39,14 +41,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new RobotsApi(config);
+            var apiInstance = new RobotsApi(Configuration.Default);
             var gameId = 56;  // int | 
             var robotId = 56;  // int | 
 
@@ -55,7 +56,7 @@ namespace Example
                 // clear registers
                 apiInstance.ClearRegisters(gameId, robotId);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling RobotsApi.ClearRegisters: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -67,6 +68,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -83,8 +85,8 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -92,10 +94,14 @@ void (empty response body)
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="clearupgrades"></a>
-# **ClearUpgrades**
+
+## ClearUpgrades
+
 > void ClearUpgrades (int gameId, int robotId)
 
 Clear Robot Upgrades
@@ -103,6 +109,7 @@ Clear Robot Upgrades
 Removes all upgrades from a robot
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -116,14 +123,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new RobotsApi(config);
+            var apiInstance = new RobotsApi(Configuration.Default);
             var gameId = 56;  // int | 
             var robotId = 56;  // int | 
 
@@ -132,7 +138,7 @@ namespace Example
                 // Clear Robot Upgrades
                 apiInstance.ClearUpgrades(gameId, robotId);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling RobotsApi.ClearUpgrades: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -144,6 +150,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -160,8 +167,8 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -169,10 +176,14 @@ void (empty response body)
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="doentityaction"></a>
-# **DoEntityAction**
+
+## DoEntityAction
+
 > void DoEntityAction (int gameId, string robotId, EntityAction entityAction = null)
 
 Add Entity Action to stack
@@ -180,6 +191,7 @@ Add Entity Action to stack
 Adds an action to the stack. The stack is processed using *first in first out*
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -193,14 +205,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new RobotsApi(config);
+            var apiInstance = new RobotsApi(Configuration.Default);
             var gameId = 56;  // int | 
             var robotId = robotId_example;  // string | 
             var entityAction = new EntityAction(); // EntityAction |  (optional) 
@@ -210,7 +221,7 @@ namespace Example
                 // Add Entity Action to stack
                 apiInstance.DoEntityAction(gameId, robotId, entityAction);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling RobotsApi.DoEntityAction: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -222,6 +233,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -239,8 +251,8 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -248,10 +260,14 @@ void (empty response body)
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getactionstack"></a>
-# **GetActionStack**
+
+## GetActionStack
+
 > List&lt;EntityAction&gt; GetActionStack (int gameId, string robotId)
 
 Get Robot action stack
@@ -259,6 +275,7 @@ Get Robot action stack
 Retuns a list od all actions in the stack
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -272,14 +289,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new RobotsApi(config);
+            var apiInstance = new RobotsApi(Configuration.Default);
             var gameId = 56;  // int | 
             var robotId = robotId_example;  // string | 
 
@@ -289,7 +305,7 @@ namespace Example
                 List<EntityAction> result = apiInstance.GetActionStack(gameId, robotId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling RobotsApi.GetActionStack: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -301,6 +317,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -317,8 +334,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -326,10 +343,14 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getinstalledupgrades"></a>
-# **GetInstalledUpgrades**
+
+## GetInstalledUpgrades
+
 > List&lt;int&gt; GetInstalledUpgrades (int gameId, int robotId)
 
 Get Robot Upgrades
@@ -337,6 +358,7 @@ Get Robot Upgrades
 Returns the upgrades installed on the robot
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -350,14 +372,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new RobotsApi(config);
+            var apiInstance = new RobotsApi(Configuration.Default);
             var gameId = 56;  // int | 
             var robotId = 56;  // int | 
 
@@ -367,7 +388,7 @@ namespace Example
                 List<int> result = apiInstance.GetInstalledUpgrades(gameId, robotId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling RobotsApi.GetInstalledUpgrades: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -379,6 +400,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -395,8 +417,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -404,10 +426,14 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getpossibleactions"></a>
-# **GetPossibleActions**
+
+## GetPossibleActions
+
 > List&lt;EntityEventOportunity&gt; GetPossibleActions (int gameId, string robotId)
 
 Get Aviable actions
@@ -415,6 +441,7 @@ Get Aviable actions
 Returns a list of EntityActionTypes which are possible to be executed at the moment.
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -428,14 +455,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new RobotsApi(config);
+            var apiInstance = new RobotsApi(Configuration.Default);
             var gameId = 56;  // int | 
             var robotId = robotId_example;  // string | 
 
@@ -445,7 +471,7 @@ namespace Example
                 List<EntityEventOportunity> result = apiInstance.GetPossibleActions(gameId, robotId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling RobotsApi.GetPossibleActions: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -457,6 +483,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -473,8 +500,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -482,10 +509,14 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getregisters"></a>
-# **GetRegisters**
+
+## GetRegisters
+
 > List&lt;RobotCommand&gt; GetRegisters (int gameId, int robotId)
 
 Get register information
@@ -493,6 +524,7 @@ Get register information
 Returns the content of the registers
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -506,14 +538,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new RobotsApi(config);
+            var apiInstance = new RobotsApi(Configuration.Default);
             var gameId = 56;  // int | 
             var robotId = 56;  // int | 
 
@@ -523,7 +554,7 @@ namespace Example
                 List<RobotCommand> result = apiInstance.GetRegisters(gameId, robotId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling RobotsApi.GetRegisters: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -535,6 +566,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -551,8 +583,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -560,10 +592,14 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getrobotstats"></a>
-# **GetRobotStats**
+
+## GetRobotStats
+
 > RobotInfo GetRobotStats (int gameId, string robotId)
 
 Get Robot Informations
@@ -571,6 +607,7 @@ Get Robot Informations
 Returns the status and info about the robot
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -584,14 +621,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new RobotsApi(config);
+            var apiInstance = new RobotsApi(Configuration.Default);
             var gameId = 56;  // int | 
             var robotId = robotId_example;  // string | 
 
@@ -601,7 +637,7 @@ namespace Example
                 RobotInfo result = apiInstance.GetRobotStats(gameId, robotId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling RobotsApi.GetRobotStats: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -613,6 +649,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -629,8 +666,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -638,10 +675,14 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getrobots"></a>
-# **GetRobots**
+
+## GetRobots
+
 > List&lt;int&gt; GetRobots (int gameId)
 
 Get all robots
@@ -649,6 +690,7 @@ Get all robots
 Returns a list of all robot IDs in this game. > A robot is not a player as a player is able to controll multiple robots
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -662,14 +704,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new RobotsApi(config);
+            var apiInstance = new RobotsApi(Configuration.Default);
             var gameId = 56;  // int | 
 
             try
@@ -678,7 +719,7 @@ namespace Example
                 List<int> result = apiInstance.GetRobots(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling RobotsApi.GetRobots: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -690,6 +731,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -705,8 +747,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -714,10 +756,14 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="removerobotupgrade"></a>
-# **RemoveRobotUpgrade**
+
+## RemoveRobotUpgrade
+
 > void RemoveRobotUpgrade (int gameId, int robotId, int? upgrade = null)
 
 Remove Upgrade
@@ -725,6 +771,7 @@ Remove Upgrade
 Removes a paticular upgrade from the robot
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -738,14 +785,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new RobotsApi(config);
+            var apiInstance = new RobotsApi(Configuration.Default);
             var gameId = 56;  // int | 
             var robotId = 56;  // int | 
             var upgrade = 56;  // int? |  (optional) 
@@ -755,7 +801,7 @@ namespace Example
                 // Remove Upgrade
                 apiInstance.RemoveRobotUpgrade(gameId, robotId, upgrade);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling RobotsApi.RemoveRobotUpgrade: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -767,6 +813,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -784,8 +831,8 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -793,10 +840,14 @@ void (empty response body)
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="updateregister"></a>
-# **UpdateRegister**
+
+## UpdateRegister
+
 > void UpdateRegister (int gameId, int robotId)
 
 change register content
@@ -804,6 +855,7 @@ change register content
 Updates the card in a register
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -817,14 +869,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new RobotsApi(config);
+            var apiInstance = new RobotsApi(Configuration.Default);
             var gameId = 56;  // int | 
             var robotId = 56;  // int | 
 
@@ -833,7 +884,7 @@ namespace Example
                 // change register content
                 apiInstance.UpdateRegister(gameId, robotId);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling RobotsApi.UpdateRegister: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -845,6 +896,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -861,13 +913,16 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

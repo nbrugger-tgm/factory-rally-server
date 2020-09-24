@@ -10,8 +10,9 @@ Method | HTTP request | Description
 [**GetUpgradeShop**](UpgradesApi.md#getupgradeshop) | **GET** /games/{game_id}/upgrades/shop | Get upgrade shop
 
 
-<a name="buyupgrade"></a>
-# **BuyUpgrade**
+
+## BuyUpgrade
+
 > void BuyUpgrade (int gameId, int upgrade, int? exchange = null)
 
 Buy Upgrade
@@ -19,6 +20,7 @@ Buy Upgrade
 Buy this Upgrade from the shop. ### Note If your robot allready owns 3 Upgrades you have to use the `exchange` parameter. This is the ID of the Upgrade to replace with the bought one
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,14 +34,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new UpgradesApi(config);
+            var apiInstance = new UpgradesApi(Configuration.Default);
             var gameId = 56;  // int | 
             var upgrade = 56;  // int | 
             var exchange = 56;  // int? |  (optional) 
@@ -49,7 +50,7 @@ namespace Example
                 // Buy Upgrade
                 apiInstance.BuyUpgrade(gameId, upgrade, exchange);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling UpgradesApi.BuyUpgrade: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -61,6 +62,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -78,8 +80,8 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -87,10 +89,14 @@ void (empty response body)
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getallupgradeids"></a>
-# **GetAllUpgradeIDs**
+
+## GetAllUpgradeIDs
+
 > List&lt;int&gt; GetAllUpgradeIDs (int gameId)
 
 get all Upgrades
@@ -98,6 +104,7 @@ get all Upgrades
 Returns a list of all Upgrade IDs
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -111,14 +118,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new UpgradesApi(config);
+            var apiInstance = new UpgradesApi(Configuration.Default);
             var gameId = 56;  // int | 
 
             try
@@ -127,7 +133,7 @@ namespace Example
                 List<int> result = apiInstance.GetAllUpgradeIDs(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling UpgradesApi.GetAllUpgradeIDs: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -139,6 +145,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -154,8 +161,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -163,10 +170,14 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getupgradeinformation"></a>
-# **GetUpgradeInformation**
+
+## GetUpgradeInformation
+
 > Upgrade GetUpgradeInformation (int gameId, int upgradeId)
 
 Get upgrade information
@@ -174,6 +185,7 @@ Get upgrade information
 Get detailed information about the Upgrade
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -187,14 +199,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new UpgradesApi(config);
+            var apiInstance = new UpgradesApi(Configuration.Default);
             var gameId = 56;  // int | 
             var upgradeId = 56;  // int | 
 
@@ -204,7 +215,7 @@ namespace Example
                 Upgrade result = apiInstance.GetUpgradeInformation(gameId, upgradeId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling UpgradesApi.GetUpgradeInformation: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -216,6 +227,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -232,8 +244,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -241,10 +253,14 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getupgradeshop"></a>
-# **GetUpgradeShop**
+
+## GetUpgradeShop
+
 > UpgradeShop GetUpgradeShop (int gameId)
 
 Get upgrade shop
@@ -252,6 +268,7 @@ Get upgrade shop
 Retuns a list of all cards in the upgrade shop
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -265,14 +282,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new UpgradesApi(config);
+            var apiInstance = new UpgradesApi(Configuration.Default);
             var gameId = 56;  // int | 
 
             try
@@ -281,7 +297,7 @@ namespace Example
                 UpgradeShop result = apiInstance.GetUpgradeShop(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling UpgradesApi.GetUpgradeShop: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -293,6 +309,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -308,8 +325,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -317,5 +334,8 @@ Name | Type | Description  | Notes
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

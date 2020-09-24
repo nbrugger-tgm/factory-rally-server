@@ -1,5 +1,6 @@
+
 # Tgm.Roborally.Api.Model.Tile
-A tile is a square at the Game field<br> **Note:**  * `direction` is only aviable for belts * properties with a `rotator-` prefix are only aviable for rotator (parts)
+
 ## Properties
 
 Name | Type | Description | Notes
@@ -10,5 +11,7 @@ Name | Type | Description | Notes
 **RotatorDirection** | **Rotation** |  | [optional] 
 **Level** | **int** | The height of the tile. 1 &#x3D; default | [optional] [default to 1]
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to README]](../README.md)
 

@@ -9,9 +9,7 @@
  */
 
 
-using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Tgm.Roborally.Api.Client
 {
@@ -54,14 +52,7 @@ namespace Tgm.Roborally.Api.Client
         /// Gets the default header.
         /// </summary>
         /// <value>Default header.</value>
-        [Obsolete("Use DefaultHeaders instead.")]
         IDictionary<string, string> DefaultHeader { get; }
-
-        /// <summary>
-        /// Gets the default headers.
-        /// </summary>
-        /// <value>Default headers.</value>
-        IDictionary<string, string> DefaultHeaders { get; }
 
         /// <summary>
         /// Gets the temp folder path.
@@ -99,11 +90,5 @@ namespace Tgm.Roborally.Api.Client
         /// <param name="apiKeyIdentifier">API key identifier (authentication scheme).</param>
         /// <returns>API key with prefix.</returns>
         string GetApiKeyWithPrefix(string apiKeyIdentifier);
-
-        /// <summary>
-        /// Gets certificate collection to be sent with requests.
-        /// </summary>
-        /// <value>X509 Certificate collection.</value>
-        X509CertificateCollection ClientCertificates { get; }
     }
 }

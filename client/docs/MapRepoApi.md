@@ -10,8 +10,9 @@ Method | HTTP request | Description
 [**SaveMap**](MapRepoApi.md#savemap) | **POST** /maps/ | Save Map
 
 
-<a name="deletemap"></a>
-# **DeleteMap**
+
+## DeleteMap
+
 > void DeleteMap (string mapName)
 
 Delete Map
@@ -19,6 +20,7 @@ Delete Map
 Delete a map by its name
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,14 +34,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: admin-access
-            config.AddApiKey("skey", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("skey", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("skey", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("skey", "Bearer");
 
-            var apiInstance = new MapRepoApi(config);
+            var apiInstance = new MapRepoApi(Configuration.Default);
             var mapName = mapName_example;  // string | 
 
             try
@@ -47,7 +48,7 @@ namespace Example
                 // Delete Map
                 apiInstance.DeleteMap(mapName);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling MapRepoApi.DeleteMap: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -59,6 +60,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -74,8 +76,8 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -84,10 +86,14 @@ void (empty response body)
 | **404** | Not Found |  -  |
 | **500** | Internal Server Error |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getmap"></a>
-# **GetMap**
+
+## GetMap
+
 > MapInfo GetMap (string mapName)
 
 Get map
@@ -95,6 +101,7 @@ Get map
 Get a map by its name
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -108,14 +115,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: admin-access
-            config.AddApiKey("skey", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("skey", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("skey", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("skey", "Bearer");
 
-            var apiInstance = new MapRepoApi(config);
+            var apiInstance = new MapRepoApi(Configuration.Default);
             var mapName = mapName_example;  // string | 
 
             try
@@ -124,7 +130,7 @@ namespace Example
                 MapInfo result = apiInstance.GetMap(mapName);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling MapRepoApi.GetMap: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -136,6 +142,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -151,8 +158,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -161,10 +168,14 @@ Name | Type | Description  | Notes
 | **404** | Not Found |  -  |
 | **500** | Internal Server Error |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getmaps"></a>
-# **GetMaps**
+
+## GetMaps
+
 > List&lt;string&gt; GetMaps ()
 
 Get Map Names
@@ -172,6 +183,7 @@ Get Map Names
 Returns a list of all map names
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -185,14 +197,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: admin-access
-            config.AddApiKey("skey", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("skey", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("skey", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("skey", "Bearer");
 
-            var apiInstance = new MapRepoApi(config);
+            var apiInstance = new MapRepoApi(Configuration.Default);
 
             try
             {
@@ -200,7 +211,7 @@ namespace Example
                 List<string> result = apiInstance.GetMaps();
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling MapRepoApi.GetMaps: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -212,6 +223,7 @@ namespace Example
 ```
 
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -224,18 +236,22 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="savemap"></a>
-# **SaveMap**
+
+## SaveMap
+
 > void SaveMap (Map map = null)
 
 Save Map
@@ -243,6 +259,7 @@ Save Map
 Saves a map to the repository
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -256,14 +273,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: admin-access
-            config.AddApiKey("skey", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("skey", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("skey", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("skey", "Bearer");
 
-            var apiInstance = new MapRepoApi(config);
+            var apiInstance = new MapRepoApi(Configuration.Default);
             var map = new Map(); // Map | The map to save (optional) 
 
             try
@@ -271,7 +287,7 @@ namespace Example
                 // Save Map
                 apiInstance.SaveMap(map);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling MapRepoApi.SaveMap: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -283,6 +299,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -298,13 +315,16 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

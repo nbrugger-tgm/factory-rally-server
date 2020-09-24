@@ -1,5 +1,6 @@
+
 # Tgm.Roborally.Api.Model.ShootEvent
-Event if a player shoots a lazer
+
 ## Properties
 
 Name | Type | Description | Notes
@@ -9,5 +10,7 @@ Name | Type | Description | Notes
 **To** | [**Position**](Position.md) |  | [optional] 
 **HitEntitys** | **List&lt;int&gt;** | The entitys hit by the ray | [optional] 
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to README]](../README.md)
 

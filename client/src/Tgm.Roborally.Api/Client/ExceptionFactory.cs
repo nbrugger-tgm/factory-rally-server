@@ -10,6 +10,7 @@
 
 
 using System;
+using RestSharp;
 
 namespace Tgm.Roborally.Api.Client
 {
@@ -19,5 +20,5 @@ namespace Tgm.Roborally.Api.Client
     /// <param name="methodName">Method name</param>
     /// <param name="response">Response</param>
     /// <returns>Exceptions</returns>
-    public delegate Exception ExceptionFactory(string methodName, IApiResponse response);
+    public delegate Exception ExceptionFactory(string methodName, IRestResponse response);
 }

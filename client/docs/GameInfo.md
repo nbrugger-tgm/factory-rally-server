@@ -1,5 +1,6 @@
+
 # Tgm.Roborally.Api.Model.GameInfo
-Describes the current state of the game. It does not includes the gamedata (like players/poitions/field) but general information.  This is read only
+
 ## Properties
 
 Name | Type | Description | Notes
@@ -10,5 +11,7 @@ Name | Type | Description | Notes
 **HardwareAttached** | **bool** | Is a hardware boead connected | [default to false]
 **PlayerOnTurn** | **int** | This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication | 
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to README]](../README.md)
 

@@ -11,8 +11,9 @@ Method | HTTP request | Description
 [**KickPlayer**](PlayersApi.md#kickplayer) | **DELETE** /games/{game_id}/players/{player_id} | Remove Player
 
 
-<a name="chooserobot"></a>
-# **ChooseRobot**
+
+## ChooseRobot
+
 > void ChooseRobot (int gameId, int playerId, List<Robots> robots = null)
 
 Set Robots
@@ -20,6 +21,7 @@ Set Robots
 # DEPRECATET > This feature is useless in this version. It will be usefull in newer versions  Sets the type of robot(s) the player is controlling
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,14 +35,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new PlayersApi(config);
+            var apiInstance = new PlayersApi(Configuration.Default);
             var gameId = 56;  // int | 
             var playerId = 56;  // int | 
             var robots = new List<Robots>(); // List<Robots> | The robots assigned to the player (optional) 
@@ -50,7 +51,7 @@ namespace Example
                 // Set Robots
                 apiInstance.ChooseRobot(gameId, playerId, robots);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling PlayersApi.ChooseRobot: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -62,6 +63,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -79,8 +81,8 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -88,10 +90,14 @@ void (empty response body)
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getallplayers"></a>
-# **GetAllPlayers**
+
+## GetAllPlayers
+
 > List&lt;int&gt; GetAllPlayers (int gameId)
 
 Get all players
@@ -99,6 +105,7 @@ Get all players
 Returns the index of all players
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -112,9 +119,8 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
-            var apiInstance = new PlayersApi(config);
+            Configuration.Default.BasePath = "http://game.host/v1";
+            var apiInstance = new PlayersApi(Configuration.Default);
             var gameId = 56;  // int | 
 
             try
@@ -123,7 +129,7 @@ namespace Example
                 List<int> result = apiInstance.GetAllPlayers(gameId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling PlayersApi.GetAllPlayers: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -135,6 +141,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -150,8 +157,8 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -159,10 +166,14 @@ No authorization required
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="getplayer"></a>
-# **GetPlayer**
+
+## GetPlayer
+
 > Player GetPlayer (int gameId, int playerId)
 
 Get player
@@ -170,6 +181,7 @@ Get player
 Get closer information about the player
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -183,9 +195,8 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
-            var apiInstance = new PlayersApi(config);
+            Configuration.Default.BasePath = "http://game.host/v1";
+            var apiInstance = new PlayersApi(Configuration.Default);
             var gameId = 56;  // int | 
             var playerId = 56;  // int | 
 
@@ -195,7 +206,7 @@ namespace Example
                 Player result = apiInstance.GetPlayer(gameId, playerId);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling PlayersApi.GetPlayer: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -207,6 +218,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -223,8 +235,8 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -232,10 +244,14 @@ No authorization required
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="join"></a>
-# **Join**
+
+## Join
+
 > JoinResponse Join (int gameId, string password = null)
 
 Join game
@@ -243,6 +259,7 @@ Join game
 Join the given game. You will get your ID by doing this, if you already in the game you can get your ID again if you lost it.<br> The id is neccessary for any further API calls
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -256,9 +273,8 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
-            var apiInstance = new PlayersApi(config);
+            Configuration.Default.BasePath = "http://game.host/v1";
+            var apiInstance = new PlayersApi(Configuration.Default);
             var gameId = 56;  // int | 
             var password = password_example;  // string | The password of the game if the lobby is password protected (optional) 
 
@@ -268,7 +284,7 @@ namespace Example
                 JoinResponse result = apiInstance.Join(gameId, password);
                 Debug.WriteLine(result);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling PlayersApi.Join: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -280,6 +296,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -296,8 +313,8 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -307,10 +324,14 @@ No authorization required
 | **404** | Not Found |  -  |
 | **409** | Not Joinable |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-<a name="kickplayer"></a>
-# **KickPlayer**
+
+## KickPlayer
+
 > void KickPlayer (int gameId, int playerId)
 
 Remove Player
@@ -318,6 +339,7 @@ Remove Player
 Removes a player from the game. This can be done by the player itsself or by the host.
 
 ### Example
+
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -331,18 +353,17 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://game.host/v1";
+            Configuration.Default.BasePath = "http://game.host/v1";
             // Configure API key authorization: admin-access
-            config.AddApiKey("skey", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("skey", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("skey", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("skey", "Bearer");
             // Configure API key authorization: player-auth
-            config.AddApiKey("pat", "YOUR_API_KEY");
+            Configuration.Default.AddApiKey("pat", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // config.AddApiKeyPrefix("pat", "Bearer");
+            // Configuration.Default.AddApiKeyPrefix("pat", "Bearer");
 
-            var apiInstance = new PlayersApi(config);
+            var apiInstance = new PlayersApi(Configuration.Default);
             var gameId = 56;  // int | 
             var playerId = 56;  // int | 
 
@@ -351,7 +372,7 @@ namespace Example
                 // Remove Player
                 apiInstance.KickPlayer(gameId, playerId);
             }
-            catch (ApiException  e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling PlayersApi.KickPlayer: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
@@ -363,6 +384,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -379,8 +401,8 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -388,5 +410,8 @@ void (empty response body)
 | **200** | OK |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

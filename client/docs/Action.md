@@ -1,5 +1,6 @@
+
 # Tgm.Roborally.Api.Model.Action
-A queued action. Actions are executed in their adding sequence which is represented by their index
+
 ## Properties
 
 Name | Type | Description | Notes
@@ -9,5 +10,7 @@ Name | Type | Description | Notes
 **Executed** | **bool** | true if the action was allready executed | [optional] 
 **Requestor** | **int** | The index of the player this instruction came from | [optional] 
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to README]](../README.md)
 
