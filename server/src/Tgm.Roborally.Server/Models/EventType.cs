@@ -137,6 +137,13 @@ namespace Tgm.Roborally.Server.Models
             /// Enum GameRoundPhaseChanged for pause
             /// </summary>
             [EnumMember(Value = "unpause")]
-            Unpause = 18
-        }
+            Unpause = 18,
+			[EnumMember(Value = "damage")]
+			Damage = 19,
+			
+			LazerHit = 20,
+			MapEvent,
+			Push,
+			Shutdown
+		}
 }

@@ -4,44 +4,39 @@ using System.Transactions;
 using Microsoft.AspNetCore.Mvc;
 using Tgm.Roborally.Server.Models;
 
-namespace Tgm.Roborally.Server.Engine
-{
+namespace Tgm.Roborally.Server.Engine {
 	/**
 	 * This pipeline processes a request ro produce a result
 	 */
-	public class GameRequestPipeline
-	{
+	public class GameRequestPipeline {
 		private readonly PipelineContext Context;
 
-		private GameLogic _game;
+		private GameLogic     _game;
 		private IActionResult _response = null;
+		private Player        _player;
+		private Event         _event;
 
-		public GameRequestPipeline()
-		{
+		public GameRequestPipeline() {
 			Context = new PipelineContext(pipe: this);
 		}
 
-		private IActionResult response
-		{
+		private IActionResult response {
 			get => _response;
 			set { _response = value; }
 		}
 
 		private bool done => response != null;
 
-		public GameRequestPipeline game(int game)
-		{
-			if (done)
-			{
+
+		public GameRequestPipeline game(int game) {
+			if (done) {
 				return this;
 			}
 
 			_game = GameManager.instance.GetGame(game);
-			if (_game == null)
-			{
-				response = new NotFoundObjectResult(new ErrorMessage()
-				{
-					Error = "Game not found",
+			if (_game == null) {
+				response = new NotFoundObjectResult(new ErrorMessage() {
+					Error   = "Game not found",
 					Message = "There is no game with the given ID"
 				});
 			}
@@ -49,19 +44,15 @@ namespace Tgm.Roborally.Server.Engine
 			return this;
 		}
 
-		public GameRequestPipeline compute(Action<PipelineContext> code)
-		{
+		public GameRequestPipeline compute(Action<PipelineContext> code) {
 			if (done)
 				return this;
-			try
-			{
+			try {
 				code(Context);
 			}
-			catch (Exception ex)
-			{
+			catch (Exception ex) {
 				ErrorMessage err = new ErrorMessage {Message = ex.Message, Error = ex.GetType().Name};
-				response = new ObjectResult(err)
-				{
+				response = new ObjectResult(err) {
 					StatusCode = 500
 				};
 			}
@@ -69,60 +60,67 @@ namespace Tgm.Roborally.Server.Engine
 			return this;
 		}
 
-		public IActionResult executeAction()
-		{
+		public IActionResult executeAction() {
 			return execute(new OkResult());
 		}
-		public IActionResult executeSecure()
-		{
-			ObjectResult result = new ObjectResult("The request was not processed properly and didn't produced a result");
+
+		public IActionResult executeSecure() {
+			ObjectResult result =
+				new ObjectResult("The request was not processed properly and didn't produced a result");
 			result.StatusCode = 500;
 			return result;
 
 			return execute(result);
 		}
-		private IActionResult execute(IActionResult Default)
-		{
-			if (response == null)
-			{
+
+		private IActionResult execute(IActionResult Default) {
+			if (response == null) {
 				return Default;
 			}
 
 			return response;
 		}
-		public class PipelineContext
-		{
-			private GameRequestPipeline pipe;
-
-			public PipelineContext(GameRequestPipeline pipe)
-			{
-				this.pipe = pipe;
-			}
-
-			public GameLogic Game => pipe._game;
-			public Player Player => pipe.Player;
-
-			public IActionResult Response
-			{
-				set => pipe.response = value;
-			}
-		}
 
 
-		public GameRequestPipeline player(int playerId)
-		{
+		public GameRequestPipeline player(int playerId) {
 			if (done)
 				return this;
-			Player = _game.GetPlayer(playerId);
-			if(Player == null)
-				response = new NotFoundObjectResult(new ErrorMessage()
-				{
-					Error = "Player not found",
-					Message = "The id of the player is not correct"
+			_player = _game.GetPlayer(playerId);
+			if (_player == null)
+				response = new NotFoundObjectResult(new ErrorMessage() {
+					Error   = "Player not found",
+					Message = "The id of the player is not correct or missing"
 				});
 			return this;
 		}
 
-		public Player Player { get; private set; }
+		public GameRequestPipeline nextEvent(bool wait) {
+			if (!done) {
+				_event = _game.EventManager.Pop(_player.Id);
+				if (wait && _event == null) {
+					_game.EventManager.Await();
+					_event = _game.EventManager.Pop(_player.Id);
+				}
+			}
+
+			return this;
+		}
+
+		public class PipelineContext {
+			private GameRequestPipeline pipe;
+
+			public PipelineContext(GameRequestPipeline pipe) {
+				this.pipe = pipe;
+			}
+
+			public GameLogic Game   => pipe._game;
+			public Player    Player => pipe._player;
+
+			public Event Event => pipe._event;
+
+			public IActionResult Response {
+				set => pipe.response = value;
+			}
+		}
 	}
 }

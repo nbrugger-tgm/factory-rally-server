@@ -2516,7 +2516,10 @@
           "game_phase_changed",
           "game_round_phase_changed",
           "pause",
-          "unpause"
+          "unpause",
+          "damage",
+          "lazer hit",
+          "push"
         ]
       },
       "MovementEvent": {

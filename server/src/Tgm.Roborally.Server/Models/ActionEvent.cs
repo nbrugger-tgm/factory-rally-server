@@ -17,6 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
+using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models
 { 
@@ -24,25 +25,22 @@ namespace Tgm.Roborally.Server.Models
     /// Describes an event from an action without additionaly information
     /// </summary>
     [DataContract]
-    public partial class ActionEvent : IEquatable<ActionEvent>
+    public partial class ActionEvent : IEquatable<ActionEvent> , Event
     {
-        /// <summary>
-        /// Gets or Sets Id
-        /// </summary>
-        [DataMember(Name="id", EmitDefaultValue=false)]
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
+        [IgnoreDataMember]
+        private readonly EventType _type; 
+        
+        public ActionEvent(EventType type)
         {
-            var sb = new StringBuilder();
-            sb.Append("class ActionEvent {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
+            _type = type;
+        }
+
+
+        
+
+        public EventType GetEventType()
+        {
+            return _type;
         }
 
         /// <summary>
@@ -78,9 +76,7 @@ namespace Tgm.Roborally.Server.Models
 
             return 
                 (
-                    Id == other.Id ||
-                    Id != null &&
-                    Id.Equals(other.Id)
+                    true
                 );
         }
 
@@ -92,10 +88,8 @@ namespace Tgm.Roborally.Server.Models
         {
             unchecked // Overflow is fine, just wrap
             {
-                var hashCode = 41;
+                var hashCode = 41*_type.GetHashCode();
                 // Suitable nullity checks etc, of course :)
-                    if (Id != null)
-                    hashCode = hashCode * 59 + Id.GetHashCode();
                 return hashCode;
             }
         }
