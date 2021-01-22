@@ -363,6 +363,14 @@
             "in": "query",
             "name": "password",
             "description": "The password of the game if the lobby is password protected"
+          },
+          {
+            "schema": {
+              "$ref": "#/components/schemas/PlayerName"
+            },
+            "in": "query",
+            "name": "name",
+            "description": "The name to be displayed as username"
           }
         ],
         "tags": [
@@ -2419,11 +2427,15 @@
             "type": "boolean",
             "default": true,
             "description": "Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects"
+          },
+          "display_name": {
+            "$ref": "#/components/schemas/PlayerName"
           }
         },
         "required": [
           "id",
-          "controlled_entities"
+          "controlled_entities",
+          "display_name"
         ]
       },
       "PlayerID": {
@@ -2442,9 +2454,10 @@
         "minimum": 0
       },
       "Replay": {
-        "title": "Replay",
         "type": "object",
-        "description": "## BETA (Adressed in V0.1.2)\nA replay consists of all data needed to replay a game. Means starting conditions and every change that was made"
+        "title": "Replay",
+        "description": "## BETA (Adressed in V0.1.2)\nA replay consists of all data needed to replay a game. Means starting conditions and every change that was made",
+        "deprecated": true
       },
       "ActionType": {
         "type": "string",
@@ -2519,7 +2532,12 @@
           "unpause",
           "damage",
           "lazer hit",
-          "push"
+          "push",
+          "join",
+          "lock in",
+          "robot_start_executing",
+          "heal",
+          "energy gain"
         ]
       },
       "MovementEvent": {
@@ -2995,6 +3013,79 @@
         "title": "ActionEvent",
         "type": "object",
         "description": "Describes an event from an action without additionaly information"
+      },
+      "JoinEvent": {
+        "title": "JoinEvent",
+        "type": "object",
+        "description": "If somebody joins a game",
+        "properties": {
+          "joined_id": {
+            "$ref": "#/components/schemas/PlayerID"
+          },
+          "unjoin": {
+            "type": "boolean",
+            "description": "True if the player left instead of joining"
+          }
+        }
+      },
+      "PlayerName": {
+        "type": "string",
+        "title": "PlayerName",
+        "minLength": 3,
+        "maxLength": 30,
+        "pattern": "[A-Za-z0-9_-]+",
+        "description": "The display name of a player including rules"
+      },
+      "RobotStartExecEvent": {
+        "title": "RobotStartExecEvent",
+        "type": "object",
+        "description": "When a robot is about to execute a programming card/statement",
+        "properties": {
+          "robot": {
+            "$ref": "#/components/schemas/EntityID"
+          },
+          "card": {
+            "$ref": "#/components/schemas/RobotCommand"
+          }
+        }
+      },
+      "HealEvent": {
+        "title": "HealEvent",
+        "type": "object",
+        "description": "When a robot is healed",
+        "properties": {
+          "entity": {
+            "$ref": "#/components/schemas/Entity"
+          },
+          "heal_amount": {
+            "type": "integer",
+            "minimum": 0,
+            "exclusiveMinimum": true,
+            "maximum": 100,
+            "multipleOf": 1
+          }
+        }
+      },
+      "EnergyGainEvent": {
+        "title": "EnergyGainEvent",
+        "type": "object",
+        "description": "When a robot gains energy",
+        "properties": {
+          "robot": {
+            "$ref": "#/components/schemas/EntityID"
+          },
+          "ammount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10,
+            "exclusiveMinimum": true,
+            "description": "The ammount of energy gained"
+          }
+        },
+        "required": [
+          "robot",
+          "ammount"
+        ]
       }
     }
   },

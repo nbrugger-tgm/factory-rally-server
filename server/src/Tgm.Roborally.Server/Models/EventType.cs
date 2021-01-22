@@ -125,25 +125,64 @@ namespace Tgm.Roborally.Server.Models
             [EnumMember(Value = "game_round_phase_changed")]
             GameRoundPhaseChanged = 16,
             
-            
             /// <summary>
-            /// Enum GameRoundPhaseChanged for pause
+            /// Enum Pause for pause
             /// </summary>
             [EnumMember(Value = "pause")]
             Pause = 17,
             
-            
             /// <summary>
-            /// Enum GameRoundPhaseChanged for pause
+            /// Enum Unpause for unpause
             /// </summary>
             [EnumMember(Value = "unpause")]
             Unpause = 18,
-			[EnumMember(Value = "damage")]
-			Damage = 19,
-			
-			LazerHit = 20,
-			MapEvent,
-			Push,
-			Shutdown
-		}
+            
+            /// <summary>
+            /// Enum Damage for damage
+            /// </summary>
+            [EnumMember(Value = "damage")]
+            Damage = 19,
+            
+            /// <summary>
+            /// Enum LazerHit for lazer hit
+            /// </summary>
+            [EnumMember(Value = "lazer hit")]
+            LazerHit = 20,
+            
+            /// <summary>
+            /// Enum Push for push
+            /// </summary>
+            [EnumMember(Value = "push")]
+            Push = 21,
+            
+            /// <summary>
+            /// Enum Join for join
+            /// </summary>
+            [EnumMember(Value = "join")]
+            Join = 22,
+            
+            /// <summary>
+            /// Enum LockIn for lock in
+            /// </summary>
+            [EnumMember(Value = "lock in")]
+            LockIn = 23,
+            
+            /// <summary>
+            /// Enum RobotStartExecuting for robot_start_executing
+            /// </summary>
+            [EnumMember(Value = "robot_start_executing")]
+            RobotStartExecuting = 24,
+            
+            /// <summary>
+            /// Enum Heal for heal
+            /// </summary>
+            [EnumMember(Value = "heal")]
+            Heal = 25,
+            
+            /// <summary>
+            /// Enum EnergyGain for energy gain
+            /// </summary>
+            [EnumMember(Value = "energy gain")]
+            EnergyGain = 26
+        }
 }
