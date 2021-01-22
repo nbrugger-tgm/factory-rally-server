@@ -64,10 +64,9 @@ namespace Tgm.Roborally.Server.Controllers
 		[Route("/v1/games/")]
 		[ValidateModelState]
 		[SwaggerOperation("CreateGame")]
-		public virtual IActionResult CreateGame([FromBody] GameRules gameRules)
-		{
-			GameManager.instance.startGame(gameRules);
-			return StatusCode(200);
+		public virtual IActionResult CreateGame([FromBody] GameRules gameRules) {
+			int id = GameManager.instance.startGame(gameRules);
+			return new OkObjectResult(id);
 		}
 
 		/// <summary>
