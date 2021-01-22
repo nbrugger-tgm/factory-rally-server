@@ -88,9 +88,9 @@ namespace Tgm.Roborally.Server.Engine
 			}
 		}
 
-		public Player Join() => Join(null);
+		public Player Join(string name) => Join(null, name);
 
-		public Player Join(string password)
+		public Player Join(string password, string name)
 		{
 			if (!Joinable)
 			{
@@ -102,7 +102,7 @@ namespace Tgm.Roborally.Server.Engine
 				throw new AuthenticationException("The provided password was wrong");
 			}
 
-			Player p = new Player {Id = NewPlayerID()};
+			Player p = new Player {Id = NewPlayerID(),DisplayName = name};
 			Players.Add(p);
 			return p;
 		}

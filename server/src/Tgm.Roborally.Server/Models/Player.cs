@@ -69,11 +69,21 @@ namespace Tgm.Roborally.Server.Models
         public bool OnTurn { get; set; } = false;
 
         /// <summary>
-        /// Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects and is AFK for a certain time
+        /// Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects
         /// </summary>
         /// <value>Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects</value>
         [DataMember(Name="active", EmitDefaultValue=false)]
         public bool Active { get; set; } = true;
+
+        /// <summary>
+        /// The display name of a player including rules
+        /// </summary>
+        /// <value>The display name of a player including rules</value>
+        [Required]
+        [RegularExpression("[A-Za-z0-9_-]+")]
+        [StringLength(30, MinimumLength=3)]
+        [DataMember(Name="display_name", EmitDefaultValue=false)]
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -87,6 +97,7 @@ namespace Tgm.Roborally.Server.Models
             sb.Append("  ControlledEntities: ").Append(ControlledEntities).Append("\n");
             sb.Append("  OnTurn: ").Append(OnTurn).Append("\n");
             sb.Append("  Active: ").Append(Active).Append("\n");
+            sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -143,6 +154,11 @@ namespace Tgm.Roborally.Server.Models
                     Active == other.Active ||
                     
                     Active.Equals(other.Active)
+                ) && 
+                (
+                    DisplayName == other.DisplayName ||
+                    DisplayName != null &&
+                    DisplayName.Equals(other.DisplayName)
                 );
         }
 
@@ -164,6 +180,8 @@ namespace Tgm.Roborally.Server.Models
                     hashCode = hashCode * 59 + OnTurn.GetHashCode();
                     
                     hashCode = hashCode * 59 + Active.GetHashCode();
+                    if (DisplayName != null)
+                    hashCode = hashCode * 59 + DisplayName.GetHashCode();
                 return hashCode;
             }
         }

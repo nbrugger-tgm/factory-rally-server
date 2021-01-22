@@ -98,6 +98,7 @@ namespace Tgm.Roborally.Server.Controllers
         /// <remarks>Join the given game. You will get your ID by doing this, if you already in the game you can get your ID again if you lost it.&lt;br&gt; The id is neccessary for any further API calls</remarks>
         /// <param name="gameId"></param>
         /// <param name="password">The password of the game if the lobby is password protected</param>
+        /// <param name="name">The name to be displayed as username</param>
         /// <response code="200">Joined</response>
         /// <response code="401">Wrong/No password</response>
         /// <response code="404">Not Found</response>
@@ -110,11 +111,11 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerResponse(statusCode: 401, type: typeof(ErrorMessage), description: "Wrong/No password")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         [SwaggerResponse(statusCode: 409, type: typeof(ErrorMessage), description: "Not Joinable")]
-        public virtual IActionResult Join([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromQuery]string password)
+        public virtual IActionResult Join([FromRoute][Required][Range(0, 2048)]int gameId, [FromQuery]string password, [FromQuery][RegularExpression("[A-Za-z0-9_-]+")][StringLength(30, MinimumLength=3)]string name)
         {
             return new GameRequestPipeline()
                 .game(gameId)
-                .compute(c => c.Response = new ObjectResult(new JoinResponse(c.Game.Join(password))))
+                .compute(c => c.Response = new ObjectResult(new JoinResponse(c.Game.Join(password,name))))
                 .executeAction();
         }
 
