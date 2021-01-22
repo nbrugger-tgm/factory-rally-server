@@ -112,7 +112,7 @@ namespace Tgm.Roborally.Server.Engine {
 				_event = _game.EventManager.Peek(_player.Id);
 				if (wait && _event == null) {
 					_game.EventManager.Await();
-					_event = _game.EventManager.Pop(_player.Id);
+					_event = _game.EventManager.Peek(_player.Id);
 				}
 			}
 
