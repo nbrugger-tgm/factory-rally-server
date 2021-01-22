@@ -183,6 +183,18 @@ namespace Tgm.Roborally.Server.Models
             /// Enum EnergyGain for energy gain
             /// </summary>
             [EnumMember(Value = "energy gain")]
-            EnergyGain = 26
-        }
+            EnergyGain = 26,
+			
+			/// <summary>
+			/// 
+			/// </summary>
+			[EnumMember(Value = "map")]
+			Map = 27,
+			
+			/// <summary>
+			/// 
+			/// </summary>
+			[EnumMember(Value = "shutdown")]
+			Shutdown = 28,
+		}
 }

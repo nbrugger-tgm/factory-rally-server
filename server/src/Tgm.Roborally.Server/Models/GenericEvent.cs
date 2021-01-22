@@ -31,7 +31,11 @@ namespace Tgm.Roborally.Server.Models
         {
             Type = type;
         }
-
+        public GenericEvent(Event e)
+        {
+            Type = e.GetEventType();
+            Data = e;
+        }
         /// <summary>
         /// Gets or Sets Type
         /// </summary>
