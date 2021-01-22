@@ -95,21 +95,21 @@ namespace Tgm.Roborally.Server.Authentication {
 				GameLogic game =
 					GameManager.instance.GetGame(
 						Convert.ToInt32(request.RouteValues[_gameIdPathName].ToString()));
-				player   = game.AuthPlayer(authKey);
-				isPlayer = player != null;
-				if (player != null) {
-					if (_playerSelf) {
-						isSelf =
-							Convert.ToInt32(request.RouteValues[_playerIdPathName].ToString()) ==
-							player.Id;
-					}
+				if (game != null) {
+					player   = game.AuthPlayer(authKey);
+					isPlayer = player != null;
+					if (player != null) {
+						if (_playerSelf) {
+							isSelf =
+								Convert.ToInt32(request.RouteValues[_playerIdPathName].ToString()) ==
+								player.Id;
+						}
 
-					if (_belongsTo)
-						owns = _ownershipEnsurance.DoesOwn(player.Id, request.RouteValues);
+						if (_belongsTo)
+							owns = _ownershipEnsurance.DoesOwn(player.Id, request.RouteValues);
+					}
 				}
 			}
-
-			processResults: ;
 
 			#region processResult
 
