@@ -107,6 +107,11 @@ namespace Tgm.Roborally.Server.Engine
 			return p;
 		}
 
+		private void NotifyThread(GenericEvent e) {
+			EventManager.Notify(e);
+			thread.Notify(e);
+		}
+
 		public class GameNotJoinableException : Exception
 		{
 			public GameNotJoinableException(string theGameCannotBeJoinedAtTheMoment) : base(theGameCannotBeJoinedAtTheMoment) {

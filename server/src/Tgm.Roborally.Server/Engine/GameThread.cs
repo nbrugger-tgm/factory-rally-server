@@ -22,6 +22,8 @@ namespace Tgm.Roborally.Server.Engine {
 			}
 		}
 
-		public void Notify(ActionType action) => currentPhase.Notify(action);
+		public void Notify(ActionType   action) => currentPhase.Notify(action);
+
+		public void Notify(GenericEvent action) => currentPhase.Notify(action);
 	}
 }

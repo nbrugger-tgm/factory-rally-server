@@ -14,5 +14,7 @@ namespace Tgm.Roborally.Server.Engine.Phases
 		{
 			throw new System.NotImplementedException();
 		}
+
+		public override void Notify(GenericEvent action) => throw new System.NotImplementedException();
 	}
 }

@@ -15,7 +15,9 @@ namespace Tgm.Roborally.Server.Engine
 		public GamePhase Start(GameLogic game)
 		{
 			game.State = NewState;
-			game.CommitEvent(new GamePhaseChangeEvent());
+			game.CommitEvent(new GamePhaseChangeEvent() {
+				NewStatus = NewState
+			});
 			return Run(game);
 		}
 		/// <summary>
@@ -25,6 +27,7 @@ namespace Tgm.Roborally.Server.Engine
 		/// <returns>the next phase</returns>
 		protected abstract GamePhase Run(GameLogic game);
 		public abstract GameState NewState { get; }
-		public abstract void Notify(ActionType action);
+		public abstract void      Notify(ActionType   action);
+		public abstract void      Notify(GenericEvent action);
 	}
 }
