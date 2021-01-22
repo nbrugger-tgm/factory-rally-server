@@ -11,17 +11,21 @@ namespace Tgm.Roborally.Server.Engine
 {
 	public class GameLogic
 	{
-		private GameState _state = GameState.LOBBY;
-		public int Id;
-		public GameState LastState => _lastState;
-		private GameState _lastState;
-		public string Password => Rules.Password;
-		public int playerOnTurn;
-		private readonly List<Player> Players = new List<Player>();
-		private readonly GameThread thread;
-		public Map Map => _map;
-		private Map _map;
+		private          GameState    _state = GameState.LOBBY;
+		public           int          Id;
+		public           GameState    LastState => _lastState;
+		private          GameState    _lastState;
+		public           string       Password => Rules.Password;
+		public           int          playerOnTurn;
+		private readonly List<Player> _players = new List<Player>();
 
+		public List<Player> Players => _players;
+
+		private readonly GameThread   thread;
+		public           Map          Map => _map;
+		private          Map          _map;
+
+		
 		public GameLogic(GameRules r)
 		{
 			Rules = r;
