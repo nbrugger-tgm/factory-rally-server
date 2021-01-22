@@ -55,8 +55,8 @@ namespace Tgm.Roborally.Server.Models
         /// </summary>
         /// <value>Defines the number of robots per player</value>
         [Range(1, 3)]
-        [DataMember(Name="robots-per-player", EmitDefaultValue=false)]
-        public int RobotsPerPlayer { get; set; }
+        [DataMember(Name = "robots-per-player", EmitDefaultValue = false)]
+        public int RobotsPerPlayer { get; set; } = 1;
 
         /// <summary>
         /// The password of a game

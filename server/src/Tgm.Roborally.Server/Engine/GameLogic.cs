@@ -38,11 +38,15 @@ namespace Tgm.Roborally.Server.Engine
 			thread.Start();
 		}
 
-		public void CommitEvent(Event e) => EventManager.Notify(e);
+		public void CommitEvent(GenericEvent e) {
+			EventManager.Notify(e);
+			thread.Notify(e);
+		}
 
-		public EventManager EventManager { get; }
-		public HardwareManager Hardware { get; }
-		public EntityManager Entitys { get; }
+		public void            CommitEvent(Event e) => CommitEvent(new GenericEvent(e));
+		public EventManager    EventManager         { get; }
+		public HardwareManager Hardware             { get; }
+		public EntityManager   Entitys              { get; }
 
 		public GameActionHandler ActionHandler { get; }
 
@@ -65,9 +69,9 @@ namespace Tgm.Roborally.Server.Engine
 		public bool PlayerNamesVisible => Rules.PlayerNamesVisible;
 		public string Name => Rules.Name;
 		public int MaxPlayers => Rules.MaxPlayers;
-		public List<int> PlayerIds => Players.Select(e => e.Id).ToList();
+		public List<int> PlayerIds => _players.Select(e => e.Id).ToList();
 
-		public bool Joinable => (State == GameState.LOBBY && Players.Count < MaxPlayers);
+		public bool Joinable => (State == GameState.LOBBY && _players.Count < MaxPlayers);
 
 		public int NewPlayerID()
 		{
@@ -84,7 +88,7 @@ namespace Tgm.Roborally.Server.Engine
 		{
 			try
 			{
-				return Players.Find(e => e.Id == id);
+				return _players.Find(e => e.Id == id);
 			}
 			catch (ArgumentNullException e)
 			{
@@ -107,7 +111,7 @@ namespace Tgm.Roborally.Server.Engine
 			}
 
 			Player p = new Player {Id = NewPlayerID(),DisplayName = name};
-			Players.Add(p);
+			_players.Add(p);
 
 			GenericEvent e = new GenericEvent(EventType.Join);
 			e.Data = new JoinEvent() {
@@ -132,7 +136,7 @@ namespace Tgm.Roborally.Server.Engine
 		public void RemovePlayer(int playerId)
 		{
 			if (_state == GameState.LOBBY)
-				Players.Remove(GetPlayer(playerId));
+				_players.Remove(GetPlayer(playerId));
 			else if (_state == GameState.PLAYING || _state == GameState.PLANNING)
 			{
 				Player p = GetPlayer(playerId);
@@ -158,12 +162,12 @@ namespace Tgm.Roborally.Server.Engine
 				throw new WrongStateException(GameState.LOBBY, _state, "Start Game");
 			}
 
-			if (Players.Count == 0)
+			if (_players.Count == 0)
 			{
-				throw new PlayerCountException(">0", Players.Count, "Start Game");
+				throw new PlayerCountException(">0", _players.Count, "Start Game");
 			}
 
-			if (Players.Count < MaxPlayers && Rules.FillWithBots)
+			if (_players.Count < MaxPlayers && Rules.FillWithBots)
 			{
 				//Todo fill with bots
 			}
@@ -175,6 +179,6 @@ namespace Tgm.Roborally.Server.Engine
 
 		public void NotifyThread(ActionType type) => thread.Notify(type);
 
-		public Player AuthPlayer(string authKey) => Players.Find(p => p.auth.Equals(authKey));
+		public Player AuthPlayer(string authKey) => _players.Find(p => p.auth.Equals(authKey));
 	}
 }
