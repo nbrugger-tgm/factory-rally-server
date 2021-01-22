@@ -10,8 +10,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlTypes;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -244,6 +246,7 @@ namespace Tgm.Roborally.Server.Controllers
         [Route("/v1/games/{game_id}/events/type")]
         [ValidateModelState]
         [SwaggerOperation("TraceEvent")]
+        [GameAuth(Role.PLAYER)]
         [SwaggerResponse(statusCode: 200, type: typeof(InlineResponse200), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult TraceEvent([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromQuery]bool batch, [FromQuery]bool wait) {
@@ -252,19 +255,16 @@ namespace Tgm.Roborally.Server.Controllers
                     Error = "Invalid Arguments",
                     Message = "Due to logical reasons wait and batch are not allowed to both be true"
                 });
-            List<EventType?>    events = new List<EventType?>();
+            List<EventType>    events = new List<EventType>();
             GameRequestPipeline pip    = new GameRequestPipeline();
             pip.game(gameId)
                .player(((Player) HttpContext.Items[GameAuth.PLAYER]).Id);
             if (batch) {
-                EventType? lastType = null;
-                do {
-                    pip
-                        .peekNextEvent(false)
-                        .compute(e => lastType = e.Event.GetEventType());
-                    if(lastType != null)
-                        events.Add(lastType);
-                } while (lastType != null);
+                pip.compute(c => {
+                    if (c.Game.EventManager.queues.ContainsKey(c.Player.Id)) {
+                        events = c.Game.EventManager.queues[c.Player.Id].Select(e => e.GetEventType()).ToList();
+                    }
+                });
             }
             else {
                 pip
