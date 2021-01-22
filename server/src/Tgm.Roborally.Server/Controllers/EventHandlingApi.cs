@@ -229,7 +229,6 @@ namespace Tgm.Roborally.Server.Controllers
         public virtual IActionResult FetchNextShutdownEvent([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
         {
             return typifiedEvent<ShutdownEvent>(gameId, false);
-            
         }
 
         /// <summary>
@@ -253,7 +252,7 @@ namespace Tgm.Roborally.Server.Controllers
                     Error = "Invalid Arguments",
                     Message = "Due to logical reasons wait and batch are not allowed to both be true"
                 });
-            List<EventType?>              events = new List<EventType?>();
+            List<EventType?>    events = new List<EventType?>();
             GameRequestPipeline pip    = new GameRequestPipeline();
             pip.game(gameId)
                .player(((Player) HttpContext.Items[GameAuth.PLAYER]).Id);
@@ -261,7 +260,7 @@ namespace Tgm.Roborally.Server.Controllers
                 EventType? lastType = null;
                 do {
                     pip
-                        .nextEvent(false)
+                        .peekNextEvent(false)
                         .compute(e => lastType = e.Event.GetEventType());
                     if(lastType != null)
                         events.Add(lastType);
@@ -269,7 +268,7 @@ namespace Tgm.Roborally.Server.Controllers
             }
             else {
                 pip
-                    .nextEvent(wait)
+                    .peekNextEvent(wait)
                     .compute(e => events.Add(e.Event.GetEventType()));
             }
 

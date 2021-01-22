@@ -46,5 +46,9 @@ namespace Tgm.Roborally.Server.Engine
 		public void Await() {
 			Monitor.Wait(locker);
 		}
+
+		public Event Peek(int player) {
+			return queues[player].Count >0 ? queues[player].Peek() : null;
+		}
 	}
 }

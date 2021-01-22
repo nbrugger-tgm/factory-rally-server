@@ -106,6 +106,17 @@ namespace Tgm.Roborally.Server.Engine {
 			return this;
 		}
 
+		public GameRequestPipeline peekNextEvent(bool wait) {
+			if (!done) {
+				_event = _game.EventManager.Peek(_player.Id);
+				if (wait && _event == null) {
+					_game.EventManager.Await();
+					_event = _game.EventManager.Pop(_player.Id);
+				}
+			}
+
+			return this;
+		}
 		public class PipelineContext {
 			private GameRequestPipeline pipe;
 
