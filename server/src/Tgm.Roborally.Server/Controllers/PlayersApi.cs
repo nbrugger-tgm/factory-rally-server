@@ -111,7 +111,7 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerResponse(statusCode: 401, type: typeof(ErrorMessage), description: "Wrong/No password")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         [SwaggerResponse(statusCode: 409, type: typeof(ErrorMessage), description: "Not Joinable")]
-        public virtual IActionResult Join([FromRoute][Required][Range(0, 2048)]int gameId, [FromQuery]string password, [FromQuery][RegularExpression("[A-Za-z0-9_-]+")][StringLength(30, MinimumLength=3)]string name)
+        public virtual IActionResult Join([FromRoute(Name="game_id")][Required][Range(0, 2048)]int gameId, [FromQuery]string password, [FromQuery][RegularExpression("[A-Za-z0-9_-]+")][StringLength(30, MinimumLength=3)]string name)
         {
             return new GameRequestPipeline()
                 .game(gameId)
