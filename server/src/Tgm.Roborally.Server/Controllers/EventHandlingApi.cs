@@ -68,7 +68,7 @@ namespace Tgm.Roborally.Server.Controllers
                        }
                    })
                    .compute(code: e => {
-                       if (e.Event.GetType() == typeof(T)) {
+                       if (e.Event.GetType() != typeof(T)) {
                            Type actualType = e.Event.GetType();
                            e.Response = new ObjectResult(new ErrorMessage {
                                Error = "Event type error",
