@@ -7,9 +7,9 @@ namespace Tgm.Roborally.Server.Engine
 {
 	public class EventManager
 	{
-		private readonly GameLogic                    game;
+		private readonly GameLogic           game;
 		private object                       locker = new object();
-		public           Dictionary<int,Queue<Event>> queues = new Dictionary<int, Queue<Event>>();
+		public  Dictionary<int,Queue<Event>> queues = new Dictionary<int, Queue<Event>>();
 
 		public EventManager(GameLogic game)
 		{
