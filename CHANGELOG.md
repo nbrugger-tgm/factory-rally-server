@@ -1,3 +1,24 @@
+## v0.2.1b0 (2021-01-22)
+
+### Fix
+
+- pop -> peek
+- add missing name mapping
+- not returning game id after creation
+- add missing auth tag
+- authentication crash with invald game id
+- NullPrt on event
+- **autogen**: enable RobotPickEvent
+
+### Feat
+
+- implement robot picking/assignment
+
+### Refactor
+
+- change accessors
+- **autogen**: replace wrongly generated attributes by extending
+
 ## v0.2.1a1 (2021-01-22)
 
 ### Fix

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics.X86;
 using System.Threading;
 
@@ -46,6 +47,7 @@ namespace Tgm.Roborally.Server.Engine
 		/// <summary>
 		/// Wait for the next event
 		/// </summary>
+		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void Await() {
 			Monitor.Wait(locker);
 		}

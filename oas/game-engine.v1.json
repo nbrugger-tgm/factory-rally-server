@@ -74,7 +74,14 @@
         "operationId": "createGame",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameID"
+                }
+              }
+            }
           }
         },
         "description": "Creates a random game by your defined rules",
