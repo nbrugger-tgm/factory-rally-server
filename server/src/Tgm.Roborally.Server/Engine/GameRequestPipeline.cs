@@ -63,13 +63,14 @@ namespace Tgm.Roborally.Server.Engine {
 		public IActionResult executeAction() {
 			return execute(new OkResult());
 		}
-
+		/// <summary>
+		/// Ensures a result body or returns a Error Result if no body was available
+		/// </summary>
+		/// <returns></returns>
 		public IActionResult executeSecure() {
 			ObjectResult result =
 				new ObjectResult("The request was not processed properly and didn't produced a result");
 			result.StatusCode = 500;
-			return result;
-
 			return execute(result);
 		}
 

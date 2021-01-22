@@ -97,13 +97,20 @@ namespace Tgm.Roborally.Server.Engine
 				throw new GameNotJoinableException("The game cannot be joined at the moment");
 			}
 
-			if (Rules.Password != null && !password.Equals(this.Password))
+			if (Rules.Password != null && !password.Equals(Password))
 			{
 				throw new AuthenticationException("The provided password was wrong");
 			}
 
 			Player p = new Player {Id = NewPlayerID(),DisplayName = name};
 			Players.Add(p);
+
+			GenericEvent e = new GenericEvent(EventType.Join);
+			e.Data = new JoinEvent() {
+				JoinedId = p.Id,
+				Unjoin = false
+			};
+			NotifyThread(e);
 			return p;
 		}
 
