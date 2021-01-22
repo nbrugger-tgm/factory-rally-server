@@ -24,11 +24,14 @@ namespace Tgm.Roborally.Server.Engine
 		{
 			foreach (int player in game.PlayerIds)
 			{
-				if(queues[player] == null)
+				if(!queues.ContainsKey(player))
 					queues[player] = new Queue<Event>();
 				queues[player].Enqueue(e);
 			}
-			Monitor.PulseAll(locker);
+
+			lock (locker) {
+				Monitor.PulseAll(locker);
+			}
 		}
 
 		/// <summary>
