@@ -28,8 +28,9 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		public void Notify(GenericEvent action) {
-			if (!currentPhase.Notify(action))
-				throw new BadEventException(action.GetEventType().ToString());
+			if(action.GetEventType() != EventType.GamePhaseChanged)
+				if (!currentPhase.Notify(action))
+					throw new BadEventException(action.GetEventType().ToString());
 		}
 	}
 }
