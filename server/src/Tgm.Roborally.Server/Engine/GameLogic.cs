@@ -26,20 +26,15 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public GameState LastState { get; private set; }
 
-		public string Password => Rules.Password;
-
-		public List<Player> Players { get; } = new List<Player>();
-
-		public Map Map { get; private set; }
-
-		public EventManager    EventManager { get; }
-		public HardwareManager Hardware     { get; }
-		public EntityManager   Entitys      { get; }
-
+		public string            Password      => Rules.Password;
+		public List<Player>      Players       { get; } = new List<Player>();
+		public Map               Map           { get; private set; }
+		public EventManager      EventManager  { get; }
+		public HardwareManager   Hardware      { get; }
+		public EntityManager     Entitys       { get; }
 		public GameActionHandler ActionHandler { get; }
-
-		public Game     Game { get; }
-		public GameInfo Info { get; }
+		public Game              Game          { get; }
+		public GameInfo          Info          { get; }
 
 		public GameState State {
 			get => _state;
@@ -130,8 +125,7 @@ namespace Tgm.Roborally.Server.Engine {
 			}
 
 			Map = new Map(20, 20);
-			ActionHandler.Add(ActionType.STARTGAME);
-			ActionHandler.ExecuteNext();
+			CommitEvent(new ActionEvent(EventType.GameStart));
 		}
 
 		public void NotifyThread(ActionType type) => thread.Notify(type);
