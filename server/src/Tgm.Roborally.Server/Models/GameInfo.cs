@@ -62,7 +62,7 @@ namespace Tgm.Roborally.Server.Models
         /// <value>Is a hardware boead connected</value>
         [Required]
         [DataMember(Name="hardware-attached", EmitDefaultValue=true)]
-        public bool HardwareAttached => _ref.Hardware.HardwareConnected;
+        public bool HardwareAttached => false;
 
         /// <summary>
         /// This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication

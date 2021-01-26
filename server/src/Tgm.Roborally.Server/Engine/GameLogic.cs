@@ -64,7 +64,7 @@ namespace Tgm.Roborally.Server.Engine
 		}
 
 
-		private GameRules Rules { get; }
+		public GameRules Rules { get; }
 		
 		public bool PlayerNamesVisible => Rules.PlayerNamesVisible;
 		public string Name => Rules.Name;
