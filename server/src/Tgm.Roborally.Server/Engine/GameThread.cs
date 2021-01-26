@@ -28,9 +28,14 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		public void Notify(GenericEvent action) {
-			if(action.GetEventType() != EventType.GamePhaseChanged && action.GetEventType() != EventType.GameStart && action.GetEventType() != EventType.Pause && action.GetEventType() != EventType.Unpause)
+			if (action.GetEventType() != EventType.GamePhaseChanged && action.GetEventType() != EventType.GameStart &&
+				action.GetEventType() != EventType.Pause            && action.GetEventType() != EventType.Unpause) {
 				if (!currentPhase.Notify(action))
-					throw new BadEventException(action.GetEventType().ToString(),currentPhase.GetType().FullName);
+					throw new BadEventException(action.GetEventType().ToString(), currentPhase.GetType().FullName);
+			}
+			else {
+				currentPhase.Notify(action);
+			}
 		}
 	}
 }
