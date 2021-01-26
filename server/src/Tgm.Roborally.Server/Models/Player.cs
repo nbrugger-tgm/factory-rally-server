@@ -58,8 +58,8 @@ namespace Tgm.Roborally.Server.Models
         /// </summary>
         /// <value>The list of entities controlled by this player</value>
         [Required]
-        [DataMember(Name="controlled_entities", EmitDefaultValue=false)]
-        public List<int> ControlledEntities { get; set; }
+        [DataMember(Name = "controlled_entities", EmitDefaultValue = false)]
+        public List<int> ControlledEntities { get; set; } = new List<int>();
 
         /// <summary>
         /// Îf this is true rhe player is able to interact at the moment
