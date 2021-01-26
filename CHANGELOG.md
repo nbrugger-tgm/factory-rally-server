@@ -1,3 +1,16 @@
+## v0.2.1 (2021-01-26)
+
+### Fix
+
+- **cz**: broken version
+- notification of general events
+- action phase enum conversion
+
+### Feat
+
+- exceptionless general phase notification
+- add info to BadEventException
+
 ## v0.2.1b2 (2021-01-26)
 
 ### Fix
