@@ -17,6 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
+using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models
 { 
@@ -24,7 +25,7 @@ namespace Tgm.Roborally.Server.Models
     /// The action to make an entity use an upgade card (including the actions which require additional information)
     /// </summary>
     [DataContract]
-    public partial class EntityUseUpgradeAction : IEquatable<EntityUseUpgradeAction>
+    public partial class EntityUseUpgradeAction : IEquatable<EntityUseUpgradeAction>, Event
     {
         /// <summary>
         /// Gets or Sets Phase
@@ -60,6 +61,8 @@ namespace Tgm.Roborally.Server.Models
             sb.Append("}\n");
             return sb.ToString();
         }
+
+        public EventType GetEventType() => EventType.UpgradePurchase;
 
         /// <summary>
         /// Returns the JSON string presentation of the object
