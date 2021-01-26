@@ -28,7 +28,7 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		public void Notify(GenericEvent action) {
-			if (action.GetEventType() != EventType.GamePhaseChanged)
+			if (action.GetEventType() == EventType.GamePhaseChanged)
 				return;
 			if ( 
 				action.GetEventType() != EventType.GameStart &&
