@@ -44,22 +44,8 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("GetGameMap")]
         [SwaggerResponse(statusCode: 200, type: typeof(Map), description: "OK")]
-        public virtual IActionResult GetGameMap([FromRoute][Required]string gameId)
-        {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Map));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404);
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500);
-            string exampleJson = null;
-            exampleJson = "{\n  \"rows\" : [ [ {\n    \"level\" : 1,\n    \"empty\" : true\n  }, {\n    \"level\" : 1,\n    \"empty\" : true\n  } ], [ {\n    \"level\" : 1,\n    \"empty\" : true\n  }, {\n    \"level\" : 1,\n    \"empty\" : true\n  } ] ],\n  \"info\" : {\n    \"width\" : 43,\n    \"name\" : \"Niton 1\",\n    \"prioBeacon\" : {\n      \"x\" : 1,\n      \"y\" : 5\n    },\n    \"height\" : 302\n  }\n}";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Map>(exampleJson)
-            : default(Map);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+        public virtual IActionResult GetGameMap([FromRoute][Required] int gameId) {
+            return new GameRequestPipeline().game(gameId).compute(c => c.Response = new ObjectResult(c.Game.Map)).executeAction();
         }
 
         /// <summary>
