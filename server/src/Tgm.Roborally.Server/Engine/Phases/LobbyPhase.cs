@@ -19,8 +19,8 @@ namespace Tgm.Roborally.Server.Engine.Phases
 			started = action == ActionType.STARTGAME;
 		}
 
-		public override void Notify(GenericEvent action) {
-			
+		public override bool Notify(GenericEvent action) {
+			return action.Data is JoinEvent;
 		}
 	}
 }

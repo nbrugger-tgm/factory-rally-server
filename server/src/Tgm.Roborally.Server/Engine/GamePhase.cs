@@ -28,6 +28,6 @@ namespace Tgm.Roborally.Server.Engine
 		protected abstract GamePhase Run(GameLogic game);
 		public abstract GameState NewState { get; }
 		public abstract void      Notify(ActionType   action);
-		public abstract void      Notify(GenericEvent action);
+		public abstract bool      Notify(GenericEvent action);
 	}
 }

@@ -1,4 +1,5 @@
 using System.Threading;
+using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Engine.Phases;
 using Tgm.Roborally.Server.Models;
 
@@ -22,8 +23,13 @@ namespace Tgm.Roborally.Server.Engine {
 			}
 		}
 
-		public void Notify(ActionType   action) => currentPhase.Notify(action);
+		public void Notify(ActionType action) {
+			currentPhase.Notify(action);
+		}
 
-		public void Notify(GenericEvent action) => currentPhase.Notify(action);
+		public void Notify(GenericEvent action) {
+			if (!currentPhase.Notify(action))
+				throw new BadEventException(action.GetEventType().ToString());
+		}
 	}
 }
