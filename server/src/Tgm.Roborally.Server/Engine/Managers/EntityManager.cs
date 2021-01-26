@@ -24,6 +24,7 @@ namespace Tgm.Roborally.Server.Engine
 
 		private static readonly Random Rng = new Random();
 
+
 		private int NextFreeId() {
 			int r;
 			
