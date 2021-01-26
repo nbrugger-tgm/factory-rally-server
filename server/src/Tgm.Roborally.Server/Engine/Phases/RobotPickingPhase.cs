@@ -23,11 +23,12 @@ namespace Tgm.Roborally.Server.Engine.Phases
 
 		public override GameState NewState => GameState.PLANNING;
 		public override void Notify(ActionType action) {
-			throw new NotImplementedException("This phase cant be paused");
+			throw new NotImplementedException("This phase cant be paused (received: "+action+")");
 		}
 
 		public override bool Notify(GenericEvent action) {
-			throw new NotImplementedException("The picking phase works automaticaly at the moment, no need for events");
+			return action.GetEventType() == EventType.LockIn;
+			throw new NotImplementedException("The picking phase works automaticaly at the moment, no need for events (recived event: "+action.GetEventType()+")");
 		}
 	}
 }
