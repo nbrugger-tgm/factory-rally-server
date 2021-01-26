@@ -21,6 +21,7 @@ namespace Tgm.Roborally.Server.Engine {
 			Info          = new GameInfo(this);
 			Game          = new Game(this);
 			thread        = new GameThread(this);
+			Entitys       = new EntityManager();
 			thread.Start();
 		}
 
