@@ -1,3 +1,19 @@
+## v0.3.0 (2021-01-26)
+
+### Feat
+
+- started games now "run" endlessly without exception
+
+### Fix
+
+- lock in (pick robot) exception
+- **autogen**: empty(null) controlled entities list
+- change != to ==
+
+### Refactor
+
+- stop forwarding GamePhaseChanged to phases
+
 ## v0.2.2 (2021-01-26)
 
 ### Fix
