@@ -24,8 +24,8 @@ namespace Tgm.Roborally.Server.Models
         /// Defines what an action will do
         /// </summary>
         /// <value>Defines what an action will do</value>
-        [TypeConverter(typeof(CustomEnumConverter<ActionType>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        //[TypeConverter(typeof(CustomEnumConverter<ActionType>))]
+        //[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public enum ActionType
         {
             
@@ -45,6 +45,6 @@ namespace Tgm.Roborally.Server.Models
             /// Enum STARTGAME for START_GAME
             /// </summary>
             [EnumMember(Value = "START_GAME")]
-            STARTGAME = 3
+            START_GAME = 3
         }
 }

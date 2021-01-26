@@ -16,7 +16,7 @@ namespace Tgm.Roborally.Server.Engine.Phases
 		public override GameState NewState => GameState.LOBBY;
 		public override void Notify(ActionType action)
 		{
-			started = action == ActionType.STARTGAME;
+			started = action == ActionType.START_GAME;
 		}
 
 		public override bool Notify(GenericEvent action) {
