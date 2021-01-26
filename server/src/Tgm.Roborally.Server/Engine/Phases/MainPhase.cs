@@ -1,12 +1,16 @@
+using System.Threading;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases
 {
 	public class MainPhase : GamePhase 
 	{
-		protected override GamePhase Run(GameLogic game)
-		{
-			throw new System.NotImplementedException();
+		protected override GamePhase Run(GameLogic game) {
+			while (true) {
+				Thread.Yield();//implement
+				Thread.Sleep(10);
+			}
+			//throw new System.NotImplementedException();
 		}
 
 		public override GameState NewState { get; }
