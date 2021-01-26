@@ -1,3 +1,26 @@
+## v0.2.1b2 (2021-01-26)
+
+### Fix
+
+- NullPrt on empty password (on join)
+
+## v0.1.2b1 (2021-01-26)
+
+### Fix
+
+- `GamePhaseChange` causing crash
+
+### Feat
+
+- disable `hardware-attached`
+- enable bad event and action notifications
+- implement `/v1/games/{game_id}/map`
+
+### Refactor
+
+- **autogen**: make EntityUseUpgradeAction an event
+- adapt version in OAS
+
 ## v0.2.1b0 (2021-01-22)
 
 ### Fix
