@@ -94,7 +94,7 @@ namespace Tgm.Roborally.Server.Controllers
         /// <response code="404">No unfetched event</response>
         [HttpGet]
         [Route("/v1/games/{game_id}/events/head")]
-        [GameAuth(Role.PLAYER)]
+        [GameAuth(Role.PLAYER,allowConsumer:true)]
         [ValidateModelState]
         [SwaggerOperation("FetchNextEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(GenericEvent), description: "OK")]
@@ -246,7 +246,7 @@ namespace Tgm.Roborally.Server.Controllers
         [Route("/v1/games/{game_id}/events/type")]
         [ValidateModelState]
         [SwaggerOperation("TraceEvent")]
-        [GameAuth(Role.PLAYER)]
+        [GameAuth(Role.PLAYER,allowConsumer:true)]
         [SwaggerResponse(statusCode: 200, type: typeof(InlineResponse200), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
         public virtual IActionResult TraceEvent([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromQuery]bool batch, [FromQuery]bool wait) {

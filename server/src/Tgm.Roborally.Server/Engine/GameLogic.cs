@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
@@ -9,8 +10,8 @@ namespace Tgm.Roborally.Server.Engine {
 	public class GameLogic {
 		private readonly GameThread                            thread;
 		private          GameState                             _state = GameState.LOBBY;
-		private          Dictionary<string, int>               consumerKeys;
-		private          Dictionary<int, ConsumerRegistration> consumers;
+		private          Dictionary<string, int>               _consumerKeys;
+		private          Dictionary<int, ConsumerRegistration> _consumers;
 		public           int                                   Id;
 		public           int                                   playerOnTurn;
 
@@ -55,7 +56,9 @@ namespace Tgm.Roborally.Server.Engine {
 		public int       MaxPlayers         => Rules.MaxPlayers;
 		public List<int> PlayerIds          => Players.Select(selector: e => e.Id).ToList();
 
-		public bool Joinable => State == GameState.LOBBY && Players.Count < MaxPlayers;
+		public bool        Joinable  => State == GameState.LOBBY && Players.Count < MaxPlayers;
+
+		public Dictionary<int, ConsumerRegistration> Consumers => _consumers;
 
 		public void CommitEvent(GenericEvent e) {
 			EventManager.Notify(e);
@@ -98,13 +101,8 @@ namespace Tgm.Roborally.Server.Engine {
 				JoinedId = p.Id,
 				Unjoin   = false
 			};
-			NotifyThread(e);
+			CommitEvent(e);
 			return p;
-		}
-
-		private void NotifyThread(GenericEvent e) {
-			EventManager.Notify(e);
-			thread.Notify(e);
 		}
 
 		public void RemovePlayer(int playerId) {
@@ -139,18 +137,25 @@ namespace Tgm.Roborally.Server.Engine {
 			int id;
 			do {
 				id = new Random().Next(100, 9999);
-			} while (consumers.ContainsKey(id));
+			} while (_consumers.ContainsKey(id));
 
-			if (consumers.Count >= 200)
+			if (_consumers.Count >= 200)
 				return null;
 
-			consumers[id] = consumerRegistration;
-			Player pseudo = new Player() {
+			_consumers[id] = consumerRegistration;
+			Player pseudo = new Player {
 				Id = id
 			};
-			consumerKeys[pseudo.auth] = id;
+			_consumerKeys[pseudo.auth] = id;
 			return new JoinResponse(pseudo);
 		}
+
+		public (bool, int) IsConsumer(string authKey) {
+			bool a;
+			return (a = _consumerKeys.ContainsKey(authKey), a ? _consumerKeys[authKey] : -1);
+		}
+
+		public ConsumerRegistration GetConsumer(int resItem2) => _consumers[resItem2];
 
 		public class GameNotJoinableException : Exception {
 			public GameNotJoinableException(string theGameCannotBeJoinedAtTheMoment) : base(

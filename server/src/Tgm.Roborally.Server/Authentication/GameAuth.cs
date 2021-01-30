@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -33,6 +34,8 @@ namespace Tgm.Roborally.Server.Authentication {
 		 */
 		private readonly string _playerIdPathName;
 
+		private readonly bool _allowConsumer;
+
 		/**
 		 * When true the player must match `player_id`(customizeable) from path
 		 */
@@ -42,12 +45,14 @@ namespace Tgm.Roborally.Server.Authentication {
 		/// <param name="gameIdPathName">this is the name of the gameID field in the path</param>
 		/// <param name="playerSelf">When true the player must match `player_id`(customizeable) from path</param>
 		/// <param name="playerIdPathName">Defines the name of the Authentication ID in the querry (default `player_id`)</param>
+		/// <param name="allowConsumer">True if this action can be executed by consumers</param>
 		public GameAuth(Role   neededRole, string gameIdPathName = "game_id", bool playerSelf = false,
-						string playerIdPathName = "player_id") {
-			_needed_role      = neededRole;
-			_gameIdPathName   = gameIdPathName;
-			_playerSelf       = playerSelf;
-			_playerIdPathName = playerIdPathName;
+						string playerIdPathName = "player_id",bool allowConsumer = false) {
+			_needed_role        = neededRole;
+			_gameIdPathName     = gameIdPathName;
+			_playerSelf         = playerSelf;
+			_playerIdPathName   = playerIdPathName;
+			_allowConsumer = allowConsumer;
 		}
 
 		/// <param name="ownershipEnsurance">A method to determine if the accessed object is owned by the player</param>
@@ -77,15 +82,17 @@ namespace Tgm.Roborally.Server.Authentication {
 			PLAYER_CALLS_HIMSELF = "PLAYER_SELF_CALL",
 			IS_PLAYER            = "IS_PLAYER",
 			IS_ADMIN             = "IS_ADMIN",
-			PLAYER               = "PLAYER";
+			PLAYER               = "PLAYER",
+			IS_CONSUMER = "IS_CONSUMER";
 
 		public void OnAuthorization(AuthorizationFilterContext context) {
-			bool        isAdmin  = false;
-			bool        isPlayer = false;
-			bool        isSelf   = false;
-			bool        owns     = false;
-			Player      player   = null;
-			HttpRequest request  = context.HttpContext.Request;
+			bool        isAdmin    = false;
+			bool        isPlayer   = false;
+			bool        isSelf     = false;
+			bool        owns       = false;
+			bool        isConsumer = false;
+			Player      player     = null;
+			HttpRequest request    = context.HttpContext.Request;
 			if (_needed_role == Role.ADMIN || _needed_role == Role.ANYONE) {
 				isAdmin = request.Query["skey"].Equals(AdminKey);
 			}
@@ -98,7 +105,18 @@ namespace Tgm.Roborally.Server.Authentication {
 				if (game != null) {
 					player   = game.AuthPlayer(authKey);
 					isPlayer = player != null;
-					if (player != null) {
+					(bool, int) res = game.IsConsumer(authKey);
+					if (!isPlayer && res.Item1) {
+						isPlayer   = true;
+						isConsumer = true;
+						player = new Player() {
+							Id = res.Item2,
+							DisplayName = game.GetConsumer(res.Item2).Name,
+							Active = false,
+							OnTurn = false
+						};
+					}
+					else if (player != null) {
 						if (_playerSelf) {
 							isSelf =
 								Convert.ToInt32(request.RouteValues[_playerIdPathName].ToString()) ==
@@ -118,6 +136,7 @@ namespace Tgm.Roborally.Server.Authentication {
 			context.HttpContext.Items[PLAYER_OWNS_RESOURCE] = owns;
 			context.HttpContext.Items[PLAYER_CALLS_HIMSELF] = isSelf;
 			context.HttpContext.Items[PLAYER]               = player;
+			context.HttpContext.Items[IS_CONSUMER]          = isConsumer;
 			if (_needed_role == Role.ANYONE) {
 				if (!(isPlayer || isAdmin)) {
 					context.Result = new UnauthorizedObjectResult(new ErrorMessage() {
@@ -159,6 +178,12 @@ namespace Tgm.Roborally.Server.Authentication {
 				}
 			}
 
+			if (!_allowConsumer && isConsumer) {
+				context.Result = new UnauthorizedObjectResult(new ErrorMessage() {
+					Error   = "Authentication failed",
+					Message = "This action can only be used by real players. Consumers do not work here"
+				});
+			}
 			#endregion
 		}
 
