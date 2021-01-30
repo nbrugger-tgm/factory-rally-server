@@ -67,7 +67,7 @@ namespace Tgm.Roborally.Server.Engine {
 		public int NewPlayerID() {
 			int id;
 			do {
-				id = new Random().Next(MaxPlayers);
+				id = new Random().Next(1, MaxPlayers + 1);
 			} while (GetPlayer(id) != null);
 
 			return id;
