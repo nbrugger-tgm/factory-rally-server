@@ -1872,7 +1872,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/GameID"
           },
           "name": "game_id",
           "in": "path",
@@ -1906,6 +1906,49 @@
             "player-auth": []
           }
         ]
+      }
+    },
+    "/games/{game_id}/consumers": {
+      "parameters": [
+        {
+          "schema": {
+            "$ref": "#/components/schemas/GameID"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Register Consumers",
+        "operationId": "registerConsumer",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "410": {
+            "description": "Consumer count limit reached"
+          }
+        },
+        "description": "Add a consumer to create a *virtual* (*spectating*) player to consume events",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsumerRegistration"
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "name": "Gameboard",
+                    "description": "Gameboard, to mirror the game in the real world with real robots. Just consumes /game/game_id/events/head"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Information about the joining consumer"
+        }
       }
     }
   },
@@ -3094,6 +3137,27 @@
         "required": [
           "robot",
           "ammount"
+        ]
+      },
+      "ConsumerRegistration": {
+        "title": "ConsumerRegistration",
+        "type": "object",
+        "description": "Data to describe a consumer",
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/Name"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description what the consumer is used for (and or is)",
+            "example": "Gameboard, to mirror the game in the real world with real robots. Just consumes /game/game_id/events/head",
+            "maxLength": 10000,
+            "minLength": 5
+          }
+        },
+        "required": [
+          "name",
+          "description"
         ]
       }
     }
