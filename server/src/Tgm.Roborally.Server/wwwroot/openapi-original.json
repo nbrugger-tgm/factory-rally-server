@@ -1924,7 +1924,14 @@
         "operationId": "registerConsumer",
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JoinResponse"
+                }
+              }
+            }
           },
           "410": {
             "description": "Consumer count limit reached"
@@ -1948,7 +1955,10 @@
             }
           },
           "description": "Information about the joining consumer"
-        }
+        },
+        "tags": [
+          "Consumer"
+        ]
       }
     }
   },
@@ -3186,6 +3196,9 @@
     {
       "description": "Recive and react to events",
       "name": "EventHandling"
+    },
+    {
+      "name": "Consumer"
     }
   ]
 }
