@@ -9,9 +9,9 @@ using Tgm.Roborally.Server.Models;
 namespace Tgm.Roborally.Server.Engine {
 	public class GameLogic {
 		private readonly GameThread                            thread;
-		private          GameState                             _state = GameState.LOBBY;
-		private          Dictionary<string, int>               _consumerKeys;
-		private          Dictionary<int, ConsumerRegistration> _consumers;
+		private          GameState                             _state        = GameState.LOBBY;
+		private          Dictionary<string, int>               _consumerKeys = new Dictionary<string, int>();
+		private          Dictionary<int, ConsumerRegistration> _consumers    = new Dictionary<int, ConsumerRegistration>();
 		public           int                                   Id;
 		public           int                                   playerOnTurn;
 
