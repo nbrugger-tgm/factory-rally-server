@@ -7,10 +7,12 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine {
 	public class GameLogic {
-		private readonly GameThread thread;
-		private          GameState  _state = GameState.LOBBY;
-		public           int        Id;
-		public           int        playerOnTurn;
+		private readonly GameThread                            thread;
+		private          GameState                             _state = GameState.LOBBY;
+		private          Dictionary<string, int>               consumerKeys;
+		private          Dictionary<int, ConsumerRegistration> consumers;
+		public           int                                   Id;
+		public           int                                   playerOnTurn;
 
 
 		public GameLogic(GameRules r) {
@@ -132,6 +134,23 @@ namespace Tgm.Roborally.Server.Engine {
 		public void NotifyThread(ActionType type) => thread.Notify(type);
 
 		public Player AuthPlayer(string authKey) => Players.Find(match: p => p.auth.Equals(authKey));
+
+		public JoinResponse RegisterConsumer(ConsumerRegistration consumerRegistration) {
+			int id;
+			do {
+				id = new Random().Next(100, 9999);
+			} while (consumers.ContainsKey(id));
+
+			if (consumers.Count >= 200)
+				return null;
+
+			consumers[id] = consumerRegistration;
+			Player pseudo = new Player() {
+				Id = id
+			};
+			consumerKeys[pseudo.auth] = id;
+			return new JoinResponse(pseudo);
+		}
 
 		public class GameNotJoinableException : Exception {
 			public GameNotJoinableException(string theGameCannotBeJoinedAtTheMoment) : base(
