@@ -91,7 +91,7 @@ namespace Tgm.Roborally.Server.Authentication {
 			}
 
 			if (_needed_role == Role.PLAYER || _needed_role == Role.ANYONE) {
-				string authKey = request.Query["pat"];
+				string authKey = request.Query["pat"].ToString();
 				GameLogic game =
 					GameManager.instance.GetGame(
 						Convert.ToInt32(request.RouteValues[_gameIdPathName].ToString()));
