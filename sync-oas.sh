@@ -1,0 +1,1 @@
+cp oas/game-engine.v1.json server/src/Tgm.Roborally.Server/wwwroot/openapi-original.json
