@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics.X86;
 using System.Threading;
+using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine
 {
@@ -30,6 +31,14 @@ namespace Tgm.Roborally.Server.Engine
 				queues[player].Enqueue(e);
 			}
 
+			if ( /*TODO: check for event consumer compatability*/true) {
+				foreach ((int key, _) in game.Consumers) {
+					if(!queues.ContainsKey(key))
+						queues[key] = new Queue<Event>();
+					queues[key].Enqueue(e);
+				}
+			}
+			
 			lock (locker) {
 				Monitor.PulseAll(locker);
 			}
