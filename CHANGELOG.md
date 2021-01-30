@@ -1,3 +1,18 @@
+## v0.4.0 (2021-01-30)
+
+### Feat
+
+- consumer events
+- consumer pat authorisation
+- consumer handling
+- add consumer registration to OAS
+
+### Fix
+
+- player id not zero
+- add response to `register consumer`
+- insecure type conversion at authentication
+
 ## v0.3.0 (2021-01-26)
 
 ### Feat
