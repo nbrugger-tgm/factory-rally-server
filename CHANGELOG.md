@@ -1,3 +1,9 @@
+## v0.4.1 (2021-01-30)
+
+### Fix
+
+- nullpointer for any event
+
 ## v0.4.0 (2021-01-30)
 
 ### Feat
