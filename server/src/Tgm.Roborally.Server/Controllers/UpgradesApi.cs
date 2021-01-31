@@ -17,7 +17,9 @@ using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using Tgm.Roborally.Server.Attributes;
 using Microsoft.AspNetCore.Authorization;
+using Tgm.Roborally.Server.Authentication;
 using Tgm.Roborally.Server.Engine;
+using Tgm.Roborally.Server.Engine.Managers;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Controllers
@@ -40,17 +42,14 @@ namespace Tgm.Roborally.Server.Controllers
         [HttpPatch]
         [Route("/v1/games/{game_id}/upgrades/shop")]
         [ValidateModelState]
+        [GameAuth(Role.PLAYER)]
         [SwaggerOperation("BuyUpgrade")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult BuyUpgrade([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromQuery][Required()][Range(0, 10000)]int upgrade, [FromQuery][Range(0, 10000)]int exchange)
-        { 
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-
-            throw new NotImplementedException();
+        public virtual IActionResult BuyUpgrade([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromQuery][Required()][Range(0, 10000)]int upgrade, [FromQuery][Range(0, 10000)]int exchange) {
+            return new GameRequestPipeline()
+                   .game(gameId)
+                   .compute(c => c.Game.BuyUpgrade(((Player) HttpContext.Items[GameAuth.PLAYER]).Id, upgrade))
+                   .executeAction();
         }
 
         /// <summary>
@@ -88,21 +87,20 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetUpgradeInformation")]
         [SwaggerResponse(statusCode: 200, type: typeof(Upgrade), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetUpgradeInformation([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "upgrade_id")][Required][Range(0, 10000)]int upgradeId)
-        { 
+        public virtual IActionResult GetUpgradeInformation([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "upgrade_id")][Required][Range(0, 10000)]int upgradeId) {
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Upgrade));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"cost\" : 0,\r\n  \"permanent\" : true,\r\n  \"values\" : [ {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  } ],\r\n  \"name\" : \"Penetration Lazer Mk.2\",\r\n  \"description\" : \"null\",\r\n  \"id\" : 5962,\r\n  \"rounds\" : 6\r\n}";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Upgrade>(exampleJson)
-            : default(Upgrade);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return new GameRequestPipeline()
+                   .game(gameId)
+                   .compute(c => {
+                       Upgrade u = c.Game.Upgrades.Get(upgradeId);
+                       if (u == null) {
+                           c.Response = StatusCode(404);
+                       }
+                       else {
+                           c.Response = new ObjectResult(u);
+                       }
+                   })
+                   .executeSecure();
         }
 
         /// <summary>
@@ -118,21 +116,13 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetUpgradeShop")]
         [SwaggerResponse(statusCode: 200, type: typeof(UpgradeShop), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetUpgradeShop([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
-        { 
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(UpgradeShop));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"information\" : {\r\n    \"open\" : true\r\n  },\r\n  \"upgrades\" : [ null, null, null, null, null ]\r\n}";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<UpgradeShop>(exampleJson)
-            : default(UpgradeShop);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+        public virtual IActionResult GetUpgradeShop([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId) {
+            return new GameRequestPipeline()
+                   .game(gameId)
+                   .compute(c => {
+                       c.Response = new ObjectResult(c.Game.Upgrades.Shop);
+                   })
+                   .executeSecure();
         }
     }
 }

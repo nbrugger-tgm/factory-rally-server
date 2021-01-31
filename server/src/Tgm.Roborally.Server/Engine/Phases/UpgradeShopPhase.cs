@@ -7,6 +7,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		private GameLogic game;
 		protected override GamePhase Run(GameLogic game) {
 			this.game = game;
+			game.Upgrades.drawShop();
 			return null;//todo
 		}
 

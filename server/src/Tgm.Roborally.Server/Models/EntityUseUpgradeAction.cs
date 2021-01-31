@@ -62,7 +62,7 @@ namespace Tgm.Roborally.Server.Models
             return sb.ToString();
         }
 
-        public EventType GetEventType() => EventType.UpgradePurchase;
+        public EventType GetEventType() => EventType.ActivateUpgrade;
 
         /// <summary>
         /// Returns the JSON string presentation of the object

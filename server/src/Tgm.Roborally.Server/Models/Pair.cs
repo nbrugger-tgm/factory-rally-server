@@ -26,6 +26,11 @@ namespace Tgm.Roborally.Server.Models
     [DataContract]
     public partial class Pair : IEquatable<Pair>
     {
+        public Pair(string fields, int i) {
+            Name  = fields;
+            Value = i;
+        }
+
         /// <summary>
         /// The name the value is bound to
         /// </summary>

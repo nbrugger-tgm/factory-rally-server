@@ -171,5 +171,17 @@ namespace Tgm.Roborally.Server.Engine {
 			public PlayerNotRemoveableException(string? message) : base(message) {
 			}
 		}
+
+		public void BuyUpgrade(int playerId, int upgrade) {
+			//Todo: proper implementation
+			Upgrades.Buy(upgrade);
+			CommitEvent(new GenericEvent(EventType.UpgradePurchase) {
+				Data = new Dictionary<string,object>(){
+					{"player", playerId},
+					{"upgrade", upgrade},
+					{"importantMessage", "THIS IS NOT THE EVENT THAT WILL OCCUR IN PRODUCTION!!"}
+				}
+			});
+		}
 	}
 }
