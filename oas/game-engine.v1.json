@@ -2189,7 +2189,7 @@
         "example": "Niton 1",
         "minLength": 3,
         "maxLength": 13,
-        "pattern": "[A-Za-z]+[A-Za-z0-9 _- ]+[A-Za-z0-9]{1}"
+        "pattern": "[A-Za-z]+[A-Za-z0-9 _ -]+[A-Za-z0-9]{1}"
       },
       "GameInfo": {
         "title": "Game Info",
