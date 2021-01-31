@@ -42,7 +42,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("RegisterConsumer")]
         [SwaggerResponse(statusCode: 201, type: typeof(JoinResponse), description: "Created")]
-        public virtual IActionResult RegisterConsumer([FromRoute][Required][Range(0, 2048)]int gameId, [FromBody]ConsumerRegistration consumerRegistration) {
+        public virtual IActionResult RegisterConsumer([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromBody]ConsumerRegistration consumerRegistration) {
 			return new GameRequestPipeline()
 				   .game(gameId)
 				   .compute(c => {
