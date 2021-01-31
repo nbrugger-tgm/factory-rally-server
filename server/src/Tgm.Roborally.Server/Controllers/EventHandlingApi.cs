@@ -98,7 +98,7 @@ namespace Tgm.Roborally.Server.Controllers
         [ValidateModelState]
         [SwaggerOperation("FetchNextEvent")]
         [SwaggerResponse(statusCode: 200, type: typeof(GenericEvent), description: "OK")]
-        public virtual IActionResult FetchNextEvent([FromRoute] [Required] int gameId) {
+        public virtual IActionResult FetchNextEvent([FromRoute(Name = "game_id")] [Required] int gameId) {
             return new GameRequestPipeline()
                    .game(gameId)
                    .player(((Player) HttpContext.Items[GameAuth.PLAYER]).Id)
