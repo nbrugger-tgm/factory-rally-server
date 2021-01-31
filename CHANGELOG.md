@@ -1,3 +1,14 @@
+## v0.5.0 (2021-01-31)
+
+### Feat
+
+- implement upgrades
+- adding Upgrade manager
+
+### Fix
+
+- **autogen**: bad parameter mapping
+
 ## v0.4.3 (2021-01-31)
 
 ### Fix
