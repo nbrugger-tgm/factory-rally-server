@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using Tgm.Roborally.Server.Attributes;
 using Microsoft.AspNetCore.Authorization;
+using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Controllers
@@ -65,21 +66,12 @@ namespace Tgm.Roborally.Server.Controllers
         [SwaggerOperation("GetAllUpgradeIDs")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetAllUpgradeIDs([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
-        { 
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(List<int>));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-            string exampleJson = null;
-            exampleJson = "null";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<List<int>>(exampleJson)
-            : default(List<int>);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+        public virtual IActionResult GetAllUpgradeIDs([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId) {
+            return new GameRequestPipeline()
+                   .game(gameId)
+                   .compute(c => {
+                       c.Response = new ObjectResult(c.Game.Upgrades.Ids);
+                   }).executeSecure();
         }
 
         /// <summary>

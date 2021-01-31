@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
 using Tgm.Roborally.Server.Engine.Exceptions;
+using Tgm.Roborally.Server.Engine.Managers;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine {
@@ -25,6 +26,7 @@ namespace Tgm.Roborally.Server.Engine {
 			Game          = new Game(this);
 			thread        = new GameThread(this);
 			Entitys       = new EntityManager();
+			Upgrades      = new UpgradeManager();
 			thread.Start();
 		}
 
@@ -39,6 +41,7 @@ namespace Tgm.Roborally.Server.Engine {
 		public GameActionHandler ActionHandler { get; }
 		public Game              Game          { get; }
 		public GameInfo          Info          { get; }
+		public UpgradeManager    Upgrades      { get; }
 
 		public GameState State {
 			get => _state;
