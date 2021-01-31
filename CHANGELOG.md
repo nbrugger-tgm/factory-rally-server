@@ -1,3 +1,9 @@
+## v0.4.2 (2021-01-31)
+
+### Fix
+
+- bad regex preventing consumer registration
+
 ## v0.4.1 (2021-01-30)
 
 ### Fix
