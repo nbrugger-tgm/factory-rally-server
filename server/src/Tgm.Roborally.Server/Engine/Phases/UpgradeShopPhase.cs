@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Models;
 
@@ -9,6 +10,10 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		protected override GamePhase Run(GameLogic game) {
 			this.game = game;
 			game.Upgrades.fillShop();
+			while (true) {
+				Thread.Yield(); //implement
+				Thread.Sleep(10);
+			}
 			return null; //todo
 		}
 

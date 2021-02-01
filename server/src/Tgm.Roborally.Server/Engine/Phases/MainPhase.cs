@@ -4,10 +4,7 @@ using Tgm.Roborally.Server.Models;
 namespace Tgm.Roborally.Server.Engine.Phases {
 	public class MainPhase : GamePhase {
 		protected override GamePhase Run(GameLogic game) {
-			while (true) {
-				Thread.Yield(); //implement
-				Thread.Sleep(10);
-			}
+			return new UpgradeShopPhase();
 
 			//throw new System.NotImplementedException();
 		}
