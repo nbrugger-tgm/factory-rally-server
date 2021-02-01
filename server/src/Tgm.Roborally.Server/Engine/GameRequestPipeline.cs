@@ -88,10 +88,16 @@ namespace Tgm.Roborally.Server.Engine {
 				return this;
 			_player = _game.GetPlayer(playerId);
 			if (_player == null)
-				response = new NotFoundObjectResult(new ErrorMessage() {
-					Error   = "Player not found",
-					Message = "The id of the player is not correct or missing"
-				});
+				if (_game.Consumers.ContainsKey(playerId))
+					_player = new Player() {
+						Id = playerId,
+						DisplayName = "Dummy Controller Player"
+					};
+				else
+					response = new NotFoundObjectResult(new ErrorMessage() {
+						Error   = "Player not found",
+						Message = "The id of the player is not correct or missing"
+					});
 			return this;
 		}
 
