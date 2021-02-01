@@ -111,7 +111,7 @@ namespace Tgm.Roborally.Server.Controllers
                            }) ;
                        }
                    })
-                   .compute(e => new OkObjectResult(new GenericEvent(e.Event.GetEventType()) {
+                   .compute(e => e.Response = new OkObjectResult(new GenericEvent(e.Event.GetEventType()) {
                        Data = e.Event
                    }))
                    .executeSecure();
