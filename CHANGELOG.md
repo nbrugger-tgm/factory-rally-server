@@ -1,3 +1,9 @@
+## v0.6.0 (2021-02-01)
+
+### Feat
+
+- add upgrade implementation
+
 ## v0.5.2 (2021-02-01)
 
 ### Fix
