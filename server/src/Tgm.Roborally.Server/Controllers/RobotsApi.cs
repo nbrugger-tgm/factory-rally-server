@@ -17,6 +17,8 @@ using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using Tgm.Roborally.Server.Attributes;
 using Microsoft.AspNetCore.Authorization;
+using Tgm.Roborally.Server.Authentication;
+using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Controllers {
@@ -60,17 +62,21 @@ namespace Tgm.Roborally.Server.Controllers {
 		[HttpDelete]
 		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
 		[ValidateModelState]
+		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[SwaggerOperation("ClearUpgrades")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult ClearUpgrades([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-												   int gameId, [FromRoute(Name = "robot_id")] [Required]
+												   int gameId, 
+												   [FromRoute(Name = "robot_id")] [Required]
 												   int robotId) {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200);
-			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(404, default(ErrorMessage));
-
-			throw new NotImplementedException();
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				   .Robot(robotId)
+				   .Compute(c => {
+					   c.Game.Upgrades.DiscardEntityUpgrades(c.Robot.Id);
+				   })
+				   .ExecuteAction();
 		}
 
 		/// <summary>
@@ -139,6 +145,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
+		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[ValidateModelState]
 		[SwaggerOperation("GetInstalledUpgrades")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
@@ -146,18 +153,14 @@ namespace Tgm.Roborally.Server.Controllers {
 		public virtual IActionResult GetInstalledUpgrades([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 														  int gameId, [FromRoute(Name = "robot_id")] [Required]
 														  int robotId) {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200, default(List<int>));
-			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(404, default(ErrorMessage));
-			string exampleJson = null;
-			exampleJson = "null";
-
-			var example = exampleJson != null
-							  ? JsonConvert.DeserializeObject<List<int>>(exampleJson)
-							  : default(List<int>);
-			//TODO: Change the data returned
-			return new ObjectResult(example);
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				   .Robot(robotId)
+				   .Compute(c => {
+					   c.Response = new ObjectResult(c.Game.Upgrades.GetEntityUpgrades(robotId));
+				   })
+				   .ExecuteAction();
 		}
 
 		/// <summary>
@@ -234,24 +237,21 @@ namespace Tgm.Roborally.Server.Controllers {
 		[HttpGet]
 		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/info")]
 		[ValidateModelState]
+		[GameAuth(Role.PLAYER)]
 		[SwaggerOperation("GetRobotStats")]
 		[SwaggerResponse(statusCode: 200, type: typeof(RobotInfo), description: "OK")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetRobotStats([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 												   int gameId, [FromRoute(Name = "robot_id")] [Required]
-												   string robotId) {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200, default(RobotInfo));
-			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(404, default(ErrorMessage));
-			string exampleJson = null;
-			exampleJson = "null";
-
-			var example = exampleJson != null
-							  ? JsonConvert.DeserializeObject<RobotInfo>(exampleJson)
-							  : default(RobotInfo);
-			//TODO: Change the data returned
-			return new ObjectResult(example);
+												   int robotId) {
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				   .Robot(robotId)
+				   .Compute(c => {
+					   c.Response = new OkObjectResult(c.Robot);
+				   })
+				   .ExecuteAction();
 		}
 
 		/// <summary>
@@ -300,12 +300,22 @@ namespace Tgm.Roborally.Server.Controllers {
 		public virtual IActionResult RemoveRobotUpgrade([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 														int gameId,  [FromRoute(Name = "robot_id")] [Required]
 														int robotId, [FromQuery] [Range(0, 10000)] int upgrade) {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200);
-			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(404, default(ErrorMessage));
-
-			throw new NotImplementedException();
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				   .Robot(robotId)
+				   .Compute(c => {
+					   if (!c.Game.Upgrades.IsUpgradeOnEntity(robotId,upgrade)) {
+						   c.Response = new ConflictObjectResult(new ErrorMessage() {
+							   Error   = "Upgrade not on entity",
+							   Message = "The upgrade is not on this robot at the moment"
+						   });
+					   }
+				   })
+				   .Compute(c => {
+					   c.Game.Upgrades.DiscardEntityUpgrade(c.Robot.Id,upgrade);
+				   })
+				   .ExecuteAction();
 		}
 
 		/// <summary>

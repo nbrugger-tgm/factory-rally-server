@@ -92,6 +92,24 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				throw new ActionException("The ID does not represents a Robot");
 			}
 		}
+
+		public void DiscardEntityUpgrades(int robotId) {
+			ISet<int> upgrades = _entityUpgrades[robotId];
+			foreach (int upgrade in upgrades) {
+				_pool[upgrade].location = UpgradeLocation.Discarded;
+			}
+			_game.CommitEvent(new GenericEvent(EventType.RegisterClear) {
+				Data = ("Actually not a Register clear event, just a placeholder","Discard upgrades","Robot : "+robotId)
+			});
+		}
+
+		public ISet<int> GetEntityUpgrades(int    robotId) => _entityUpgrades[robotId];
+
+		public void DiscardEntityUpgrade(int robotId, int upgrade) {
+			_pool[upgrade].location = UpgradeLocation.Discarded;
+		}
+
+		public bool IsUpgradeOnEntity(int robotId, int upgrade) => _entityUpgrades[robotId].Contains(upgrade);
 	}
 
 	internal enum UpgradeLocation {
