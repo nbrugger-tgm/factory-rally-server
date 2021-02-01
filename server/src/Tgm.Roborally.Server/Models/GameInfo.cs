@@ -71,6 +71,10 @@ namespace Tgm.Roborally.Server.Models {
 		[DataMember(Name = "player-on-turn", EmitDefaultValue = true)]
 		public int PlayerOnTurn => _ref.playerOnTurn;
 
+		[Required]
+		[DataMember(Name = "name", EmitDefaultValue = true)]
+		public string name => _ref.Name;
+		
 		/// <summary>
 		/// Returns the string presentation of the object
 		/// </summary>
