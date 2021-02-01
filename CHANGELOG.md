@@ -1,3 +1,9 @@
+## v0.5.1 (2021-02-01)
+
+### Fix
+
+- consumer not passing GRP
+
 ## v0.5.0 (2021-01-31)
 
 ### Feat
