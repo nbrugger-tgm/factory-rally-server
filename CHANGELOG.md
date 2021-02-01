@@ -1,3 +1,12 @@
+## v0.7.0 (2021-02-01)
+
+### Feat
+
+- implement upgrade endpoints
+- add upgrade phase
+- add name to game status response
+- add robot ownership check
+
 ## v0.6.0 (2021-02-01)
 
 ### Feat
