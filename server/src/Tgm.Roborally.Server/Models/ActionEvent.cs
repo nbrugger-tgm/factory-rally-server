@@ -19,95 +19,84 @@ using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-    /// <summary>
-    /// Describes an event from an action without additionaly information
-    /// </summary>
-    [DataContract]
-    public partial class ActionEvent : IEquatable<ActionEvent> , Event
-    {
-        [IgnoreDataMember]
-        private readonly EventType _type; 
-        
-        public ActionEvent(EventType type)
-        {
-            _type = type;
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// Describes an event from an action without additionaly information
+	/// </summary>
+	[DataContract]
+	public partial class ActionEvent : IEquatable<ActionEvent>, Event {
+		[IgnoreDataMember] private readonly EventType _type;
+
+		public ActionEvent(EventType type) {
+			_type = type;
+		}
 
 
-        
+		public EventType GetEventType() {
+			return _type;
+		}
 
-        public EventType GetEventType()
-        {
-            return _type;
-        }
+		/// <summary>
+		/// Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() {
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+		/// <summary>
+		/// Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((ActionEvent) obj);
+		}
 
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((ActionEvent)obj);
-        }
+		/// <summary>
+		/// Returns true if ActionEvent instances are equal
+		/// </summary>
+		/// <param name="other">Instance of ActionEvent to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(ActionEvent other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
 
-        /// <summary>
-        /// Returns true if ActionEvent instances are equal
-        /// </summary>
-        /// <param name="other">Instance of ActionEvent to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(ActionEvent other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+			return
+				(
+					true
+				);
+		}
 
-            return 
-                (
-                    true
-                );
-        }
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
+		public override int GetHashCode() {
+			unchecked // Overflow is fine, just wrap
+			{
+				var hashCode = 41 * _type.GetHashCode();
+				// Suitable nullity checks etc, of course :)
+				return hashCode;
+			}
+		}
 
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41*_type.GetHashCode();
-                // Suitable nullity checks etc, of course :)
-                return hashCode;
-            }
-        }
+		#region Operators
 
-        #region Operators
-        #pragma warning disable 1591
+		#pragma warning disable 1591
 
-        public static bool operator ==(ActionEvent left, ActionEvent right)
-        {
-            return Equals(left, right);
-        }
+		public static bool operator ==(ActionEvent left, ActionEvent right) {
+			return Equals(left, right);
+		}
 
-        public static bool operator !=(ActionEvent left, ActionEvent right)
-        {
-            return !Equals(left, right);
-        }
+		public static bool operator !=(ActionEvent left, ActionEvent right) {
+			return !Equals(left, right);
+		}
 
-        #pragma warning restore 1591
-        #endregion Operators
-    }
+		#pragma warning restore 1591
+
+		#endregion Operators
+	}
 }

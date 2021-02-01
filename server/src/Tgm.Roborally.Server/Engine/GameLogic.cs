@@ -10,9 +10,9 @@ using Tgm.Roborally.Server.Models;
 namespace Tgm.Roborally.Server.Engine {
 	public class GameLogic {
 		private readonly GameThread                            thread;
-		private          GameState                             _state        = GameState.LOBBY;
+		private          GameState                             _state = GameState.LOBBY;
 		private          Dictionary<string, int>               _consumerKeys = new Dictionary<string, int>();
-		private          Dictionary<int, ConsumerRegistration> _consumers    = new Dictionary<int, ConsumerRegistration>();
+		private          Dictionary<int, ConsumerRegistration> _consumers = new Dictionary<int, ConsumerRegistration>();
 		public           int                                   Id;
 		public           int                                   playerOnTurn;
 
@@ -59,7 +59,7 @@ namespace Tgm.Roborally.Server.Engine {
 		public int       MaxPlayers         => Rules.MaxPlayers;
 		public List<int> PlayerIds          => Players.Select(selector: e => e.Id).ToList();
 
-		public bool        Joinable  => State == GameState.LOBBY && Players.Count < MaxPlayers;
+		public bool Joinable => State == GameState.LOBBY && Players.Count < MaxPlayers;
 
 		public Dictionary<int, ConsumerRegistration> Consumers => _consumers;
 
@@ -176,7 +176,7 @@ namespace Tgm.Roborally.Server.Engine {
 			//Todo: proper implementation
 			Upgrades.Buy(upgrade);
 			CommitEvent(new GenericEvent(EventType.UpgradePurchase) {
-				Data = new Dictionary<string,object>(){
+				Data = new Dictionary<string, object>() {
 					{"player", playerId},
 					{"upgrade", upgrade},
 					{"importantMessage", "THIS IS NOT THE EVENT THAT WILL OCCUR IN PRODUCTION!!"}

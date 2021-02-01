@@ -19,134 +19,124 @@ using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-    /// <summary>
-    /// The action to make an entity use an upgade card (including the actions which require additional information)
-    /// </summary>
-    [DataContract]
-    public partial class EntityUseUpgradeAction : IEquatable<EntityUseUpgradeAction>, Event
-    {
-        /// <summary>
-        /// Gets or Sets Phase
-        /// </summary>
-        [DataMember(Name="phase", EmitDefaultValue=false)]
-        public EntityActionPhase Phase { get; set; }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// The action to make an entity use an upgade card (including the actions which require additional information)
+	/// </summary>
+	[DataContract]
+	public partial class EntityUseUpgradeAction : IEquatable<EntityUseUpgradeAction>, Event {
+		/// <summary>
+		/// Gets or Sets Phase
+		/// </summary>
+		[DataMember(Name = "phase", EmitDefaultValue = false)]
+		public EntityActionPhase Phase { get; set; }
 
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        public EntityActionType Type { get; set; }
+		/// <summary>
+		/// Gets or Sets Type
+		/// </summary>
+		[DataMember(Name = "type", EmitDefaultValue = false)]
+		public EntityActionType Type { get; set; }
 
-        /// <summary>
-        /// The id of an upgrade. **Unique**
-        /// </summary>
-        /// <value>The id of an upgrade. **Unique**</value>
-        [Range(0, 10000)]
-        [DataMember(Name="upgrade", EmitDefaultValue=false)]
-        public int Upgrade { get; set; }
+		/// <summary>
+		/// The id of an upgrade. **Unique**
+		/// </summary>
+		/// <value>The id of an upgrade. **Unique**</value>
+		[Range(0, 10000)]
+		[DataMember(Name = "upgrade", EmitDefaultValue = false)]
+		public int Upgrade { get; set; }
 
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class EntityUseUpgradeAction {\n");
-            sb.Append("  Phase: ").Append(Phase).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  Upgrade: ").Append(Upgrade).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+		/// <summary>
+		/// Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			var sb = new StringBuilder();
+			sb.Append("class EntityUseUpgradeAction {\n");
+			sb.Append("  Phase: ").Append(Phase).Append("\n");
+			sb.Append("  Type: ").Append(Type).Append("\n");
+			sb.Append("  Upgrade: ").Append(Upgrade).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
 
-        public EventType GetEventType() => EventType.ActivateUpgrade;
+		public EventType GetEventType() => EventType.ActivateUpgrade;
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+		/// <summary>
+		/// Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() {
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((EntityUseUpgradeAction)obj);
-        }
+		/// <summary>
+		/// Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((EntityUseUpgradeAction) obj);
+		}
 
-        /// <summary>
-        /// Returns true if EntityUseUpgradeAction instances are equal
-        /// </summary>
-        /// <param name="other">Instance of EntityUseUpgradeAction to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(EntityUseUpgradeAction other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+		/// <summary>
+		/// Returns true if EntityUseUpgradeAction instances are equal
+		/// </summary>
+		/// <param name="other">Instance of EntityUseUpgradeAction to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(EntityUseUpgradeAction other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
 
-            return 
-                (
-                    Phase == other.Phase ||
-                    
-                    Phase.Equals(other.Phase)
-                ) && 
-                (
-                    Type == other.Type ||
-                    
-                    Type.Equals(other.Type)
-                ) && 
-                (
-                    Upgrade == other.Upgrade ||
-                    
-                    Upgrade.Equals(other.Upgrade)
-                );
-        }
+			return
+				(
+					Phase == other.Phase ||
+					Phase.Equals(other.Phase)
+				) &&
+				(
+					Type == other.Type ||
+					Type.Equals(other.Type)
+				) &&
+				(
+					Upgrade == other.Upgrade ||
+					Upgrade.Equals(other.Upgrade)
+				);
+		}
 
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                    
-                    hashCode = hashCode * 59 + Phase.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + Type.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + Upgrade.GetHashCode();
-                return hashCode;
-            }
-        }
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
+		public override int GetHashCode() {
+			unchecked // Overflow is fine, just wrap
+			{
+				var hashCode = 41;
+				// Suitable nullity checks etc, of course :)
 
-        #region Operators
-        #pragma warning disable 1591
+				hashCode = hashCode * 59 + Phase.GetHashCode();
 
-        public static bool operator ==(EntityUseUpgradeAction left, EntityUseUpgradeAction right)
-        {
-            return Equals(left, right);
-        }
+				hashCode = hashCode * 59 + Type.GetHashCode();
 
-        public static bool operator !=(EntityUseUpgradeAction left, EntityUseUpgradeAction right)
-        {
-            return !Equals(left, right);
-        }
+				hashCode = hashCode * 59 + Upgrade.GetHashCode();
+				return hashCode;
+			}
+		}
 
-        #pragma warning restore 1591
-        #endregion Operators
-    }
+		#region Operators
+
+		#pragma warning disable 1591
+
+		public static bool operator ==(EntityUseUpgradeAction left, EntityUseUpgradeAction right) {
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(EntityUseUpgradeAction left, EntityUseUpgradeAction right) {
+			return !Equals(left, right);
+		}
+
+		#pragma warning restore 1591
+
+		#endregion Operators
+	}
 }

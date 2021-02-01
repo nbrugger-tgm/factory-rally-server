@@ -19,119 +19,111 @@ using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-    /// <summary>
-    /// When a robot is healed
-    /// </summary>
-    [DataContract]
-    public partial class HealEvent : IEquatable<HealEvent>, Event
-    {
-        /// <summary>
-        /// Gets or Sets Entity
-        /// </summary>
-        [DataMember(Name="entity", EmitDefaultValue=false)]
-        public Entity Entity { get; set; }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// When a robot is healed
+	/// </summary>
+	[DataContract]
+	public partial class HealEvent : IEquatable<HealEvent>, Event {
+		/// <summary>
+		/// Gets or Sets Entity
+		/// </summary>
+		[DataMember(Name = "entity", EmitDefaultValue = false)]
+		public Entity Entity { get; set; }
 
-        /// <summary>
-        /// Gets or Sets HealAmount
-        /// </summary>
-        [Range(0, 100)]
-        [DataMember(Name="heal_amount", EmitDefaultValue=false)]
-        public int HealAmount { get; set; }
+		/// <summary>
+		/// Gets or Sets HealAmount
+		/// </summary>
+		[Range(0, 100)]
+		[DataMember(Name = "heal_amount", EmitDefaultValue = false)]
+		public int HealAmount { get; set; }
 
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class HealEvent {\n");
-            sb.Append("  Entity: ").Append(Entity).Append("\n");
-            sb.Append("  HealAmount: ").Append(HealAmount).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+		/// <summary>
+		/// Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			var sb = new StringBuilder();
+			sb.Append("class HealEvent {\n");
+			sb.Append("  Entity: ").Append(Entity).Append("\n");
+			sb.Append("  HealAmount: ").Append(HealAmount).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
 
-        public EventType GetEventType() => EventType.Heal;
+		public EventType GetEventType() => EventType.Heal;
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+		/// <summary>
+		/// Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() {
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((HealEvent)obj);
-        }
+		/// <summary>
+		/// Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((HealEvent) obj);
+		}
 
-        /// <summary>
-        /// Returns true if HealEvent instances are equal
-        /// </summary>
-        /// <param name="other">Instance of HealEvent to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(HealEvent other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+		/// <summary>
+		/// Returns true if HealEvent instances are equal
+		/// </summary>
+		/// <param name="other">Instance of HealEvent to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(HealEvent other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
 
-            return 
-                (
-                    Entity == other.Entity ||
-                    Entity != null &&
-                    Entity.Equals(other.Entity)
-                ) && 
-                (
-                    HealAmount == other.HealAmount ||
-                    
-                    HealAmount.Equals(other.HealAmount)
-                );
-        }
+			return
+				(
+					Entity == other.Entity ||
+					Entity != null &&
+					Entity.Equals(other.Entity)
+				) &&
+				(
+					HealAmount == other.HealAmount ||
+					HealAmount.Equals(other.HealAmount)
+				);
+		}
 
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                    if (Entity != null)
-                    hashCode = hashCode * 59 + Entity.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + HealAmount.GetHashCode();
-                return hashCode;
-            }
-        }
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
+		public override int GetHashCode() {
+			unchecked // Overflow is fine, just wrap
+			{
+				var hashCode = 41;
+				// Suitable nullity checks etc, of course :)
+				if (Entity != null)
+					hashCode = hashCode * 59 + Entity.GetHashCode();
 
-        #region Operators
-        #pragma warning disable 1591
+				hashCode = hashCode * 59 + HealAmount.GetHashCode();
+				return hashCode;
+			}
+		}
 
-        public static bool operator ==(HealEvent left, HealEvent right)
-        {
-            return Equals(left, right);
-        }
+		#region Operators
 
-        public static bool operator !=(HealEvent left, HealEvent right)
-        {
-            return !Equals(left, right);
-        }
+		#pragma warning disable 1591
 
-        #pragma warning restore 1591
-        #endregion Operators
-    }
+		public static bool operator ==(HealEvent left, HealEvent right) {
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(HealEvent left, HealEvent right) {
+			return !Equals(left, right);
+		}
+
+		#pragma warning restore 1591
+
+		#endregion Operators
+	}
 }

@@ -18,126 +18,116 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-    /// <summary>
-    /// Describes a point in a 2D system, without decimals
-    /// </summary>
-    [DataContract]
-    public partial class Position : IEquatable<Position>
-    {
-        public Position(in int x, in int y)
-        {
-            X = x;
-            Y = y;
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// Describes a point in a 2D system, without decimals
+	/// </summary>
+	[DataContract]
+	public partial class Position : IEquatable<Position> {
+		public Position(in int x, in int y) {
+			X = x;
+			Y = y;
+		}
 
-        /// <summary>
-        /// The X cordinate
-        /// </summary>
-        /// <value>The X cordinate</value>
-        [Required]
-        [DataMember(Name="x", EmitDefaultValue=false)]
-        public int X { get; set; }
+		/// <summary>
+		/// The X cordinate
+		/// </summary>
+		/// <value>The X cordinate</value>
+		[Required]
+		[DataMember(Name = "x", EmitDefaultValue = false)]
+		public int X { get; set; }
 
-        /// <summary>
-        /// Position on the Y axis (top-down on screen)
-        /// </summary>
-        /// <value>Position on the Y axis (top-down on screen)</value>
-        [Required]
-        [DataMember(Name="y", EmitDefaultValue=false)]
-        public int Y { get; set; }
+		/// <summary>
+		/// Position on the Y axis (top-down on screen)
+		/// </summary>
+		/// <value>Position on the Y axis (top-down on screen)</value>
+		[Required]
+		[DataMember(Name = "y", EmitDefaultValue = false)]
+		public int Y { get; set; }
 
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Position {\n");
-            sb.Append("  X: ").Append(X).Append("\n");
-            sb.Append("  Y: ").Append(Y).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+		/// <summary>
+		/// Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			var sb = new StringBuilder();
+			sb.Append("class Position {\n");
+			sb.Append("  X: ").Append(X).Append("\n");
+			sb.Append("  Y: ").Append(Y).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+		/// <summary>
+		/// Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() {
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((Position)obj);
-        }
+		/// <summary>
+		/// Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((Position) obj);
+		}
 
-        /// <summary>
-        /// Returns true if Position instances are equal
-        /// </summary>
-        /// <param name="other">Instance of Position to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(Position other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+		/// <summary>
+		/// Returns true if Position instances are equal
+		/// </summary>
+		/// <param name="other">Instance of Position to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(Position other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
 
-            return 
-                (
-                    X == other.X ||
-                    
-                    X.Equals(other.X)
-                ) && 
-                (
-                    Y == other.Y ||
-                    
-                    Y.Equals(other.Y)
-                );
-        }
+			return
+				(
+					X == other.X ||
+					X.Equals(other.X)
+				) &&
+				(
+					Y == other.Y ||
+					Y.Equals(other.Y)
+				);
+		}
 
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                    
-                    hashCode = hashCode * 59 + X.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + Y.GetHashCode();
-                return hashCode;
-            }
-        }
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
+		public override int GetHashCode() {
+			unchecked // Overflow is fine, just wrap
+			{
+				var hashCode = 41;
+				// Suitable nullity checks etc, of course :)
 
-        #region Operators
-        #pragma warning disable 1591
+				hashCode = hashCode * 59 + X.GetHashCode();
 
-        public static bool operator ==(Position left, Position right)
-        {
-            return Equals(left, right);
-        }
+				hashCode = hashCode * 59 + Y.GetHashCode();
+				return hashCode;
+			}
+		}
 
-        public static bool operator !=(Position left, Position right)
-        {
-            return !Equals(left, right);
-        }
+		#region Operators
 
-        #pragma warning restore 1591
-        #endregion Operators
-    }
+		#pragma warning disable 1591
+
+		public static bool operator ==(Position left, Position right) {
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(Position left, Position right) {
+			return !Equals(left, right);
+		}
+
+		#pragma warning restore 1591
+
+		#endregion Operators
+	}
 }

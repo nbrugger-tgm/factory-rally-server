@@ -18,26 +18,21 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-        /// <summary>
-        /// Gets or Sets Robots
-        /// </summary>
-        [TypeConverter(typeof(CustomEnumConverter<Robots>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum Robots
-        {
-            
-            /// <summary>
-            /// Enum Dicer for dicer
-            /// </summary>
-            [EnumMember(Value = "dicer")]
-            Dicer = 1,
-            
-            /// <summary>
-            /// Enum Tank for tank
-            /// </summary>
-            [EnumMember(Value = "tank")]
-            Tank = 2
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// Gets or Sets Robots
+	/// </summary>
+	[TypeConverter(typeof(CustomEnumConverter<Robots>))]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	public enum Robots {
+		/// <summary>
+		/// Enum Dicer for dicer
+		/// </summary>
+		[EnumMember(Value = "dicer")] Dicer = 1,
+
+		/// <summary>
+		/// Enum Tank for tank
+		/// </summary>
+		[EnumMember(Value = "tank")] Tank = 2
+	}
 }

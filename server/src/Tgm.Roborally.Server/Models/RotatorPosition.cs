@@ -18,39 +18,32 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-        /// <summary>
-        /// The rotator blocks consist of 4 blocks. This 4 blocks can be differenciated by this property
-        /// </summary>
-        /// <value>The rotator blocks consist of 4 blocks. This 4 blocks can be differenciated by this property</value>
-        [TypeConverter(typeof(CustomEnumConverter<RotatorPosition>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum RotatorPosition
-        {
-            
-            /// <summary>
-            /// Enum UpLeft for up_left
-            /// </summary>
-            [EnumMember(Value = "up_left")]
-            UpLeft = 1,
-            
-            /// <summary>
-            /// Enum UpRight for up_right
-            /// </summary>
-            [EnumMember(Value = "up_right")]
-            UpRight = 2,
-            
-            /// <summary>
-            /// Enum DownLeft for down_left
-            /// </summary>
-            [EnumMember(Value = "down_left")]
-            DownLeft = 3,
-            
-            /// <summary>
-            /// Enum DownRight for down_right
-            /// </summary>
-            [EnumMember(Value = "down_right")]
-            DownRight = 4
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// The rotator blocks consist of 4 blocks. This 4 blocks can be differenciated by this property
+	/// </summary>
+	/// <value>The rotator blocks consist of 4 blocks. This 4 blocks can be differenciated by this property</value>
+	[TypeConverter(typeof(CustomEnumConverter<RotatorPosition>))]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	public enum RotatorPosition {
+		/// <summary>
+		/// Enum UpLeft for up_left
+		/// </summary>
+		[EnumMember(Value = "up_left")] UpLeft = 1,
+
+		/// <summary>
+		/// Enum UpRight for up_right
+		/// </summary>
+		[EnumMember(Value = "up_right")] UpRight = 2,
+
+		/// <summary>
+		/// Enum DownLeft for down_left
+		/// </summary>
+		[EnumMember(Value = "down_left")] DownLeft = 3,
+
+		/// <summary>
+		/// Enum DownRight for down_right
+		/// </summary>
+		[EnumMember(Value = "down_right")] DownRight = 4
+	}
 }

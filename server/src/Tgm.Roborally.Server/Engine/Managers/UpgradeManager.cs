@@ -7,7 +7,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public           List<int>                Ids  => new List<int>(_pool.Keys);
 		public           List<int>                Shop { get; } = new List<int>();
 
-		public  Upgrade                  Get(int upgradeId) => _pool.ContainsKey(upgradeId) ? _pool[upgradeId] : null;
+		public Upgrade Get(int upgradeId) => _pool.ContainsKey(upgradeId) ? _pool[upgradeId] : null;
 
 		public void initUpgrades() {
 			_pool[0] = new Upgrade() {
@@ -34,7 +34,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 
 		public void drawShop() {
 			Shop.Clear();
-			Shop.AddRange(Ids);			
+			Shop.AddRange(Ids);
 		}
 
 		public void Buy(int id) {

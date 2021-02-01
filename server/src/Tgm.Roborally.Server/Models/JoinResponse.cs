@@ -18,128 +18,119 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-    /// <summary>
-    /// All the data you need as you joined a game.
-    /// </summary>
-    [DataContract]
-    public partial class JoinResponse : IEquatable<JoinResponse>
-    {
-        private Player _player { get; }
-        public JoinResponse(Player player)
-        {
-            _player = player;
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// All the data you need as you joined a game.
+	/// </summary>
+	[DataContract]
+	public partial class JoinResponse : IEquatable<JoinResponse> {
+		private Player _player { get; }
 
-        /// <summary>
-        /// This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication
-        /// </summary>
-        /// <value>This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication</value>
-        [Required]
-        [Range(0, 8)]
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        public int Id => _player.Id;
+		public JoinResponse(Player player) {
+			_player = player;
+		}
 
-        /// <summary>
-        /// The uid is the key for the joined player. You need this key for authentication
-        /// </summary>
-        /// <value>The uid is the key for the joined player. You need this key for authentication</value>
-        [Required]
-        [Range(9999, 99999999)]
-        [DataMember(Name = "pat", EmitDefaultValue = false)]
-        public string Pat => _player.auth;
+		/// <summary>
+		/// This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication
+		/// </summary>
+		/// <value>This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication</value>
+		[Required]
+		[Range(0, 8)]
+		[DataMember(Name = "id", EmitDefaultValue = false)]
+		public int Id => _player.Id;
 
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class JoinResponse {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Pat: ").Append(Pat).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+		/// <summary>
+		/// The uid is the key for the joined player. You need this key for authentication
+		/// </summary>
+		/// <value>The uid is the key for the joined player. You need this key for authentication</value>
+		[Required]
+		[Range(9999, 99999999)]
+		[DataMember(Name = "pat", EmitDefaultValue = false)]
+		public string Pat => _player.auth;
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+		/// <summary>
+		/// Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			var sb = new StringBuilder();
+			sb.Append("class JoinResponse {\n");
+			sb.Append("  Id: ").Append(Id).Append("\n");
+			sb.Append("  Pat: ").Append(Pat).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
 
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((JoinResponse)obj);
-        }
+		/// <summary>
+		/// Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() {
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 
-        /// <summary>
-        /// Returns true if JoinResponse instances are equal
-        /// </summary>
-        /// <param name="other">Instance of JoinResponse to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(JoinResponse other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+		/// <summary>
+		/// Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((JoinResponse) obj);
+		}
 
-            return 
-                (
-                    Id == other.Id ||
-                    
-                    Id.Equals(other.Id)
-                ) && 
-                (
-                    Pat == other.Pat ||
-                    
-                    Pat.Equals(other.Pat)
-                );
-        }
+		/// <summary>
+		/// Returns true if JoinResponse instances are equal
+		/// </summary>
+		/// <param name="other">Instance of JoinResponse to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(JoinResponse other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
 
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                    
-                    hashCode = hashCode * 59 + Id.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + Pat.GetHashCode();
-                return hashCode;
-            }
-        }
+			return
+				(
+					Id == other.Id ||
+					Id.Equals(other.Id)
+				) &&
+				(
+					Pat == other.Pat ||
+					Pat.Equals(other.Pat)
+				);
+		}
 
-        #region Operators
-        #pragma warning disable 1591
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
+		public override int GetHashCode() {
+			unchecked // Overflow is fine, just wrap
+			{
+				var hashCode = 41;
+				// Suitable nullity checks etc, of course :)
 
-        public static bool operator ==(JoinResponse left, JoinResponse right)
-        {
-            return Equals(left, right);
-        }
+				hashCode = hashCode * 59 + Id.GetHashCode();
 
-        public static bool operator !=(JoinResponse left, JoinResponse right)
-        {
-            return !Equals(left, right);
-        }
+				hashCode = hashCode * 59 + Pat.GetHashCode();
+				return hashCode;
+			}
+		}
 
-        #pragma warning restore 1591
-        #endregion Operators
-    }
+		#region Operators
+
+		#pragma warning disable 1591
+
+		public static bool operator ==(JoinResponse left, JoinResponse right) {
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(JoinResponse left, JoinResponse right) {
+			return !Equals(left, right);
+		}
+
+		#pragma warning restore 1591
+
+		#endregion Operators
+	}
 }

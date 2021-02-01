@@ -47,12 +47,12 @@ namespace Tgm.Roborally.Server.Authentication {
 		/// <param name="playerIdPathName">Defines the name of the Authentication ID in the querry (default `player_id`)</param>
 		/// <param name="allowConsumer">True if this action can be executed by consumers</param>
 		public GameAuth(Role   neededRole, string gameIdPathName = "game_id", bool playerSelf = false,
-						string playerIdPathName = "player_id",bool allowConsumer = false) {
-			_needed_role        = neededRole;
-			_gameIdPathName     = gameIdPathName;
-			_playerSelf         = playerSelf;
-			_playerIdPathName   = playerIdPathName;
-			_allowConsumer = allowConsumer;
+						string playerIdPathName = "player_id", bool allowConsumer = false) {
+			_needed_role      = neededRole;
+			_gameIdPathName   = gameIdPathName;
+			_playerSelf       = playerSelf;
+			_playerIdPathName = playerIdPathName;
+			_allowConsumer    = allowConsumer;
 		}
 
 		/// <param name="ownershipEnsurance">A method to determine if the accessed object is owned by the player</param>
@@ -83,7 +83,7 @@ namespace Tgm.Roborally.Server.Authentication {
 			IS_PLAYER            = "IS_PLAYER",
 			IS_ADMIN             = "IS_ADMIN",
 			PLAYER               = "PLAYER",
-			IS_CONSUMER = "IS_CONSUMER";
+			IS_CONSUMER          = "IS_CONSUMER";
 
 		public void OnAuthorization(AuthorizationFilterContext context) {
 			bool        isAdmin    = false;
@@ -110,10 +110,10 @@ namespace Tgm.Roborally.Server.Authentication {
 						isPlayer   = true;
 						isConsumer = true;
 						player = new Player() {
-							Id = res.Item2,
+							Id          = res.Item2,
 							DisplayName = game.GetConsumer(res.Item2).Name,
-							Active = false,
-							OnTurn = false
+							Active      = false,
+							OnTurn      = false
 						};
 					}
 					else if (player != null) {
@@ -141,7 +141,8 @@ namespace Tgm.Roborally.Server.Authentication {
 				if (!(isPlayer || isAdmin)) {
 					context.Result = new UnauthorizedObjectResult(new ErrorMessage() {
 						Error = "Authentication failed",
-						Message = "You need to authenticate to access this resource. (As anyone, so you might be a player OR an admin)"
+						Message =
+							"You need to authenticate to access this resource. (As anyone, so you might be a player OR an admin)"
 					});
 				}
 			}
@@ -150,7 +151,8 @@ namespace Tgm.Roborally.Server.Authentication {
 				if (!isAdmin) {
 					context.Result = new UnauthorizedObjectResult(new ErrorMessage() {
 						Error = "Authentication failed",
-						Message = "You need admin access for this resource!"+(isPlayer?" (PLAYER privilege isn't sufficient)":"")
+						Message = "You need admin access for this resource!" +
+								  (isPlayer ? " (PLAYER privilege isn't sufficient)" : "")
 					});
 				}
 			}
@@ -172,7 +174,7 @@ namespace Tgm.Roborally.Server.Authentication {
 				}
 				else {
 					context.Result = new UnauthorizedObjectResult(new ErrorMessage() {
-						Error = "Authentication failed",
+						Error   = "Authentication failed",
 						Message = "You need player privileges to access this resource"
 					});
 				}
@@ -184,6 +186,7 @@ namespace Tgm.Roborally.Server.Authentication {
 					Message = "This action can only be used by real players. Consumers do not work here"
 				});
 			}
+
 			#endregion
 		}
 

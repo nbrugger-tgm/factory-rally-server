@@ -20,121 +20,114 @@ using Microsoft.AspNetCore.Authorization;
 using Tgm.Roborally.Server.Models;
 using Tgm.Roborally.Server.Authentication;
 
-namespace Tgm.Roborally.Server.Controllers
-{ 
-    /// <summary>
-    /// 
-    /// </summary>
-    [ApiController]
-    public class MapRepoApiController : ControllerBase
-    { 
-        /// <summary>
-        /// Delete Map
-        /// </summary>
-        /// <remarks>Delete a map by its name</remarks>
-        /// <param name="mapName"></param>
-        /// <response code="204">Deleted</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="500">Internal Server Error</response>
-        [HttpDelete]
-        [Route("/v1/maps/{map_name}")]
-        [GameAuth(Role.ADMIN)]
-        [ValidateModelState]
-        [SwaggerOperation("DeleteMap")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorMessage), description: "Internal Server Error")]
-        public virtual IActionResult DeleteMap([FromRoute(Name = "map_name")][Required]string mapName)
-        { 
+namespace Tgm.Roborally.Server.Controllers {
+	/// <summary>
+	/// 
+	/// </summary>
+	[ApiController]
+	public class MapRepoApiController : ControllerBase {
+		/// <summary>
+		/// Delete Map
+		/// </summary>
+		/// <remarks>Delete a map by its name</remarks>
+		/// <param name="mapName"></param>
+		/// <response code="204">Deleted</response>
+		/// <response code="404">Not Found</response>
+		/// <response code="500">Internal Server Error</response>
+		[HttpDelete]
+		[Route("/v1/maps/{map_name}")]
+		[GameAuth(Role.ADMIN)]
+		[ValidateModelState]
+		[SwaggerOperation("DeleteMap")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(statusCode: 500, type: typeof(ErrorMessage), description: "Internal Server Error")]
+		public virtual IActionResult DeleteMap([FromRoute(Name = "map_name")] [Required]
+											   string mapName) {
+			//TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(204);
+			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(404, default(ErrorMessage));
+			//TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(500, default(ErrorMessage));
 
-            //TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(204);
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorMessage));
+			throw new NotImplementedException();
+		}
 
-            throw new NotImplementedException();
-        }
+		/// <summary>
+		/// Get map
+		/// </summary>
+		/// <remarks>Get a map by its name</remarks>
+		/// <param name="mapName"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		/// <response code="500">Internal Server Error</response>
+		[HttpGet]
+		[Route("/v1/maps/{map_name}")]
+		[GameAuth(Role.ADMIN)]
+		[ValidateModelState]
+		[SwaggerOperation("GetMap")]
+		[SwaggerResponse(statusCode: 200, type: typeof(MapInfo), description: "OK")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(statusCode: 500, type: typeof(ErrorMessage), description: "Internal Server Error")]
+		public virtual IActionResult GetMap([FromRoute(Name = "map_name")] [Required]
+											string mapName) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200, default(MapInfo));
+			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(404, default(ErrorMessage));
+			//TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(500, default(ErrorMessage));
+			string exampleJson = null;
+			exampleJson =
+				"{\r\n  \"width\" : 43,\r\n  \"name\" : \"Niton 1\",\r\n  \"prioBeacon\" : {\r\n    \"x\" : 1,\r\n    \"y\" : 5\r\n  },\r\n  \"height\" : 302\r\n}";
 
-        /// <summary>
-        /// Get map
-        /// </summary>
-        /// <remarks>Get a map by its name</remarks>
-        /// <param name="mapName"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="500">Internal Server Error</response>
-        [HttpGet]
-        [Route("/v1/maps/{map_name}")]
-        [GameAuth(Role.ADMIN)]
-        [ValidateModelState]
-        [SwaggerOperation("GetMap")]
-        [SwaggerResponse(statusCode: 200, type: typeof(MapInfo), description: "OK")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorMessage), description: "Internal Server Error")]
-        public virtual IActionResult GetMap([FromRoute(Name = "map_name")][Required]string mapName)
-        { 
+			var example = exampleJson != null
+							  ? JsonConvert.DeserializeObject<MapInfo>(exampleJson)
+							  : default(MapInfo);
+			//TODO: Change the data returned
+			return new ObjectResult(example);
+		}
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(MapInfo));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorMessage));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"width\" : 43,\r\n  \"name\" : \"Niton 1\",\r\n  \"prioBeacon\" : {\r\n    \"x\" : 1,\r\n    \"y\" : 5\r\n  },\r\n  \"height\" : 302\r\n}";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<MapInfo>(exampleJson)
-            : default(MapInfo);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
+		/// <summary>
+		/// Get Map Names
+		/// </summary>
+		/// <remarks>Returns a list of all map names</remarks>
+		/// <response code="200">OK</response>
+		[HttpGet]
+		[Route("/v1/maps/")]
+		[GameAuth(Role.ADMIN)]
+		[ValidateModelState]
+		[SwaggerOperation("GetMaps")]
+		[SwaggerResponse(statusCode: 200, type: typeof(List<string>), description: "OK")]
+		public virtual IActionResult GetMaps() {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200, default(List<string>));
+			string exampleJson = null;
+			exampleJson = "\"Niton 1\"";
 
-        /// <summary>
-        /// Get Map Names
-        /// </summary>
-        /// <remarks>Returns a list of all map names</remarks>
-        /// <response code="200">OK</response>
-        [HttpGet]
-        [Route("/v1/maps/")]
-        [GameAuth(Role.ADMIN)]
-        [ValidateModelState]
-        [SwaggerOperation("GetMaps")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<string>), description: "OK")]
-        public virtual IActionResult GetMaps()
-        { 
+			var example = exampleJson != null
+							  ? JsonConvert.DeserializeObject<List<string>>(exampleJson)
+							  : default(List<string>);
+			//TODO: Change the data returned
+			return new ObjectResult(example);
+		}
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(List<string>));
-            string exampleJson = null;
-            exampleJson = "\"Niton 1\"";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<List<string>>(exampleJson)
-            : default(List<string>);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
+		/// <summary>
+		/// Save Map
+		/// </summary>
+		/// <remarks>Saves a map to the repository</remarks>
+		/// <param name="map">The map to save</param>
+		/// <response code="200">OK</response>
+		[HttpPost]
+		[Route("/v1/maps/")]
+		[GameAuth(Role.ADMIN)]
+		[ValidateModelState]
+		[SwaggerOperation("SaveMap")]
+		public virtual IActionResult SaveMap([FromBody] Map map) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200);
 
-        /// <summary>
-        /// Save Map
-        /// </summary>
-        /// <remarks>Saves a map to the repository</remarks>
-        /// <param name="map">The map to save</param>
-        /// <response code="200">OK</response>
-        [HttpPost]
-        [Route("/v1/maps/")]
-        [GameAuth(Role.ADMIN)]
-        [ValidateModelState]
-        [SwaggerOperation("SaveMap")]
-        public virtual IActionResult SaveMap([FromBody]Map map)
-        { 
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-
-            throw new NotImplementedException();
-        }
-    }
+			throw new NotImplementedException();
+		}
+	}
 }

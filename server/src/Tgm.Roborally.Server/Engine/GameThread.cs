@@ -18,7 +18,7 @@ namespace Tgm.Roborally.Server.Engine {
 
 		private void run() {
 			currentPhase = new LobbyPhase();
-			while (currentPhase != null){
+			while (currentPhase != null) {
 				currentPhase = currentPhase.Start(game);
 			}
 		}
@@ -30,7 +30,7 @@ namespace Tgm.Roborally.Server.Engine {
 		public void Notify(GenericEvent action) {
 			if (action.GetEventType() == EventType.GamePhaseChanged)
 				return;
-			if ( 
+			if (
 				action.GetEventType() != EventType.GameStart &&
 				action.GetEventType() != EventType.Pause     &&
 				action.GetEventType() != EventType.Unpause) {

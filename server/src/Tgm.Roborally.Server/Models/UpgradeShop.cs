@@ -18,117 +18,110 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-    /// <summary>
-    /// A shop to buy upgrades from. Each element is buyable once and then vanishes from the list
-    /// </summary>
-    [DataContract]
-    public partial class UpgradeShop : IEquatable<UpgradeShop>
-    {
-        /// <summary>
-        /// Gets or Sets Upgrades
-        /// </summary>
-        [DataMember(Name="upgrades", EmitDefaultValue=false)]
-        public List<int> Upgrades { get; set; }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// A shop to buy upgrades from. Each element is buyable once and then vanishes from the list
+	/// </summary>
+	[DataContract]
+	public partial class UpgradeShop : IEquatable<UpgradeShop> {
+		/// <summary>
+		/// Gets or Sets Upgrades
+		/// </summary>
+		[DataMember(Name = "upgrades", EmitDefaultValue = false)]
+		public List<int> Upgrades { get; set; }
 
-        /// <summary>
-        /// Gets or Sets Information
-        /// </summary>
-        [DataMember(Name="information", EmitDefaultValue=false)]
-        public UpgradeShopInformation Information { get; set; }
+		/// <summary>
+		/// Gets or Sets Information
+		/// </summary>
+		[DataMember(Name = "information", EmitDefaultValue = false)]
+		public UpgradeShopInformation Information { get; set; }
 
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class UpgradeShop {\n");
-            sb.Append("  Upgrades: ").Append(Upgrades).Append("\n");
-            sb.Append("  Information: ").Append(Information).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+		/// <summary>
+		/// Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			var sb = new StringBuilder();
+			sb.Append("class UpgradeShop {\n");
+			sb.Append("  Upgrades: ").Append(Upgrades).Append("\n");
+			sb.Append("  Information: ").Append(Information).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+		/// <summary>
+		/// Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() {
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((UpgradeShop)obj);
-        }
+		/// <summary>
+		/// Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((UpgradeShop) obj);
+		}
 
-        /// <summary>
-        /// Returns true if UpgradeShop instances are equal
-        /// </summary>
-        /// <param name="other">Instance of UpgradeShop to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(UpgradeShop other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+		/// <summary>
+		/// Returns true if UpgradeShop instances are equal
+		/// </summary>
+		/// <param name="other">Instance of UpgradeShop to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(UpgradeShop other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
 
-            return 
-                (
-                    Upgrades == other.Upgrades ||
-                    Upgrades != null &&
-                    other.Upgrades != null &&
-                    Upgrades.SequenceEqual(other.Upgrades)
-                ) && 
-                (
-                    Information == other.Information ||
-                    Information != null &&
-                    Information.Equals(other.Information)
-                );
-        }
+			return
+				(
+					Upgrades == other.Upgrades ||
+					Upgrades       != null &&
+					other.Upgrades != null &&
+					Upgrades.SequenceEqual(other.Upgrades)
+				) &&
+				(
+					Information == other.Information ||
+					Information != null &&
+					Information.Equals(other.Information)
+				);
+		}
 
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                    if (Upgrades != null)
-                    hashCode = hashCode * 59 + Upgrades.GetHashCode();
-                    if (Information != null)
-                    hashCode = hashCode * 59 + Information.GetHashCode();
-                return hashCode;
-            }
-        }
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
+		public override int GetHashCode() {
+			unchecked // Overflow is fine, just wrap
+			{
+				var hashCode = 41;
+				// Suitable nullity checks etc, of course :)
+				if (Upgrades != null)
+					hashCode = hashCode * 59 + Upgrades.GetHashCode();
+				if (Information != null)
+					hashCode = hashCode * 59 + Information.GetHashCode();
+				return hashCode;
+			}
+		}
 
-        #region Operators
-        #pragma warning disable 1591
+		#region Operators
 
-        public static bool operator ==(UpgradeShop left, UpgradeShop right)
-        {
-            return Equals(left, right);
-        }
+		#pragma warning disable 1591
 
-        public static bool operator !=(UpgradeShop left, UpgradeShop right)
-        {
-            return !Equals(left, right);
-        }
+		public static bool operator ==(UpgradeShop left, UpgradeShop right) {
+			return Equals(left, right);
+		}
 
-        #pragma warning restore 1591
-        #endregion Operators
-    }
+		public static bool operator !=(UpgradeShop left, UpgradeShop right) {
+			return !Equals(left, right);
+		}
+
+		#pragma warning restore 1591
+
+		#endregion Operators
+	}
 }

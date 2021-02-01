@@ -1,7 +1,4 @@
-namespace Tgm.Roborally.Server.Models
-{
-	public partial class Tile
-	{
-		
+namespace Tgm.Roborally.Server.Models {
+	public partial class Tile {
 	}
 }

@@ -18,33 +18,27 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-        /// <summary>
-        /// Defines what an action will do
-        /// </summary>
-        /// <value>Defines what an action will do</value>
-        //[TypeConverter(typeof(CustomEnumConverter<ActionType>))]
-        //[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum ActionType
-        {
-            
-            /// <summary>
-            /// Enum PAUSE for PAUSE
-            /// </summary>
-            [EnumMember(Value = "PAUSE")]
-            PAUSE = 1,
-            
-            /// <summary>
-            /// Enum UNPAUSE for UNPAUSE
-            /// </summary>
-            [EnumMember(Value = "UNPAUSE")]
-            UNPAUSE = 2,
-            
-            /// <summary>
-            /// Enum STARTGAME for START_GAME
-            /// </summary>
-            [EnumMember(Value = "START_GAME")]
-            START_GAME = 3
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// Defines what an action will do
+	/// </summary>
+	/// <value>Defines what an action will do</value>
+	//[TypeConverter(typeof(CustomEnumConverter<ActionType>))]
+	//[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	public enum ActionType {
+		/// <summary>
+		/// Enum PAUSE for PAUSE
+		/// </summary>
+		[EnumMember(Value = "PAUSE")] PAUSE = 1,
+
+		/// <summary>
+		/// Enum UNPAUSE for UNPAUSE
+		/// </summary>
+		[EnumMember(Value = "UNPAUSE")] UNPAUSE = 2,
+
+		/// <summary>
+		/// Enum STARTGAME for START_GAME
+		/// </summary>
+		[EnumMember(Value = "START_GAME")] START_GAME = 3
+	}
 }

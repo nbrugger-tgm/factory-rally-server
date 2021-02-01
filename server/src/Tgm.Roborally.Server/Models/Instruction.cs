@@ -18,27 +18,22 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-        /// <summary>
-        /// Defines what a command will do
-        /// </summary>
-        /// <value>Defines what a command will do</value>
-        [TypeConverter(typeof(CustomEnumConverter<Instruction>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum Instruction
-        {
-            
-            /// <summary>
-            /// Enum Move for move
-            /// </summary>
-            [EnumMember(Value = "move")]
-            Move = 1,
-            
-            /// <summary>
-            /// Enum Rotate for rotate
-            /// </summary>
-            [EnumMember(Value = "rotate")]
-            Rotate = 2
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// Defines what a command will do
+	/// </summary>
+	/// <value>Defines what a command will do</value>
+	[TypeConverter(typeof(CustomEnumConverter<Instruction>))]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	public enum Instruction {
+		/// <summary>
+		/// Enum Move for move
+		/// </summary>
+		[EnumMember(Value = "move")] Move = 1,
+
+		/// <summary>
+		/// Enum Rotate for rotate
+		/// </summary>
+		[EnumMember(Value = "rotate")] Rotate = 2
+	}
 }

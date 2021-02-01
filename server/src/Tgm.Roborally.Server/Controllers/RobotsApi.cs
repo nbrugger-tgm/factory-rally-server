@@ -19,315 +19,313 @@ using Tgm.Roborally.Server.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Tgm.Roborally.Server.Models;
 
-namespace Tgm.Roborally.Server.Controllers
-{ 
-    /// <summary>
-    /// 
-    /// </summary>
-    [ApiController]
-    public class RobotsApiController : ControllerBase
-    { 
-        /// <summary>
-        /// clear registers
-        /// </summary>
-        /// <remarks>Emptys all register of the robot</remarks>
-        /// <param name="gameId"></param>
-        /// <param name="robotId"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpDelete]
-        [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
-        [ValidateModelState]
-        [SwaggerOperation("ClearRegisters")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult ClearRegisters([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]int robotId)
-        { 
+namespace Tgm.Roborally.Server.Controllers {
+	/// <summary>
+	/// 
+	/// </summary>
+	[ApiController]
+	public class RobotsApiController : ControllerBase {
+		/// <summary>
+		/// clear registers
+		/// </summary>
+		/// <remarks>Emptys all register of the robot</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="robotId"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpDelete]
+		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
+		[ValidateModelState]
+		[SwaggerOperation("ClearRegisters")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult ClearRegisters([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+													int gameId, [FromRoute(Name = "robot_id")] [Required]
+													int robotId) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200);
+			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(404, default(ErrorMessage));
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
+			throw new NotImplementedException();
+		}
 
-            throw new NotImplementedException();
-        }
+		/// <summary>
+		/// Clear Robot Upgrades
+		/// </summary>
+		/// <remarks>Removes all upgrades from a robot</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="robotId"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpDelete]
+		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
+		[ValidateModelState]
+		[SwaggerOperation("ClearUpgrades")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult ClearUpgrades([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+												   int gameId, [FromRoute(Name = "robot_id")] [Required]
+												   int robotId) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200);
+			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(404, default(ErrorMessage));
 
-        /// <summary>
-        /// Clear Robot Upgrades
-        /// </summary>
-        /// <remarks>Removes all upgrades from a robot</remarks>
-        /// <param name="gameId"></param>
-        /// <param name="robotId"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpDelete]
-        [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
-        [ValidateModelState]
-        [SwaggerOperation("ClearUpgrades")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult ClearUpgrades([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]int robotId)
-        { 
+			throw new NotImplementedException();
+		}
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
+		/// <summary>
+		/// Add Entity Action to stack
+		/// </summary>
+		/// <remarks>Adds an action to the stack. The stack is processed using *first in first out*</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="robotId"></param>
+		/// <param name="entityAction"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpPost]
+		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/stack/")]
+		[ValidateModelState]
+		[SwaggerOperation("DoEntityAction")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult DoEntityAction([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+													int gameId,     [FromRoute(Name = "robot_id")] [Required]
+													string robotId, [FromBody] EntityAction entityAction) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200);
+			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(404, default(ErrorMessage));
 
-            throw new NotImplementedException();
-        }
+			throw new NotImplementedException();
+		}
 
-        /// <summary>
-        /// Add Entity Action to stack
-        /// </summary>
-        /// <remarks>Adds an action to the stack. The stack is processed using *first in first out*</remarks>
-        /// <param name="gameId"></param>
-        /// <param name="robotId"></param>
-        /// <param name="entityAction"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpPost]
-        [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/stack/")]
-        [ValidateModelState]
-        [SwaggerOperation("DoEntityAction")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult DoEntityAction([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]string robotId, [FromBody]EntityAction entityAction)
-        { 
+		/// <summary>
+		/// Get Robot action stack
+		/// </summary>
+		/// <remarks>Retuns a list od all actions in the stack</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="robotId"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/stack/")]
+		[ValidateModelState]
+		[SwaggerOperation("GetActionStack")]
+		[SwaggerResponse(statusCode: 200, type: typeof(List<EntityAction>), description: "OK")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult GetActionStack([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+													int gameId, [FromRoute(Name = "robot_id")] [Required]
+													string robotId) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200, default(List<EntityAction>));
+			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(404, default(ErrorMessage));
+			string exampleJson = null;
+			exampleJson = "{ }";
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
+			var example = exampleJson != null
+							  ? JsonConvert.DeserializeObject<List<EntityAction>>(exampleJson)
+							  : default(List<EntityAction>);
+			//TODO: Change the data returned
+			return new ObjectResult(example);
+		}
 
-            throw new NotImplementedException();
-        }
+		/// <summary>
+		/// Get Robot Upgrades
+		/// </summary>
+		/// <remarks>Returns the upgrades installed on the robot</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="robotId"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
+		[ValidateModelState]
+		[SwaggerOperation("GetInstalledUpgrades")]
+		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult GetInstalledUpgrades([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+														  int gameId, [FromRoute(Name = "robot_id")] [Required]
+														  int robotId) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200, default(List<int>));
+			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(404, default(ErrorMessage));
+			string exampleJson = null;
+			exampleJson = "null";
 
-        /// <summary>
-        /// Get Robot action stack
-        /// </summary>
-        /// <remarks>Retuns a list od all actions in the stack</remarks>
-        /// <param name="gameId"></param>
-        /// <param name="robotId"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpGet]
-        [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/stack/")]
-        [ValidateModelState]
-        [SwaggerOperation("GetActionStack")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<EntityAction>), description: "OK")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetActionStack([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]string robotId)
-        { 
+			var example = exampleJson != null
+							  ? JsonConvert.DeserializeObject<List<int>>(exampleJson)
+							  : default(List<int>);
+			//TODO: Change the data returned
+			return new ObjectResult(example);
+		}
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(List<EntityAction>));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-            string exampleJson = null;
-            exampleJson = "{ }";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<List<EntityAction>>(exampleJson)
-            : default(List<EntityAction>);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
+		/// <summary>
+		/// Get Aviable actions
+		/// </summary>
+		/// <remarks>Returns a list of EntityActionTypes which are possible to be executed at the moment.</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="robotId"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/avinable")]
+		[ValidateModelState]
+		[SwaggerOperation("GetPossibleActions")]
+		[SwaggerResponse(statusCode: 200, type: typeof(List<EntityEventOportunity>), description: "OK")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult GetPossibleActions([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+														int gameId, [FromRoute(Name = "robot_id")] [Required]
+														string robotId) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200, default(List<EntityEventOportunity>));
+			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(404, default(ErrorMessage));
+			string exampleJson = null;
+			exampleJson = "{\r\n  \"end-time\" : 0,\r\n  \"time-left\" : 1\r\n}";
 
-        /// <summary>
-        /// Get Robot Upgrades
-        /// </summary>
-        /// <remarks>Returns the upgrades installed on the robot</remarks>
-        /// <param name="gameId"></param>
-        /// <param name="robotId"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpGet]
-        [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
-        [ValidateModelState]
-        [SwaggerOperation("GetInstalledUpgrades")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetInstalledUpgrades([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]int robotId)
-        { 
+			var example = exampleJson != null
+							  ? JsonConvert.DeserializeObject<List<EntityEventOportunity>>(exampleJson)
+							  : default(List<EntityEventOportunity>);
+			//TODO: Change the data returned
+			return new ObjectResult(example);
+		}
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(List<int>));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-            string exampleJson = null;
-            exampleJson = "null";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<List<int>>(exampleJson)
-            : default(List<int>);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
+		/// <summary>
+		/// Get register information
+		/// </summary>
+		/// <remarks>Returns the content of the registers</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="robotId"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
+		[ValidateModelState]
+		[SwaggerOperation("GetRegisters")]
+		[SwaggerResponse(statusCode: 200, type: typeof(List<RobotCommand>), description: "OK")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult GetRegisters([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+												  int gameId, [FromRoute(Name = "robot_id")] [Required]
+												  int robotId) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200, default(List<RobotCommand>));
+			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(404, default(ErrorMessage));
+			string exampleJson = null;
+			exampleJson =
+				"{\r\n  \"times\" : 1,\r\n  \"name\" : \"Penetration Lazer Mk.2\",\r\n  \"description\" : \"null\",\r\n  \"parameters\" : [ {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  } ]\r\n}";
 
-        /// <summary>
-        /// Get Aviable actions
-        /// </summary>
-        /// <remarks>Returns a list of EntityActionTypes which are possible to be executed at the moment.</remarks>
-        /// <param name="gameId"></param>
-        /// <param name="robotId"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpGet]
-        [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/avinable")]
-        [ValidateModelState]
-        [SwaggerOperation("GetPossibleActions")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<EntityEventOportunity>), description: "OK")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetPossibleActions([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]string robotId)
-        { 
+			var example = exampleJson != null
+							  ? JsonConvert.DeserializeObject<List<RobotCommand>>(exampleJson)
+							  : default(List<RobotCommand>);
+			//TODO: Change the data returned
+			return new ObjectResult(example);
+		}
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(List<EntityEventOportunity>));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"end-time\" : 0,\r\n  \"time-left\" : 1\r\n}";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<List<EntityEventOportunity>>(exampleJson)
-            : default(List<EntityEventOportunity>);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
+		/// <summary>
+		/// Get Robot Informations
+		/// </summary>
+		/// <remarks>Returns the status and info about the robot</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="robotId"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/info")]
+		[ValidateModelState]
+		[SwaggerOperation("GetRobotStats")]
+		[SwaggerResponse(statusCode: 200, type: typeof(RobotInfo), description: "OK")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult GetRobotStats([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+												   int gameId, [FromRoute(Name = "robot_id")] [Required]
+												   string robotId) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200, default(RobotInfo));
+			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(404, default(ErrorMessage));
+			string exampleJson = null;
+			exampleJson = "null";
 
-        /// <summary>
-        /// Get register information
-        /// </summary>
-        /// <remarks>Returns the content of the registers</remarks>
-        /// <param name="gameId"></param>
-        /// <param name="robotId"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpGet]
-        [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
-        [ValidateModelState]
-        [SwaggerOperation("GetRegisters")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<RobotCommand>), description: "OK")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetRegisters([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]int robotId)
-        { 
+			var example = exampleJson != null
+							  ? JsonConvert.DeserializeObject<RobotInfo>(exampleJson)
+							  : default(RobotInfo);
+			//TODO: Change the data returned
+			return new ObjectResult(example);
+		}
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(List<RobotCommand>));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"times\" : 1,\r\n  \"name\" : \"Penetration Lazer Mk.2\",\r\n  \"description\" : \"null\",\r\n  \"parameters\" : [ {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  } ]\r\n}";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<List<RobotCommand>>(exampleJson)
-            : default(List<RobotCommand>);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
+		/// <summary>
+		/// Get all robots
+		/// </summary>
+		/// <remarks>Returns a list of all robot IDs in this game. &gt; A robot is not a player as a player is able to controll multiple robots</remarks>
+		/// <param name="gameId"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/entitys/robots/")]
+		[ValidateModelState]
+		[SwaggerOperation("GetRobots")]
+		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult GetRobots([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+											   int gameId) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200, default(List<int>));
+			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(404, default(ErrorMessage));
+			string exampleJson = null;
+			exampleJson = "null";
 
-        /// <summary>
-        /// Get Robot Informations
-        /// </summary>
-        /// <remarks>Returns the status and info about the robot</remarks>
-        /// <param name="gameId"></param>
-        /// <param name="robotId"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpGet]
-        [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/info")]
-        [ValidateModelState]
-        [SwaggerOperation("GetRobotStats")]
-        [SwaggerResponse(statusCode: 200, type: typeof(RobotInfo), description: "OK")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetRobotStats([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]string robotId)
-        { 
+			var example = exampleJson != null
+							  ? JsonConvert.DeserializeObject<List<int>>(exampleJson)
+							  : default(List<int>);
+			//TODO: Change the data returned
+			return new ObjectResult(example);
+		}
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(RobotInfo));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-            string exampleJson = null;
-            exampleJson = "null";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<RobotInfo>(exampleJson)
-            : default(RobotInfo);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
+		/// <summary>
+		/// Remove Upgrade
+		/// </summary>
+		/// <remarks>Removes a paticular upgrade from the robot</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="robotId"></param>
+		/// <param name="upgrade"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpPatch]
+		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
+		[ValidateModelState]
+		[SwaggerOperation("RemoveRobotUpgrade")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult RemoveRobotUpgrade([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+														int gameId,  [FromRoute(Name = "robot_id")] [Required]
+														int robotId, [FromQuery] [Range(0, 10000)] int upgrade) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200);
+			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(404, default(ErrorMessage));
 
-        /// <summary>
-        /// Get all robots
-        /// </summary>
-        /// <remarks>Returns a list of all robot IDs in this game. &gt; A robot is not a player as a player is able to controll multiple robots</remarks>
-        /// <param name="gameId"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpGet]
-        [Route("/v1/games/{game_id}/entitys/robots/")]
-        [ValidateModelState]
-        [SwaggerOperation("GetRobots")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetRobots([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
-        { 
+			throw new NotImplementedException();
+		}
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(List<int>));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-            string exampleJson = null;
-            exampleJson = "null";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<List<int>>(exampleJson)
-            : default(List<int>);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
+		/// <summary>
+		/// change register content
+		/// </summary>
+		/// <remarks>Updates the card in a register</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="robotId"></param>
+		/// <response code="200">OK</response>
+		[HttpPatch]
+		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
+		[ValidateModelState]
+		[SwaggerOperation("UpdateRegister")]
+		public virtual IActionResult UpdateRegister([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+													int gameId, [FromRoute(Name = "robot_id")] [Required]
+													int robotId) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200);
 
-        /// <summary>
-        /// Remove Upgrade
-        /// </summary>
-        /// <remarks>Removes a paticular upgrade from the robot</remarks>
-        /// <param name="gameId"></param>
-        /// <param name="robotId"></param>
-        /// <param name="upgrade"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpPatch]
-        [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
-        [ValidateModelState]
-        [SwaggerOperation("RemoveRobotUpgrade")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult RemoveRobotUpgrade([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]int robotId, [FromQuery][Range(0, 10000)]int upgrade)
-        { 
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorMessage));
-
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// change register content
-        /// </summary>
-        /// <remarks>Updates the card in a register</remarks>
-        /// <param name="gameId"></param>
-        /// <param name="robotId"></param>
-        /// <response code="200">OK</response>
-        [HttpPatch]
-        [Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
-        [ValidateModelState]
-        [SwaggerOperation("UpdateRegister")]
-        public virtual IActionResult UpdateRegister([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "robot_id")][Required]int robotId)
-        { 
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-
-            throw new NotImplementedException();
-        }
-    }
+			throw new NotImplementedException();
+		}
+	}
 }

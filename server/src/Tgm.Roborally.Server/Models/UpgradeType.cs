@@ -18,21 +18,17 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-        /// <summary>
-        /// Defines the type (the code/actions) this card will have * `generator` : Generates *x* energy every round
-        /// </summary>
-        /// <value>Defines the type (the code/actions) this card will have * `generator` : Generates *x* energy every round</value>
-        [TypeConverter(typeof(CustomEnumConverter<UpgradeType>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum UpgradeType
-        {
-            
-            /// <summary>
-            /// Enum Generator for generator
-            /// </summary>
-            [EnumMember(Value = "generator")]
-            Generator = 1
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// Defines the type (the code/actions) this card will have * `generator` : Generates *x* energy every round
+	/// </summary>
+	/// <value>Defines the type (the code/actions) this card will have * `generator` : Generates *x* energy every round</value>
+	[TypeConverter(typeof(CustomEnumConverter<UpgradeType>))]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	public enum UpgradeType {
+		/// <summary>
+		/// Enum Generator for generator
+		/// </summary>
+		[EnumMember(Value = "generator")] Generator = 1
+	}
 }

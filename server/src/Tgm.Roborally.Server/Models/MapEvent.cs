@@ -19,103 +19,96 @@ using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-    /// <summary>
-    /// Events that takes place with the active components of the map
-    /// </summary>
-    [DataContract]
-    public partial class MapEvent : IEquatable<MapEvent>, Event {
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        public MapEventType Type { get; set; }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// Events that takes place with the active components of the map
+	/// </summary>
+	[DataContract]
+	public partial class MapEvent : IEquatable<MapEvent>, Event {
+		/// <summary>
+		/// Gets or Sets Type
+		/// </summary>
+		[DataMember(Name = "type", EmitDefaultValue = false)]
+		public MapEventType Type { get; set; }
 
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class MapEvent {\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+		/// <summary>
+		/// Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			var sb = new StringBuilder();
+			sb.Append("class MapEvent {\n");
+			sb.Append("  Type: ").Append(Type).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
 
-        public EventType GetEventType() => EventType.Map;
+		public EventType GetEventType() => EventType.Map;
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+		/// <summary>
+		/// Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() {
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((MapEvent)obj);
-        }
+		/// <summary>
+		/// Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((MapEvent) obj);
+		}
 
-        /// <summary>
-        /// Returns true if MapEvent instances are equal
-        /// </summary>
-        /// <param name="other">Instance of MapEvent to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(MapEvent other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+		/// <summary>
+		/// Returns true if MapEvent instances are equal
+		/// </summary>
+		/// <param name="other">Instance of MapEvent to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(MapEvent other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
 
-            return 
-                (
-                    Type == other.Type ||
-                    
-                    Type.Equals(other.Type)
-                );
-        }
+			return
+				(
+					Type == other.Type ||
+					Type.Equals(other.Type)
+				);
+		}
 
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                    
-                    hashCode = hashCode * 59 + Type.GetHashCode();
-                return hashCode;
-            }
-        }
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
+		public override int GetHashCode() {
+			unchecked // Overflow is fine, just wrap
+			{
+				var hashCode = 41;
+				// Suitable nullity checks etc, of course :)
 
-        #region Operators
-        #pragma warning disable 1591
+				hashCode = hashCode * 59 + Type.GetHashCode();
+				return hashCode;
+			}
+		}
 
-        public static bool operator ==(MapEvent left, MapEvent right)
-        {
-            return Equals(left, right);
-        }
+		#region Operators
 
-        public static bool operator !=(MapEvent left, MapEvent right)
-        {
-            return !Equals(left, right);
-        }
+		#pragma warning disable 1591
 
-        #pragma warning restore 1591
-        #endregion Operators
-    }
+		public static bool operator ==(MapEvent left, MapEvent right) {
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(MapEvent left, MapEvent right) {
+			return !Equals(left, right);
+		}
+
+		#pragma warning restore 1591
+
+		#endregion Operators
+	}
 }

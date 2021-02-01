@@ -18,104 +18,96 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-    /// <summary>
-    /// 
-    /// </summary>
-    [DataContract]
-    public partial class SimpleUpgradeActivationAllOf : IEquatable<SimpleUpgradeActivationAllOf>
-    {
-        /// <summary>
-        /// The id of an upgrade. **Unique**
-        /// </summary>
-        /// <value>The id of an upgrade. **Unique**</value>
-        [Range(0, 10000)]
-        [DataMember(Name="upgrade", EmitDefaultValue=false)]
-        public int Upgrade { get; set; }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// 
+	/// </summary>
+	[DataContract]
+	public partial class SimpleUpgradeActivationAllOf : IEquatable<SimpleUpgradeActivationAllOf> {
+		/// <summary>
+		/// The id of an upgrade. **Unique**
+		/// </summary>
+		/// <value>The id of an upgrade. **Unique**</value>
+		[Range(0, 10000)]
+		[DataMember(Name = "upgrade", EmitDefaultValue = false)]
+		public int Upgrade { get; set; }
 
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class SimpleUpgradeActivationAllOf {\n");
-            sb.Append("  Upgrade: ").Append(Upgrade).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+		/// <summary>
+		/// Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			var sb = new StringBuilder();
+			sb.Append("class SimpleUpgradeActivationAllOf {\n");
+			sb.Append("  Upgrade: ").Append(Upgrade).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+		/// <summary>
+		/// Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() {
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((SimpleUpgradeActivationAllOf)obj);
-        }
+		/// <summary>
+		/// Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((SimpleUpgradeActivationAllOf) obj);
+		}
 
-        /// <summary>
-        /// Returns true if SimpleUpgradeActivationAllOf instances are equal
-        /// </summary>
-        /// <param name="other">Instance of SimpleUpgradeActivationAllOf to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(SimpleUpgradeActivationAllOf other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+		/// <summary>
+		/// Returns true if SimpleUpgradeActivationAllOf instances are equal
+		/// </summary>
+		/// <param name="other">Instance of SimpleUpgradeActivationAllOf to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(SimpleUpgradeActivationAllOf other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
 
-            return 
-                (
-                    Upgrade == other.Upgrade ||
-                    
-                    Upgrade.Equals(other.Upgrade)
-                );
-        }
+			return
+				(
+					Upgrade == other.Upgrade ||
+					Upgrade.Equals(other.Upgrade)
+				);
+		}
 
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                    
-                    hashCode = hashCode * 59 + Upgrade.GetHashCode();
-                return hashCode;
-            }
-        }
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
+		public override int GetHashCode() {
+			unchecked // Overflow is fine, just wrap
+			{
+				var hashCode = 41;
+				// Suitable nullity checks etc, of course :)
 
-        #region Operators
-        #pragma warning disable 1591
+				hashCode = hashCode * 59 + Upgrade.GetHashCode();
+				return hashCode;
+			}
+		}
 
-        public static bool operator ==(SimpleUpgradeActivationAllOf left, SimpleUpgradeActivationAllOf right)
-        {
-            return Equals(left, right);
-        }
+		#region Operators
 
-        public static bool operator !=(SimpleUpgradeActivationAllOf left, SimpleUpgradeActivationAllOf right)
-        {
-            return !Equals(left, right);
-        }
+		#pragma warning disable 1591
 
-        #pragma warning restore 1591
-        #endregion Operators
-    }
+		public static bool operator ==(SimpleUpgradeActivationAllOf left, SimpleUpgradeActivationAllOf right) {
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(SimpleUpgradeActivationAllOf left, SimpleUpgradeActivationAllOf right) {
+			return !Equals(left, right);
+		}
+
+		#pragma warning restore 1591
+
+		#endregion Operators
+	}
 }

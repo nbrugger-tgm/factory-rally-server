@@ -22,75 +22,74 @@ using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Models;
 using Map = Tgm.Roborally.Server.Models.Map;
 
-namespace Tgm.Roborally.Server.Controllers
-{ 
-    /// <summary>
-    /// 
-    /// </summary>
-    [ApiController]
-    public class MapApiController : ControllerBase
-    { 
-        /// <summary>
-        /// Get Map
-        /// </summary>
-        /// <remarks>Returns the map of this specific game including the tiles (data)</remarks>
-        /// <param name="gameId"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="500">Internal Server Error</response>
-        [HttpGet]
-        [Route("/v1/games/{game_id}/map")]
-        [GameAuth(Role.PLAYER)]
-        [ValidateModelState]
-        [SwaggerOperation("GetGameMap")]
-        [SwaggerResponse(statusCode: 200, type: typeof(Map), description: "OK")]
-        public virtual IActionResult GetGameMap([FromRoute][Required] int gameId) {
-            return new GameRequestPipeline().game(gameId).compute(c => c.Response = new ObjectResult(c.Game.Map)).executeAction();
-        }
+namespace Tgm.Roborally.Server.Controllers {
+	/// <summary>
+	/// 
+	/// </summary>
+	[ApiController]
+	public class MapApiController : ControllerBase {
+		/// <summary>
+		/// Get Map
+		/// </summary>
+		/// <remarks>Returns the map of this specific game including the tiles (data)</remarks>
+		/// <param name="gameId"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		/// <response code="500">Internal Server Error</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/map")]
+		[GameAuth(Role.PLAYER)]
+		[ValidateModelState]
+		[SwaggerOperation("GetGameMap")]
+		[SwaggerResponse(statusCode: 200, type: typeof(Map), description: "OK")]
+		public virtual IActionResult GetGameMap([FromRoute] [Required] int gameId) {
+			return new GameRequestPipeline().game(gameId).compute(c => c.Response = new ObjectResult(c.Game.Map))
+											.executeAction();
+		}
 
-        /// <summary>
-        /// Get Map info
-        /// </summary>
-        /// <remarks>Get meta information abouzt the map of the game</remarks>
-        /// <param name="gameId"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpGet]
-        [Route("/v1/games/{game_id}/map/info")]
-        [ValidateModelState]
-        [SwaggerOperation("GetMapInfo")]
-        [GameAuth(Role.PLAYER)]
-        [SwaggerResponse(statusCode: 200, type: typeof(MapInfo), description: "OK")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetMapInfo([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId)
-        {
-            return new GameRequestPipeline()
-                .game(gameId)
-                .compute(c => c.Response = new ObjectResult(c.Game.Map.Info))
-                .executeAction();
-        }
+		/// <summary>
+		/// Get Map info
+		/// </summary>
+		/// <remarks>Get meta information abouzt the map of the game</remarks>
+		/// <param name="gameId"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/map/info")]
+		[ValidateModelState]
+		[SwaggerOperation("GetMapInfo")]
+		[GameAuth(Role.PLAYER)]
+		[SwaggerResponse(statusCode: 200, type: typeof(MapInfo), description: "OK")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult GetMapInfo([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+												int gameId) {
+			return new GameRequestPipeline()
+				   .game(gameId)
+				   .compute(c => c.Response = new ObjectResult(c.Game.Map.Info))
+				   .executeAction();
+		}
 
-        /// <summary>
-        /// Get tile
-        /// </summary>
-        /// <remarks>Inspect a tile of the map</remarks>
-        /// <param name="gameId"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpGet]
-        [Route("/v1/games/{game_id}/map/tiles/{x}/{y}")]
-        [ValidateModelState]
-        [SwaggerOperation("GetTile")]
-        [SwaggerResponse(statusCode: 200, type: typeof(Tile), description: "OK")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetTile([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute][Required]int x, [FromRoute][Required]int y)
-        { 
-            return new GameRequestPipeline()
-                .game(gameId)
-                .compute(c => c.Response = new ObjectResult(c.Game.Map[x,y]))
-                .executeAction();
-        }
-    }
+		/// <summary>
+		/// Get tile
+		/// </summary>
+		/// <remarks>Inspect a tile of the map</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/map/tiles/{x}/{y}")]
+		[ValidateModelState]
+		[SwaggerOperation("GetTile")]
+		[SwaggerResponse(statusCode: 200, type: typeof(Tile), description: "OK")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult GetTile([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+											 int gameId, [FromRoute] [Required] int x, [FromRoute] [Required] int y) {
+			return new GameRequestPipeline()
+				   .game(gameId)
+				   .compute(c => c.Response = new ObjectResult(c.Game.Map[x, y]))
+				   .executeAction();
+		}
+	}
 }

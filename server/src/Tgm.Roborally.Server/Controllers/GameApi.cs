@@ -17,14 +17,12 @@ using Tgm.Roborally.Server.Attributes;
 using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Models;
 
-namespace Tgm.Roborally.Server.Controllers
-{
+namespace Tgm.Roborally.Server.Controllers {
 	/// <summary>
 	/// 
 	/// </summary>
 	[ApiController]
-	public class GameApiController : ControllerBase
-	{
+	public class GameApiController : ControllerBase {
 		/// <summary>
 		/// Commit Action
 		/// </summary>
@@ -41,17 +39,15 @@ namespace Tgm.Roborally.Server.Controllers
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
 		[SwaggerResponse(statusCode: 409, type: typeof(ErrorMessage), description: "Conflict")]
 		public virtual IActionResult CommitAction([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-			int gameId, [FromQuery] [Required()] ActionType action)
-		{
-			return 
+												  int gameId, [FromQuery] [Required()] ActionType action) {
+			return
 				new GameRequestPipeline()
-				.game(gameId)
-				.compute(c =>
-				{
-					c.Game.ActionHandler.Add(action);
-					c.Game.ActionHandler.ExecuteNext();
-				})
-				.executeAction();
+					.game(gameId)
+					.compute(c => {
+						c.Game.ActionHandler.Add(action);
+						c.Game.ActionHandler.ExecuteNext();
+					})
+					.executeAction();
 		}
 
 		/// <summary>
@@ -85,9 +81,8 @@ namespace Tgm.Roborally.Server.Controllers
 		[SwaggerResponse(statusCode: 200, type: typeof(List<Action>), description: "OK")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetActions([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-			int gameId, [FromQuery] string mode)
-		{
-			return 
+												int gameId, [FromQuery] string mode) {
+			return
 				new GameRequestPipeline()
 					.game(gameId)
 					.compute(c => c.Response = new OkObjectResult(c.Game.ActionHandler.Queue))
@@ -108,12 +103,13 @@ namespace Tgm.Roborally.Server.Controllers
 		[SwaggerResponse(statusCode: 200, type: typeof(GameInfo), description: "OK")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetGameState(
-			[FromRoute(Name = "game_id")] [Required] [Range(0, 2048)] int gameId
+			[FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+			int gameId
 		) {
 			return new GameRequestPipeline()
-				.game(gameId)
-				.compute(ctx => ctx.Response = new OkObjectResult(ctx.Game.Info))
-				.executeAction();
+				   .game(gameId)
+				   .compute(ctx => ctx.Response = new OkObjectResult(ctx.Game.Info))
+				   .executeAction();
 		}
 
 		/// <summary>
@@ -128,14 +124,14 @@ namespace Tgm.Roborally.Server.Controllers
 		[ValidateModelState]
 		[SwaggerOperation("GetGames")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
-		public virtual IActionResult GetGames([FromQuery] bool joinable, [FromQuery] bool unprotected)
-		{
+		public virtual IActionResult GetGames([FromQuery] bool joinable, [FromQuery] bool unprotected) {
 			return new ObjectResult(
 				GameManager.instance.games
-					.Where(pair => (!joinable || pair.Value.Joinable) && (!unprotected || pair.Value.Password == null))
-					.Select(e => e.Key)
-					.ToList()
-				);
+						   .Where(pair => (!joinable    || pair.Value.Joinable) &&
+										  (!unprotected || pair.Value.Password == null))
+						   .Select(e => e.Key)
+						   .ToList()
+			);
 		}
 	}
 }

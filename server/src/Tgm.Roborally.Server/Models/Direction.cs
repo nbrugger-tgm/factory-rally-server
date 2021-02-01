@@ -18,39 +18,32 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-        /// <summary>
-        /// Defines a direction in a 2D system. the X and Y values can be defined by the client.
-        /// </summary>
-        /// <value>Defines a direction in a 2D system. the X and Y values can be defined by the client.</value>
-        [TypeConverter(typeof(CustomEnumConverter<Direction>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum Direction
-        {
-            
-            /// <summary>
-            /// Enum Up for up
-            /// </summary>
-            [EnumMember(Value = "up")]
-            Up = 1,
-            
-            /// <summary>
-            /// Enum Down for down
-            /// </summary>
-            [EnumMember(Value = "down")]
-            Down = 2,
-            
-            /// <summary>
-            /// Enum Left for left
-            /// </summary>
-            [EnumMember(Value = "left")]
-            Left = 3,
-            
-            /// <summary>
-            /// Enum Right for right
-            /// </summary>
-            [EnumMember(Value = "right")]
-            Right = 4
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// Defines a direction in a 2D system. the X and Y values can be defined by the client.
+	/// </summary>
+	/// <value>Defines a direction in a 2D system. the X and Y values can be defined by the client.</value>
+	[TypeConverter(typeof(CustomEnumConverter<Direction>))]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	public enum Direction {
+		/// <summary>
+		/// Enum Up for up
+		/// </summary>
+		[EnumMember(Value = "up")] Up = 1,
+
+		/// <summary>
+		/// Enum Down for down
+		/// </summary>
+		[EnumMember(Value = "down")] Down = 2,
+
+		/// <summary>
+		/// Enum Left for left
+		/// </summary>
+		[EnumMember(Value = "left")] Left = 3,
+
+		/// <summary>
+		/// Enum Right for right
+		/// </summary>
+		[EnumMember(Value = "right")] Right = 4
+	}
 }

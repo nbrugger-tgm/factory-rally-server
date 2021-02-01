@@ -18,183 +18,162 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-        /// <summary>
-        /// Describes what the event is about
-        /// </summary>
-        /// <value>Describes what the event is about</value>
-        [TypeConverter(typeof(CustomEnumConverter<EventType>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum EventType
-        {
-            
-            /// <summary>
-            /// Enum Movement for movement
-            /// </summary>
-            [EnumMember(Value = "movement")]
-            Movement = 1,
-            
-            /// <summary>
-            /// Enum UpgradePurchase for upgrade purchase
-            /// </summary>
-            [EnumMember(Value = "upgrade purchase")]
-            UpgradePurchase = 2,
-            
-            /// <summary>
-            /// Enum FillRegister for fill register
-            /// </summary>
-            [EnumMember(Value = "fill register")]
-            FillRegister = 3,
-            
-            /// <summary>
-            /// Enum ActivateUpgrade for activate upgrade
-            /// </summary>
-            [EnumMember(Value = "activate upgrade")]
-            ActivateUpgrade = 4,
-            
-            /// <summary>
-            /// Enum LazerShot for lazer shot
-            /// </summary>
-            [EnumMember(Value = "lazer shot")]
-            LazerShot = 5,
-            
-            /// <summary>
-            /// Enum GameStart for game start
-            /// </summary>
-            [EnumMember(Value = "game start")]
-            GameStart = 6,
-            
-            /// <summary>
-            /// Enum ClearShop for clear shop
-            /// </summary>
-            [EnumMember(Value = "clear shop")]
-            ClearShop = 7,
-            
-            /// <summary>
-            /// Enum FillShop for fill shop
-            /// </summary>
-            [EnumMember(Value = "fill shop")]
-            FillShop = 8,
-            
-            /// <summary>
-            /// Enum RegisterClear for register clear
-            /// </summary>
-            [EnumMember(Value = "register clear")]
-            RegisterClear = 9,
-            
-            /// <summary>
-            /// Enum ProgrammingTimerStart for programming timer start
-            /// </summary>
-            [EnumMember(Value = "programming timer start")]
-            ProgrammingTimerStart = 10,
-            
-            /// <summary>
-            /// Enum ProgrammingTimerStop for programming timer stop
-            /// </summary>
-            [EnumMember(Value = "programming timer stop")]
-            ProgrammingTimerStop = 11,
-            
-            /// <summary>
-            /// Enum RandomCardDistribution for random card distribution
-            /// </summary>
-            [EnumMember(Value = "random card distribution")]
-            RandomCardDistribution = 12,
-            
-            /// <summary>
-            /// Enum TakeCardEvent for take card event
-            /// </summary>
-            [EnumMember(Value = "take card event")]
-            TakeCardEvent = 13,
-            
-            /// <summary>
-            /// Enum ActivateCheckpoint for activate checkpoint
-            /// </summary>
-            [EnumMember(Value = "activate checkpoint")]
-            ActivateCheckpoint = 14,
-            
-            /// <summary>
-            /// Enum GamePhaseChanged for game_phase_changed
-            /// </summary>
-            [EnumMember(Value = "game_phase_changed")]
-            GamePhaseChanged = 15,
-            
-            /// <summary>
-            /// Enum GameRoundPhaseChanged for game_round_phase_changed
-            /// </summary>
-            [EnumMember(Value = "game_round_phase_changed")]
-            GameRoundPhaseChanged = 16,
-            
-            /// <summary>
-            /// Enum Pause for pause
-            /// </summary>
-            [EnumMember(Value = "pause")]
-            Pause = 17,
-            
-            /// <summary>
-            /// Enum Unpause for unpause
-            /// </summary>
-            [EnumMember(Value = "unpause")]
-            Unpause = 18,
-            
-            /// <summary>
-            /// Enum Damage for damage
-            /// </summary>
-            [EnumMember(Value = "damage")]
-            Damage = 19,
-            
-            /// <summary>
-            /// Enum LazerHit for lazer hit
-            /// </summary>
-            [EnumMember(Value = "lazer hit")]
-            LazerHit = 20,
-            
-            /// <summary>
-            /// Enum Push for push
-            /// </summary>
-            [EnumMember(Value = "push")]
-            Push = 21,
-            
-            /// <summary>
-            /// Enum Join for join
-            /// </summary>
-            [EnumMember(Value = "join")]
-            Join = 22,
-            
-            /// <summary>
-            /// Enum LockIn for lock in
-            /// </summary>
-            [EnumMember(Value = "lock in")]
-            LockIn = 23,
-            
-            /// <summary>
-            /// Enum RobotStartExecuting for robot_start_executing
-            /// </summary>
-            [EnumMember(Value = "robot_start_executing")]
-            RobotStartExecuting = 24,
-            
-            /// <summary>
-            /// Enum Heal for heal
-            /// </summary>
-            [EnumMember(Value = "heal")]
-            Heal = 25,
-            
-            /// <summary>
-            /// Enum EnergyGain for energy gain
-            /// </summary>
-            [EnumMember(Value = "energy gain")]
-            EnergyGain = 26,
-			
-			/// <summary>
-			/// 
-			/// </summary>
-			[EnumMember(Value = "map")]
-			Map = 27,
-			
-			/// <summary>
-			/// 
-			/// </summary>
-			[EnumMember(Value = "shutdown")]
-			Shutdown = 28,
-		}
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// Describes what the event is about
+	/// </summary>
+	/// <value>Describes what the event is about</value>
+	[TypeConverter(typeof(CustomEnumConverter<EventType>))]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	public enum EventType {
+		/// <summary>
+		/// Enum Movement for movement
+		/// </summary>
+		[EnumMember(Value = "movement")] Movement = 1,
+
+		/// <summary>
+		/// Enum UpgradePurchase for upgrade purchase
+		/// </summary>
+		[EnumMember(Value = "upgrade purchase")]
+		UpgradePurchase = 2,
+
+		/// <summary>
+		/// Enum FillRegister for fill register
+		/// </summary>
+		[EnumMember(Value = "fill register")] FillRegister = 3,
+
+		/// <summary>
+		/// Enum ActivateUpgrade for activate upgrade
+		/// </summary>
+		[EnumMember(Value = "activate upgrade")]
+		ActivateUpgrade = 4,
+
+		/// <summary>
+		/// Enum LazerShot for lazer shot
+		/// </summary>
+		[EnumMember(Value = "lazer shot")] LazerShot = 5,
+
+		/// <summary>
+		/// Enum GameStart for game start
+		/// </summary>
+		[EnumMember(Value = "game start")] GameStart = 6,
+
+		/// <summary>
+		/// Enum ClearShop for clear shop
+		/// </summary>
+		[EnumMember(Value = "clear shop")] ClearShop = 7,
+
+		/// <summary>
+		/// Enum FillShop for fill shop
+		/// </summary>
+		[EnumMember(Value = "fill shop")] FillShop = 8,
+
+		/// <summary>
+		/// Enum RegisterClear for register clear
+		/// </summary>
+		[EnumMember(Value = "register clear")] RegisterClear = 9,
+
+		/// <summary>
+		/// Enum ProgrammingTimerStart for programming timer start
+		/// </summary>
+		[EnumMember(Value = "programming timer start")]
+		ProgrammingTimerStart = 10,
+
+		/// <summary>
+		/// Enum ProgrammingTimerStop for programming timer stop
+		/// </summary>
+		[EnumMember(Value = "programming timer stop")]
+		ProgrammingTimerStop = 11,
+
+		/// <summary>
+		/// Enum RandomCardDistribution for random card distribution
+		/// </summary>
+		[EnumMember(Value = "random card distribution")]
+		RandomCardDistribution = 12,
+
+		/// <summary>
+		/// Enum TakeCardEvent for take card event
+		/// </summary>
+		[EnumMember(Value = "take card event")]
+		TakeCardEvent = 13,
+
+		/// <summary>
+		/// Enum ActivateCheckpoint for activate checkpoint
+		/// </summary>
+		[EnumMember(Value = "activate checkpoint")]
+		ActivateCheckpoint = 14,
+
+		/// <summary>
+		/// Enum GamePhaseChanged for game_phase_changed
+		/// </summary>
+		[EnumMember(Value = "game_phase_changed")]
+		GamePhaseChanged = 15,
+
+		/// <summary>
+		/// Enum GameRoundPhaseChanged for game_round_phase_changed
+		/// </summary>
+		[EnumMember(Value = "game_round_phase_changed")]
+		GameRoundPhaseChanged = 16,
+
+		/// <summary>
+		/// Enum Pause for pause
+		/// </summary>
+		[EnumMember(Value = "pause")] Pause = 17,
+
+		/// <summary>
+		/// Enum Unpause for unpause
+		/// </summary>
+		[EnumMember(Value = "unpause")] Unpause = 18,
+
+		/// <summary>
+		/// Enum Damage for damage
+		/// </summary>
+		[EnumMember(Value = "damage")] Damage = 19,
+
+		/// <summary>
+		/// Enum LazerHit for lazer hit
+		/// </summary>
+		[EnumMember(Value = "lazer hit")] LazerHit = 20,
+
+		/// <summary>
+		/// Enum Push for push
+		/// </summary>
+		[EnumMember(Value = "push")] Push = 21,
+
+		/// <summary>
+		/// Enum Join for join
+		/// </summary>
+		[EnumMember(Value = "join")] Join = 22,
+
+		/// <summary>
+		/// Enum LockIn for lock in
+		/// </summary>
+		[EnumMember(Value = "lock in")] LockIn = 23,
+
+		/// <summary>
+		/// Enum RobotStartExecuting for robot_start_executing
+		/// </summary>
+		[EnumMember(Value = "robot_start_executing")]
+		RobotStartExecuting = 24,
+
+		/// <summary>
+		/// Enum Heal for heal
+		/// </summary>
+		[EnumMember(Value = "heal")] Heal = 25,
+
+		/// <summary>
+		/// Enum EnergyGain for energy gain
+		/// </summary>
+		[EnumMember(Value = "energy gain")] EnergyGain = 26,
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[EnumMember(Value = "map")] Map = 27,
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[EnumMember(Value = "shutdown")] Shutdown = 28,
+	}
 }

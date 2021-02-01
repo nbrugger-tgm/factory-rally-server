@@ -18,99 +18,82 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-        /// <summary>
-        /// The type defines the function of a tile and how it is displayed. The behaviour is unknown to the client
-        /// </summary>
-        /// <value>The type defines the function of a tile and how it is displayed. The behaviour is unknown to the client</value>
-        [TypeConverter(typeof(CustomEnumConverter<TileType>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum TileType
-        {
-            
-            /// <summary>
-            /// Enum Normal for normal
-            /// </summary>
-            [EnumMember(Value = "normal")]
-            Normal = 1,
-            
-            /// <summary>
-            /// Enum Rotator for rotator
-            /// </summary>
-            [EnumMember(Value = "rotator")]
-            Rotator = 2,
-            
-            /// <summary>
-            /// Enum Wall for wall
-            /// </summary>
-            [EnumMember(Value = "wall")]
-            Wall = 3,
-            
-            /// <summary>
-            /// Enum PrioCore for prio_core
-            /// </summary>
-            [EnumMember(Value = "prio_core")]
-            PrioCore = 4,
-            
-            /// <summary>
-            /// Enum Conveyor for conveyor
-            /// </summary>
-            [EnumMember(Value = "conveyor")]
-            Conveyor = 5,
-            
-            /// <summary>
-            /// Enum TrapDoor for trap-door
-            /// </summary>
-            [EnumMember(Value = "trap-door")]
-            TrapDoor = 6,
-            
-            /// <summary>
-            /// Enum Stomper for stomper
-            /// </summary>
-            [EnumMember(Value = "stomper")]
-            Stomper = 7,
-            
-            /// <summary>
-            /// Enum Radioactive for radioactive
-            /// </summary>
-            [EnumMember(Value = "radioactive")]
-            Radioactive = 8,
-            
-            /// <summary>
-            /// Enum RepairSite for repair site
-            /// </summary>
-            [EnumMember(Value = "repair site")]
-            RepairSite = 9,
-            
-            /// <summary>
-            /// Enum Button for Button
-            /// </summary>
-            [EnumMember(Value = "Button")]
-            Button = 10,
-            
-            /// <summary>
-            /// Enum OneWayWall for One Way Wall
-            /// </summary>
-            [EnumMember(Value = "One Way Wall")]
-            OneWayWall = 11,
-            
-            /// <summary>
-            /// Enum Puddle for Puddle
-            /// </summary>
-            [EnumMember(Value = "Puddle")]
-            Puddle = 12,
-            
-            /// <summary>
-            /// Enum Pit for pit
-            /// </summary>
-            [EnumMember(Value = "pit")]
-            Pit = 13,
-            
-            /// <summary>
-            /// Enum Ramp for Ramp
-            /// </summary>
-            [EnumMember(Value = "Ramp")]
-            Ramp = 14
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// The type defines the function of a tile and how it is displayed. The behaviour is unknown to the client
+	/// </summary>
+	/// <value>The type defines the function of a tile and how it is displayed. The behaviour is unknown to the client</value>
+	[TypeConverter(typeof(CustomEnumConverter<TileType>))]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	public enum TileType {
+		/// <summary>
+		/// Enum Normal for normal
+		/// </summary>
+		[EnumMember(Value = "normal")] Normal = 1,
+
+		/// <summary>
+		/// Enum Rotator for rotator
+		/// </summary>
+		[EnumMember(Value = "rotator")] Rotator = 2,
+
+		/// <summary>
+		/// Enum Wall for wall
+		/// </summary>
+		[EnumMember(Value = "wall")] Wall = 3,
+
+		/// <summary>
+		/// Enum PrioCore for prio_core
+		/// </summary>
+		[EnumMember(Value = "prio_core")] PrioCore = 4,
+
+		/// <summary>
+		/// Enum Conveyor for conveyor
+		/// </summary>
+		[EnumMember(Value = "conveyor")] Conveyor = 5,
+
+		/// <summary>
+		/// Enum TrapDoor for trap-door
+		/// </summary>
+		[EnumMember(Value = "trap-door")] TrapDoor = 6,
+
+		/// <summary>
+		/// Enum Stomper for stomper
+		/// </summary>
+		[EnumMember(Value = "stomper")] Stomper = 7,
+
+		/// <summary>
+		/// Enum Radioactive for radioactive
+		/// </summary>
+		[EnumMember(Value = "radioactive")] Radioactive = 8,
+
+		/// <summary>
+		/// Enum RepairSite for repair site
+		/// </summary>
+		[EnumMember(Value = "repair site")] RepairSite = 9,
+
+		/// <summary>
+		/// Enum Button for Button
+		/// </summary>
+		[EnumMember(Value = "Button")] Button = 10,
+
+		/// <summary>
+		/// Enum OneWayWall for One Way Wall
+		/// </summary>
+		[EnumMember(Value = "One Way Wall")] OneWayWall = 11,
+
+		/// <summary>
+		/// Enum Puddle for Puddle
+		/// </summary>
+		[EnumMember(Value = "Puddle")] Puddle = 12,
+
+		/// <summary>
+		/// Enum Pit for pit
+		/// </summary>
+		[EnumMember(Value = "pit")] Pit = 13,
+
+		/// <summary>
+		/// Enum Ramp for Ramp
+		/// </summary>
+		[EnumMember(Value = "Ramp")] Ramp = 14
+	}
 }

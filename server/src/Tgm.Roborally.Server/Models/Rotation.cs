@@ -18,27 +18,22 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-        /// <summary>
-        /// Defines wether to turn left or right
-        /// </summary>
-        /// <value>Defines wether to turn left or right</value>
-        [TypeConverter(typeof(CustomEnumConverter<Rotation>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum Rotation
-        {
-            
-            /// <summary>
-            /// Enum Left for left
-            /// </summary>
-            [EnumMember(Value = "left")]
-            Left = 1,
-            
-            /// <summary>
-            /// Enum Right for right
-            /// </summary>
-            [EnumMember(Value = "right")]
-            Right = 2
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// Defines wether to turn left or right
+	/// </summary>
+	/// <value>Defines wether to turn left or right</value>
+	[TypeConverter(typeof(CustomEnumConverter<Rotation>))]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	public enum Rotation {
+		/// <summary>
+		/// Enum Left for left
+		/// </summary>
+		[EnumMember(Value = "left")] Left = 1,
+
+		/// <summary>
+		/// Enum Right for right
+		/// </summary>
+		[EnumMember(Value = "right")] Right = 2
+	}
 }

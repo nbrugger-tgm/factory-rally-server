@@ -22,107 +22,108 @@ using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Engine.Managers;
 using Tgm.Roborally.Server.Models;
 
-namespace Tgm.Roborally.Server.Controllers
-{ 
-    /// <summary>
-    /// 
-    /// </summary>
-    [ApiController]
-    public class UpgradesApiController : ControllerBase
-    { 
-        /// <summary>
-        /// Buy Upgrade
-        /// </summary>
-        /// <remarks>Buy this Upgrade from the shop. ### Note If your robot allready owns 3 Upgrades you have to use the &#x60;exchange&#x60; parameter. This is the ID of the Upgrade to replace with the bought one</remarks>
-        /// <param name="gameId"></param>
-        /// <param name="upgrade"></param>
-        /// <param name="exchange"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpPatch]
-        [Route("/v1/games/{game_id}/upgrades/shop")]
-        [ValidateModelState]
-        [GameAuth(Role.PLAYER)]
-        [SwaggerOperation("BuyUpgrade")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult BuyUpgrade([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromQuery][Required()][Range(0, 10000)]int upgrade, [FromQuery][Range(0, 10000)]int exchange) {
-            return new GameRequestPipeline()
-                   .game(gameId)
-                   .compute(c => c.Game.BuyUpgrade(((Player) HttpContext.Items[GameAuth.PLAYER]).Id, upgrade))
-                   .executeAction();
-        }
+namespace Tgm.Roborally.Server.Controllers {
+	/// <summary>
+	/// 
+	/// </summary>
+	[ApiController]
+	public class UpgradesApiController : ControllerBase {
+		/// <summary>
+		/// Buy Upgrade
+		/// </summary>
+		/// <remarks>Buy this Upgrade from the shop. ### Note If your robot allready owns 3 Upgrades you have to use the &#x60;exchange&#x60; parameter. This is the ID of the Upgrade to replace with the bought one</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="upgrade"></param>
+		/// <param name="exchange"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpPatch]
+		[Route("/v1/games/{game_id}/upgrades/shop")]
+		[ValidateModelState]
+		[GameAuth(Role.PLAYER)]
+		[SwaggerOperation("BuyUpgrade")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult BuyUpgrade([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+												int gameId,  [FromQuery] [Required()] [Range(0, 10000)]
+												int upgrade, [FromQuery] [Range(0, 10000)] int exchange) {
+			return new GameRequestPipeline()
+				   .game(gameId)
+				   .compute(c => c.Game.BuyUpgrade(((Player) HttpContext.Items[GameAuth.PLAYER]).Id, upgrade))
+				   .executeAction();
+		}
 
-        /// <summary>
-        /// get all Upgrades
-        /// </summary>
-        /// <remarks>Returns a list of all Upgrade IDs</remarks>
-        /// <param name="gameId"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpGet]
-        [Route("/v1/games/{game_id}/upgrades/")]
-        [ValidateModelState]
-        [SwaggerOperation("GetAllUpgradeIDs")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetAllUpgradeIDs([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId) {
-            return new GameRequestPipeline()
-                   .game(gameId)
-                   .compute(c => {
-                       c.Response = new ObjectResult(c.Game.Upgrades.Ids);
-                   }).executeSecure();
-        }
+		/// <summary>
+		/// get all Upgrades
+		/// </summary>
+		/// <remarks>Returns a list of all Upgrade IDs</remarks>
+		/// <param name="gameId"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/upgrades/")]
+		[ValidateModelState]
+		[SwaggerOperation("GetAllUpgradeIDs")]
+		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult GetAllUpgradeIDs([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+													  int gameId) {
+			return new GameRequestPipeline()
+				   .game(gameId)
+				   .compute(c => { c.Response = new ObjectResult(c.Game.Upgrades.Ids); }).executeSecure();
+		}
 
-        /// <summary>
-        /// Get upgrade information
-        /// </summary>
-        /// <remarks>Get detailed information about the Upgrade</remarks>
-        /// <param name="gameId"></param>
-        /// <param name="upgradeId"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpGet]
-        [Route("/v1/games/{game_id}/upgrades/{upgrade_id}")]
-        [ValidateModelState]
-        [SwaggerOperation("GetUpgradeInformation")]
-        [SwaggerResponse(statusCode: 200, type: typeof(Upgrade), description: "OK")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetUpgradeInformation([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromRoute(Name = "upgrade_id")][Required][Range(0, 10000)]int upgradeId) {
+		/// <summary>
+		/// Get upgrade information
+		/// </summary>
+		/// <remarks>Get detailed information about the Upgrade</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="upgradeId"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/upgrades/{upgrade_id}")]
+		[ValidateModelState]
+		[SwaggerOperation("GetUpgradeInformation")]
+		[SwaggerResponse(statusCode: 200, type: typeof(Upgrade), description: "OK")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult GetUpgradeInformation([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+														   int gameId, [FromRoute(Name = "upgrade_id")]
+														   [Required]
+														   [Range(0, 10000)]
+														   int upgradeId) {
+			return new GameRequestPipeline()
+				   .game(gameId)
+				   .compute(c => {
+					   Upgrade u = c.Game.Upgrades.Get(upgradeId);
+					   if (u == null) {
+						   c.Response = StatusCode(404);
+					   }
+					   else {
+						   c.Response = new ObjectResult(u);
+					   }
+				   })
+				   .executeSecure();
+		}
 
-            return new GameRequestPipeline()
-                   .game(gameId)
-                   .compute(c => {
-                       Upgrade u = c.Game.Upgrades.Get(upgradeId);
-                       if (u == null) {
-                           c.Response = StatusCode(404);
-                       }
-                       else {
-                           c.Response = new ObjectResult(u);
-                       }
-                   })
-                   .executeSecure();
-        }
-
-        /// <summary>
-        /// Get upgrade shop
-        /// </summary>
-        /// <remarks>Retuns a list of all cards in the upgrade shop</remarks>
-        /// <param name="gameId"></param>
-        /// <response code="200">OK</response>
-        /// <response code="404">Not Found</response>
-        [HttpGet]
-        [Route("/v1/games/{game_id}/upgrades/shop")]
-        [ValidateModelState]
-        [SwaggerOperation("GetUpgradeShop")]
-        [SwaggerResponse(statusCode: 200, type: typeof(UpgradeShop), description: "OK")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-        public virtual IActionResult GetUpgradeShop([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId) {
-            return new GameRequestPipeline()
-                   .game(gameId)
-                   .compute(c => {
-                       c.Response = new ObjectResult(c.Game.Upgrades.Shop);
-                   })
-                   .executeSecure();
-        }
-    }
+		/// <summary>
+		/// Get upgrade shop
+		/// </summary>
+		/// <remarks>Retuns a list of all cards in the upgrade shop</remarks>
+		/// <param name="gameId"></param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/upgrades/shop")]
+		[ValidateModelState]
+		[SwaggerOperation("GetUpgradeShop")]
+		[SwaggerResponse(statusCode: 200, type: typeof(UpgradeShop), description: "OK")]
+		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		public virtual IActionResult GetUpgradeShop([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+													int gameId) {
+			return new GameRequestPipeline()
+				   .game(gameId)
+				   .compute(c => { c.Response = new ObjectResult(c.Game.Upgrades.Shop); })
+				   .executeSecure();
+		}
+	}
 }

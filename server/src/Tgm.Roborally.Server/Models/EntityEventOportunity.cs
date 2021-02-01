@@ -18,132 +18,122 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-    /// <summary>
-    /// The oportunity to perfom an action / event
-    /// </summary>
-    [DataContract]
-    public partial class EntityEventOportunity : IEquatable<EntityEventOportunity>
-    {
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        public EntityActionType Type { get; set; }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// The oportunity to perfom an action / event
+	/// </summary>
+	[DataContract]
+	public partial class EntityEventOportunity : IEquatable<EntityEventOportunity> {
+		/// <summary>
+		/// Gets or Sets Type
+		/// </summary>
+		[DataMember(Name = "type", EmitDefaultValue = false)]
+		public EntityActionType Type { get; set; }
 
-        /// <summary>
-        /// The time in ms left to do this action
-        /// </summary>
-        /// <value>The time in ms left to do this action</value>
-        [DataMember(Name="time-left", EmitDefaultValue=false)]
-        public long TimeLeft { get; set; }
+		/// <summary>
+		/// The time in ms left to do this action
+		/// </summary>
+		/// <value>The time in ms left to do this action</value>
+		[DataMember(Name = "time-left", EmitDefaultValue = false)]
+		public long TimeLeft { get; set; }
 
-        /// <summary>
-        /// The in most languages avinable system time in MS as of which the action cant be committed any more
-        /// </summary>
-        /// <value>The in most languages avinable system time in MS as of which the action cant be committed any more</value>
-        [DataMember(Name="end-time", EmitDefaultValue=false)]
-        public long EndTime { get; set; }
+		/// <summary>
+		/// The in most languages avinable system time in MS as of which the action cant be committed any more
+		/// </summary>
+		/// <value>The in most languages avinable system time in MS as of which the action cant be committed any more</value>
+		[DataMember(Name = "end-time", EmitDefaultValue = false)]
+		public long EndTime { get; set; }
 
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class EntityEventOportunity {\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  TimeLeft: ").Append(TimeLeft).Append("\n");
-            sb.Append("  EndTime: ").Append(EndTime).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+		/// <summary>
+		/// Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			var sb = new StringBuilder();
+			sb.Append("class EntityEventOportunity {\n");
+			sb.Append("  Type: ").Append(Type).Append("\n");
+			sb.Append("  TimeLeft: ").Append(TimeLeft).Append("\n");
+			sb.Append("  EndTime: ").Append(EndTime).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+		/// <summary>
+		/// Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() {
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((EntityEventOportunity)obj);
-        }
+		/// <summary>
+		/// Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((EntityEventOportunity) obj);
+		}
 
-        /// <summary>
-        /// Returns true if EntityEventOportunity instances are equal
-        /// </summary>
-        /// <param name="other">Instance of EntityEventOportunity to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(EntityEventOportunity other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+		/// <summary>
+		/// Returns true if EntityEventOportunity instances are equal
+		/// </summary>
+		/// <param name="other">Instance of EntityEventOportunity to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(EntityEventOportunity other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
 
-            return 
-                (
-                    Type == other.Type ||
-                    
-                    Type.Equals(other.Type)
-                ) && 
-                (
-                    TimeLeft == other.TimeLeft ||
-                    
-                    TimeLeft.Equals(other.TimeLeft)
-                ) && 
-                (
-                    EndTime == other.EndTime ||
-                    
-                    EndTime.Equals(other.EndTime)
-                );
-        }
+			return
+				(
+					Type == other.Type ||
+					Type.Equals(other.Type)
+				) &&
+				(
+					TimeLeft == other.TimeLeft ||
+					TimeLeft.Equals(other.TimeLeft)
+				) &&
+				(
+					EndTime == other.EndTime ||
+					EndTime.Equals(other.EndTime)
+				);
+		}
 
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                    
-                    hashCode = hashCode * 59 + Type.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + TimeLeft.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + EndTime.GetHashCode();
-                return hashCode;
-            }
-        }
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
+		public override int GetHashCode() {
+			unchecked // Overflow is fine, just wrap
+			{
+				var hashCode = 41;
+				// Suitable nullity checks etc, of course :)
 
-        #region Operators
-        #pragma warning disable 1591
+				hashCode = hashCode * 59 + Type.GetHashCode();
 
-        public static bool operator ==(EntityEventOportunity left, EntityEventOportunity right)
-        {
-            return Equals(left, right);
-        }
+				hashCode = hashCode * 59 + TimeLeft.GetHashCode();
 
-        public static bool operator !=(EntityEventOportunity left, EntityEventOportunity right)
-        {
-            return !Equals(left, right);
-        }
+				hashCode = hashCode * 59 + EndTime.GetHashCode();
+				return hashCode;
+			}
+		}
 
-        #pragma warning restore 1591
-        #endregion Operators
-    }
+		#region Operators
+
+		#pragma warning disable 1591
+
+		public static bool operator ==(EntityEventOportunity left, EntityEventOportunity right) {
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(EntityEventOportunity left, EntityEventOportunity right) {
+			return !Equals(left, right);
+		}
+
+		#pragma warning restore 1591
+
+		#endregion Operators
+	}
 }

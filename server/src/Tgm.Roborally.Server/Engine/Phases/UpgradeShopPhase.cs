@@ -5,16 +5,16 @@ using Tgm.Roborally.Server.Models;
 namespace Tgm.Roborally.Server.Engine.Phases {
 	public class UpgradeShopPhase : GamePhase {
 		private GameLogic game;
+
 		protected override GamePhase Run(GameLogic game) {
 			this.game = game;
 			game.Upgrades.drawShop();
-			return null;//todo
+			return null; //todo
 		}
 
 		public override GameState NewState => GameState.PLAYING;
 
 		public override void Notify(ActionType action) {
-			
 		}
 
 		public override bool Notify(GenericEvent action) {
@@ -22,7 +22,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 				//TODO handle data
 				return true;
 			}
-			else if(action.GetEventType() == EventType.ActivateUpgrade ) {
+			else if (action.GetEventType() == EventType.ActivateUpgrade) {
 				//TODO handle
 				return true;
 			}

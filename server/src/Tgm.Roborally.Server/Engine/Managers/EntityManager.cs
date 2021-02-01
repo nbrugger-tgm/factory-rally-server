@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Tgm.Roborally.Server.Models;
 
-namespace Tgm.Roborally.Server.Engine
-{
+namespace Tgm.Roborally.Server.Engine {
 	public class EntityManager {
 		private readonly List<Entity> ents = new List<Entity>();
+
 		public RobotPickEvent PickRobo(Robots type, Player gamePlayer) {
 			RobotInfo info = new RobotInfo() {
 				Health = 100,
 				Id     = NextFreeId()
 			};
-			info.Name = gamePlayer.DisplayName +" "+ info.Id;
+			info.Name = gamePlayer.DisplayName + " " + info.Id;
 			ents.Add(info);
 			gamePlayer.ControlledEntities.Add(info.Id);
 			RobotPickEvent ev = new RobotPickEvent() {
@@ -27,7 +27,7 @@ namespace Tgm.Roborally.Server.Engine
 
 		private int NextFreeId() {
 			int r;
-			
+
 			do {
 				r = Rng.Next(15);
 			} while (ents.Select(e => e.Id).Contains(r));

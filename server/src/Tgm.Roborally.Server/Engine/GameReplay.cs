@@ -1,10 +1,7 @@
 using System.Runtime.Serialization;
 
-namespace Tgm.Roborally.Server.Engine
-{
+namespace Tgm.Roborally.Server.Engine {
 	[DataContract]
-	public class GameReplay
-	{
-		
+	public class GameReplay {
 	}
 }

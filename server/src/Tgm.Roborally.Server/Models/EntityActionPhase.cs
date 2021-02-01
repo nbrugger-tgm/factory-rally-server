@@ -18,27 +18,22 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-        /// <summary>
-        /// The moment at which a entity action can be performed
-        /// </summary>
-        /// <value>The moment at which a entity action can be performed</value>
-        [TypeConverter(typeof(CustomEnumConverter<EntityActionPhase>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum EntityActionPhase
-        {
-            
-            /// <summary>
-            /// Enum PreRegister for pre_register
-            /// </summary>
-            [EnumMember(Value = "pre_register")]
-            PreRegister = 1,
-            
-            /// <summary>
-            /// Enum AfterRegister for after_register
-            /// </summary>
-            [EnumMember(Value = "after_register")]
-            AfterRegister = 2
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// The moment at which a entity action can be performed
+	/// </summary>
+	/// <value>The moment at which a entity action can be performed</value>
+	[TypeConverter(typeof(CustomEnumConverter<EntityActionPhase>))]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	public enum EntityActionPhase {
+		/// <summary>
+		/// Enum PreRegister for pre_register
+		/// </summary>
+		[EnumMember(Value = "pre_register")] PreRegister = 1,
+
+		/// <summary>
+		/// Enum AfterRegister for after_register
+		/// </summary>
+		[EnumMember(Value = "after_register")] AfterRegister = 2
+	}
 }

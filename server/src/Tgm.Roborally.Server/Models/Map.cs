@@ -18,117 +18,110 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-    /// <summary>
-    /// The map including the tiles
-    /// </summary>
-    [DataContract]
-    public partial class Map : IEquatable<Map>
-    {
-        /// <summary>
-        /// Gets or Sets Info
-        /// </summary>
-        [DataMember(Name="info", EmitDefaultValue=false)]
-        public MapInfo Info { get; set; }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// The map including the tiles
+	/// </summary>
+	[DataContract]
+	public partial class Map : IEquatable<Map> {
+		/// <summary>
+		/// Gets or Sets Info
+		/// </summary>
+		[DataMember(Name = "info", EmitDefaultValue = false)]
+		public MapInfo Info { get; set; }
 
-        /// <summary>
-        /// Gets or Sets Rows
-        /// </summary>
-        [DataMember(Name="rows", EmitDefaultValue=false)]
-        public List<List<Tile>> Rows { get; set; }
+		/// <summary>
+		/// Gets or Sets Rows
+		/// </summary>
+		[DataMember(Name = "rows", EmitDefaultValue = false)]
+		public List<List<Tile>> Rows { get; set; }
 
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Map {\n");
-            sb.Append("  Info: ").Append(Info).Append("\n");
-            sb.Append("  Rows: ").Append(Rows).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+		/// <summary>
+		/// Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			var sb = new StringBuilder();
+			sb.Append("class Map {\n");
+			sb.Append("  Info: ").Append(Info).Append("\n");
+			sb.Append("  Rows: ").Append(Rows).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+		/// <summary>
+		/// Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() {
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((Map)obj);
-        }
+		/// <summary>
+		/// Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((Map) obj);
+		}
 
-        /// <summary>
-        /// Returns true if Map instances are equal
-        /// </summary>
-        /// <param name="other">Instance of Map to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(Map other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+		/// <summary>
+		/// Returns true if Map instances are equal
+		/// </summary>
+		/// <param name="other">Instance of Map to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(Map other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
 
-            return 
-                (
-                    Info == other.Info ||
-                    Info != null &&
-                    Info.Equals(other.Info)
-                ) && 
-                (
-                    Rows == other.Rows ||
-                    Rows != null &&
-                    other.Rows != null &&
-                    Rows.SequenceEqual(other.Rows)
-                );
-        }
+			return
+				(
+					Info == other.Info ||
+					Info != null &&
+					Info.Equals(other.Info)
+				) &&
+				(
+					Rows == other.Rows ||
+					Rows       != null &&
+					other.Rows != null &&
+					Rows.SequenceEqual(other.Rows)
+				);
+		}
 
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                    if (Info != null)
-                    hashCode = hashCode * 59 + Info.GetHashCode();
-                    if (Rows != null)
-                    hashCode = hashCode * 59 + Rows.GetHashCode();
-                return hashCode;
-            }
-        }
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
+		public override int GetHashCode() {
+			unchecked // Overflow is fine, just wrap
+			{
+				var hashCode = 41;
+				// Suitable nullity checks etc, of course :)
+				if (Info != null)
+					hashCode = hashCode * 59 + Info.GetHashCode();
+				if (Rows != null)
+					hashCode = hashCode * 59 + Rows.GetHashCode();
+				return hashCode;
+			}
+		}
 
-        #region Operators
-        #pragma warning disable 1591
+		#region Operators
 
-        public static bool operator ==(Map left, Map right)
-        {
-            return Equals(left, right);
-        }
+		#pragma warning disable 1591
 
-        public static bool operator !=(Map left, Map right)
-        {
-            return !Equals(left, right);
-        }
+		public static bool operator ==(Map left, Map right) {
+			return Equals(left, right);
+		}
 
-        #pragma warning restore 1591
-        #endregion Operators
-    }
+		public static bool operator !=(Map left, Map right) {
+			return !Equals(left, right);
+		}
+
+		#pragma warning restore 1591
+
+		#endregion Operators
+	}
 }

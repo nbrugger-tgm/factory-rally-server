@@ -18,33 +18,27 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-        /// <summary>
-        /// A round consits of 3 Phases each phase does different things * `Upgrade` : Purchase Upgrades with energy cubes * `Programming` : Programm your robot(s) * `Activation` : The robots execute their code
-        /// </summary>
-        /// <value>A round consits of 3 Phases each phase does different things * `Upgrade` : Purchase Upgrades with energy cubes * `Programming` : Programm your robot(s) * `Activation` : The robots execute their code</value>
-        [TypeConverter(typeof(CustomEnumConverter<RoundPhase>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum RoundPhase
-        {
-            
-            /// <summary>
-            /// Enum Upgrade for upgrade
-            /// </summary>
-            [EnumMember(Value = "upgrade")]
-            Upgrade = 1,
-            
-            /// <summary>
-            /// Enum Programming for programming
-            /// </summary>
-            [EnumMember(Value = "programming")]
-            Programming = 2,
-            
-            /// <summary>
-            /// Enum Activation for activation
-            /// </summary>
-            [EnumMember(Value = "activation")]
-            Activation = 3
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// A round consits of 3 Phases each phase does different things * `Upgrade` : Purchase Upgrades with energy cubes * `Programming` : Programm your robot(s) * `Activation` : The robots execute their code
+	/// </summary>
+	/// <value>A round consits of 3 Phases each phase does different things * `Upgrade` : Purchase Upgrades with energy cubes * `Programming` : Programm your robot(s) * `Activation` : The robots execute their code</value>
+	[TypeConverter(typeof(CustomEnumConverter<RoundPhase>))]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	public enum RoundPhase {
+		/// <summary>
+		/// Enum Upgrade for upgrade
+		/// </summary>
+		[EnumMember(Value = "upgrade")] Upgrade = 1,
+
+		/// <summary>
+		/// Enum Programming for programming
+		/// </summary>
+		[EnumMember(Value = "programming")] Programming = 2,
+
+		/// <summary>
+		/// Enum Activation for activation
+		/// </summary>
+		[EnumMember(Value = "activation")] Activation = 3
+	}
 }

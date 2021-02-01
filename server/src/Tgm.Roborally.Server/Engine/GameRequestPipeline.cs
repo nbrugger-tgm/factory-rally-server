@@ -63,6 +63,7 @@ namespace Tgm.Roborally.Server.Engine {
 		public IActionResult executeAction() {
 			return execute(new OkResult());
 		}
+
 		/// <summary>
 		/// Ensures a result body or returns a Error Result if no body was available
 		/// </summary>
@@ -90,7 +91,7 @@ namespace Tgm.Roborally.Server.Engine {
 			if (_player == null)
 				if (_game.Consumers.ContainsKey(playerId))
 					_player = new Player() {
-						Id = playerId,
+						Id          = playerId,
 						DisplayName = "Dummy Controller Player"
 					};
 				else
@@ -124,6 +125,7 @@ namespace Tgm.Roborally.Server.Engine {
 
 			return this;
 		}
+
 		public class PipelineContext {
 			private GameRequestPipeline pipe;
 

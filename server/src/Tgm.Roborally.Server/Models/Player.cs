@@ -18,188 +18,178 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-    /// <summary>
-    /// A player attending in a game. #### Warning This is **not** permanent. It is created and removed with the game (or with you joining and leaving the game)
-    /// </summary>
-    [DataContract]
-    public partial class Player : IEquatable<Player>
-    {
-        /// <summary>
-        /// This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication
-        /// </summary>
-        /// <value>This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication</value>
-        [Required]
-        [Range(0, 8)]
-        [DataMember(Name="id", EmitDefaultValue=false)]
-        public int Id { get; set; }
-        
-        /// <summary>
-        /// This is the ID used for authentication
-        /// </summary>
-        public readonly string auth = AuthID();
-        private const string chars = "ABCDEFGHIJKLMNOPQRSTabcdefghijklmnopqrst1234567890-_+?:!";
-        private static string AuthID()
-        {
-            Random r = new Random();
-            int l = r.Next(65) + 10;
-            StringBuilder b = new StringBuilder();
-            for (int i = 0; i < l; i++)
-            {
-                b.Append(chars[r.Next(chars.Length)]);
-            }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// A player attending in a game. #### Warning This is **not** permanent. It is created and removed with the game (or with you joining and leaving the game)
+	/// </summary>
+	[DataContract]
+	public partial class Player : IEquatable<Player> {
+		/// <summary>
+		/// This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication
+		/// </summary>
+		/// <value>This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication</value>
+		[Required]
+		[Range(0, 8)]
+		[DataMember(Name = "id", EmitDefaultValue = false)]
+		public int Id { get; set; }
 
-            return b.ToString();
-        }
+		/// <summary>
+		/// This is the ID used for authentication
+		/// </summary>
+		public readonly string auth = AuthID();
 
-        /// <summary>
-        /// The list of entities controlled by this player
-        /// </summary>
-        /// <value>The list of entities controlled by this player</value>
-        [Required]
-        [DataMember(Name = "controlled_entities", EmitDefaultValue = false)]
-        public List<int> ControlledEntities { get; set; } = new List<int>();
+		private const string chars = "ABCDEFGHIJKLMNOPQRSTabcdefghijklmnopqrst1234567890-_+?:!";
 
-        /// <summary>
-        /// Îf this is true rhe player is able to interact at the moment
-        /// </summary>
-        /// <value>Îf this is true rhe player is able to interact at the moment</value>
-        [DataMember(Name="on-turn", EmitDefaultValue=false)]
-        public bool OnTurn { get; set; } = false;
+		private static string AuthID() {
+			Random        r = new Random();
+			int           l = r.Next(65) + 10;
+			StringBuilder b = new StringBuilder();
+			for (int i = 0; i < l; i++) {
+				b.Append(chars[r.Next(chars.Length)]);
+			}
 
-        /// <summary>
-        /// Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects
-        /// </summary>
-        /// <value>Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects</value>
-        [DataMember(Name="active", EmitDefaultValue=false)]
-        public bool Active { get; set; } = true;
+			return b.ToString();
+		}
 
-        /// <summary>
-        /// The display name of a player including rules
-        /// </summary>
-        /// <value>The display name of a player including rules</value>
-        [Required]
-        [RegularExpression("[A-Za-z0-9_-]+")]
-        [StringLength(30, MinimumLength=3)]
-        [DataMember(Name="display_name", EmitDefaultValue=false)]
-        public string DisplayName { get; set; }
+		/// <summary>
+		/// The list of entities controlled by this player
+		/// </summary>
+		/// <value>The list of entities controlled by this player</value>
+		[Required]
+		[DataMember(Name = "controlled_entities", EmitDefaultValue = false)]
+		public List<int> ControlledEntities { get; set; } = new List<int>();
 
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Player {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  ControlledEntities: ").Append(ControlledEntities).Append("\n");
-            sb.Append("  OnTurn: ").Append(OnTurn).Append("\n");
-            sb.Append("  Active: ").Append(Active).Append("\n");
-            sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+		/// <summary>
+		/// Îf this is true rhe player is able to interact at the moment
+		/// </summary>
+		/// <value>Îf this is true rhe player is able to interact at the moment</value>
+		[DataMember(Name = "on-turn", EmitDefaultValue = false)]
+		public bool OnTurn { get; set; } = false;
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+		/// <summary>
+		/// Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects
+		/// </summary>
+		/// <value>Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects</value>
+		[DataMember(Name = "active", EmitDefaultValue = false)]
+		public bool Active { get; set; } = true;
 
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((Player)obj);
-        }
+		/// <summary>
+		/// The display name of a player including rules
+		/// </summary>
+		/// <value>The display name of a player including rules</value>
+		[Required]
+		[RegularExpression("[A-Za-z0-9_-]+")]
+		[StringLength(30, MinimumLength = 3)]
+		[DataMember(Name                = "display_name", EmitDefaultValue = false)]
+		public string DisplayName { get; set; }
 
-        /// <summary>
-        /// Returns true if Player instances are equal
-        /// </summary>
-        /// <param name="other">Instance of Player to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(Player other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+		/// <summary>
+		/// Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			var sb = new StringBuilder();
+			sb.Append("class Player {\n");
+			sb.Append("  Id: ").Append(Id).Append("\n");
+			sb.Append("  ControlledEntities: ").Append(ControlledEntities).Append("\n");
+			sb.Append("  OnTurn: ").Append(OnTurn).Append("\n");
+			sb.Append("  Active: ").Append(Active).Append("\n");
+			sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
 
-            return 
-                (
-                    Id == other.Id ||
-                    
-                    Id.Equals(other.Id)
-                ) && 
-                (
-                    ControlledEntities == other.ControlledEntities ||
-                    ControlledEntities != null &&
-                    other.ControlledEntities != null &&
-                    ControlledEntities.SequenceEqual(other.ControlledEntities)
-                ) && 
-                (
-                    OnTurn == other.OnTurn ||
-                    
-                    OnTurn.Equals(other.OnTurn)
-                ) && 
-                (
-                    Active == other.Active ||
-                    
-                    Active.Equals(other.Active)
-                ) && 
-                (
-                    DisplayName == other.DisplayName ||
-                    DisplayName != null &&
-                    DisplayName.Equals(other.DisplayName)
-                );
-        }
+		/// <summary>
+		/// Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() {
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                    
-                    hashCode = hashCode * 59 + Id.GetHashCode();
-                    if (ControlledEntities != null)
-                    hashCode = hashCode * 59 + ControlledEntities.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + OnTurn.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + Active.GetHashCode();
-                    if (DisplayName != null)
-                    hashCode = hashCode * 59 + DisplayName.GetHashCode();
-                return hashCode;
-            }
-        }
+		/// <summary>
+		/// Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((Player) obj);
+		}
 
-        #region Operators
-        #pragma warning disable 1591
+		/// <summary>
+		/// Returns true if Player instances are equal
+		/// </summary>
+		/// <param name="other">Instance of Player to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(Player other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
 
-        public static bool operator ==(Player left, Player right)
-        {
-            return Equals(left, right);
-        }
+			return
+				(
+					Id == other.Id ||
+					Id.Equals(other.Id)
+				) &&
+				(
+					ControlledEntities == other.ControlledEntities ||
+					ControlledEntities       != null &&
+					other.ControlledEntities != null &&
+					ControlledEntities.SequenceEqual(other.ControlledEntities)
+				) &&
+				(
+					OnTurn == other.OnTurn ||
+					OnTurn.Equals(other.OnTurn)
+				) &&
+				(
+					Active == other.Active ||
+					Active.Equals(other.Active)
+				) &&
+				(
+					DisplayName == other.DisplayName ||
+					DisplayName != null &&
+					DisplayName.Equals(other.DisplayName)
+				);
+		}
 
-        public static bool operator !=(Player left, Player right)
-        {
-            return !Equals(left, right);
-        }
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
+		public override int GetHashCode() {
+			unchecked // Overflow is fine, just wrap
+			{
+				var hashCode = 41;
+				// Suitable nullity checks etc, of course :)
 
-        #pragma warning restore 1591
-        #endregion Operators
-    }
+				hashCode = hashCode * 59 + Id.GetHashCode();
+				if (ControlledEntities != null)
+					hashCode = hashCode * 59 + ControlledEntities.GetHashCode();
+
+				hashCode = hashCode * 59 + OnTurn.GetHashCode();
+
+				hashCode = hashCode * 59 + Active.GetHashCode();
+				if (DisplayName != null)
+					hashCode = hashCode * 59 + DisplayName.GetHashCode();
+				return hashCode;
+			}
+		}
+
+		#region Operators
+
+		#pragma warning disable 1591
+
+		public static bool operator ==(Player left, Player right) {
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(Player left, Player right) {
+			return !Equals(left, right);
+		}
+
+		#pragma warning restore 1591
+
+		#endregion Operators
+	}
 }

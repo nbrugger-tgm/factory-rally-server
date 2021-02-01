@@ -19,107 +19,98 @@ using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-    /// <summary>
-    /// When the next game phase started
-    /// </summary>
-    [DataContract]
-    public partial class GamePhaseChangeEvent : IEquatable<GamePhaseChangeEvent>, Event
-    {
-        /// <summary>
-        /// Gets or Sets NewStatus
-        /// </summary>
-        [DataMember(Name="new status", EmitDefaultValue=false)]
-        public GameState NewStatus { get; set; }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// When the next game phase started
+	/// </summary>
+	[DataContract]
+	public partial class GamePhaseChangeEvent : IEquatable<GamePhaseChangeEvent>, Event {
+		/// <summary>
+		/// Gets or Sets NewStatus
+		/// </summary>
+		[DataMember(Name = "new status", EmitDefaultValue = false)]
+		public GameState NewStatus { get; set; }
 
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class GamePhaseChangeEvent {\n");
-            sb.Append("  NewStatus: ").Append(NewStatus).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+		/// <summary>
+		/// Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			var sb = new StringBuilder();
+			sb.Append("class GamePhaseChangeEvent {\n");
+			sb.Append("  NewStatus: ").Append(NewStatus).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+		/// <summary>
+		/// Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() {
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((GamePhaseChangeEvent)obj);
-        }
+		/// <summary>
+		/// Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((GamePhaseChangeEvent) obj);
+		}
 
-        /// <summary>
-        /// Returns true if GamePhaseChangeEvent instances are equal
-        /// </summary>
-        /// <param name="other">Instance of GamePhaseChangeEvent to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(GamePhaseChangeEvent other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+		/// <summary>
+		/// Returns true if GamePhaseChangeEvent instances are equal
+		/// </summary>
+		/// <param name="other">Instance of GamePhaseChangeEvent to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(GamePhaseChangeEvent other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
 
-            return 
-                (
-                    NewStatus == other.NewStatus ||
-                    
-                    NewStatus.Equals(other.NewStatus)
-                );
-        }
+			return
+				(
+					NewStatus == other.NewStatus ||
+					NewStatus.Equals(other.NewStatus)
+				);
+		}
 
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                    
-                    hashCode = hashCode * 59 + NewStatus.GetHashCode();
-                return hashCode;
-            }
-        }
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
+		public override int GetHashCode() {
+			unchecked // Overflow is fine, just wrap
+			{
+				var hashCode = 41;
+				// Suitable nullity checks etc, of course :)
 
-        public EventType GetEventType()
-        {
-            return EventType.GamePhaseChanged;
-        }
+				hashCode = hashCode * 59 + NewStatus.GetHashCode();
+				return hashCode;
+			}
+		}
 
-        #region Operators
-        #pragma warning disable 1591
+		public EventType GetEventType() {
+			return EventType.GamePhaseChanged;
+		}
 
-        public static bool operator ==(GamePhaseChangeEvent left, GamePhaseChangeEvent right)
-        {
-            return Equals(left, right);
-        }
+		#region Operators
 
-        public static bool operator !=(GamePhaseChangeEvent left, GamePhaseChangeEvent right)
-        {
-            return !Equals(left, right);
-        }
+		#pragma warning disable 1591
 
-        #pragma warning restore 1591
-        #endregion Operators
-    }
+		public static bool operator ==(GamePhaseChangeEvent left, GamePhaseChangeEvent right) {
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(GamePhaseChangeEvent left, GamePhaseChangeEvent right) {
+			return !Equals(left, right);
+		}
+
+		#pragma warning restore 1591
+
+		#endregion Operators
+	}
 }

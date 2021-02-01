@@ -18,45 +18,37 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-        /// <summary>
-        /// The phase the game is currently in * `Lobby`: Players are able to join, Bots able to be added. Host can decide to start the game and leave the phase * `Planning`: **[BETA - Not in game]** Players can choose their type of robot/bots bots autopick * `Playing`: The game is running and the players can do interactions * `Break`: The game is paused by the host. Players can still do interactions but they wont be executed as long as the break lasts * `Finished` : The game is over and there is a winner. This is the time to save the game for a replay 
-        /// </summary>
-        /// <value>The phase the game is currently in * `Lobby`: Players are able to join, Bots able to be added. Host can decide to start the game and leave the phase * `Planning`: **[BETA - Not in game]** Players can choose their type of robot/bots bots autopick * `Playing`: The game is running and the players can do interactions * `Break`: The game is paused by the host. Players can still do interactions but they wont be executed as long as the break lasts * `Finished` : The game is over and there is a winner. This is the time to save the game for a replay </value>
-        [TypeConverter(typeof(CustomEnumConverter<GameState>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum GameState
-        {
-            
-            /// <summary>
-            /// Enum LOBBY for LOBBY
-            /// </summary>
-            [EnumMember(Value = "LOBBY")]
-            LOBBY = 1,
-            
-            /// <summary>
-            /// Enum PLANNING for PLANNING
-            /// </summary>
-            [EnumMember(Value = "PLANNING")]
-            PLANNING = 2,
-            
-            /// <summary>
-            /// Enum PLAYING for PLAYING
-            /// </summary>
-            [EnumMember(Value = "PLAYING")]
-            PLAYING = 3,
-            
-            /// <summary>
-            /// Enum FINISHED for FINISHED
-            /// </summary>
-            [EnumMember(Value = "FINISHED")]
-            FINISHED = 4,
-            
-            /// <summary>
-            /// Enum BREAK for BREAK
-            /// </summary>
-            [EnumMember(Value = "BREAK")]
-            BREAK = 5
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// The phase the game is currently in * `Lobby`: Players are able to join, Bots able to be added. Host can decide to start the game and leave the phase * `Planning`: **[BETA - Not in game]** Players can choose their type of robot/bots bots autopick * `Playing`: The game is running and the players can do interactions * `Break`: The game is paused by the host. Players can still do interactions but they wont be executed as long as the break lasts * `Finished` : The game is over and there is a winner. This is the time to save the game for a replay 
+	/// </summary>
+	/// <value>The phase the game is currently in * `Lobby`: Players are able to join, Bots able to be added. Host can decide to start the game and leave the phase * `Planning`: **[BETA - Not in game]** Players can choose their type of robot/bots bots autopick * `Playing`: The game is running and the players can do interactions * `Break`: The game is paused by the host. Players can still do interactions but they wont be executed as long as the break lasts * `Finished` : The game is over and there is a winner. This is the time to save the game for a replay </value>
+	[TypeConverter(typeof(CustomEnumConverter<GameState>))]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	public enum GameState {
+		/// <summary>
+		/// Enum LOBBY for LOBBY
+		/// </summary>
+		[EnumMember(Value = "LOBBY")] LOBBY = 1,
+
+		/// <summary>
+		/// Enum PLANNING for PLANNING
+		/// </summary>
+		[EnumMember(Value = "PLANNING")] PLANNING = 2,
+
+		/// <summary>
+		/// Enum PLAYING for PLAYING
+		/// </summary>
+		[EnumMember(Value = "PLAYING")] PLAYING = 3,
+
+		/// <summary>
+		/// Enum FINISHED for FINISHED
+		/// </summary>
+		[EnumMember(Value = "FINISHED")] FINISHED = 4,
+
+		/// <summary>
+		/// Enum BREAK for BREAK
+		/// </summary>
+		[EnumMember(Value = "BREAK")] BREAK = 5
+	}
 }

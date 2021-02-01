@@ -18,87 +18,73 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-        /// <summary>
-        /// Defines the action itsselft (what the action is doing)
-        /// </summary>
-        /// <value>Defines the action itsselft (what the action is doing)</value>
-        [TypeConverter(typeof(CustomEnumConverter<EntityActionType>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum EntityActionType
-        {
-            
-            /// <summary>
-            /// Enum Reboot for reboot
-            /// </summary>
-            [EnumMember(Value = "reboot")]
-            Reboot = 1,
-            
-            /// <summary>
-            /// Enum UseUpgrade for use upgrade
-            /// </summary>
-            [EnumMember(Value = "use upgrade")]
-            UseUpgrade = 2,
-            
-            /// <summary>
-            /// Enum SpiderJump for spider_jump
-            /// </summary>
-            [EnumMember(Value = "spider_jump")]
-            SpiderJump = 3,
-            
-            /// <summary>
-            /// Enum Cache for Cache
-            /// </summary>
-            [EnumMember(Value = "Cache")]
-            Cache = 4,
-            
-            /// <summary>
-            /// Enum RegisterRefresh for register-refresh
-            /// </summary>
-            [EnumMember(Value = "register-refresh")]
-            RegisterRefresh = 5,
-            
-            /// <summary>
-            /// Enum StorageSwap for storage-swap
-            /// </summary>
-            [EnumMember(Value = "storage-swap")]
-            StorageSwap = 6,
-            
-            /// <summary>
-            /// Enum Jumper for jumper
-            /// </summary>
-            [EnumMember(Value = "jumper")]
-            Jumper = 7,
-            
-            /// <summary>
-            /// Enum Teleporter for teleporter
-            /// </summary>
-            [EnumMember(Value = "teleporter")]
-            Teleporter = 8,
-            
-            /// <summary>
-            /// Enum MagnetRay for magnet-ray
-            /// </summary>
-            [EnumMember(Value = "magnet-ray")]
-            MagnetRay = 9,
-            
-            /// <summary>
-            /// Enum Pushray for pushray
-            /// </summary>
-            [EnumMember(Value = "pushray")]
-            Pushray = 10,
-            
-            /// <summary>
-            /// Enum Rotation for rotation
-            /// </summary>
-            [EnumMember(Value = "rotation")]
-            Rotation = 11,
-            
-            /// <summary>
-            /// Enum Sidekick for sidekick
-            /// </summary>
-            [EnumMember(Value = "sidekick")]
-            Sidekick = 12
-        }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// Defines the action itsselft (what the action is doing)
+	/// </summary>
+	/// <value>Defines the action itsselft (what the action is doing)</value>
+	[TypeConverter(typeof(CustomEnumConverter<EntityActionType>))]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	public enum EntityActionType {
+		/// <summary>
+		/// Enum Reboot for reboot
+		/// </summary>
+		[EnumMember(Value = "reboot")] Reboot = 1,
+
+		/// <summary>
+		/// Enum UseUpgrade for use upgrade
+		/// </summary>
+		[EnumMember(Value = "use upgrade")] UseUpgrade = 2,
+
+		/// <summary>
+		/// Enum SpiderJump for spider_jump
+		/// </summary>
+		[EnumMember(Value = "spider_jump")] SpiderJump = 3,
+
+		/// <summary>
+		/// Enum Cache for Cache
+		/// </summary>
+		[EnumMember(Value = "Cache")] Cache = 4,
+
+		/// <summary>
+		/// Enum RegisterRefresh for register-refresh
+		/// </summary>
+		[EnumMember(Value = "register-refresh")]
+		RegisterRefresh = 5,
+
+		/// <summary>
+		/// Enum StorageSwap for storage-swap
+		/// </summary>
+		[EnumMember(Value = "storage-swap")] StorageSwap = 6,
+
+		/// <summary>
+		/// Enum Jumper for jumper
+		/// </summary>
+		[EnumMember(Value = "jumper")] Jumper = 7,
+
+		/// <summary>
+		/// Enum Teleporter for teleporter
+		/// </summary>
+		[EnumMember(Value = "teleporter")] Teleporter = 8,
+
+		/// <summary>
+		/// Enum MagnetRay for magnet-ray
+		/// </summary>
+		[EnumMember(Value = "magnet-ray")] MagnetRay = 9,
+
+		/// <summary>
+		/// Enum Pushray for pushray
+		/// </summary>
+		[EnumMember(Value = "pushray")] Pushray = 10,
+
+		/// <summary>
+		/// Enum Rotation for rotation
+		/// </summary>
+		[EnumMember(Value = "rotation")] Rotation = 11,
+
+		/// <summary>
+		/// Enum Sidekick for sidekick
+		/// </summary>
+		[EnumMember(Value = "sidekick")] Sidekick = 12
+	}
 }

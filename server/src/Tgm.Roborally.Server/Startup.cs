@@ -24,19 +24,16 @@ using Tgm.Roborally.Server.Authentication;
 using Tgm.Roborally.Server.Filters;
 
 
-namespace Tgm.Roborally.Server
-{
+namespace Tgm.Roborally.Server {
 	/// <summary>
 	/// Startup
 	/// </summary>
-	public class Startup
-	{
+	public class Startup {
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="configuration"></param>
-		public Startup(IConfiguration configuration)
-		{
+		public Startup(IConfiguration configuration) {
 			Configuration = configuration;
 		}
 
@@ -49,33 +46,27 @@ namespace Tgm.Roborally.Server
 		/// This method gets called by the runtime. Use this method to add services to the container.
 		/// </summary>
 		/// <param name="services"></param>
-		public void ConfigureServices(IServiceCollection services)
-		{
+		public void ConfigureServices(IServiceCollection services) {
 			// Add framework services.
 			services
 				.AddMvc(opts => opts.EnableEndpointRouting = false)
 				.SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-				.AddNewtonsoftJson(opts =>
-				{
+				.AddNewtonsoftJson(opts => {
 					opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-					opts.SerializerSettings.Converters.Add(new StringEnumConverter
-					{
+					opts.SerializerSettings.Converters.Add(new StringEnumConverter {
 						NamingStrategy = new CamelCaseNamingStrategy()
 					});
 				});
 
 			services
-				.AddSwaggerGen(c =>
-				{
-					c.SwaggerDoc("0.1.0", new OpenApiInfo
-					{
-						Version = "0.1.0",
-						Title = "Robot Rally Game logic engine",
+				.AddSwaggerGen(c => {
+					c.SwaggerDoc("0.1.0", new OpenApiInfo {
+						Version     = "0.1.0",
+						Title       = "Robot Rally Game logic engine",
 						Description = "Robot Rally Game logic engine (ASP.NET Core 3.1)",
-						Contact = new OpenApiContact()
-						{
-							Name = "Nils Brugger",
-							Url = new Uri("https://github.com/openapitools/openapi-generator"),
+						Contact = new OpenApiContact() {
+							Name  = "Nils Brugger",
+							Url   = new Uri("https://github.com/openapitools/openapi-generator"),
 							Email = "nbrugger@student.tgm.ac.at"
 						},
 						//TermsOfService = new Uri("")
@@ -85,7 +76,7 @@ namespace Tgm.Roborally.Server
 					c.IncludeXmlComments(
 						$"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{Assembly.GetEntryAssembly().GetName().Name}.xml");
 					// Sets the basePath property in the Swagger document generated
-	//				c.DocumentFilter<BasePathFilter>("/v1/");
+					//				c.DocumentFilter<BasePathFilter>("/v1/");
 
 					// Include DataAnnotation attributes on Controller Action parameters as Swagger validation rules (e.g required, pattern, ..)
 					// Use [ValidateModelState] on Actions to actually validate it in C# as well!
@@ -97,16 +88,14 @@ namespace Tgm.Roborally.Server
 		/// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		/// </summary>
 		/// <param name="app"></param>
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-		{
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
 			app.UseHttpsRedirection();
 			app
 				.UseMvc()
 				.UseDefaultFiles()
 				.UseStaticFiles()
 				.UseSwagger(c => { c.RouteTemplate = "swagger/{documentName}/openapi.json"; })
-				.UseSwaggerUI(c =>
-				{
+				.UseSwaggerUI(c => {
 					//TODO: Either use the SwaggerGen generated Swagger contract (generated from C# classes)
 					c.SwaggerEndpoint("/swagger/0.1.0/openapi.json", "Robot Rally Game logic engine");
 
@@ -116,12 +105,10 @@ namespace Tgm.Roborally.Server
 			app.UseRouting();
 			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
-			if (env.IsDevelopment())
-			{
+			if (env.IsDevelopment()) {
 				app.UseDeveloperExceptionPage();
 			}
-			else
-			{
+			else {
 				app.UseHsts();
 			}
 		}

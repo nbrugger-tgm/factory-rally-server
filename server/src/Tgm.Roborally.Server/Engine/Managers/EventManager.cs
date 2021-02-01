@@ -5,16 +5,13 @@ using System.Runtime.Intrinsics.X86;
 using System.Threading;
 using Tgm.Roborally.Server.Models;
 
-namespace Tgm.Roborally.Server.Engine
-{
-	public class EventManager
-	{
-		private readonly GameLogic           game;
-		private object                       locker = new object();
-		public  Dictionary<int,Queue<Event>> queues = new Dictionary<int, Queue<Event>>();
+namespace Tgm.Roborally.Server.Engine {
+	public class EventManager {
+		private readonly GameLogic                     game;
+		private          object                        locker = new object();
+		public           Dictionary<int, Queue<Event>> queues = new Dictionary<int, Queue<Event>>();
 
-		public EventManager(GameLogic game)
-		{
+		public EventManager(GameLogic game) {
 			this.game = game;
 		}
 
@@ -22,23 +19,21 @@ namespace Tgm.Roborally.Server.Engine
 		/// Adds the event to the stack and notifies waiting clients
 		/// </summary>
 		/// <param name="e"></param>
-		public void Notify(Event e)
-		{
-			foreach (int player in game.PlayerIds)
-			{
-				if(!queues.ContainsKey(player))
+		public void Notify(Event e) {
+			foreach (int player in game.PlayerIds) {
+				if (!queues.ContainsKey(player))
 					queues[player] = new Queue<Event>();
 				queues[player].Enqueue(e);
 			}
 
 			if ( /*TODO: check for event consumer compatability*/true) {
 				foreach ((int key, _) in game.Consumers) {
-					if(!queues.ContainsKey(key))
+					if (!queues.ContainsKey(key))
 						queues[key] = new Queue<Event>();
 					queues[key].Enqueue(e);
 				}
 			}
-			
+
 			lock (locker) {
 				Monitor.PulseAll(locker);
 			}
@@ -50,7 +45,7 @@ namespace Tgm.Roborally.Server.Engine
 		/// <param name="player">the player to get the event for</param>
 		/// <returns></returns>
 		public Event Pop(int player) {
-			return queues[player].Count >0 ? queues[player].Dequeue() : null;
+			return queues[player].Count > 0 ? queues[player].Dequeue() : null;
 		}
 
 		/// <summary>
@@ -62,7 +57,7 @@ namespace Tgm.Roborally.Server.Engine
 		}
 
 		public Event Peek(int player) {
-			return queues[player].Count >0 ? queues[player].Peek() : null;
+			return queues[player].Count > 0 ? queues[player].Peek() : null;
 		}
 	}
 }

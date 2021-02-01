@@ -18,162 +18,150 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-    /// <summary>
-    /// A tile is a square at the Game field&lt;br&gt; **Note:**  * &#x60;direction&#x60; is only aviable for belts * properties with a &#x60;rotator-&#x60; prefix are only aviable for rotator (parts)
-    /// </summary>
-    [DataContract]
-    public partial class Tile : IEquatable<Tile>
-    {
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [Required]
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        public TileType Type { get; set; }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// A tile is a square at the Game field&lt;br&gt; **Note:**  * &#x60;direction&#x60; is only aviable for belts * properties with a &#x60;rotator-&#x60; prefix are only aviable for rotator (parts)
+	/// </summary>
+	[DataContract]
+	public partial class Tile : IEquatable<Tile> {
+		/// <summary>
+		/// Gets or Sets Type
+		/// </summary>
+		[Required]
+		[DataMember(Name = "type", EmitDefaultValue = false)]
+		public TileType Type { get; set; }
 
-        /// <summary>
-        /// If there is no player at the tile this is true
-        /// </summary>
-        /// <value>If there is no player at the tile this is true</value>
-        [DataMember(Name="empty", EmitDefaultValue=false)]
-        public bool Empty { get; set; }
+		/// <summary>
+		/// If there is no player at the tile this is true
+		/// </summary>
+		/// <value>If there is no player at the tile this is true</value>
+		[DataMember(Name = "empty", EmitDefaultValue = false)]
+		public bool Empty { get; set; }
 
-        /// <summary>
-        /// Gets or Sets Direction
-        /// </summary>
-        [DataMember(Name="direction", EmitDefaultValue=false)]
-        public Direction Direction { get; set; }
+		/// <summary>
+		/// Gets or Sets Direction
+		/// </summary>
+		[DataMember(Name = "direction", EmitDefaultValue = false)]
+		public Direction Direction { get; set; }
 
-        /// <summary>
-        /// Gets or Sets RotatorDirection
-        /// </summary>
-        [DataMember(Name="rotator-direction", EmitDefaultValue=false)]
-        public Rotation RotatorDirection { get; set; }
+		/// <summary>
+		/// Gets or Sets RotatorDirection
+		/// </summary>
+		[DataMember(Name = "rotator-direction", EmitDefaultValue = false)]
+		public Rotation RotatorDirection { get; set; }
 
-        /// <summary>
-        /// The height of the tile. 1 &#x3D; default
-        /// </summary>
-        /// <value>The height of the tile. 1 &#x3D; default</value>
-        [Range(1, 3)]
-        [DataMember(Name="level", EmitDefaultValue=false)]
-        public int Level { get; set; } = 1;
+		/// <summary>
+		/// The height of the tile. 1 &#x3D; default
+		/// </summary>
+		/// <value>The height of the tile. 1 &#x3D; default</value>
+		[Range(1, 3)]
+		[DataMember(Name = "level", EmitDefaultValue = false)]
+		public int Level { get; set; } = 1;
 
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Tile {\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  Empty: ").Append(Empty).Append("\n");
-            sb.Append("  Direction: ").Append(Direction).Append("\n");
-            sb.Append("  RotatorDirection: ").Append(RotatorDirection).Append("\n");
-            sb.Append("  Level: ").Append(Level).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+		/// <summary>
+		/// Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			var sb = new StringBuilder();
+			sb.Append("class Tile {\n");
+			sb.Append("  Type: ").Append(Type).Append("\n");
+			sb.Append("  Empty: ").Append(Empty).Append("\n");
+			sb.Append("  Direction: ").Append(Direction).Append("\n");
+			sb.Append("  RotatorDirection: ").Append(RotatorDirection).Append("\n");
+			sb.Append("  Level: ").Append(Level).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+		/// <summary>
+		/// Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() {
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((Tile)obj);
-        }
+		/// <summary>
+		/// Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((Tile) obj);
+		}
 
-        /// <summary>
-        /// Returns true if Tile instances are equal
-        /// </summary>
-        /// <param name="other">Instance of Tile to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(Tile other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+		/// <summary>
+		/// Returns true if Tile instances are equal
+		/// </summary>
+		/// <param name="other">Instance of Tile to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(Tile other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
 
-            return 
-                (
-                    Type == other.Type ||
-                    
-                    Type.Equals(other.Type)
-                ) && 
-                (
-                    Empty == other.Empty ||
-                    
-                    Empty.Equals(other.Empty)
-                ) && 
-                (
-                    Direction == other.Direction ||
-                    
-                    Direction.Equals(other.Direction)
-                ) && 
-                (
-                    RotatorDirection == other.RotatorDirection ||
-                    
-                    RotatorDirection.Equals(other.RotatorDirection)
-                ) && 
-                (
-                    Level == other.Level ||
-                    
-                    Level.Equals(other.Level)
-                );
-        }
+			return
+				(
+					Type == other.Type ||
+					Type.Equals(other.Type)
+				) &&
+				(
+					Empty == other.Empty ||
+					Empty.Equals(other.Empty)
+				) &&
+				(
+					Direction == other.Direction ||
+					Direction.Equals(other.Direction)
+				) &&
+				(
+					RotatorDirection == other.RotatorDirection ||
+					RotatorDirection.Equals(other.RotatorDirection)
+				) &&
+				(
+					Level == other.Level ||
+					Level.Equals(other.Level)
+				);
+		}
 
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                    
-                    hashCode = hashCode * 59 + Type.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + Empty.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + Direction.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + RotatorDirection.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + Level.GetHashCode();
-                return hashCode;
-            }
-        }
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
+		public override int GetHashCode() {
+			unchecked // Overflow is fine, just wrap
+			{
+				var hashCode = 41;
+				// Suitable nullity checks etc, of course :)
 
-        #region Operators
-        #pragma warning disable 1591
+				hashCode = hashCode * 59 + Type.GetHashCode();
 
-        public static bool operator ==(Tile left, Tile right)
-        {
-            return Equals(left, right);
-        }
+				hashCode = hashCode * 59 + Empty.GetHashCode();
 
-        public static bool operator !=(Tile left, Tile right)
-        {
-            return !Equals(left, right);
-        }
+				hashCode = hashCode * 59 + Direction.GetHashCode();
 
-        #pragma warning restore 1591
-        #endregion Operators
-    }
+				hashCode = hashCode * 59 + RotatorDirection.GetHashCode();
+
+				hashCode = hashCode * 59 + Level.GetHashCode();
+				return hashCode;
+			}
+		}
+
+		#region Operators
+
+		#pragma warning disable 1591
+
+		public static bool operator ==(Tile left, Tile right) {
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(Tile left, Tile right) {
+			return !Equals(left, right);
+		}
+
+		#pragma warning restore 1591
+
+		#endregion Operators
+	}
 }

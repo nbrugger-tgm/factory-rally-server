@@ -18,167 +18,158 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
-    /// <summary>
-    /// A command for a robot to execute
-    /// </summary>
-    [DataContract]
-    public partial class RobotCommand : IEquatable<RobotCommand>
-    {
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [Required]
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        public Instruction Type { get; set; }
+namespace Tgm.Roborally.Server.Models {
+	/// <summary>
+	/// A command for a robot to execute
+	/// </summary>
+	[DataContract]
+	public partial class RobotCommand : IEquatable<RobotCommand> {
+		/// <summary>
+		/// Gets or Sets Type
+		/// </summary>
+		[Required]
+		[DataMember(Name = "type", EmitDefaultValue = false)]
+		public Instruction Type { get; set; }
 
-        /// <summary>
-        /// Defines parameters for the instruction.&lt;br&gt;Example: Effect: \&quot;Move {steps} steps forward\&quot;&lt;br&gt; &#x60;{steps}&#x60; is the number of steps the robot will do. And the exact value (of steps) will be defined in here (&#x60;values&#x60;)
-        /// </summary>
-        /// <value>Defines parameters for the instruction.&lt;br&gt;Example: Effect: \&quot;Move {steps} steps forward\&quot;&lt;br&gt; &#x60;{steps}&#x60; is the number of steps the robot will do. And the exact value (of steps) will be defined in here (&#x60;values&#x60;)</value>
-        [DataMember(Name="parameters", EmitDefaultValue=false)]
-        public List<Pair> Parameters { get; set; }
+		/// <summary>
+		/// Defines parameters for the instruction.&lt;br&gt;Example: Effect: \&quot;Move {steps} steps forward\&quot;&lt;br&gt; &#x60;{steps}&#x60; is the number of steps the robot will do. And the exact value (of steps) will be defined in here (&#x60;values&#x60;)
+		/// </summary>
+		/// <value>Defines parameters for the instruction.&lt;br&gt;Example: Effect: \&quot;Move {steps} steps forward\&quot;&lt;br&gt; &#x60;{steps}&#x60; is the number of steps the robot will do. And the exact value (of steps) will be defined in here (&#x60;values&#x60;)</value>
+		[DataMember(Name = "parameters", EmitDefaultValue = false)]
+		public List<Pair> Parameters { get; set; }
 
-        /// <summary>
-        /// A description about the effect of the command. Variables are using the format &#x60;{name}&#x60; where *name* refers to the names in &#x60;values&#x60;. 
-        /// </summary>
-        /// <value>A description about the effect of the command. Variables are using the format &#x60;{name}&#x60; where *name* refers to the names in &#x60;values&#x60;. </value>
-        [MaxLength(300)]
-        [DataMember(Name="description", EmitDefaultValue=false)]
-        public string Description { get; set; } = "null";
+		/// <summary>
+		/// A description about the effect of the command. Variables are using the format &#x60;{name}&#x60; where *name* refers to the names in &#x60;values&#x60;. 
+		/// </summary>
+		/// <value>A description about the effect of the command. Variables are using the format &#x60;{name}&#x60; where *name* refers to the names in &#x60;values&#x60;. </value>
+		[MaxLength(300)]
+		[DataMember(Name = "description", EmitDefaultValue = false)]
+		public string Description { get; set; } = "null";
 
-        /// <summary>
-        /// The ame to display for this Command. ***Not*** unique (identifying)
-        /// </summary>
-        /// <value>The ame to display for this Command. ***Not*** unique (identifying)</value>
-        [StringLength(27, MinimumLength=2)]
-        [DataMember(Name="name", EmitDefaultValue=false)]
-        public string Name { get; set; }
+		/// <summary>
+		/// The ame to display for this Command. ***Not*** unique (identifying)
+		/// </summary>
+		/// <value>The ame to display for this Command. ***Not*** unique (identifying)</value>
+		[StringLength(27, MinimumLength = 2)]
+		[DataMember(Name                = "name", EmitDefaultValue = false)]
+		public string Name { get; set; }
 
-        /// <summary>
-        /// Describes how often this command is going to be executed
-        /// </summary>
-        /// <value>Describes how often this command is going to be executed</value>
-        [Range(1, 10)]
-        [DataMember(Name="times", EmitDefaultValue=false)]
-        public int Times { get; set; } = 1;
+		/// <summary>
+		/// Describes how often this command is going to be executed
+		/// </summary>
+		/// <value>Describes how often this command is going to be executed</value>
+		[Range(1, 10)]
+		[DataMember(Name = "times", EmitDefaultValue = false)]
+		public int Times { get; set; } = 1;
 
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class RobotCommand {\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  Parameters: ").Append(Parameters).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Times: ").Append(Times).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+		/// <summary>
+		/// Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			var sb = new StringBuilder();
+			sb.Append("class RobotCommand {\n");
+			sb.Append("  Type: ").Append(Type).Append("\n");
+			sb.Append("  Parameters: ").Append(Parameters).Append("\n");
+			sb.Append("  Description: ").Append(Description).Append("\n");
+			sb.Append("  Name: ").Append(Name).Append("\n");
+			sb.Append("  Times: ").Append(Times).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
 
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+		/// <summary>
+		/// Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() {
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((RobotCommand)obj);
-        }
+		/// <summary>
+		/// Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((RobotCommand) obj);
+		}
 
-        /// <summary>
-        /// Returns true if RobotCommand instances are equal
-        /// </summary>
-        /// <param name="other">Instance of RobotCommand to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(RobotCommand other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+		/// <summary>
+		/// Returns true if RobotCommand instances are equal
+		/// </summary>
+		/// <param name="other">Instance of RobotCommand to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(RobotCommand other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
 
-            return 
-                (
-                    Type == other.Type ||
-                    
-                    Type.Equals(other.Type)
-                ) && 
-                (
-                    Parameters == other.Parameters ||
-                    Parameters != null &&
-                    other.Parameters != null &&
-                    Parameters.SequenceEqual(other.Parameters)
-                ) && 
-                (
-                    Description == other.Description ||
-                    Description != null &&
-                    Description.Equals(other.Description)
-                ) && 
-                (
-                    Name == other.Name ||
-                    Name != null &&
-                    Name.Equals(other.Name)
-                ) && 
-                (
-                    Times == other.Times ||
-                    
-                    Times.Equals(other.Times)
-                );
-        }
+			return
+				(
+					Type == other.Type ||
+					Type.Equals(other.Type)
+				) &&
+				(
+					Parameters == other.Parameters ||
+					Parameters       != null &&
+					other.Parameters != null &&
+					Parameters.SequenceEqual(other.Parameters)
+				) &&
+				(
+					Description == other.Description ||
+					Description != null &&
+					Description.Equals(other.Description)
+				) &&
+				(
+					Name == other.Name ||
+					Name != null &&
+					Name.Equals(other.Name)
+				) &&
+				(
+					Times == other.Times ||
+					Times.Equals(other.Times)
+				);
+		}
 
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                    
-                    hashCode = hashCode * 59 + Type.GetHashCode();
-                    if (Parameters != null)
-                    hashCode = hashCode * 59 + Parameters.GetHashCode();
-                    if (Description != null)
-                    hashCode = hashCode * 59 + Description.GetHashCode();
-                    if (Name != null)
-                    hashCode = hashCode * 59 + Name.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + Times.GetHashCode();
-                return hashCode;
-            }
-        }
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
+		public override int GetHashCode() {
+			unchecked // Overflow is fine, just wrap
+			{
+				var hashCode = 41;
+				// Suitable nullity checks etc, of course :)
 
-        #region Operators
-        #pragma warning disable 1591
+				hashCode = hashCode * 59 + Type.GetHashCode();
+				if (Parameters != null)
+					hashCode = hashCode * 59 + Parameters.GetHashCode();
+				if (Description != null)
+					hashCode = hashCode * 59 + Description.GetHashCode();
+				if (Name != null)
+					hashCode = hashCode * 59 + Name.GetHashCode();
 
-        public static bool operator ==(RobotCommand left, RobotCommand right)
-        {
-            return Equals(left, right);
-        }
+				hashCode = hashCode * 59 + Times.GetHashCode();
+				return hashCode;
+			}
+		}
 
-        public static bool operator !=(RobotCommand left, RobotCommand right)
-        {
-            return !Equals(left, right);
-        }
+		#region Operators
 
-        #pragma warning restore 1591
-        #endregion Operators
-    }
+		#pragma warning disable 1591
+
+		public static bool operator ==(RobotCommand left, RobotCommand right) {
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(RobotCommand left, RobotCommand right) {
+			return !Equals(left, right);
+		}
+
+		#pragma warning restore 1591
+
+		#endregion Operators
+	}
 }

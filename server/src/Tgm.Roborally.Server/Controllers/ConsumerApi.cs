@@ -21,28 +21,28 @@ using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Models;
 
-namespace Tgm.Roborally.Server.Controllers
-{ 
-    /// <summary>
-    /// 
-    /// </summary>
-    [ApiController]
-    public class ConsumerApiController : ControllerBase
-    { 
-        /// <summary>
-        /// Register Consumers
-        /// </summary>
-        /// <remarks>Add a consumer to create a *virtual* (*spectating*) player to consume events</remarks>
-        /// <param name="gameId"></param>
-        /// <param name="consumerRegistration">Information about the joining consumer</param>
-        /// <response code="201">Created</response>
-        /// <response code="410">Consumer count limit reached</response>
-        [HttpPost]
-        [Route("/v1/games/{game_id}/consumers")]
-        [ValidateModelState]
-        [SwaggerOperation("RegisterConsumer")]
-        [SwaggerResponse(statusCode: 201, type: typeof(JoinResponse), description: "Created")]
-        public virtual IActionResult RegisterConsumer([FromRoute(Name = "game_id")][Required][Range(0, 2048)]int gameId, [FromBody]ConsumerRegistration consumerRegistration) {
+namespace Tgm.Roborally.Server.Controllers {
+	/// <summary>
+	/// 
+	/// </summary>
+	[ApiController]
+	public class ConsumerApiController : ControllerBase {
+		/// <summary>
+		/// Register Consumers
+		/// </summary>
+		/// <remarks>Add a consumer to create a *virtual* (*spectating*) player to consume events</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="consumerRegistration">Information about the joining consumer</param>
+		/// <response code="201">Created</response>
+		/// <response code="410">Consumer count limit reached</response>
+		[HttpPost]
+		[Route("/v1/games/{game_id}/consumers")]
+		[ValidateModelState]
+		[SwaggerOperation("RegisterConsumer")]
+		[SwaggerResponse(statusCode: 201, type: typeof(JoinResponse), description: "Created")]
+		public virtual IActionResult RegisterConsumer([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+													  int gameId,
+													  [FromBody] ConsumerRegistration consumerRegistration) {
 			return new GameRequestPipeline()
 				   .game(gameId)
 				   .compute(c => {
@@ -56,5 +56,5 @@ namespace Tgm.Roborally.Server.Controllers
 				   })
 				   .executeAction();
 		}
-    }
+	}
 }
