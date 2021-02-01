@@ -25,8 +25,8 @@ namespace Tgm.Roborally.Server.Engine {
 			Info          = new GameInfo(this);
 			Game          = new Game(this);
 			thread        = new GameThread(this);
-			Entitys       = new EntityManager();
-			Upgrades      = new UpgradeManager();
+			Entitys       = new EntityManager(this);
+			Upgrades      = new UpgradeManager(this);
 			thread.Start();
 		}
 
@@ -61,7 +61,8 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public bool Joinable => State == GameState.LOBBY && Players.Count < MaxPlayers;
 
-		public Dictionary<int, ConsumerRegistration> Consumers => _consumers;
+		public Dictionary<int, ConsumerRegistration> Consumers   => _consumers;
+		public int                                   PlayerCount => Players.Count;
 
 		public void CommitEvent(GenericEvent e) {
 			EventManager.Notify(e);
@@ -168,13 +169,17 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		public class PlayerNotRemoveableException : Exception {
-			public PlayerNotRemoveableException(string? message) : base(message) {
+			public PlayerNotRemoveableException(string message) : base(message) {
 			}
 		}
 
 		public void BuyUpgrade(int playerId, int upgrade) {
 			//Todo: proper implementation
-			Upgrades.Buy(upgrade);
+			Player p = GetPlayer(playerId);
+			if (p.ControlledEntities.Count != 1) {
+				throw new ActionException("Multiple Robots per player are not implemented.");
+			}
+			Upgrades.Buy(upgrade,p.ControlledEntities[0]);
 			CommitEvent(new GenericEvent(EventType.UpgradePurchase) {
 				Data = new Dictionary<string, object>() {
 					{"player", playerId},

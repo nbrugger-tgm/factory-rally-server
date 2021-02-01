@@ -94,7 +94,7 @@ namespace Tgm.Roborally.Server.Controllers {
 			return new GameRequestPipeline()
 				   .game(gameId)
 				   .compute(c => {
-					   Upgrade u = c.Game.Upgrades.Get(upgradeId);
+					   Upgrade u = c.Game.Upgrades[upgradeId];
 					   if (u == null) {
 						   c.Response = StatusCode(404);
 					   }
