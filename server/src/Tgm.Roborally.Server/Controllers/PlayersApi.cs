@@ -61,9 +61,9 @@ namespace Tgm.Roborally.Server.Controllers {
 		public virtual IActionResult GetAllPlayers([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 												   int gameId) {
 			return new GameRequestPipeline()
-				   .game(gameId)
-				   .compute(c => c.Response = new ObjectResult(c.Game.PlayerIds))
-				   .executeAction();
+				   .Game(gameId)
+				   .Compute(c => c.Response = new ObjectResult(c.Game.PlayerIds))
+				   .ExecuteAction();
 		}
 
 		/// <summary>
@@ -84,10 +84,10 @@ namespace Tgm.Roborally.Server.Controllers {
 											   int gameId, [FromRoute(Name = "player_id")] [Required] [Range(0, 8)]
 											   int playerId) {
 			return new GameRequestPipeline()
-				   .game(gameId)
-				   .player(playerId)
-				   .compute(c => c.Response = new ObjectResult(c.Player))
-				   .executeAction();
+				   .Game(gameId)
+				   .Player(playerId)
+				   .Compute(c => c.Response = new ObjectResult(c.Player))
+				   .ExecuteAction();
 		}
 
 		/// <summary>
@@ -116,9 +116,9 @@ namespace Tgm.Roborally.Server.Controllers {
 										  [StringLength(30, MinimumLength = 3)]
 										  string name) {
 			return new GameRequestPipeline()
-				   .game(gameId)
-				   .compute(c => c.Response = new ObjectResult(new JoinResponse(c.Game.Join(password, name))))
-				   .executeAction();
+				   .Game(gameId)
+				   .Compute(c => c.Response = new ObjectResult(new JoinResponse(c.Game.Join(password, name))))
+				   .ExecuteAction();
 		}
 
 		/// <summary>
@@ -137,8 +137,8 @@ namespace Tgm.Roborally.Server.Controllers {
 		public virtual IActionResult KickPlayer([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 												int gameId, [FromRoute(Name = "player_id")] [Required] [Range(0, 8)]
 												int playerId) {
-			return new GameRequestPipeline().game(gameId).compute(context => context.Game.RemovePlayer(playerId))
-											.executeAction();
+			return new GameRequestPipeline().Game(gameId).Compute(context => context.Game.RemovePlayer(playerId))
+											.ExecuteAction();
 		}
 	}
 }

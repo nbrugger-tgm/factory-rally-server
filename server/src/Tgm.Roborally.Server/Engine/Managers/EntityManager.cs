@@ -37,7 +37,7 @@ namespace Tgm.Roborally.Server.Engine {
 			int r;
 
 			do {
-				r = Rng.Next(16)+1;
+				r = Rng.Next(16) + 1;
 			} while (ents.Select(e => e.Id).Contains(r));
 
 			return r;

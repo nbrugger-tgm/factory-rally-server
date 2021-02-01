@@ -47,9 +47,9 @@ namespace Tgm.Roborally.Server.Controllers {
 												int gameId,  [FromQuery] [Required()] [Range(0, 10000)]
 												int upgrade, [FromQuery] [Range(0, 10000)] int exchange) {
 			return new GameRequestPipeline()
-				   .game(gameId)
-				   .compute(c => c.Game.BuyUpgrade(((Player) HttpContext.Items[GameAuth.PLAYER]).Id, upgrade))
-				   .executeAction();
+				   .Game(gameId)
+				   .Compute(c => c.Game.BuyUpgrade(((Player) HttpContext.Items[GameAuth.PLAYER]).Id, upgrade))
+				   .ExecuteAction();
 		}
 
 		/// <summary>
@@ -68,8 +68,8 @@ namespace Tgm.Roborally.Server.Controllers {
 		public virtual IActionResult GetAllUpgradeIDs([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 													  int gameId) {
 			return new GameRequestPipeline()
-				   .game(gameId)
-				   .compute(c => { c.Response = new ObjectResult(c.Game.Upgrades.Ids); }).executeSecure();
+				   .Game(gameId)
+				   .Compute(c => { c.Response = new ObjectResult(c.Game.Upgrades.Ids); }).ExecuteSecure();
 		}
 
 		/// <summary>
@@ -92,8 +92,8 @@ namespace Tgm.Roborally.Server.Controllers {
 														   [Range(0, 10000)]
 														   int upgradeId) {
 			return new GameRequestPipeline()
-				   .game(gameId)
-				   .compute(c => {
+				   .Game(gameId)
+				   .Compute(c => {
 					   Upgrade u = c.Game.Upgrades[upgradeId];
 					   if (u == null) {
 						   c.Response = StatusCode(404);
@@ -102,7 +102,7 @@ namespace Tgm.Roborally.Server.Controllers {
 						   c.Response = new ObjectResult(u);
 					   }
 				   })
-				   .executeSecure();
+				   .ExecuteSecure();
 		}
 
 		/// <summary>
@@ -121,9 +121,9 @@ namespace Tgm.Roborally.Server.Controllers {
 		public virtual IActionResult GetUpgradeShop([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 													int gameId) {
 			return new GameRequestPipeline()
-				   .game(gameId)
-				   .compute(c => { c.Response = new ObjectResult(c.Game.Upgrades.Shop); })
-				   .executeSecure();
+				   .Game(gameId)
+				   .Compute(c => { c.Response = new ObjectResult(c.Game.Upgrades.Shop); })
+				   .ExecuteSecure();
 		}
 	}
 }

@@ -42,12 +42,12 @@ namespace Tgm.Roborally.Server.Controllers {
 												  int gameId, [FromQuery] [Required()] ActionType action) {
 			return
 				new GameRequestPipeline()
-					.game(gameId)
-					.compute(c => {
+					.Game(gameId)
+					.Compute(c => {
 						c.Game.ActionHandler.Add(action);
 						c.Game.ActionHandler.ExecuteNext();
 					})
-					.executeAction();
+					.ExecuteAction();
 		}
 
 		/// <summary>
@@ -84,9 +84,9 @@ namespace Tgm.Roborally.Server.Controllers {
 												int gameId, [FromQuery] string mode) {
 			return
 				new GameRequestPipeline()
-					.game(gameId)
-					.compute(c => c.Response = new OkObjectResult(c.Game.ActionHandler.Queue))
-					.executeAction();
+					.Game(gameId)
+					.Compute(c => c.Response = new OkObjectResult(c.Game.ActionHandler.Queue))
+					.ExecuteAction();
 		}
 
 		/// <summary>
@@ -107,9 +107,9 @@ namespace Tgm.Roborally.Server.Controllers {
 			int gameId
 		) {
 			return new GameRequestPipeline()
-				   .game(gameId)
-				   .compute(ctx => ctx.Response = new OkObjectResult(ctx.Game.Info))
-				   .executeAction();
+				   .Game(gameId)
+				   .Compute(ctx => ctx.Response = new OkObjectResult(ctx.Game.Info))
+				   .ExecuteAction();
 		}
 
 		/// <summary>

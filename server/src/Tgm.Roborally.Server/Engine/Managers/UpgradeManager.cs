@@ -8,20 +8,23 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 	public class UpgradeManager {
 		private readonly Dictionary<int, ManagedUpgrade> _pool           = new Dictionary<int, ManagedUpgrade>();
 		private readonly Dictionary<int, ISet<int>>      _entityUpgrades = new Dictionary<int, ISet<int>>();
-		public           List<int>                       Ids                => new List<int>(_pool.Keys);
+		public           List<int>                       Ids => new List<int>(_pool.Keys);
+
 		public List<int> Shop => _pool
 								 .Where(u => u.Value.location == UpgradeLocation.Shop)
 								 .Select(p => p.Value.Id)
 								 .ToList();
+
 		public List<int> Deck => _pool
 								 .Where(u => u.Value.location == UpgradeLocation.Deck)
 								 .Select(p => p.Value.Id)
 								 .ToList();
+
 		/// <summary>
 		/// Get the upgrade with the matching ID
 		/// </summary>
 		/// <param name="id">the id of the upgrade to get</param>
-		public           Upgrade this[int id] => _pool.ContainsKey(id) ? _pool[id] : null;
+		public Upgrade this[int id] => _pool.ContainsKey(id) ? _pool[id] : null;
 
 		private readonly GameLogic _game;
 
@@ -73,13 +76,14 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		}
 
 		public void Buy(int id, int entId) {
-			Entity         ent     = _game.Entitys[entId];
+			Entity  ent     = _game.Entitys[entId];
 			Upgrade upgrade = this[id];
 			if (ent is RobotInfo) {
 				RobotInfo robo = new RobotInfo();
 				if (robo.EnergyCubes < upgrade.Cost) {
 					throw new ActionException("Not enough energy");
 				}
+
 				_pool[id].location = UpgradeLocation.Robot;
 				_entityUpgrades[id].Add(id);
 				robo.EnergyCubes -= upgrade.Cost;

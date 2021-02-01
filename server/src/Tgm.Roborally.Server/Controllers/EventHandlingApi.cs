@@ -56,10 +56,10 @@ namespace Tgm.Roborally.Server.Controllers {
 
 		private IActionResult typifiedEvent<T>(in int gameId, in bool wait) where T : Event {
 			return new GameRequestPipeline()
-				   .game(gameId)
-				   .player(((Player) HttpContext.Items[GameAuth.PLAYER]).Id)
-				   .nextEvent(wait)
-				   .compute(e => {
+				   .Game(gameId)
+				   .Player(((Player) HttpContext.Items[GameAuth.PLAYER]).Id)
+				   .NextEvent(wait)
+				   .Compute(e => {
 					   if (e.Event == null) {
 						   e.Response = new NotFoundObjectResult(new ErrorMessage {
 							   Error   = "Event not found",
@@ -67,7 +67,7 @@ namespace Tgm.Roborally.Server.Controllers {
 						   });
 					   }
 				   })
-				   .compute(code: e => {
+				   .Compute(code: e => {
 					   if (e.Event.GetType() != typeof(T)) {
 						   Type actualType = e.Event.GetType();
 						   e.Response = new ObjectResult(new ErrorMessage {
@@ -79,8 +79,8 @@ namespace Tgm.Roborally.Server.Controllers {
 						   };
 					   }
 				   })
-				   .compute(e => new ObjectResult(e.Event))
-				   .executeAction();
+				   .Compute(e => new ObjectResult(e.Event))
+				   .ExecuteAction();
 		}
 
 		/// <summary>
@@ -99,10 +99,10 @@ namespace Tgm.Roborally.Server.Controllers {
 		public virtual IActionResult FetchNextEvent([FromRoute(Name = "game_id")] [Required]
 													int gameId) {
 			return new GameRequestPipeline()
-				   .game(gameId)
-				   .player(((Player) HttpContext.Items[GameAuth.PLAYER]).Id)
-				   .nextEvent(false)
-				   .compute(e => {
+				   .Game(gameId)
+				   .Player(((Player) HttpContext.Items[GameAuth.PLAYER]).Id)
+				   .NextEvent(false)
+				   .Compute(e => {
 					   if (e.Event == null) {
 						   e.Response = new NotFoundObjectResult(new ErrorMessage {
 							   Error   = "Event not found",
@@ -110,10 +110,10 @@ namespace Tgm.Roborally.Server.Controllers {
 						   });
 					   }
 				   })
-				   .compute(e => e.Response = new OkObjectResult(new GenericEvent(e.Event.GetEventType()) {
+				   .Compute(e => e.Response = new OkObjectResult(new GenericEvent(e.Event.GetEventType()) {
 					   Data = e.Event
 				   }))
-				   .executeSecure();
+				   .ExecuteSecure();
 		}
 
 		/// <summary>
@@ -250,10 +250,10 @@ namespace Tgm.Roborally.Server.Controllers {
 				});
 			List<EventType>     events = new List<EventType>();
 			GameRequestPipeline pip    = new GameRequestPipeline();
-			pip.game(gameId)
-			   .player(((Player) HttpContext.Items[GameAuth.PLAYER]).Id);
+			pip.Game(gameId)
+			   .Player(((Player) HttpContext.Items[GameAuth.PLAYER]).Id);
 			if (batch) {
-				pip.compute(c => {
+				pip.Compute(c => {
 					if (c.Game.EventManager.queues.ContainsKey(c.Player.Id)) {
 						events = c.Game.EventManager.queues[c.Player.Id].Select(e => e.GetEventType()).ToList();
 					}
@@ -261,13 +261,13 @@ namespace Tgm.Roborally.Server.Controllers {
 			}
 			else {
 				pip
-					.peekNextEvent(wait)
-					.compute(e => events.Add(e.Event.GetEventType()));
+					.PeekNextEvent(wait)
+					.Compute(e => events.Add(e.Event.GetEventType()));
 			}
 
 			return pip
-				   .compute(e => e.Response = new OkObjectResult(events))
-				   .executeSecure();
+				   .Compute(e => e.Response = new OkObjectResult(events))
+				   .ExecuteSecure();
 		}
 	}
 }

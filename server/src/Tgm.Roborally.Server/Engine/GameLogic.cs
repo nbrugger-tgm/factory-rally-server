@@ -6,14 +6,15 @@ using System.Security.Authentication;
 using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Engine.Managers;
 using Tgm.Roborally.Server.Models;
+#pragma warning disable 1591
 
 namespace Tgm.Roborally.Server.Engine {
 	public class GameLogic {
-		private readonly GameThread                            thread;
-		private          GameState                             _state = GameState.LOBBY;
-		private          Dictionary<string, int>               _consumerKeys = new Dictionary<string, int>();
-		private          Dictionary<int, ConsumerRegistration> _consumers = new Dictionary<int, ConsumerRegistration>();
-		public           int                                   Id;
+		private readonly GameThread                            _thread;
+		private          GameState                             _state        = GameState.LOBBY;
+		private readonly Dictionary<string, int>               _consumerKeys = new Dictionary<string, int>();
+		private readonly Dictionary<int, ConsumerRegistration> _consumers    = new Dictionary<int, ConsumerRegistration>();
+		public           int                                   id;
 		public           int                                   playerOnTurn;
 
 
@@ -24,10 +25,10 @@ namespace Tgm.Roborally.Server.Engine {
 			Hardware      = new HardwareManager(this);
 			Info          = new GameInfo(this);
 			Game          = new Game(this);
-			thread        = new GameThread(this);
+			_thread        = new GameThread(this);
 			Entitys       = new EntityManager(this);
 			Upgrades      = new UpgradeManager(this);
-			thread.Start();
+			_thread.Start();
 		}
 
 		public GameState LastState { get; private set; }
@@ -66,23 +67,23 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public void CommitEvent(GenericEvent e) {
 			EventManager.Notify(e);
-			thread.Notify(e);
+			_thread.Notify(e);
 		}
 
 		public void CommitEvent(Event e) => CommitEvent(new GenericEvent(e));
 
-		public int NewPlayerID() {
-			int id;
+		private int NewPlayerId() {
+			int newId;
 			do {
-				id = new Random().Next(1, MaxPlayers + 1);
-			} while (GetPlayer(id) != null);
+				newId = new Random().Next(1, MaxPlayers + 1);
+			} while (GetPlayer(newId) != null);
 
-			return id;
+			return newId;
 		}
 
-		public Player GetPlayer(int id) {
+		public Player GetPlayer(int playerId) {
 			try {
-				return Players.Find(match: e => e.Id == id);
+				return Players.Find(match: e => e.Id == playerId);
 			}
 			catch (ArgumentNullException e) {
 				return null;
@@ -98,7 +99,7 @@ namespace Tgm.Roborally.Server.Engine {
 				Rules.Password != null && password       != null && !password.Equals(Password))
 				throw new AuthenticationException("The provided password was wrong or null");
 
-			Player p = new Player {Id = NewPlayerID(), DisplayName = name};
+			Player p = new Player {Id = NewPlayerId(), DisplayName = name};
 			Players.Add(p);
 
 			GenericEvent e = new GenericEvent(EventType.Join);
@@ -134,24 +135,24 @@ namespace Tgm.Roborally.Server.Engine {
 			CommitEvent(new ActionEvent(EventType.GameStart));
 		}
 
-		public void NotifyThread(ActionType type) => thread.Notify(type);
+		public void NotifyThread(ActionType type) => _thread.Notify(type);
 
 		public Player AuthPlayer(string authKey) => Players.Find(match: p => p.auth.Equals(authKey));
 
 		public JoinResponse RegisterConsumer(ConsumerRegistration consumerRegistration) {
-			int id;
+			int consumerId;
 			do {
-				id = new Random().Next(100, 9999);
-			} while (_consumers.ContainsKey(id));
+				consumerId = new Random().Next(100, 9999);
+			} while (_consumers.ContainsKey(consumerId));
 
 			if (_consumers.Count >= 200)
 				return null;
 
-			_consumers[id] = consumerRegistration;
+			_consumers[consumerId] = consumerRegistration;
 			Player pseudo = new Player {
-				Id = id
+				Id = consumerId
 			};
-			_consumerKeys[pseudo.auth] = id;
+			_consumerKeys[pseudo.auth] = consumerId;
 			return new JoinResponse(pseudo);
 		}
 
@@ -162,13 +163,17 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public ConsumerRegistration GetConsumer(int resItem2) => _consumers[resItem2];
 
-		public class GameNotJoinableException : Exception {
+		/// <inheritdoc />
+		private class GameNotJoinableException : Exception {
+			/// <inheritdoc />
 			public GameNotJoinableException(string theGameCannotBeJoinedAtTheMoment) : base(
 				theGameCannotBeJoinedAtTheMoment) {
 			}
 		}
 
-		public class PlayerNotRemoveableException : Exception {
+		/// <inheritdoc />
+		private class PlayerNotRemoveableException : Exception {
+			/// <inheritdoc />
 			public PlayerNotRemoveableException(string message) : base(message) {
 			}
 		}
@@ -179,7 +184,8 @@ namespace Tgm.Roborally.Server.Engine {
 			if (p.ControlledEntities.Count != 1) {
 				throw new ActionException("Multiple Robots per player are not implemented.");
 			}
-			Upgrades.Buy(upgrade,p.ControlledEntities[0]);
+
+			Upgrades.Buy(upgrade, p.ControlledEntities[0]);
 			CommitEvent(new GenericEvent(EventType.UpgradePurchase) {
 				Data = new Dictionary<string, object>() {
 					{"player", playerId},

@@ -44,8 +44,8 @@ namespace Tgm.Roborally.Server.Controllers {
 													  int gameId,
 													  [FromBody] ConsumerRegistration consumerRegistration) {
 			return new GameRequestPipeline()
-				   .game(gameId)
-				   .compute(c => {
+				   .Game(gameId)
+				   .Compute(c => {
 					   JoinResponse response = c.Game.RegisterConsumer(consumerRegistration);
 					   if (response == null) {
 						   c.Response = StatusCode(410);
@@ -54,7 +54,7 @@ namespace Tgm.Roborally.Server.Controllers {
 						   c.Response = new ObjectResult(response);
 					   }
 				   })
-				   .executeAction();
+				   .ExecuteAction();
 		}
 	}
 }

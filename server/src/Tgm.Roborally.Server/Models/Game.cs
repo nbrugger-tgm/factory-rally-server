@@ -37,7 +37,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>**Unique**&lt;br&gt; This is the parameter a game is identified by</value>
 		[Range(0, 2048)]
 		[DataMember(Name = "id", EmitDefaultValue = false)]
-		public int Id => _logic.Id;
+		public int Id => _logic.id;
 
 		/// <summary>
 		/// The name is **unique** but it should ***not*** be used as identifer (it&#39;s not natively supportet) It is used to display the game&#39;s name

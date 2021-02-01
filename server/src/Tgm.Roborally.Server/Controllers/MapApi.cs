@@ -43,8 +43,8 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerOperation("GetGameMap")]
 		[SwaggerResponse(statusCode: 200, type: typeof(Map), description: "OK")]
 		public virtual IActionResult GetGameMap([FromRoute] [Required] int gameId) {
-			return new GameRequestPipeline().game(gameId).compute(c => c.Response = new ObjectResult(c.Game.Map))
-											.executeAction();
+			return new GameRequestPipeline().Game(gameId).Compute(c => c.Response = new ObjectResult(c.Game.Map))
+											.ExecuteAction();
 		}
 
 		/// <summary>
@@ -64,9 +64,9 @@ namespace Tgm.Roborally.Server.Controllers {
 		public virtual IActionResult GetMapInfo([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 												int gameId) {
 			return new GameRequestPipeline()
-				   .game(gameId)
-				   .compute(c => c.Response = new ObjectResult(c.Game.Map.Info))
-				   .executeAction();
+				   .Game(gameId)
+				   .Compute(c => c.Response = new ObjectResult(c.Game.Map.Info))
+				   .ExecuteAction();
 		}
 
 		/// <summary>
@@ -87,9 +87,9 @@ namespace Tgm.Roborally.Server.Controllers {
 		public virtual IActionResult GetTile([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 											 int gameId, [FromRoute] [Required] int x, [FromRoute] [Required] int y) {
 			return new GameRequestPipeline()
-				   .game(gameId)
-				   .compute(c => c.Response = new ObjectResult(c.Game.Map[x, y]))
-				   .executeAction();
+				   .Game(gameId)
+				   .Compute(c => c.Response = new ObjectResult(c.Game.Map[x, y]))
+				   .ExecuteAction();
 		}
 	}
 }

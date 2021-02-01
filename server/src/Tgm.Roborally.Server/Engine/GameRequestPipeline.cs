@@ -6,36 +6,37 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine {
 	/**
-	 * This pipeline processes a request ro produce a result
+	 * This pipeline processes a request to produce a result
 	 */
 	public class GameRequestPipeline {
-		private readonly PipelineContext Context;
+		private readonly PipelineContext _context;
 
 		private GameLogic     _game;
 		private IActionResult _response = null;
 		private Player        _player;
 		private Event         _event;
 
-		public GameRequestPipeline() {
-			Context = new PipelineContext(pipe: this);
-		}
+		/// <summary>
+		/// Constructs an empty pipeline
+		/// </summary>
+		public GameRequestPipeline() => _context = new PipelineContext(pipe: this);
 
-		private IActionResult response {
+		private IActionResult Response {
 			get => _response;
-			set { _response = value; }
+			set => _response = value;
 		}
 
-		private bool done => response != null;
+		private bool Done => Response != null;
 
 
-		public GameRequestPipeline game(int game) {
-			if (done) {
+		public GameRequestPipeline Game(int game) {
+			if (Done) {
 				return this;
 			}
 
 			_game = GameManager.instance.GetGame(game);
 			if (_game == null) {
-				response = new NotFoundObjectResult(new ErrorMessage() {
+				Response = new NotFoundObjectResult(new ErrorMessage() {
 					Error   = "Game not found",
 					Message = "There is no game with the given ID"
 				});
@@ -44,15 +45,23 @@ namespace Tgm.Roborally.Server.Engine {
 			return this;
 		}
 
-		public GameRequestPipeline compute(Action<PipelineContext> code) {
-			if (done)
+		/// <summary>
+		/// Executes custom code to create and modify the response or handle the request
+		///	Exceptions are handled save
+		///
+		/// use <code>executeAction</code> or <code>executeSecure</code> to send the response
+		/// </summary>
+		/// <param name="code">the runnable code</param>
+		/// <returns>the pipeline itslef</returns>
+		public GameRequestPipeline Compute(Action<PipelineContext> code) {
+			if (Done)
 				return this;
 			try {
-				code(Context);
+				code(_context);
 			}
 			catch (Exception ex) {
 				ErrorMessage err = new ErrorMessage {Message = ex.Message, Error = ex.GetType().Name};
-				response = new ObjectResult(err) {
+				Response = new ObjectResult(err) {
 					StatusCode = 500
 				};
 			}
@@ -60,32 +69,32 @@ namespace Tgm.Roborally.Server.Engine {
 			return this;
 		}
 
-		public IActionResult executeAction() {
-			return execute(new OkResult());
+		public IActionResult ExecuteAction() {
+			return Execute(new OkResult());
 		}
 
 		/// <summary>
 		/// Ensures a result body or returns a Error Result if no body was available
 		/// </summary>
 		/// <returns></returns>
-		public IActionResult executeSecure() {
+		public IActionResult ExecuteSecure() {
 			ObjectResult result =
 				new ObjectResult("The request was not processed properly and didn't produced a result");
 			result.StatusCode = 500;
-			return execute(result);
+			return Execute(result);
 		}
 
-		private IActionResult execute(IActionResult Default) {
-			if (response == null) {
-				return Default;
+		private IActionResult Execute(IActionResult defaultResult) {
+			if (Response == null) {
+				return defaultResult;
 			}
 
-			return response;
+			return Response;
 		}
 
 
-		public GameRequestPipeline player(int playerId) {
-			if (done)
+		public GameRequestPipeline Player(int playerId) {
+			if (Done)
 				return this;
 			_player = _game.GetPlayer(playerId);
 			if (_player == null)
@@ -95,15 +104,15 @@ namespace Tgm.Roborally.Server.Engine {
 						DisplayName = "Dummy Controller Player"
 					};
 				else
-					response = new NotFoundObjectResult(new ErrorMessage() {
+					Response = new NotFoundObjectResult(new ErrorMessage() {
 						Error   = "Player not found",
 						Message = "The id of the player is not correct or missing"
 					});
 			return this;
 		}
 
-		public GameRequestPipeline nextEvent(bool wait) {
-			if (!done) {
+		public GameRequestPipeline NextEvent(bool wait) {
+			if (!Done) {
 				_event = _game.EventManager.Pop(_player.Id);
 				if (wait && _event == null) {
 					_game.EventManager.Await();
@@ -114,8 +123,8 @@ namespace Tgm.Roborally.Server.Engine {
 			return this;
 		}
 
-		public GameRequestPipeline peekNextEvent(bool wait) {
-			if (!done) {
+		public GameRequestPipeline PeekNextEvent(bool wait) {
+			if (!Done) {
 				_event = _game.EventManager.Peek(_player.Id);
 				if (wait && _event == null) {
 					_game.EventManager.Await();
@@ -139,7 +148,7 @@ namespace Tgm.Roborally.Server.Engine {
 			public Event Event => pipe._event;
 
 			public IActionResult Response {
-				set => pipe.response = value;
+				set => pipe.Response = value;
 			}
 		}
 	}

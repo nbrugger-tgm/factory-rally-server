@@ -15,7 +15,7 @@ namespace Tgm.Roborally.Server.Engine {
 		public int startGame(GameRules rules) {
 			Console.WriteLine("Create game with rules : " + rules);
 			int       id   = randomID;
-			GameLogic game = new GameLogic(rules) {Id = id};
+			GameLogic game = new GameLogic(rules) {id = id};
 			games[id] = game;
 			return id;
 		}
