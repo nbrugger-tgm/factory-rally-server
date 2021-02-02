@@ -6,14 +6,15 @@ using System.Security.Authentication;
 using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Engine.Managers;
 using Tgm.Roborally.Server.Models;
+
 #pragma warning disable 1591
 
 namespace Tgm.Roborally.Server.Engine {
 	public class GameLogic {
 		private readonly GameThread                            _thread;
-		private          GameState                             _state        = GameState.LOBBY;
+		private          GameState                             _state = GameState.LOBBY;
 		private readonly Dictionary<string, int>               _consumerKeys = new Dictionary<string, int>();
-		private readonly Dictionary<int, ConsumerRegistration> _consumers    = new Dictionary<int, ConsumerRegistration>();
+		private readonly Dictionary<int, ConsumerRegistration> _consumers = new Dictionary<int, ConsumerRegistration>();
 		public           int                                   id;
 		public           int                                   playerOnTurn;
 

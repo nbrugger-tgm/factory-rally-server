@@ -14,6 +14,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 				Thread.Yield(); //implement
 				Thread.Sleep(10);
 			}
+
 			return null; //todo
 		}
 

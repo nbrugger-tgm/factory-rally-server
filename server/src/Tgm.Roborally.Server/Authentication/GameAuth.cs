@@ -69,23 +69,23 @@ namespace Tgm.Roborally.Server.Authentication {
 		/// <param name="playerIdPathName">Defines the name of the Authentication ID in the querry (default `player_id`)</param>
 		/// <param name="belongsTo">Only allows the player to pass if he owns the resource</param>
 		public GameAuth(
-			Type ownershipEnsurance,
-			string             gameIdPathName   = "game_id",
-			bool               playerSelf       = false,
-			string             playerIdPathName = "player_id"
+			Type   ownershipEnsurance,
+			string gameIdPathName   = "game_id",
+			bool   playerSelf       = false,
+			string playerIdPathName = "player_id"
 		) {
-			_needed_role        = Role.PLAYER;
-			_gameIdPathName     = gameIdPathName;
-			_belongsTo          = true;
-			_playerSelf         = playerSelf;
-			_playerIdPathName   = playerIdPathName;
+			_needed_role      = Role.PLAYER;
+			_gameIdPathName   = gameIdPathName;
+			_belongsTo        = true;
+			_playerSelf       = playerSelf;
+			_playerIdPathName = playerIdPathName;
 			//_ownershipEnsurance = (OwnershipEnsurance) ownershipEnsurance.GetConstructor(new Type[0]).Invoke(new object[0]);
 
 			_ownershipEnsurance = (OwnershipEnsurance) Activator.CreateInstance(ownershipEnsurance);
 		}
 
 
-		public static string             AdminKey { get; private set; } = RandomString(256, false);
+		public static string AdminKey { get; private set; } = RandomString(256, false);
 
 
 		public void OnAuthorization(AuthorizationFilterContext context) {
@@ -126,7 +126,7 @@ namespace Tgm.Roborally.Server.Authentication {
 						}
 
 						if (_belongsTo)
-							owns = _ownershipEnsurance.DoesOwn(player.Id, request.RouteValues,game);
+							owns = _ownershipEnsurance.DoesOwn(player.Id, request.RouteValues, game);
 					}
 				}
 			}
@@ -215,7 +215,7 @@ namespace Tgm.Roborally.Server.Authentication {
 		public bool isAdmin;
 
 		/// <summary>
-		///     -1 means not a player
+		///		-1 means not a player
 		/// </summary>
 		public int player = -1;
 

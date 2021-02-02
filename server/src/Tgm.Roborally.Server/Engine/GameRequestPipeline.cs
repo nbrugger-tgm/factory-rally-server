@@ -148,6 +148,7 @@ namespace Tgm.Roborally.Server.Engine {
 
 			public Event     Event => pipe._event;
 			public RobotInfo Robot => pipe._robot;
+
 			public IActionResult Response {
 				set => pipe.Response = value;
 			}
@@ -168,7 +169,7 @@ namespace Tgm.Roborally.Server.Engine {
 					Message = "The given id referes to an entity that is not a robot"
 				});
 			else
-				_robot = (RobotInfo)e;
+				_robot = (RobotInfo) e;
 			return this;
 		}
 	}

@@ -98,12 +98,14 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			foreach (int upgrade in upgrades) {
 				_pool[upgrade].location = UpgradeLocation.Discarded;
 			}
+
 			_game.CommitEvent(new GenericEvent(EventType.RegisterClear) {
-				Data = ("Actually not a Register clear event, just a placeholder","Discard upgrades","Robot : "+robotId)
+				Data = ("Actually not a Register clear event, just a placeholder", "Discard upgrades",
+						"Robot : " + robotId)
 			});
 		}
 
-		public ISet<int> GetEntityUpgrades(int    robotId) => _entityUpgrades[robotId];
+		public ISet<int> GetEntityUpgrades(int robotId) => _entityUpgrades[robotId];
 
 		public void DiscardEntityUpgrade(int robotId, int upgrade) {
 			_pool[upgrade].location = UpgradeLocation.Discarded;
