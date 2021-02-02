@@ -132,6 +132,85 @@ namespace Tgm.Roborally.Server.Controllers {
 						   .Select(e => e.Key)
 						   .ToList()
 			);
+		/// <summary>
+		/// Get Programming Card
+		/// </summary>
+		/// <remarks>Get the programming card by id</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="statementId">The id of the programming card</param>
+		/// <response code="200">OK</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/statements/{statement_id}")]
+		[Authorize(Policy = "player-auth")]
+		[ValidateModelState]
+		[SwaggerOperation("GetProgrammingCard")]
+		[SwaggerResponse(statusCode: 200, type: typeof(RobotCommand), description: "OK")]
+		public virtual IActionResult GetProgrammingCard([FromRoute] [Required] [Range(0, 2048)]
+														int gameId, [FromRoute] [Required] [Range(0, 10000)]
+														int statementId) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200, default(RobotCommand));
+			string exampleJson = null;
+			exampleJson =
+				"{\n  \"times\" : 1,\n  \"name\" : \"Penetration Lazer Mk.2\",\n  \"description\" : \"null\",\n  \"parameters\" : [ {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  } ]\n}";
+
+			var example = exampleJson != null
+							  ? JsonConvert.DeserializeObject<RobotCommand>(exampleJson)
+							  : default(RobotCommand);
+			//TODO: Change the data returned
+			return new ObjectResult(example);
+		}
+
+		/// <summary>
+		/// Get Programming Card IDs
+		/// </summary>
+		/// <param name="gameId"></param>
+		/// <response code="200">OK</response>
+		[HttpHead]
+		[Route("/v1/games/{game_id}/statements")]
+		[Authorize(Policy = "player-auth")]
+		[ValidateModelState]
+		[SwaggerOperation("GetProgrammingCardIds")]
+		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
+		public virtual IActionResult GetProgrammingCardIds([FromRoute] [Required] [Range(0, 2048)]
+														   int gameId) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200, default(List<int>));
+			string exampleJson = null;
+			exampleJson = "null";
+
+			var example = exampleJson != null
+							  ? JsonConvert.DeserializeObject<List<int>>(exampleJson)
+							  : default(List<int>);
+			//TODO: Change the data returned
+			return new ObjectResult(example);
+		}
+
+		/// <summary>
+		/// Get Programming cards
+		/// </summary>
+		/// <remarks>Returns the Programming cards in this game</remarks>
+		/// <param name="gameId"></param>
+		/// <response code="200">OK</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/statements")]
+		[Authorize(Policy = "player-auth")]
+		[ValidateModelState]
+		[SwaggerOperation("GetProgrammingCards")]
+		[SwaggerResponse(statusCode: 200, type: typeof(List<RobotCommand>), description: "OK")]
+		public virtual IActionResult GetProgrammingCards([FromRoute] [Required] [Range(0, 2048)]
+														 int gameId) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200, default(List<RobotCommand>));
+			string exampleJson = null;
+			exampleJson =
+				"{\n  \"times\" : 1,\n  \"name\" : \"Penetration Lazer Mk.2\",\n  \"description\" : \"null\",\n  \"parameters\" : [ {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  } ]\n}";
+
+			var example = exampleJson != null
+							  ? JsonConvert.DeserializeObject<List<RobotCommand>>(exampleJson)
+							  : default(List<RobotCommand>);
+			//TODO: Change the data returned
+			return new ObjectResult(example);
 		}
 	}
 }

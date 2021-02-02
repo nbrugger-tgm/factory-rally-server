@@ -196,6 +196,39 @@ namespace Tgm.Roborally.Server.Controllers {
 		}
 
 		/// <summary>
+		/// Get Register Content
+		/// </summary>
+		/// <remarks>Returns the Programming card in the robots register</remarks>
+		/// <param name="gameId"></param>
+		/// <param name="robotId"></param>
+		/// <param name="register">The number of the register</param>
+		/// <response code="200">OK</response>
+		/// <response code="404">Not Found</response>
+		[HttpGet]
+		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/registers/{register}")]
+		[Authorize(Policy = "player-auth")]
+		[ValidateModelState]
+		[SwaggerOperation("GetRegisterContent")]
+		[SwaggerResponse(statusCode: 200, type: typeof(RobotCommand), description: "OK")]
+		public virtual IActionResult GetRegisterContent([FromRoute] [Required] [Range(0, 2048)]
+														int gameId, [FromRoute] [Required] int robotId,
+														[FromRoute] [Required] [Range(0, 4)] int register) {
+			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(200, default(RobotCommand));
+			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(404);
+			string exampleJson = null;
+			exampleJson =
+				"{\n  \"times\" : 1,\n  \"name\" : \"Penetration Lazer Mk.2\",\n  \"description\" : \"null\",\n  \"parameters\" : [ {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  } ]\n}";
+
+			var example = exampleJson != null
+							  ? JsonConvert.DeserializeObject<RobotCommand>(exampleJson)
+							  : default(RobotCommand);
+			//TODO: Change the data returned
+			return new ObjectResult(example);
+		}
+
+		/// <summary>
 		/// Get register information
 		/// </summary>
 		/// <remarks>Returns the content of the registers</remarks>
@@ -307,21 +340,29 @@ namespace Tgm.Roborally.Server.Controllers {
 		}
 
 		/// <summary>
-		/// change register content
+		/// Set Register Content
 		/// </summary>
-		/// <remarks>Updates the card in a register</remarks>
+		/// <remarks>Changes the programming card of the robots register</remarks>
 		/// <param name="gameId"></param>
 		/// <param name="robotId"></param>
-		/// <response code="200">OK</response>
-		[HttpPatch]
-		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
+		/// <param name="register">The number of the register</param>
+		/// <param name="statementId">The Id of the statement to place here</param>
+		/// <response code="201">Changed</response>
+		/// <response code="404">Not Found</response>
+		[HttpPut]
+		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/registers/{register}")]
+		[Authorize(Policy = "player-auth")]
 		[ValidateModelState]
-		[SwaggerOperation("UpdateRegister")]
-		public virtual IActionResult UpdateRegister([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-													int gameId, [FromRoute(Name = "robot_id")] [Required]
-													int robotId) {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200);
+		[SwaggerOperation("SetRegister")]
+		public virtual IActionResult SetRegister([FromRoute] [Required] [Range(0, 2048)]
+												 int gameId, [FromRoute] [Required] int robotId,
+												 [FromRoute] [Required] [Range(0, 4)] int register,
+												 [FromQuery] [Required()] [Range(0, 10000)]
+												 int statementId) {
+			//TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(201);
+			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+			// return StatusCode(404);
 
 			throw new NotImplementedException();
 		}

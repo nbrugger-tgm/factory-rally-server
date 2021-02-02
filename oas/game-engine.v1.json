@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Robot Rally Game logic engine",
-    "version": "v0.7.0b0",
+    "version": "v0.4.1b0",
     "description": "This api controlls the flow of a game and provides it's data.\nIt is desiged to be RESTfull so the structure works simmilar as file system.\nThe service will run and only work in a local network, `game.host` is the IP of the Computer hosting the game and will be found via a IP scan",
     "contact": {
       "name": "Nils Brugger",
@@ -147,12 +147,7 @@
         },
         "operationId": "getGameState",
         "description": "Returns the status of a game",
-        "parameters": [],
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
+        "parameters": []
       }
     },
     "/games/{game_id}/actions": {
@@ -755,24 +750,6 @@
         },
         "operationId": "getRegisters",
         "description": "Returns the content of the registers",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      },
-      "patch": {
-        "summary": "change register content",
-        "operationId": "updateRegister",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "tags": [
-          "Robots"
-        ],
-        "description": "Updates the card in a register",
         "security": [
           {
             "player-auth": []
@@ -1960,6 +1937,212 @@
           "Consumer"
         ]
       }
+    },
+    "/games/{game_id}/statements": {
+      "parameters": [
+        {
+          "schema": {
+            "$ref": "#/components/schemas/GameID"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get Programming cards",
+        "tags": [
+          "Game"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "uniqueItems": false,
+                  "items": {
+                    "$ref": "#/components/schemas/RobotCommand"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getProgrammingCards",
+        "description": "Returns the Programming cards in this game",
+        "security": [
+          {
+            "player-auth": []
+          }
+        ]
+      },
+      "head": {
+        "summary": "Get Programming Card IDs",
+        "operationId": "getProgrammingCardIds",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UpgradeID"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "player-auth": []
+          }
+        ],
+        "tags": [
+          "Game"
+        ]
+      }
+    },
+    "/games/{game_id}/statements/{statement_id}": {
+      "parameters": [
+        {
+          "schema": {
+            "$ref": "#/components/schemas/GameID"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "$ref": "#/components/schemas/UpgradeID"
+          },
+          "name": "statement_id",
+          "in": "path",
+          "required": true,
+          "description": "The id of the programming card"
+        }
+      ],
+      "get": {
+        "summary": "Get Programming Card",
+        "tags": [
+          "Game"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RobotCommand"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getProgrammingCard",
+        "description": "Get the programming card by id",
+        "security": [
+          {
+            "player-auth": []
+          }
+        ]
+      }
+    },
+    "/games/{game_id}/entities/robots/{robot_id}/registers/{register}": {
+      "parameters": [
+        {
+          "schema": {
+            "$ref": "#/components/schemas/GameID"
+          },
+          "name": "game_id",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "$ref": "#/components/schemas/EntityID"
+          },
+          "name": "robot_id",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4,
+            "format": "int32"
+          },
+          "name": "register",
+          "in": "path",
+          "required": true,
+          "description": "The number of the register"
+        }
+      ],
+      "get": {
+        "summary": "Get Register Content",
+        "tags": [
+          "Robots"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RobotCommand"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "operationId": "getRegisterContent",
+        "description": "Returns the Programming card in the robots register",
+        "security": [
+          {
+            "player-auth": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Set Register Content",
+        "operationId": "setRegister",
+        "responses": {
+          "201": {
+            "description": "Changed"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "description": "Changes the programming card of the robots register",
+        "security": [
+          {
+            "player-auth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "$ref": "#/components/schemas/UpgradeID"
+            },
+            "in": "query",
+            "name": "statement_id",
+            "required": true,
+            "description": "The Id of the statement to place here"
+          }
+        ],
+        "tags": [
+          "Robots"
+        ]
+      }
     }
   },
   "components": {
@@ -2189,7 +2372,7 @@
         "example": "Niton 1",
         "minLength": 3,
         "maxLength": 13,
-        "pattern": "[A-Za-z]+[A-Za-z0-9 _ -]+[A-Za-z0-9]{1}"
+        "pattern": "[A-Za-z]+[A-Za-z0-9_ -]+[A-Za-z0-9]{1}"
       },
       "GameInfo": {
         "title": "Game Info",
