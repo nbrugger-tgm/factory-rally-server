@@ -131,6 +131,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpDelete]
 		[Route("/v1/games/{game_id}/players/{player_id}")]
+		[Authorize(Policy = "admin-access")]
 		[ValidateModelState]
 		[SwaggerOperation("KickPlayer")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]

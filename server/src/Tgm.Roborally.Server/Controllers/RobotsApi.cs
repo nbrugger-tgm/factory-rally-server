@@ -91,6 +91,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpPost]
 		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/stack/")]
+		[Authorize(Policy = "player-auth")]
 		[ValidateModelState]
 		[SwaggerOperation("DoEntityAction")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
@@ -115,6 +116,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/stack/")]
+		[Authorize(Policy = "player-auth")]
 		[ValidateModelState]
 		[SwaggerOperation("GetActionStack")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<EntityAction>), description: "OK")]
@@ -174,6 +176,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/avinable")]
+		[Authorize(Policy = "player-auth")]
 		[ValidateModelState]
 		[SwaggerOperation("GetPossibleActions")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<EntityEventOportunity>), description: "OK")]
@@ -291,6 +294,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/entitys/robots/")]
+		[Authorize(Policy = "player-auth")]
 		[ValidateModelState]
 		[SwaggerOperation("GetRobots")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
@@ -315,6 +319,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpPatch]
 		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
+		[Authorize(Policy = "player-auth")]
 		[ValidateModelState]
 		[SwaggerOperation("RemoveRobotUpgrade")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]

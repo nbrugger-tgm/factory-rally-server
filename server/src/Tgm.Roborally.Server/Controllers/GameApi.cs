@@ -34,6 +34,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="409">Conflict</response>
 		[HttpPut]
 		[Route("/v1/games/{game_id}/actions")]
+		[Authorize(Policy = "admin-access")]
 		[ValidateModelState]
 		[SwaggerOperation("CommitAction")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
@@ -58,6 +59,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		[HttpPost]
 		[Route("/v1/games/")]
+		[Authorize(Policy = "admin-access")]
 		[ValidateModelState]
 		[SwaggerOperation("CreateGame")]
 		public virtual IActionResult CreateGame([FromBody] GameRules gameRules) {
@@ -98,6 +100,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/status")]
+		[Authorize(Policy = "player-auth")]
 		[ValidateModelState]
 		[SwaggerOperation("GetGameState")]
 		[SwaggerResponse(statusCode: 200, type: typeof(GameInfo), description: "OK")]
@@ -132,6 +135,8 @@ namespace Tgm.Roborally.Server.Controllers {
 						   .Select(e => e.Key)
 						   .ToList()
 			);
+		}
+
 		/// <summary>
 		/// Get Programming Card
 		/// </summary>

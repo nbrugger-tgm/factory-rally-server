@@ -40,6 +40,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="417">The next event is not a movement event</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/events/damage")]
+		[Authorize(Policy = "player-auth")]
 		[ValidateModelState]
 		[SwaggerOperation("FetchNextDamageEvent")]
 		[SwaggerResponse(statusCode: 200, type: typeof(DamageEvent), description: "OK")]
@@ -126,6 +127,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="417">The next event is not a movement event</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/events/lazer-hit")]
+		[Authorize(Policy = "player-auth")]
 		[ValidateModelState]
 		[SwaggerOperation("FetchNextLazerHitEvent")]
 		[SwaggerResponse(statusCode: 200, type: typeof(LazerHitEvent), description: "OK")]
@@ -144,6 +146,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="417">The next event is not a movement event</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/events/map")]
+		[Authorize(Policy = "player-auth")]
 		[ValidateModelState]
 		[SwaggerOperation("FetchNextMapEvent")]
 		[SwaggerResponse(statusCode: 200, type: typeof(MapEvent), description: "OK")]
@@ -162,6 +165,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="417">The next event is not a movement event</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/events/movement")]
+		[Authorize(Policy = "player-auth")]
 		[ValidateModelState]
 		[SwaggerOperation("FetchNextMovementEvent")]
 		[SwaggerResponse(statusCode: 200, type: typeof(MovementEvent), description: "OK")]
@@ -199,6 +203,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="417">The next event is not a movement event</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/events/shoot")]
+		[Authorize(Policy = "player-auth")]
 		[ValidateModelState]
 		[SwaggerOperation("FetchNextShootEvent")]
 		[SwaggerResponse(statusCode: 200, type: typeof(ShootEvent), description: "OK")]
@@ -217,6 +222,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="417">The next event is not a movement event</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/events/shutdown")]
+		[Authorize(Policy = "player-auth")]
 		[ValidateModelState]
 		[SwaggerOperation("FetchNextShutdownEvent")]
 		[SwaggerResponse(statusCode: 200, type: typeof(ShutdownEvent), description: "OK")]
