@@ -38,17 +38,18 @@ namespace Tgm.Roborally.Server.Controllers {
 		[HttpDelete]
 		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
 		[ValidateModelState]
+		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[SwaggerOperation("ClearRegisters")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult ClearRegisters([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 													int gameId, [FromRoute(Name = "robot_id")] [Required]
 													int robotId) {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200);
-			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(404, default(ErrorMessage));
-
-			throw new NotImplementedException();
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				   .Robot(robotId)
+				   .Compute(c => c.Game.Programming.Clear(robotId))
+				   .ExecuteAction();
 		}
 
 		/// <summary>
@@ -205,25 +206,19 @@ namespace Tgm.Roborally.Server.Controllers {
 		[HttpGet]
 		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
 		[ValidateModelState]
+		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[SwaggerOperation("GetRegisters")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<RobotCommand>), description: "OK")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetRegisters([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 												  int gameId, [FromRoute(Name = "robot_id")] [Required]
 												  int robotId) {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200, default(List<RobotCommand>));
-			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(404, default(ErrorMessage));
-			string exampleJson = null;
-			exampleJson =
-				"{\r\n  \"times\" : 1,\r\n  \"name\" : \"Penetration Lazer Mk.2\",\r\n  \"description\" : \"null\",\r\n  \"parameters\" : [ {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  }, {\r\n    \"name\" : \"name\",\r\n    \"value\" : 1\r\n  } ]\r\n}";
-
-			var example = exampleJson != null
-							  ? JsonConvert.DeserializeObject<List<RobotCommand>>(exampleJson)
-							  : default(List<RobotCommand>);
-			//TODO: Change the data returned
-			return new ObjectResult(example);
+			return new GameRequestPipeline()
+					.Game(gameId)
+					.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+					.Robot(robotId)
+					.Compute(c => c.Response = new OkObjectResult(c.Game.Programming[robotId]))
+					.ExecuteSecure();
 		}
 
 		/// <summary>
