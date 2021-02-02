@@ -18,11 +18,15 @@ namespace Tgm.Roborally.Server {
 			if (args.Length > 0) {
 				GameAuth.ChangeAdminKey(args[0]);
 			}
-
-			Console.WriteLine("map-repo : ");
+			Console.WriteLine("+--------------------------+");
+			Console.WriteLine("| Robo Rally Server v"+version+" |");
+			Console.WriteLine("+--------------------------+");
+			Console.Write("map-repo : ");
 			Console.WriteLine(ServerProperties.mapRepo);
-			Console.WriteLine("admin-key : ");
+			Console.Write("admin-key : ");
 			Console.WriteLine(GameAuth.AdminKey);
+			Console.WriteLine("github : https://github.com/FactoryRally/game-controller");
+			Console.WriteLine("\n\nStart API\n");
 			CreateWebHostBuilder(args).Build().Run();
 			Thread.Sleep(2000);
 		}
