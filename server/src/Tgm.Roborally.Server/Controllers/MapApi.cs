@@ -80,7 +80,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/map/tiles/{x}/{y}")]
-		[Authorize(Policy = "player-auth")]
+		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetTile")]
 		[SwaggerResponse(statusCode: 200, type: typeof(Tile), description: "OK")]

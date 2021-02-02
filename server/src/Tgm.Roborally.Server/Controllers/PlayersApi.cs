@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using Tgm.Roborally.Server.Attributes;
+using Tgm.Roborally.Server.Authentication;
 using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Models;
 
@@ -131,7 +132,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpDelete]
 		[Route("/v1/games/{game_id}/players/{player_id}")]
-		[Authorize(Policy = "admin-access")]
+		[GameAuth(Role.ADMIN)]
 		[ValidateModelState]
 		[SwaggerOperation("KickPlayer")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]

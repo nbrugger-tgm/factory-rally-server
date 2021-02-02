@@ -11,9 +11,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using Tgm.Roborally.Server.Attributes;
+using Tgm.Roborally.Server.Authentication;
 using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Models;
 
@@ -34,7 +37,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="409">Conflict</response>
 		[HttpPut]
 		[Route("/v1/games/{game_id}/actions")]
-		[Authorize(Policy = "admin-access")]
+		[GameAuth(Role.ADMIN)]
 		[ValidateModelState]
 		[SwaggerOperation("CommitAction")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
@@ -59,7 +62,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		[HttpPost]
 		[Route("/v1/games/")]
-		[Authorize(Policy = "admin-access")]
+		//[GameAuth(Role.ADMIN)] todo: enable wen kalian is ready
 		[ValidateModelState]
 		[SwaggerOperation("CreateGame")]
 		public virtual IActionResult CreateGame([FromBody] GameRules gameRules) {
@@ -100,7 +103,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/status")]
-		[Authorize(Policy = "player-auth")]
+		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetGameState")]
 		[SwaggerResponse(statusCode: 200, type: typeof(GameInfo), description: "OK")]
@@ -146,7 +149,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/statements/{statement_id}")]
-		[Authorize(Policy = "player-auth")]
+		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetProgrammingCard")]
 		[SwaggerResponse(statusCode: 200, type: typeof(RobotCommand), description: "OK")]
@@ -173,7 +176,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		[HttpHead]
 		[Route("/v1/games/{game_id}/statements")]
-		[Authorize(Policy = "player-auth")]
+		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetProgrammingCardIds")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
@@ -199,7 +202,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/statements")]
-		[Authorize(Policy = "player-auth")]
+		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetProgrammingCards")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<RobotCommand>), description: "OK")]

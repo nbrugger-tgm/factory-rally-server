@@ -16,7 +16,6 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using Tgm.Roborally.Server.Attributes;
-using Microsoft.AspNetCore.Authorization;
 using Tgm.Roborally.Server.Authentication;
 using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Engine.Managers;
@@ -61,7 +60,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/upgrades/")]
-		[Authorize(Policy = "player-auth")]
+		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetAllUpgradeIDs")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
@@ -83,7 +82,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/upgrades/{upgrade_id}")]
-		[Authorize(Policy = "player-auth")]
+		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetUpgradeInformation")]
 		[SwaggerResponse(statusCode: 200, type: typeof(Upgrade), description: "OK")]
@@ -116,7 +115,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/upgrades/shop")]
-		[Authorize(Policy = "player-auth")]
+		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetUpgradeShop")]
 		[SwaggerResponse(statusCode: 200, type: typeof(UpgradeShop), description: "OK")]
