@@ -1,3 +1,24 @@
+## v0.8.0 (2021-02-02)
+
+### Refactor
+
+- **autogen**: replace authorisation attributes
+- sync display oas
+
+### Feat
+
+- improve startup message
+- add version to main file
+- add authoriation check to all endpoints
+- add programming card endpoints
+- add robot and register backend
+- implement `getRobots` endpoint
+- implement robot register endpoints
+
+### Fix
+
+- bad regex
+
 ## v0.7.0 (2021-02-01)
 
 ### Feat
