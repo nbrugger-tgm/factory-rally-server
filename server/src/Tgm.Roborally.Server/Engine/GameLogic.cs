@@ -25,11 +25,14 @@ namespace Tgm.Roborally.Server.Engine {
 			Hardware      = new HardwareManager(this);
 			Info          = new GameInfo(this);
 			Game          = new Game(this);
-			_thread        = new GameThread(this);
+			_thread       = new GameThread(this);
 			Entitys       = new EntityManager(this);
 			Upgrades      = new UpgradeManager(this);
+			Programming   = new ProgrammingManager(this);
 			_thread.Start();
 		}
+
+		public readonly ProgrammingManager Programming;
 
 		public GameState LastState { get; private set; }
 

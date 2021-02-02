@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Tgm.Roborally.Server.Models;
 
@@ -8,8 +9,9 @@ namespace Tgm.Roborally.Server.Engine {
 	public class EntityManager {
 		private readonly GameLogic    _game;
 		private readonly List<Entity> ents = new List<Entity>();
-		public           int          Count => ents.Count;
-		public           ISet<int>    Ids   => ents.Select(e => e.Id).ToHashSet();
+		public           int          Count  => ents.Count;
+		public           ISet<int>    Ids    => ents.Select(e => e.Id).ToImmutableHashSet();
+		public           ISet<int>    Robots => ents.Where(e => e is RobotInfo).Select(e => e.Id).ToImmutableHashSet();
 
 		public RobotPickEvent PickRobo(Robots type, Player gamePlayer) {
 			RobotInfo info = new RobotInfo() {
