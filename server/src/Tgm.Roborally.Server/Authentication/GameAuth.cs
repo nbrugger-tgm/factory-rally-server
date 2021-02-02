@@ -63,8 +63,6 @@ namespace Tgm.Roborally.Server.Authentication {
 			_allowConsumer    = allowConsumer;
 		}
 
-		public const Type ROBOT = null;
-
 		/// <param name="ownershipEnsurance">A method to determine if the accessed object is owned by the player</param>
 		/// <param name="gameIdPathName">this is the name of the gameID field in the path</param>
 		/// <param name="playerSelf">When true the player must match `player_id`(customizeable) from path</param>
