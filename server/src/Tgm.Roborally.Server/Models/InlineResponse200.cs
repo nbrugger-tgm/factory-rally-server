@@ -37,7 +37,7 @@ namespace Tgm.Roborally.Server.Models {
 		public override string ToString() {
 			var sb = new StringBuilder();
 			sb.Append("class InlineResponse200 {\n");
-			sb.Append("  EventType: ").Append(EventType).Append("\n");
+			sb.Append("	 EventType: ").Append(EventType).Append("\n");
 			sb.Append("}\n");
 			return sb.ToString();
 		}
