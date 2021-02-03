@@ -1,3 +1,9 @@
+## v0.8.2 (2021-02-03)
+
+### Fix
+
+- remove wrong authentication tag
+
 ## v0.8.1 (2021-02-03)
 
 ### Refactor
