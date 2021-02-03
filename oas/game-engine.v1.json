@@ -2721,10 +2721,8 @@
             "$ref": "#/components/schemas/PlayerID"
           },
           "pat": {
-            "type": "integer",
-            "description": "The uid is the key for the joined player. You need this key for authentication",
-            "minimum": 9999,
-            "maximum": 99999999
+            "type": "string",
+            "description": "The uid is the key for the joined player. You need this key for authentication"
           }
         },
         "required": [
@@ -3353,7 +3351,10 @@
           "description"
         ]
       }
-    }
+    },
+    "responses": {},
+    "parameters": {},
+    "examples": {}
   },
   "tags": [
     {
