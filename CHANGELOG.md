@@ -1,3 +1,11 @@
+## v0.8.1 (2021-02-03)
+
+### Refactor
+
+- remove bad testcase
+- add client as submodule
+- remove client code from this repo
+
 ## v0.8.0 (2021-02-02)
 
 ### Refactor
