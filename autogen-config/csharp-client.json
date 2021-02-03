@@ -1,0 +1,7 @@
+{
+	"optionalMethodArgument" : true,
+	"packageName" : "Tgm.Roborally.Api",
+	"netCoreProjectFile": true,
+	"optionalAssemblyInfo":false,
+	"targetFramework":"netcoreapp3.0"
+}
