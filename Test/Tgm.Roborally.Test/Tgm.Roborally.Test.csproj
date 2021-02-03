@@ -3,11 +3,13 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<RestoreSources>$(RestoreSources);../../client/src/Tgm.Roborally.Api/bin/Debug;https://api.nuget.org/v3/index.json</RestoreSources>
 	</PropertyGroup>
+
 
 	<ItemGroup>
 	  <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
-	  <PackageReference Include="Tgm.Roborally.Api" Version="1.1.3" />
+	  <PackageReference Include="Tgm.Roborally.Api" Version="1.0.0" />
 	</ItemGroup>
 
 </Project>
