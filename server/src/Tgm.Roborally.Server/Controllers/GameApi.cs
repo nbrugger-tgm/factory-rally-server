@@ -103,7 +103,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/status")]
-		[GameAuth(Role.PLAYER)]
+		//[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetGameState")]
 		[SwaggerResponse(statusCode: 200, type: typeof(GameInfo), description: "OK")]
