@@ -175,7 +175,7 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public ConsumerRegistration GetConsumer(int resItem2) => _consumers[resItem2];
 
-		/// <inheritdoc />
+		/// Thrown when the game cant be joined (eg. it has reached max players
 		private class GameNotJoinableException : Exception {
 			/// <inheritdoc />
 			public GameNotJoinableException(string theGameCannotBeJoinedAtTheMoment) : base(
@@ -183,7 +183,7 @@ namespace Tgm.Roborally.Server.Engine {
 			}
 		}
 
-		/// <inheritdoc />
+		/// Thrown when a player cant leave the game
 		private class PlayerNotRemoveableException : Exception {
 			/// <inheritdoc />
 			public PlayerNotRemoveableException(string message) : base(message) {
