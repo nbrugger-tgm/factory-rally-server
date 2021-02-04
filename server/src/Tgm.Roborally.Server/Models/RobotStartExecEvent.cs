@@ -39,6 +39,14 @@ namespace Tgm.Roborally.Server.Models {
 		public RobotCommand Card { get; set; }
 
 		/// <summary>
+		/// The index of the executed register
+		/// </summary>
+		/// <value>The index of the executed register</value>
+		[Range(0, 8)]
+		[DataMember(Name="register", EmitDefaultValue=false)]
+		public int Register { get; set; }
+
+		/// <summary>
 		/// Returns the string presentation of the object
 		/// </summary>
 		/// <returns>String presentation of the object</returns>
@@ -47,6 +55,7 @@ namespace Tgm.Roborally.Server.Models {
 			sb.Append("class RobotStartExecEvent {\n");
 			sb.Append("  Robot: ").Append(Robot).Append("\n");
 			sb.Append("  Card: ").Append(Card).Append("\n");
+			sb.Append("  Register: ").Append(Register).Append("\n");
 			sb.Append("}\n");
 			return sb.ToString();
 		}
@@ -106,6 +115,8 @@ namespace Tgm.Roborally.Server.Models {
 				hashCode = hashCode * 59 + Robot.GetHashCode();
 				if (Card != null)
 					hashCode = hashCode * 59 + Card.GetHashCode();
+
+				hashCode = hashCode * 59 + Register.GetHashCode();
 				return hashCode;
 			}
 		}
