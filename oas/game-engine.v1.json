@@ -2094,21 +2094,33 @@
             "default": false,
             "description": "Not every game can be connected to hardware (for example to many bots)\n\nIf this is true it means you can use this game with hardware"
           },
-          "hardware-attached": {
-            "type": "boolean",
-            "default": false,
-            "description": "Is a hardware boead connected"
-          },
           "player-on-turn": {
             "$ref": "#/components/schemas/PlayerID"
+          },
+          "name": {
+            "$ref": "#/components/schemas/Name"
+          },
+          "max-players": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "description": "The maximum count of players that can participate in this game"
+          },
+          "current-players": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10,
+            "description": "The numbers of players in the game"
           }
         },
         "required": [
           "passed-time",
           "state",
           "hardware-compatible",
-          "hardware-attached",
-          "player-on-turn"
+          "player-on-turn",
+          "name",
+          "max-players",
+          "current-players"
         ]
       },
       "GameState": {
