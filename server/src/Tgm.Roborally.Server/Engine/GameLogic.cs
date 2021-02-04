@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
 using Tgm.Roborally.Server.Engine.Exceptions;
+using Tgm.Roborally.Server.Engine.KI;
 using Tgm.Roborally.Server.Engine.Managers;
 using Tgm.Roborally.Server.Models;
 
