@@ -8,20 +8,37 @@ namespace Tgm.Roborally.Test {
 		static void Main(string[] args) {
 			Configuration c       = new Configuration { BasePath = "http://localhost:5050/v1" };
 			GameApi       api     = new GameApi(c);
-			PlayersApi    players = new PlayersApi(c); 
-			GameRules     rules   = new GameRules(true, 4, "Test", 1,password:null);
-			
-			int game = api.CreateGame(rules);
-			Console.Out.WriteLine(game);
-			Console.Out.WriteLine(api.GetGameState(game));
-			Console.Out.WriteLine(players.Join(gameId:game));
-			JoinResponse response = players.Join(game);
-			Console.Out.WriteLine($"joint response : {response}");
-			Console.Out.WriteLine($"id : {response.Id}");
-			Console.Out.WriteLine($"pat : {response.Pat}");
-			c.ApiKey["pat"] = response.Pat;
-			Console.Out.WriteLine(response);
-			Console.Out.WriteLine(players.GetPlayer(game,response.Id));
+			PlayersApi    players = new PlayersApi(c);
+
+			TestStartGame(api, players,c);
 		}
+
+		private static void TestStartGame(GameApi api, PlayersApi players,Configuration config) {
+			GameRules rules = new GameRules(true, 2, "Test", 1,password:null);
+
+			PrintHeader("Create Game");
+			int game = api.CreateGame(rules);
+			Print("Game ID: "                +game);
+			Print("Stats : " + api.GetGameState(game));
+			PrintHeader("Join Game");
+			JoinResponse response = players.Join(game);
+			Print($"id : {response.Id}");
+			Print($"pat : {response.Pat}");
+			config.ApiKey["pat"] = response.Pat;
+			players.Join(game);
+			
+			Print(players.GetPlayer(game,response.Id).ToJson());
+			PrintHeader("Start Game");
+			api.CommitAction(game,ActionType.STARTGAME);
+			PrintHeader("Fetch Events");
+			EventHandlingApi eventApi = new EventHandlingApi(config);
+			for (int i = 0; i < 5; i++) {
+				Print(eventApi.FetchNextEvent(game).Type.ToString());
+			}
+		}
+
+		private static void PrintHeader(string createGame) => Print("----------[" + createGame + "]----------");
+
+		private static void Print(string createGame) => Console.Out.WriteLine(createGame);
 	}
 }
