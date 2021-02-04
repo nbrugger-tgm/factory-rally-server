@@ -3253,8 +3253,56 @@
         ]
       }
     },
-    "responses": {},
-    "parameters": {},
+    "responses": {
+      "ErrorResponse": {
+        "description": "The error message including a human readable description",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error-Message"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "game_id": {
+        "name": "game_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/GameID"
+        },
+        "description": "The id of the game to interact with"
+      },
+      "robot_id": {
+        "name": "robot_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/EntityID"
+        },
+        "description": "the id of the robot to interact with"
+      },
+      "player_id": {
+        "name": "player_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/PlayerID"
+        },
+        "description": "the id of the player to interact with"
+      },
+      "upgrade_id": {
+        "name": "upgrade_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/UpgradeID"
+        },
+        "description": "The id of the upgrade to interact with"
+      }
+    },
     "examples": {}
   },
   "tags": [
