@@ -99,8 +99,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				_pool[upgrade].location = UpgradeLocation.Discarded;
 			}
 
-			_game.CommitEvent(new GenericEvent(EventType.RegisterClear) {
-				Data = ("Actually not a Register clear event, just a placeholder", "Discard upgrades",
+			_game.CommitEvent(new GenericEvent(EventType.UpgradePurchase) {
+				Data = ("Actually not a Upgrade purchase event, just a placeholder", "Discard upgrades",
 						"Robot : " + robotId)
 			});
 		}
