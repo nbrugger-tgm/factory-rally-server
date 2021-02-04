@@ -196,15 +196,11 @@ namespace Tgm.Roborally.Server.Engine {
 			if (p.ControlledEntities.Count != 1) {
 				throw new ActionException("Multiple Robots per player are not implemented.");
 			}
-
 			Upgrades.Buy(upgrade, p.ControlledEntities[0]);
-			CommitEvent(new GenericEvent(EventType.UpgradePurchase) {
-				Data = new Dictionary<string, object>() {
-					{"player", playerId},
-					{"upgrade", upgrade},
-					{"importantMessage", "THIS IS NOT THE EVENT THAT WILL OCCUR IN PRODUCTION!!"}
-				}
-			});
+			CommitEvent(new GenericEvent(new PurchaseEvent() {
+				Player = playerId,
+				Upgrade = upgrade
+			}));
 		}
 	}
 }

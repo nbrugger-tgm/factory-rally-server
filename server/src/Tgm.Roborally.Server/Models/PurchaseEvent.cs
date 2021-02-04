@@ -17,13 +17,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
+using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
 	/// The event that occurs if a player buys an upgrade
 	/// </summary>
 	[DataContract]
-	public partial class PurchaseEvent : IEquatable<PurchaseEvent> {
+	public partial class PurchaseEvent : IEquatable<PurchaseEvent>,Event {
 		/// <summary>
 		/// This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication
 		/// </summary>
@@ -52,6 +53,8 @@ namespace Tgm.Roborally.Server.Models {
 			sb.Append("}\n");
 			return sb.ToString();
 		}
+
+		public EventType GetEventType() => EventType.UpgradePurchase;
 
 		/// <summary>
 		/// Returns the JSON string presentation of the object
