@@ -900,7 +900,8 @@
               "$ref": "#/components/schemas/UpgradeID"
             },
             "in": "query",
-            "name": "upgrade"
+            "name": "upgrade",
+            "description": "The id of the upgrade to remove"
           }
         ],
         "tags": [
