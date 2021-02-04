@@ -3114,6 +3114,131 @@
           "name",
           "description"
         ]
+      },
+      "RoundPhaseChangedEvent": {
+        "title": "RoundPhaseChangedEvent",
+        "type": "object",
+        "description": "Occurs when the next phase of the round starts",
+        "properties": {
+          "phase": {
+            "$ref": "#/components/schemas/RoundPhase"
+          }
+        },
+        "x-tags": [
+          "EventHandling"
+        ]
+      },
+      "PurchaseEvent": {
+        "title": "PurchaseEvent",
+        "type": "object",
+        "description": "The event that occurs if a player buys an upgrade",
+        "properties": {
+          "player": {
+            "$ref": "#/components/schemas/PlayerID"
+          },
+          "upgrade": {
+            "$ref": "#/components/schemas/UpgradeID"
+          }
+        },
+        "x-tags": [
+          "EventHandling"
+        ]
+      },
+      "DrawCardEvent": {
+        "title": "DrawCardEvent",
+        "type": "object",
+        "description": "The event that occurs if a player gets his programming cards",
+        "properties": {
+          "player": {
+            "$ref": "#/components/schemas/PlayerID"
+          },
+          "count": {
+            "type": "integer",
+            "description": "The number of cards drawn",
+            "example": 8,
+            "minimum": 0,
+            "maximum": 9
+          },
+          "cards": {
+            "type": "array",
+            "description": "The drawn cards. **This is only visible for the player himself**",
+            "items": {
+              "$ref": "#/components/schemas/UpgradeID"
+            }
+          }
+        },
+        "required": [
+          "player",
+          "count"
+        ],
+        "x-tags": [
+          "EventHandling"
+        ]
+      },
+      "ChangeRegisterEvent": {
+        "title": "ChangeRegisterEvent",
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "fill",
+              "clear",
+              "replace"
+            ]
+          },
+          "card": {
+            "$ref": "#/components/schemas/UpgradeID"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "description": "The event when a player places or removes an robot command from/to a register",
+        "x-tags": [
+          "EventHandling"
+        ]
+      },
+      "ProgrammingTimerStartEvent": {
+        "title": "ProgrammingTimerStartEvent",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "seconds": {
+            "type": "integer",
+            "minimum": 3,
+            "maximum": 300,
+            "description": "Time the timer will run for"
+          },
+          "end": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The time at which the timer ends. Given as `ms since epoche` [link](currentmillis.com)\n"
+          }
+        },
+        "required": [
+          "seconds",
+          "end"
+        ],
+        "x-tags": [
+          "EventHandling"
+        ]
+      },
+      "GameEndEvent": {
+        "title": "GameEndEvent",
+        "type": "object",
+        "description": "The game is over",
+        "properties": {
+          "winner": {
+            "$ref": "#/components/schemas/Player"
+          }
+        },
+        "required": [
+          "winner"
+        ],
+        "x-tags": [
+          "EventHandling"
+        ]
       }
     },
     "responses": {},
