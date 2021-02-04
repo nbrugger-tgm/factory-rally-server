@@ -43,7 +43,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The index of the executed register</value>
 		[Range(0, 8)]
-		[DataMember(Name="register", EmitDefaultValue=false)]
+		[DataMember(Name = "register", EmitDefaultValue = false)]
 		public int Register { get; set; }
 
 		/// <summary>

@@ -67,16 +67,14 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerOperation("ClearUpgrades")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult ClearUpgrades([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-												   int gameId, 
+												   int gameId,
 												   [FromRoute(Name = "robot_id")] [Required]
 												   int robotId) {
 			return new GameRequestPipeline()
 				   .Game(gameId)
 				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
 				   .Robot(robotId)
-				   .Compute(c => {
-					   c.Game.Upgrades.DiscardEntityUpgrades(c.Robot.Id);
-				   })
+				   .Compute(c => { c.Game.Upgrades.DiscardEntityUpgrades(c.Robot.Id); })
 				   .ExecuteAction();
 		}
 
@@ -160,9 +158,7 @@ namespace Tgm.Roborally.Server.Controllers {
 				   .Game(gameId)
 				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
 				   .Robot(robotId)
-				   .Compute(c => {
-					   c.Response = new ObjectResult(c.Game.Upgrades.GetEntityUpgrades(robotId));
-				   })
+				   .Compute(c => { c.Response = new ObjectResult(c.Game.Upgrades.GetEntityUpgrades(robotId)); })
 				   .ExecuteAction();
 		}
 
@@ -250,11 +246,11 @@ namespace Tgm.Roborally.Server.Controllers {
 												  int gameId, [FromRoute(Name = "robot_id")] [Required]
 												  int robotId) {
 			return new GameRequestPipeline()
-					.Game(gameId)
-					.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
-					.Robot(robotId)
-					.Compute(c => c.Response = new OkObjectResult(c.Game.Programming[robotId]))
-					.ExecuteSecure();
+				   .Game(gameId)
+				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				   .Robot(robotId)
+				   .Compute(c => c.Response = new OkObjectResult(c.Game.Programming[robotId]))
+				   .ExecuteSecure();
 		}
 
 		/// <summary>
@@ -279,9 +275,7 @@ namespace Tgm.Roborally.Server.Controllers {
 				   .Game(gameId)
 				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
 				   .Robot(robotId)
-				   .Compute(c => {
-					   c.Response = new OkObjectResult(c.Robot);
-				   })
+				   .Compute(c => { c.Response = new OkObjectResult(c.Robot); })
 				   .ExecuteAction();
 		}
 
@@ -331,16 +325,14 @@ namespace Tgm.Roborally.Server.Controllers {
 				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
 				   .Robot(robotId)
 				   .Compute(c => {
-					   if (!c.Game.Upgrades.IsUpgradeOnEntity(robotId,upgrade)) {
+					   if (!c.Game.Upgrades.IsUpgradeOnEntity(robotId, upgrade)) {
 						   c.Response = new ConflictObjectResult(new ErrorMessage() {
 							   Error   = "Upgrade not on entity",
 							   Message = "The upgrade is not on this robot at the moment"
 						   });
 					   }
 				   })
-				   .Compute(c => {
-					   c.Game.Upgrades.DiscardEntityUpgrade(c.Robot.Id,upgrade);
-				   })
+				   .Compute(c => { c.Game.Upgrades.DiscardEntityUpgrade(c.Robot.Id, upgrade); })
 				   .ExecuteAction();
 		}
 

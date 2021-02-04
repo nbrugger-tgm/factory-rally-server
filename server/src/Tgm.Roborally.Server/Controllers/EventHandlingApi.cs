@@ -30,8 +30,6 @@ namespace Tgm.Roborally.Server.Controllers {
 	/// </summary>
 	[ApiController]
 	public class EventHandlingApiController : ControllerBase {
-		
-
 		/// <summary>
 		/// Get next event
 		/// </summary>
@@ -65,7 +63,6 @@ namespace Tgm.Roborally.Server.Controllers {
 				   .ExecuteSecure();
 		}
 
-	
 
 		/// <summary>
 		/// trace event

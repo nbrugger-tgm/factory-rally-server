@@ -10,6 +10,7 @@ namespace Tgm.Roborally.Server {
 	/// </summary>
 	public class Program {
 		private const string version = "0.9.0";
+
 		/// <summary>
 		/// Main
 		/// </summary> 
@@ -18,8 +19,9 @@ namespace Tgm.Roborally.Server {
 			if (args.Length > 0) {
 				GameAuth.ChangeAdminKey(args[0]);
 			}
+
 			Console.WriteLine("+--------------------------+");
-			Console.WriteLine("| Robo Rally Server v"+version+" |");
+			Console.WriteLine("| Robo Rally Server v" + version + " |");
 			Console.WriteLine("+--------------------------+");
 			Console.Write("map-repo : ");
 			Console.WriteLine(ServerProperties.mapRepo);

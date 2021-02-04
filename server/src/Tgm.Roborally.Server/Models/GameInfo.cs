@@ -63,9 +63,6 @@ namespace Tgm.Roborally.Server.Models {
 		[DataMember(Name = "player-on-turn", EmitDefaultValue = true)]
 		public int PlayerOnTurn => _ref.playerOnTurn;
 
-		
-
-		
 
 		/// <summary>
 		/// Returns the string presentation of the object
@@ -171,23 +168,25 @@ namespace Tgm.Roborally.Server.Models {
 				return hashCode;
 			}
 		}
+
 		/// <summary>
-        /// The maximum count of players that can participate in this game
-        /// </summary>
-        /// <value>The maximum count of players that can participate in this game</value>
-        [Required]
-        [Range(1, 10)]
-        [DataMember(Name = "max-players", EmitDefaultValue = false)]
-        public int MaxPlayers { get; set; }
- 
-        /// <summary>
-        /// The numbers of players in the game
-        /// </summary>
-        /// <value>The numbers of players in the game</value>
-        [Required]
-        [Range(0, 10)]
-        [DataMember(Name = "current-players", EmitDefaultValue = false)]
-        public int CurrentPlayers { get; set; }
+		/// The maximum count of players that can participate in this game
+		/// </summary>
+		/// <value>The maximum count of players that can participate in this game</value>
+		[Required]
+		[Range(1, 10)]
+		[DataMember(Name = "max-players", EmitDefaultValue = false)]
+		public int MaxPlayers { get; set; }
+
+		/// <summary>
+		/// The numbers of players in the game
+		/// </summary>
+		/// <value>The numbers of players in the game</value>
+		[Required]
+		[Range(0, 10)]
+		[DataMember(Name = "current-players", EmitDefaultValue = false)]
+		public int CurrentPlayers { get; set; }
+
 		/// <summary>
 		/// The default rule for names in the game
 		/// </summary>
@@ -197,6 +196,7 @@ namespace Tgm.Roborally.Server.Models {
 		[StringLength(13, MinimumLength = 3)]
 		[DataMember(Name                = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
+
 		#region Operators
 
 		#pragma warning disable 1591
