@@ -2145,7 +2145,7 @@
         "maxLength": 18
       },
       "Error-Message": {
-        "title": "Error-Message",
+        "title": "ErrorMessage",
         "type": "object",
         "description": "A message about that went wrong. Usefull to display users a short and usefull prompt",
         "properties": {
