@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Robot Rally Game logic engine",
-    "version": "v0.4.1b0",
+    "version": "v0.9.0",
     "description": "This api controlls the flow of a game and provides it's data.\nIt is desiged to be RESTfull so the structure works simmilar as file system.\nThe service will run and only work in a local network, `game.host` is the IP of the Computer hosting the game and will be found via a IP scan",
     "contact": {
       "name": "Nils Brugger",
@@ -147,12 +147,7 @@
         },
         "operationId": "getGameState",
         "description": "Returns the status of a game",
-        "parameters": [],
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
+        "parameters": []
       }
     },
     "/games/{game_id}/actions": {
@@ -1016,307 +1011,6 @@
         },
         "operationId": "getMapInfo",
         "description": "Get meta information abouzt the map of the game",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/movement": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last movement event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MovementEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextMovementEvent",
-        "description": "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/damage": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last damage event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DamageEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextDamageEvent",
-        "description": "Returns the next unfetched event of the damage type.\n\nIf the event is not of the damage type you will get a `400` status and the event stays unfetched",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/lazer-hit": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last Lazer hit event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LazerHitEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextLazerHitEvent",
-        "description": "Returns the next unfetched event of the lazer hit type.\n\nIf the event is not of the lazer hit type you will get a `400` status and the event stays unfetched",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/map": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last map event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MapEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextMapEvent",
-        "description": "Returns the next unfetched event of the  Map Event type.\nMap Events activeata all active components of a type at once\n\nIf the event is not of the map event type you will get a `400` status and the event stays unfetched",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/push": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last push event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PushEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextPushEvent",
-        "description": "Returns the next unfetched event of the push type.\n\nIf the event is not of the push  type you will get a `400` status and the event stays unfetched",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/shoot": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last shoot event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ShootEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextShootEvent",
-        "description": "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ]
-      }
-    },
-    "/games/{game_id}/events/shutdown": {
-      "parameters": [
-        {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get next / last shutdown event",
-        "tags": [
-          "EventHandling"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ShutdownEvent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No unfetched event"
-          },
-          "417": {
-            "description": "The next event is not a movement event"
-          }
-        },
-        "operationId": "fetchNextShutdownEvent",
-        "description": "Returns the next unfetched event of the movement type.\n\nIf the event is not of the movement type you will get a `400` status and the event stays unfetched",
         "security": [
           {
             "player-auth": []
@@ -2400,21 +2094,33 @@
             "default": false,
             "description": "Not every game can be connected to hardware (for example to many bots)\n\nIf this is true it means you can use this game with hardware"
           },
-          "hardware-attached": {
-            "type": "boolean",
-            "default": false,
-            "description": "Is a hardware boead connected"
-          },
           "player-on-turn": {
             "$ref": "#/components/schemas/PlayerID"
+          },
+          "name": {
+            "$ref": "#/components/schemas/Name"
+          },
+          "max-players": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "description": "The maximum count of players that can participate in this game"
+          },
+          "current-players": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10,
+            "description": "The numbers of players in the game"
           }
         },
         "required": [
           "passed-time",
           "state",
           "hardware-compatible",
-          "hardware-attached",
-          "player-on-turn"
+          "player-on-turn",
+          "name",
+          "max-players",
+          "current-players"
         ]
       },
       "GameState": {
@@ -2439,7 +2145,7 @@
         "maxLength": 18
       },
       "Error-Message": {
-        "title": "Error-Message",
+        "title": "ErrorMessage",
         "type": "object",
         "description": "A message about that went wrong. Usefull to display users a short and usefull prompt",
         "properties": {
@@ -2726,10 +2432,8 @@
             "$ref": "#/components/schemas/PlayerID"
           },
           "pat": {
-            "type": "integer",
-            "description": "The uid is the key for the joined player. You need this key for authentication",
-            "minimum": 9999,
-            "maximum": 99999999
+            "type": "string",
+            "description": "The uid is the key for the joined player. You need this key for authentication"
           }
         },
         "required": [
@@ -2762,13 +2466,11 @@
         "enum": [
           "movement",
           "upgrade purchase",
-          "fill register",
           "activate upgrade",
           "lazer shot",
           "game start",
           "clear shop",
           "fill shop",
-          "register clear",
           "programming timer start",
           "programming timer stop",
           "random card distribution",
@@ -2787,7 +2489,13 @@
           "heal",
           "energy gain",
           "map",
-          "shutdown"
+          "shutdown",
+          "change register",
+          "game end event",
+          "clear register"
+        ],
+        "x-tags": [
+          "EventHandling"
         ]
       },
       "MovementEvent": {
@@ -2822,7 +2530,10 @@
           "to": {
             "$ref": "#/components/schemas/Position"
           }
-        }
+        },
+        "x-tags": [
+          "EventHandling"
+        ]
       },
       "Position": {
         "title": "Position",
@@ -2890,7 +2601,10 @@
           "pushed-id": {
             "$ref": "#/components/schemas/EntityID"
           }
-        }
+        },
+        "x-tags": [
+          "EventHandling"
+        ]
       },
       "ShootEvent": {
         "title": "ShootEvent",
@@ -2915,7 +2629,10 @@
               "$ref": "#/components/schemas/EntityID"
             }
           }
-        }
+        },
+        "x-tags": [
+          "EventHandling"
+        ]
       },
       "DamageEvent": {
         "title": "DamageEvent",
@@ -2931,7 +2648,10 @@
             "minimum": 0,
             "maximum": 5
           }
-        }
+        },
+        "x-tags": [
+          "EventHandling"
+        ]
       },
       "MapEventType": {
         "type": "string",
@@ -2949,17 +2669,26 @@
           "portal",
           "toggle-ramps",
           "repair"
+        ],
+        "x-tags": [
+          "EventHandling"
         ]
       },
       "MapEvent": {
         "title": "MapEvent",
         "type": "object",
+        "description": "Events that takes place with the active components of the map",
+        "x-tags": [
+          "EventHandling"
+        ],
         "properties": {
           "type": {
             "$ref": "#/components/schemas/MapEventType"
+          },
+          "position": {
+            "$ref": "#/components/schemas/Position"
           }
-        },
-        "description": "Events that takes place with the active components of the map"
+        }
       },
       "LazerHitEvent": {
         "title": "LazerHitEvent",
@@ -2979,7 +2708,10 @@
           "entity": {
             "$ref": "#/components/schemas/EntityID"
           }
-        }
+        },
+        "x-tags": [
+          "EventHandling"
+        ]
       },
       "EntityAction": {
         "title": "EntityAction",
@@ -3200,7 +2932,10 @@
           "robot": {
             "$ref": "#/components/schemas/EntityID"
           }
-        }
+        },
+        "x-tags": [
+          "EventHandling"
+        ]
       },
       "Map": {
         "title": "Map",
@@ -3229,11 +2964,18 @@
           "new status": {
             "$ref": "#/components/schemas/GameState"
           }
-        }
+        },
+        "x-tags": [
+          "EventHandling"
+        ]
       },
       "GenericEvent": {
         "title": "GenericEvent",
         "type": "object",
+        "description": "Used to store any event and generalize them into a single type",
+        "x-tags": [
+          "EventHandling"
+        ],
         "properties": {
           "type": {
             "$ref": "#/components/schemas/EventType"
@@ -3243,7 +2985,9 @@
             "description": "This is the data for the Event. In the case of type beeing `lazer hit`, data will be of the type `LazerHitEvent`. So the object-type allways matches to the `type` field "
           }
         },
-        "description": "Used to store any event and generalize them into a single type"
+        "required": [
+          "type"
+        ]
       },
       "PauseEvent": {
         "title": "PauseEvent",
@@ -3257,12 +3001,18 @@
             ]
           }
         },
-        "description": "Describes the event when the game is paused or unpaused"
+        "description": "Describes the event when the game is paused or unpaused",
+        "x-tags": [
+          "EventHandling"
+        ]
       },
       "ActionEvent": {
         "title": "ActionEvent",
         "type": "object",
-        "description": "Describes an event from an action without additionaly information"
+        "description": "Describes an event from an action without additionaly information",
+        "x-tags": [
+          "EventHandling"
+        ]
       },
       "JoinEvent": {
         "title": "JoinEvent",
@@ -3276,7 +3026,10 @@
             "type": "boolean",
             "description": "True if the player left instead of joining"
           }
-        }
+        },
+        "x-tags": [
+          "EventHandling"
+        ]
       },
       "PlayerName": {
         "type": "string",
@@ -3290,12 +3043,22 @@
         "title": "RobotStartExecEvent",
         "type": "object",
         "description": "When a robot is about to execute a programming card/statement",
+        "x-tags": [
+          "EventHandling"
+        ],
         "properties": {
           "robot": {
             "$ref": "#/components/schemas/EntityID"
           },
           "card": {
             "$ref": "#/components/schemas/RobotCommand"
+          },
+          "register": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8,
+            "example": 3,
+            "description": "The index of the executed register"
           }
         }
       },
@@ -3314,7 +3077,10 @@
             "maximum": 100,
             "multipleOf": 1
           }
-        }
+        },
+        "x-tags": [
+          "EventHandling"
+        ]
       },
       "EnergyGainEvent": {
         "title": "EnergyGainEvent",
@@ -3335,6 +3101,9 @@
         "required": [
           "robot",
           "ammount"
+        ],
+        "x-tags": [
+          "EventHandling"
         ]
       },
       "ConsumerRegistration": {
@@ -3357,8 +3126,136 @@
           "name",
           "description"
         ]
+      },
+      "RoundPhaseChangedEvent": {
+        "title": "RoundPhaseChangedEvent",
+        "type": "object",
+        "description": "Occurs when the next phase of the round starts",
+        "properties": {
+          "phase": {
+            "$ref": "#/components/schemas/RoundPhase"
+          }
+        },
+        "x-tags": [
+          "EventHandling"
+        ]
+      },
+      "PurchaseEvent": {
+        "title": "PurchaseEvent",
+        "type": "object",
+        "description": "The event that occurs if a player buys an upgrade",
+        "properties": {
+          "player": {
+            "$ref": "#/components/schemas/PlayerID"
+          },
+          "upgrade": {
+            "$ref": "#/components/schemas/UpgradeID"
+          }
+        },
+        "x-tags": [
+          "EventHandling"
+        ]
+      },
+      "DrawCardEvent": {
+        "title": "DrawCardEvent",
+        "type": "object",
+        "description": "The event that occurs if a player gets his programming cards",
+        "properties": {
+          "player": {
+            "$ref": "#/components/schemas/PlayerID"
+          },
+          "count": {
+            "type": "integer",
+            "description": "The number of cards drawn",
+            "example": 8,
+            "minimum": 0,
+            "maximum": 9
+          },
+          "cards": {
+            "type": "array",
+            "description": "The drawn cards. **This is only visible for the player himself**",
+            "items": {
+              "$ref": "#/components/schemas/UpgradeID"
+            }
+          }
+        },
+        "required": [
+          "player",
+          "count"
+        ],
+        "x-tags": [
+          "EventHandling"
+        ]
+      },
+      "ChangeRegisterEvent": {
+        "title": "ChangeRegisterEvent",
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "fill",
+              "clear",
+              "replace"
+            ]
+          },
+          "card": {
+            "$ref": "#/components/schemas/UpgradeID"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "description": "The event when a player places or removes an robot command from/to a register",
+        "x-tags": [
+          "EventHandling"
+        ]
+      },
+      "ProgrammingTimerStartEvent": {
+        "title": "ProgrammingTimerStartEvent",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "seconds": {
+            "type": "integer",
+            "minimum": 3,
+            "maximum": 300,
+            "description": "Time the timer will run for"
+          },
+          "end": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The time at which the timer ends. Given as `ms since epoche` [link](currentmillis.com)\n"
+          }
+        },
+        "required": [
+          "seconds",
+          "end"
+        ],
+        "x-tags": [
+          "EventHandling"
+        ]
+      },
+      "GameEndEvent": {
+        "title": "GameEndEvent",
+        "type": "object",
+        "description": "The game is over",
+        "properties": {
+          "winner": {
+            "$ref": "#/components/schemas/Player"
+          }
+        },
+        "required": [
+          "winner"
+        ],
+        "x-tags": [
+          "EventHandling"
+        ]
       }
-    }
+    },
+    "responses": {},
+    "parameters": {},
+    "examples": {}
   },
   "tags": [
     {
