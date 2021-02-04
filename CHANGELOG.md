@@ -1,3 +1,15 @@
+## v0.9.0 (2021-02-04)
+
+### Fix
+
+- bad enum references
+- **autogen**: adapt ActionType according to documentation
+- pat datatype
+
+### Feat
+
+- dissable admin authorisation for easy testing
+
 ## v0.8.2 (2021-02-03)
 
 ### Fix

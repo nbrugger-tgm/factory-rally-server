@@ -9,7 +9,7 @@ namespace Tgm.Roborally.Server {
 	/// Program
 	/// </summary>
 	public class Program {
-		private const string version = "0.8.2";
+		private const string version = "0.9.0";
 		/// <summary>
 		/// Main
 		/// </summary> 
