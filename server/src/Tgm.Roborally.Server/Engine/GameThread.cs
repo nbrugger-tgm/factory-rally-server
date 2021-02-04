@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Engine.Phases;
@@ -24,6 +25,8 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		public void Notify(ActionType action) {
+			if (!(currentPhase is LobbyPhase) && action == ActionType.STARTGAME)
+				throw new WrongStateException(GameState.LOBBY,GameState.PLAYING,action.ToString());
 			currentPhase.Notify(action);
 		}
 
