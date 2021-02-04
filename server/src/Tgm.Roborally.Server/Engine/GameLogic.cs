@@ -126,13 +126,21 @@ namespace Tgm.Roborally.Server.Engine {
 				throw new PlayerNotRemoveableException("The player is not removeable in this state of the game");
 		}
 
+		private static String[] kis = {"Jarvi", "ExMachina", "Ultron", "Vision", "Ordis", "Suda", "Simaris"};
 		public void StartGame() {
 			if (_state != GameState.LOBBY) throw new WrongStateException(GameState.LOBBY, _state, "Start Game");
 
 			if (Players.Count == 0) throw new PlayerCountException(">0", Players.Count, "Start Game");
 
-			if (Players.Count < MaxPlayers && Rules.FillWithBots) {
-				//Todo fill with bots
+			int    kiCount = 1;
+			Random rng     = new Random();
+			while (Players.Count < MaxPlayers && Rules.FillWithBots) {
+				int     botId = NewPlayerId();
+				RobotKI ki    = new RobotKI {
+					Id = botId,
+					DisplayName = kis[rng.Next(kis.Length)] + " #"+kiCount++
+				};
+				Players.Add(ki);
 			}
 
 			Map = new Map(20, 20);
