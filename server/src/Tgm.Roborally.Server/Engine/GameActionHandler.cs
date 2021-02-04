@@ -35,13 +35,13 @@ namespace Tgm.Roborally.Server.Engine {
 		private void InitActionMap() {
 			ActionMap[ActionType.PAUSE]      = () => { game.State = GameState.BREAK; };
 			ActionMap[ActionType.UNPAUSE]    = () => { game.State = game.LastState; };
-			ActionMap[ActionType.START_GAME] = () => { game.StartGame(); };
+			ActionMap[ActionType.STARTGAME] = () => { game.StartGame(); };
 		}
 
 		private void InitEventMap() {
 			EventMap[ActionType.PAUSE]      = EventType.Pause;
 			EventMap[ActionType.UNPAUSE]    = EventType.Unpause;
-			EventMap[ActionType.START_GAME] = EventType.GameStart;
+			EventMap[ActionType.STARTGAME] = EventType.GameStart;
 		}
 
 		[MethodImpl(MethodImplOptions.Synchronized)]
