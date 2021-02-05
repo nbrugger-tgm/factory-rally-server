@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Engine.KI;
 using Tgm.Roborally.Server.Engine.Managers;
 using Tgm.Roborally.Server.Models;
 
-#pragma warning disable 1591
+//#pragma warning disable 1591
 
 namespace Tgm.Roborally.Server.Engine {
 	public class GameLogic {
@@ -67,10 +68,11 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public bool Joinable => State == GameState.LOBBY && Players.Count < MaxPlayers;
 
-		public Dictionary<int, ConsumerRegistration> Consumers   => _consumers;
-		public int                                   PlayerCount => Players.Count;
-
+		public Dictionary<int, ConsumerRegistration> Consumers             => _consumers;
+		public int                                   PlayerCount           => Players.Count;
 		public IList<EntityEventOportunity>           PossibleEntityActions(int robot,int player) => _thread.PossibleEntityActions(robot,player);
+		
+
 		public void CommitEvent(GenericEvent e) {
 			EventManager.Notify(e);
 			_thread.Notify(e);
@@ -128,7 +130,7 @@ namespace Tgm.Roborally.Server.Engine {
 				throw new PlayerNotRemoveableException("The player is not removeable in this state of the game");
 		}
 
-		private static String[] kis = {"Jarvi", "ExMachina", "Ultron", "Vision", "Ordis", "Suda", "Simaris"};
+		private static String[] kis = {"Jarvis", "ExMachina", "Ultron", "Vision", "Ordis", "Suda", "Simaris"};
 		public void StartGame() {
 			if (_state != GameState.LOBBY) throw new WrongStateException(GameState.LOBBY, _state, "Start Game");
 
