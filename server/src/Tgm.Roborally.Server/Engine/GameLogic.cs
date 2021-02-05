@@ -41,7 +41,7 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public string            Password      => Rules.Password;
 		public List<Player>      Players       { get; } = new List<Player>();
-		public Map               Map           { get; private set; }
+		public Map               Map           { get; set; }
 		public EventManager      EventManager  { get; }
 		public HardwareManager   Hardware      { get; }
 		public EntityManager     Entitys       { get; }
