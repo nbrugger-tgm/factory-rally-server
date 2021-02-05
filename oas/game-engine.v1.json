@@ -547,51 +547,6 @@
             "player-auth": []
           }
         ]
-      },
-      "patch": {
-        "summary": "Buy Upgrade",
-        "operationId": "buyUpgrade",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error-Message"
-                }
-              }
-            }
-          }
-        },
-        "description": "Buy this Upgrade from the shop.\n### Note\nIf your robot allready owns 3 Upgrades you have to use the `exchange` parameter. This is the ID of the Upgrade to replace with the bought one",
-        "security": [
-          {
-            "player-auth": []
-          }
-        ],
-        "parameters": [
-          {
-            "schema": {
-              "$ref": "#/components/schemas/UpgradeID"
-            },
-            "in": "query",
-            "name": "upgrade",
-            "required": true
-          },
-          {
-            "schema": {
-              "$ref": "#/components/schemas/UpgradeID"
-            },
-            "in": "query",
-            "name": "exchange"
-          }
-        ],
-        "tags": [
-          "Upgrades"
-        ]
       }
     },
     "/games/{game_id}/upgrades/{upgrade_id}": {
@@ -1641,12 +1596,7 @@
     "/games/{game_id}/statements": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         }
       ],
       "get": {
@@ -1841,6 +1791,45 @@
         ],
         "tags": [
           "Robots"
+        ]
+      }
+    },
+    "/games/{game_id}/upgrades/shop/{upgrade_id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/game_id"
+        },
+        {
+          "$ref": "#/components/parameters/upgrade_id"
+        }
+      ],
+      "patch": {
+        "summary": "Buy Upgrade",
+        "operationId": "buyUpgrade",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/components/responses/ErrorResponse"
+          }
+        },
+        "description": "Buy or exchange an upgrade",
+        "parameters": [
+          {
+            "schema": {
+              "$ref": "#/components/schemas/UpgradeID"
+            },
+            "in": "query",
+            "name": "exchange",
+            "description": "The id of the upgrade to exchange with. Set to null or leave empty for a regular purchase"
+          }
+        ],
+        "tags": [
+          "Upgrades"
         ]
       }
     }
