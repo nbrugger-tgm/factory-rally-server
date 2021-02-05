@@ -43,8 +43,11 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerOperation("GetGameMap")]
 		[SwaggerResponse(statusCode: 200, type: typeof(Map), description: "OK")]
 		public virtual IActionResult GetGameMap([FromRoute] [Required] int gameId) {
-			return new GameRequestPipeline().Game(gameId).Compute(c => c.Response = new ObjectResult(c.Game.Map))
-											.ExecuteAction();
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Compute(c => c.Game.Map.CalculateEmpty())
+				   .Compute(c => c.Response = new ObjectResult(c.Game.Map))
+				   .ExecuteSecure();
 		}
 
 		/// <summary>
@@ -89,6 +92,7 @@ namespace Tgm.Roborally.Server.Controllers {
 											 int gameId, [FromRoute] [Required] int x, [FromRoute] [Required] int y) {
 			return new GameRequestPipeline()
 				   .Game(gameId)
+				   .Compute(c => c.Game.Map.CalculateEmpty())
 				   .Compute(c => c.Response = new ObjectResult(c.Game.Map[x, y]))
 				   .ExecuteAction();
 		}
