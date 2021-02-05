@@ -32,7 +32,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// </summary>
 		/// <remarks>Buy this Upgrade from the shop. ### Note If your robot allready owns 3 Upgrades you have to use the &#x60;exchange&#x60; parameter. This is the ID of the Upgrade to replace with the bought one</remarks>
 		/// <param name="gameId">The id of the game to interact with</param>
-		/// <param name="upgradeId">The id of the upgrade to interact with</param>
+		/// <param name="upgrade">The id of the upgrade to interact with</param>
 		/// <param name="exchange">The id of the upgrade to exchange with. Set to null or leave empty for a regular purchase</param>
 		/// <response code="200">OK</response>
 		/// <response code="404">The error message including a human readable description</response>
@@ -48,7 +48,7 @@ namespace Tgm.Roborally.Server.Controllers {
 												int upgrade, [FromQuery] [Range(0, 10000)] int exchange) {
 			return new GameRequestPipeline()
 				   .Game(gameId)
-				   .Compute(c => c.Game.BuyUpgrade(((Player) HttpContext.Items[GameAuth.PLAYER]).Id, upgrade))
+				   .Compute(c => c.Game.BuyUpgrade(((Player) HttpContext.Items[GameAuth.PLAYER]).Id, upgrade,exchange))
 				   .ExecuteAction();
 		}
 

@@ -192,17 +192,35 @@ namespace Tgm.Roborally.Server.Engine {
 			}
 		}
 
-		public void BuyUpgrade(int playerId, int upgrade) {
-			//Todo: proper implementation
+		public void BuyUpgrade(int playerId, int upgrade,int exchange) {
 			Player p = GetPlayer(playerId);
 			if (p.ControlledEntities.Count != 1) {
 				throw new ActionException("Multiple Robots per player are not implemented.");
 			}
+
+			int       roboId = p.ControlledEntities[0];
+			RobotInfo robo   = (RobotInfo) Entitys[roboId];
+			ActionCheck(playerId,roboId,EntityActionType.BuyUpgrade);
+			if (Upgrades.GetEntityUpgrades(roboId).Count >= 3) {
+				ExchangeUpgrade(roboId,upgrade,exchange);
+				return;
+			}
 			Upgrades.Buy(upgrade, p.ControlledEntities[0]);
-			CommitEvent(new GenericEvent(new PurchaseEvent() {
-				Player = playerId,
-				Upgrade = upgrade
-			}));
+		}
+
+		/// <summary>
+		/// Checks if the action is excecutable and throws an Exception to be returned if not
+		/// </summary>
+		/// <param name="robot">the id of the robot</param>
+		/// <param name="act">The action to check for</param>
+		/// <param name="player">the id of the player</param>
+		private void ActionCheck(int player, int robot, EntityActionType act) {
+			if (!_thread.PossibleEntityActions(robot, player).Select(eop => eop.Type).Contains(act))
+				throw new ActionException("This action is not available right now");
+		}
+
+		private void ExchangeUpgrade(int playerId, int upgrade, int exchange) {
+			Upgrades.Exchange(playerId, upgrade, exchange);
 		}
 	}
 }

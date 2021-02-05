@@ -75,9 +75,17 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			}
 		}
 
+		/// <summary>
+		/// Does all checks and throws exceptions
+		/// </summary>
+		/// <param name="id">The upgrade id</param>
+		/// <param name="entId">the entity id</param>
+		/// <exception cref="ActionException">In case the action is not allowed/bad</exception>
 		public void Buy(int id, int entId) {
 			Entity  ent     = _game.Entitys[entId];
 			Upgrade upgrade = this[id];
+			if (!Shop.Contains(id))
+				throw new ActionException("This upgrade is not in the shop and therefore not buy able");
 			if (ent is RobotInfo) {
 				RobotInfo robo = new RobotInfo();
 				if (robo.EnergyCubes < upgrade.Cost) {
@@ -87,6 +95,10 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				_pool[id].location = UpgradeLocation.Robot;
 				_entityUpgrades[id].Add(id);
 				robo.EnergyCubes -= upgrade.Cost;
+				_game.CommitEvent(new PurchaseEvent() {
+					Player = entId,
+					Upgrade = id
+				});
 			}
 			else {
 				throw new ActionException("The ID does not represents a Robot");
@@ -109,9 +121,28 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 
 		public void DiscardEntityUpgrade(int robotId, int upgrade) {
 			_pool[upgrade].location = UpgradeLocation.Discarded;
+			_game.CommitEvent(new GenericEvent(EventType.UpgradePurchase) {
+				Data = ("Actually not a Upgrade purchase event, just a placeholder", "Discard upgrade",
+						"Robot : " + robotId,"Upgrade "+upgrade)
+			});
 		}
 
-		public bool IsUpgradeOnEntity(int robotId, int upgrade) => _entityUpgrades[robotId].Contains(upgrade);
+		public bool IsUpgradeOnEntity(int robotId,  int upgrade) => _entityUpgrades[robotId].Contains(upgrade);
+
+		/// <summary>
+		/// Does all checks and throws exceptions and commits events
+		/// </summary>
+		/// <param name="playerId">the id of the players robot</param>
+		/// <param name="upgrade">the upgrade to exchange wit</param>
+		/// <param name="exchange"></param>
+		/// <exception cref="ActionException"></exception>
+		public void Exchange(int playerId, int upgrade, int exchange) {
+			if (!GetEntityUpgrades(playerId).Contains(exchange))
+				throw new ActionException("The upgrade to exchange with is not owned by the robot");
+			DiscardEntityUpgrade(playerId, upgrade);
+			Buy(upgrade, playerId);
+		}
+
 	}
 
 	internal enum UpgradeLocation {
