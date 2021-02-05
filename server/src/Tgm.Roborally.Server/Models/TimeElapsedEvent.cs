@@ -17,6 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
+using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models
 { 
@@ -24,7 +25,7 @@ namespace Tgm.Roborally.Server.Models
 	/// A timer run out
 	/// </summary>
 	[DataContract]
-	public partial class TimeElapsedEvent : IEquatable<TimeElapsedEvent>
+	public partial class TimeElapsedEvent : IEquatable<TimeElapsedEvent>,Event
 	{
 		/// <summary>
 		/// The duration of the timer 
@@ -54,6 +55,8 @@ namespace Tgm.Roborally.Server.Models
 			sb.Append("}\n");
 			return sb.ToString();
 		}
+
+		public EventType GetEventType() => EventType.TimeElapsed;
 
 		/// <summary>
 		/// Returns the JSON string presentation of the object
