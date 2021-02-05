@@ -6,33 +6,33 @@ using Tgm.Roborally.Api.Model;
 namespace Tgm.Roborally.Test {
 	class Program {
 		static void Main(string[] args) {
-			Configuration c       = new Configuration { BasePath = "http://localhost:5050/v1" };
+			Configuration c       = new Configuration {BasePath = "http://localhost:5050/v1"};
 			GameApi       api     = new GameApi(c);
 			PlayersApi    players = new PlayersApi(c);
 
-			TestStartGame(api, players,c);
+			TestStartGame(api, players, c);
 		}
 
-		private static void TestStartGame(GameApi api, PlayersApi players,Configuration config) {
-			GameRules rules = new GameRules(true, 2, "Test", 1,password:null);
+		private static void TestStartGame(GameApi api, PlayersApi players, Configuration config) {
+			GameRules rules = new GameRules(true, 2, "Test", 1, password: null);
 
 			PrintHeader("Create Game");
 			int game = api.CreateGame(rules);
-			Print("Game ID: "                +game);
-			Print("Stats : " + api.GetGameState(game));
+			Print("Game ID: " + game);
+			Print("Stats : "  + api.GetGameState(game));
 			PrintHeader("Join Game");
 			JoinResponse response = players.Join(game);
 			Print($"id : {response.Id}");
 			Print($"pat : {response.Pat}");
 			config.ApiKey["pat"] = response.Pat;
 			players.Join(game);
-			
-			Print(players.GetPlayer(game,response.Id).ToJson());
+
+			Print(players.GetPlayer(game, response.Id).ToJson());
 			PrintHeader("Start Game");
-			api.CommitAction(game,ActionType.STARTGAME);
+			api.CommitAction(game, ActionType.STARTGAME);
 			PrintHeader("Fetch Events");
 			EventHandlingApi eventApi = new EventHandlingApi(config);
-			for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < 8; i++) {
 				Print(eventApi.FetchNextEvent(game).Type.ToString());
 			}
 		}
