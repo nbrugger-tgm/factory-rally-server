@@ -20,7 +20,7 @@ namespace Tgm.Roborally.Server.Engine {
 				Id     = NextFreeId()
 			};
 			info.Name = gamePlayer.DisplayName + " " + info.Id;
-			ents.Add(info);
+			_ents.Add(info);
 			gamePlayer.ControlledEntities.Add(info.Id);
 			RobotPickEvent ev = new RobotPickEvent() {
 				Player = gamePlayer.Id,
@@ -41,7 +41,7 @@ namespace Tgm.Roborally.Server.Engine {
 
 			do {
 				r = Rng.Next(16) + 1;
-			} while (ents.Select(e => e.Id).Contains(r));
+			} while (_ents.Select(e => e.Id).Contains(r));
 
 			return r;
 		}
@@ -50,6 +50,6 @@ namespace Tgm.Roborally.Server.Engine {
 		/// Return the entity wth the matching ID
 		/// </summary>
 		/// <param name="entId">The id to search for</param>
-		public Entity this[int entId] => ents.Find(match: e => e.Id == entId);
+		public Entity this[int entId] => _ents.Find(match: e => e.Id == entId);
 	}
 }
