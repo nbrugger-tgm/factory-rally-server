@@ -32,7 +32,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 				}	
 			}
 
-			return null; //todo
+			return new GameEndPhase(); //todo
 		}
 
 		public override GameState NewState => GameState.PLAYING;
