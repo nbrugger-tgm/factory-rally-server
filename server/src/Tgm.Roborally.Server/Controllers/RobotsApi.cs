@@ -15,6 +15,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Tgm.Roborally.Server.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Tgm.Roborally.Server.Authentication;
@@ -209,19 +210,17 @@ namespace Tgm.Roborally.Server.Controllers {
 		public virtual IActionResult GetRegisterContent([FromRoute] [Required] [Range(0, 2048)]
 														int gameId, [FromRoute] [Required] int robotId,
 														[FromRoute] [Required] [Range(0, 4)] int register) {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200, default(RobotCommand));
-			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(404);
-			string exampleJson = null;
-			exampleJson =
-				"{\n  \"times\" : 1,\n  \"name\" : \"Penetration Lazer Mk.2\",\n  \"description\" : \"null\",\n  \"parameters\" : [ {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  } ]\n}";
-
-			var example = exampleJson != null
-							  ? JsonConvert.DeserializeObject<RobotCommand>(exampleJson)
-							  : default(RobotCommand);
-			//TODO: Change the data returned
-			return new ObjectResult(example);
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Robot(robotId)
+				   .Compute(c => {
+					   int card = c.Game.Programming.GetRegister(robotId)[register];
+					   if (card == -1)
+						   c.Response  = new OkObjectResult("empty");
+					   else 
+						   c.Response = new OkObjectResult(c.Game.Programming[card]);
+				   })
+				   .ExecuteSecure();
 		}
 
 		/// <summary>
@@ -246,7 +245,7 @@ namespace Tgm.Roborally.Server.Controllers {
 				   .Game(gameId)
 				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
 				   .Robot(robotId)
-				   .Compute(c => c.Response = new OkObjectResult(c.Game.Programming[robotId]))
+				   .Compute(c => c.Response = new OkObjectResult(c.Game.Programming.GetRegister(robotId).Select(id => c.Game.Programming[id]).ToArray()))
 				   .ExecuteSecure();
 		}
 
@@ -345,11 +344,6 @@ namespace Tgm.Roborally.Server.Controllers {
 												 [FromRoute] [Required] [Range(0, 4)] int register,
 												 [FromQuery] [Required()] [Range(0, 10000)]
 												 int statementId) {
-			//TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(201);
-			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(404);
-
 			throw new NotImplementedException();
 		}
 	}
