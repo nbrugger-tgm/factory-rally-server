@@ -70,6 +70,7 @@ namespace Tgm.Roborally.Server.Engine {
 		public Dictionary<int, ConsumerRegistration> Consumers   => _consumers;
 		public int                                   PlayerCount => Players.Count;
 
+		public IList<EntityEventOportunity>           PossibleEntityActions(int robot,int player) => _thread.PossibleEntityActions(robot,player);
 		public void CommitEvent(GenericEvent e) {
 			EventManager.Notify(e);
 			_thread.Notify(e);

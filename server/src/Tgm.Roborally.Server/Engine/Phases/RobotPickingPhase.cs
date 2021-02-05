@@ -31,5 +31,9 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 				"The picking phase works automaticaly at the moment, no need for events (recived event: " +
 				action.GetEventType()                                                                     + ")");
 		}
+
+		public override IList<EntityEventOportunity> GetPossibleActions(int a,int b) {
+			return new List<EntityEventOportunity>();
+		} 
 	}
 }

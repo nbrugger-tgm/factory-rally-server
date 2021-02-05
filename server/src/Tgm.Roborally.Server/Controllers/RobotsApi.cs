@@ -172,26 +172,21 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/avinable")]
-		[GameAuth(Role.PLAYER)]
+		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[ValidateModelState]
 		[SwaggerOperation("GetPossibleActions")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<EntityEventOportunity>), description: "OK")]
 		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetPossibleActions([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 														int gameId, [FromRoute(Name = "robot_id")] [Required]
-														string robotId) {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200, default(List<EntityEventOportunity>));
-			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(404, default(ErrorMessage));
-			string exampleJson = null;
-			exampleJson = "{\r\n  \"end-time\" : 0,\r\n  \"time-left\" : 1\r\n}";
-
-			var example = exampleJson != null
-							  ? JsonConvert.DeserializeObject<List<EntityEventOportunity>>(exampleJson)
-							  : default(List<EntityEventOportunity>);
-			//TODO: Change the data returned
-			return new ObjectResult(example);
+														int robotId) {
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Robot(robotId)
+				   .Compute(c => {
+					   c.Response = new OkObjectResult(c.Game.PossibleEntityActions(robotId,(int) HttpContext.Items[GameAuth.PLAYER_ID]));
+				   })
+				   .ExecuteSecure();
 		}
 
 		/// <summary>

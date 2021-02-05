@@ -15,8 +15,9 @@ namespace Tgm.Roborally.Server.Engine {
 
 		private GameLogic game    { get; }
 		private Thread    Thread  { get; }
-		public  void      Start() => Thread.Start();
+		public  IList<EntityEventOportunity> PossibleEntityActions(int robot,int player) => currentPhase.GetPossibleActions(robot,player);
 
+		public  void      Start()               => Thread.Start();
 		private void run() {
 			currentPhase = new LobbyPhase();
 			while (currentPhase != null) {

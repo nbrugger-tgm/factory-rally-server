@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using Tgm.Roborally.Server.Models;
 
@@ -21,6 +22,10 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 		public override bool Notify(GenericEvent action) {
 			return action.Data is JoinEvent;
+		}
+
+		public override IList<EntityEventOportunity> GetPossibleActions(int a,int b) {
+			return new List<EntityEventOportunity>();
 		}
 	}
 }
