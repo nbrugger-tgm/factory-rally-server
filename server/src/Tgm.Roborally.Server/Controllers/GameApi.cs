@@ -157,17 +157,11 @@ namespace Tgm.Roborally.Server.Controllers {
 		public virtual IActionResult GetProgrammingCard([FromRoute] [Required] [Range(0, 2048)]
 														int gameId, [FromRoute] [Required] [Range(0, 10000)]
 														int statementId) {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200, default(RobotCommand));
-			string exampleJson = null;
-			exampleJson =
-				"{\n  \"times\" : 1,\n  \"name\" : \"Penetration Lazer Mk.2\",\n  \"description\" : \"null\",\n  \"parameters\" : [ {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  } ]\n}";
-
-			var example = exampleJson != null
-							  ? JsonConvert.DeserializeObject<RobotCommand>(exampleJson)
-							  : default(RobotCommand);
-			//TODO: Change the data returned
-			return new ObjectResult(example);
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .ProgrammingCard(statementId)
+				   .Compute(c => c.Response = new OkObjectResult(c.Command))
+				   .ExecuteSecure();
 		}
 
 		/// <summary>
