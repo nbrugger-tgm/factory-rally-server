@@ -81,7 +81,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/actions")]
-		[Authorize(Policy = "admin-access")]
+		[GameAuth(Role.ADMIN)]
 		[ValidateModelState]
 		[SwaggerOperation("GetActions")]
 		[SwaggerResponse(statusCode: 200, type: typeof(List<Action>), description: "OK")]
