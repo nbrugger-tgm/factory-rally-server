@@ -23,6 +23,9 @@ namespace Tgm.Roborally.Server.Engine {
 			while (currentPhase != null) {
 				currentPhase = currentPhase.Start(game);
 			}
+			Console.Out.WriteLine("Game "+game.id+" ended");
+			Console.Out.WriteLine("Start memory clean");
+			GameManager.instance.games.Remove(game.id);
 		}
 
 		public void Notify(ActionType action) {
