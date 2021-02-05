@@ -294,7 +294,12 @@
           }
         },
         "operationId": "getAllPlayers",
-        "description": "Returns the index of all players"
+        "description": "Returns the index of all players",
+        "security": [
+          {
+            "player-auth": []
+          }
+        ]
       },
       "post": {
         "summary": "Join game",
@@ -402,7 +407,12 @@
           }
         },
         "operationId": "getPlayer",
-        "description": "Get closer information about the player"
+        "description": "Get closer information about the player",
+        "security": [
+          {
+            "player-auth": []
+          }
+        ]
       },
       "delete": {
         "summary": "Remove Player",
