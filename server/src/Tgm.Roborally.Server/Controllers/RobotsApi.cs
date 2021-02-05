@@ -321,14 +321,6 @@ namespace Tgm.Roborally.Server.Controllers {
 				   .Game(gameId)
 				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
 				   .Robot(robotId)
-				   .Compute(c => {
-					   if (!c.Game.Upgrades.IsUpgradeOnEntity(robotId, upgrade)) {
-						   c.Response = new ConflictObjectResult(new ErrorMessage() {
-							   Error   = "Upgrade not on entity",
-							   Message = "The upgrade is not on this robot at the moment"
-						   });
-					   }
-				   })
 				   .Compute(c => { c.Game.Upgrades.DiscardEntityUpgrade(c.Robot.Id, upgrade); })
 				   .ExecuteAction();
 		}
