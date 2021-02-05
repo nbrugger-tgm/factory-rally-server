@@ -1,3 +1,45 @@
+## v1.0.0 (2021-02-05)
+
+### Refactor
+
+- reference new client
+- fix typo in AI name
+- **oas**: replace inline definition with ref
+- **oas**: change path of **BuyUpgrade**
+- **oas**: rename ErrorMessage
+
+### Fix
+
+- **autogen**: Make TimeElapsed event an event
+- **autogen**: replace bad admin access
+- add missing `time elapsed` event type
+- missing import
+- adapt to new events
+
+### Perf
+
+- add end of game clean
+
+### Feat
+
+- implement end of game
+- **full** upgrade shop phase implementation
+- implement `getAvainableActions`
+- add entity actions
+- add `TimeElapsedEvent`
+- add option to pass (do nothing)
+- **oas**: add resusable path parameters
+- refuse bad startgame
+- commit buy upgrade events
+- add empty ki
+- add `name`, `max-players` and  `current-players` to game info
+- add missing event data classes
+- **events**: remove typesave endpoints
+
+### BREAKING CHANGE
+
+- #9
+
 ## v0.9.0 (2021-02-04)
 
 ### Fix
