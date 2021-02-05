@@ -1071,20 +1071,10 @@
     "/games/{game_id}/entitys/robots/{robot_id}/actions/avinable": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         },
         {
-          "schema": {
-            "type": "string"
-          },
-          "name": "robot_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/robot_id"
         }
       ],
       "get": {
