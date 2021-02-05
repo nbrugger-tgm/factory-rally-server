@@ -147,8 +147,8 @@ namespace Tgm.Roborally.Server.Engine {
 			public GameLogic Game   => pipe._game;
 			public Player    Player => pipe._player;
 
-			public Event     Event => pipe._event;
-			public RobotInfo Robot => pipe._robot;
+			public Event        Event   => pipe._event;
+			public RobotInfo    Robot   => pipe._robot;
 			public RobotCommand Command => pipe._command;
 			public IActionResult Response {
 				set => pipe.Response = value;
