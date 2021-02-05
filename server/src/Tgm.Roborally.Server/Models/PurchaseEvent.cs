@@ -24,7 +24,7 @@ namespace Tgm.Roborally.Server.Models {
 	/// The event that occurs if a player buys an upgrade
 	/// </summary>
 	[DataContract]
-	public partial class PurchaseEvent : IEquatable<PurchaseEvent>,Event {
+	public partial class PurchaseEvent : IEquatable<PurchaseEvent>, Event {
 		/// <summary>
 		/// This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication
 		/// </summary>

@@ -96,7 +96,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				_entityUpgrades[id].Add(id);
 				robo.EnergyCubes -= upgrade.Cost;
 				_game.CommitEvent(new PurchaseEvent() {
-					Player = entId,
+					Player  = entId,
 					Upgrade = id
 				});
 			}
@@ -123,11 +123,11 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			_pool[upgrade].location = UpgradeLocation.Discarded;
 			_game.CommitEvent(new GenericEvent(EventType.UpgradePurchase) {
 				Data = ("Actually not a Upgrade purchase event, just a placeholder", "Discard upgrade",
-						"Robot : " + robotId,"Upgrade "+upgrade)
+						"Robot : " + robotId, "Upgrade " + upgrade)
 			});
 		}
 
-		public bool IsUpgradeOnEntity(int robotId,  int upgrade) => _entityUpgrades[robotId].Contains(upgrade);
+		public bool IsUpgradeOnEntity(int robotId, int upgrade) => _entityUpgrades[robotId].Contains(upgrade);
 
 		/// <summary>
 		/// Does all checks and throws exceptions and commits events
@@ -142,7 +142,6 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			DiscardEntityUpgrade(playerId, upgrade);
 			Buy(upgrade, playerId);
 		}
-
 	}
 
 	internal enum UpgradeLocation {

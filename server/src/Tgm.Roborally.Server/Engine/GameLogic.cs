@@ -68,10 +68,12 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public bool Joinable => State == GameState.LOBBY && Players.Count < MaxPlayers;
 
-		public Dictionary<int, ConsumerRegistration> Consumers             => _consumers;
-		public int                                   PlayerCount           => Players.Count;
-		public IList<EntityEventOportunity>           PossibleEntityActions(int robot,int player) => _thread.PossibleEntityActions(robot,player);
-		
+		public Dictionary<int, ConsumerRegistration> Consumers   => _consumers;
+		public int                                   PlayerCount => Players.Count;
+
+		public IList<EntityEventOportunity> PossibleEntityActions(int robot, int player) =>
+			_thread.PossibleEntityActions(robot, player);
+
 
 		public void CommitEvent(GenericEvent e) {
 			EventManager.Notify(e);
@@ -131,6 +133,7 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		private static String[] kis = {"Jarvis", "ExMachina", "Ultron", "Vision", "Ordis", "Suda", "Simaris"};
+
 		public void StartGame() {
 			if (_state != GameState.LOBBY) throw new WrongStateException(GameState.LOBBY, _state, "Start Game");
 
@@ -139,10 +142,10 @@ namespace Tgm.Roborally.Server.Engine {
 			int    kiCount = 1;
 			Random rng     = new Random();
 			while (Players.Count < MaxPlayers && Rules.FillWithBots) {
-				int     botId = NewPlayerId();
-				RobotKI ki    = new RobotKI {
-					Id = botId,
-					DisplayName = kis[rng.Next(kis.Length)] + " #"+kiCount++
+				int botId = NewPlayerId();
+				RobotKI ki = new RobotKI {
+					Id          = botId,
+					DisplayName = kis[rng.Next(kis.Length)] + " #" + kiCount++
 				};
 				Players.Add(ki);
 			}
@@ -194,7 +197,7 @@ namespace Tgm.Roborally.Server.Engine {
 			}
 		}
 
-		public void BuyUpgrade(int playerId, int upgrade,int exchange) {
+		public void BuyUpgrade(int playerId, int upgrade, int exchange) {
 			Player p = GetPlayer(playerId);
 			if (p.ControlledEntities.Count != 1) {
 				throw new ActionException("Multiple Robots per player are not implemented.");
@@ -202,11 +205,12 @@ namespace Tgm.Roborally.Server.Engine {
 
 			int       roboId = p.ControlledEntities[0];
 			RobotInfo robo   = (RobotInfo) Entitys[roboId];
-			ActionCheck(playerId,roboId,EntityActionType.BuyUpgrade);
+			ActionCheck(playerId, roboId, EntityActionType.BuyUpgrade);
 			if (Upgrades.GetEntityUpgrades(roboId).Count >= 3) {
-				ExchangeUpgrade(roboId,upgrade,exchange);
+				ExchangeUpgrade(roboId, upgrade, exchange);
 				return;
 			}
+
 			Upgrades.Buy(upgrade, p.ControlledEntities[0]);
 		}
 

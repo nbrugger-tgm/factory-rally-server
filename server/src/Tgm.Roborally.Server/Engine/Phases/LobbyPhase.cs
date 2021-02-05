@@ -24,7 +24,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			return action.Data is JoinEvent;
 		}
 
-		public override IList<EntityEventOportunity> GetPossibleActions(int a,int b) {
+		public override IList<EntityEventOportunity> GetPossibleActions(int a, int b) {
 			return new List<EntityEventOportunity>();
 		}
 	}

@@ -184,7 +184,9 @@ namespace Tgm.Roborally.Server.Controllers {
 				   .Game(gameId)
 				   .Robot(robotId)
 				   .Compute(c => {
-					   c.Response = new OkObjectResult(c.Game.PossibleEntityActions(robotId,(int) HttpContext.Items[GameAuth.PLAYER_ID]));
+					   c.Response =
+						   new OkObjectResult(
+							   c.Game.PossibleEntityActions(robotId, (int) HttpContext.Items[GameAuth.PLAYER_ID]));
 				   })
 				   .ExecuteSecure();
 		}

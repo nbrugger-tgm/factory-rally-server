@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Engine.Phases;
@@ -13,24 +14,28 @@ namespace Tgm.Roborally.Server.Engine {
 			Thread    = new Thread(run);
 		}
 
-		private GameLogic game    { get; }
-		private Thread    Thread  { get; }
-		public  IList<EntityEventOportunity> PossibleEntityActions(int robot,int player) => currentPhase.GetPossibleActions(robot,player);
+		private GameLogic game   { get; }
+		private Thread    Thread { get; }
 
-		public  void      Start()               => Thread.Start();
+		public IList<EntityEventOportunity> PossibleEntityActions(int robot, int player) =>
+			currentPhase.GetPossibleActions(robot, player);
+
+		public void Start() => Thread.Start();
+
 		private void run() {
 			currentPhase = new LobbyPhase();
 			while (currentPhase != null) {
 				currentPhase = currentPhase.Start(game);
 			}
-			Console.Out.WriteLine("Game "+game.id+" ended");
+
+			Console.Out.WriteLine("Game " + game.id + " ended");
 			Console.Out.WriteLine("Start memory clean");
 			GameManager.instance.games.Remove(game.id);
 		}
 
 		public void Notify(ActionType action) {
 			if (!(currentPhase is LobbyPhase) && action == ActionType.STARTGAME)
-				throw new WrongStateException(GameState.LOBBY,GameState.PLAYING,action.ToString());
+				throw new WrongStateException(GameState.LOBBY, GameState.PLAYING, action.ToString());
 			currentPhase.Notify(action);
 		}
 

@@ -48,7 +48,7 @@ namespace Tgm.Roborally.Server.Controllers {
 												int upgrade, [FromQuery] [Range(0, 10000)] int exchange) {
 			return new GameRequestPipeline()
 				   .Game(gameId)
-				   .Compute(c => c.Game.BuyUpgrade(((Player) HttpContext.Items[GameAuth.PLAYER]).Id, upgrade,exchange))
+				   .Compute(c => c.Game.BuyUpgrade(((Player) HttpContext.Items[GameAuth.PLAYER]).Id, upgrade, exchange))
 				   .ExecuteAction();
 		}
 

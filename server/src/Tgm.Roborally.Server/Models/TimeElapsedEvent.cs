@@ -19,35 +19,32 @@ using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 
-namespace Tgm.Roborally.Server.Models
-{ 
+namespace Tgm.Roborally.Server.Models {
 	/// <summary>
 	/// A timer run out
 	/// </summary>
 	[DataContract]
-	public partial class TimeElapsedEvent : IEquatable<TimeElapsedEvent>,Event
-	{
+	public partial class TimeElapsedEvent : IEquatable<TimeElapsedEvent>, Event {
 		/// <summary>
 		/// The duration of the timer 
 		/// </summary>
 		/// <value>The duration of the timer </value>
 		[Required]
-		[DataMember(Name="original_duration", EmitDefaultValue=false)]
+		[DataMember(Name = "original_duration", EmitDefaultValue = false)]
 		public int OriginalDuration { get; set; }
 
 		/// <summary>
 		/// (optional) information about the elapsed timer
 		/// </summary>
 		/// <value>(optional) information about the elapsed timer</value>
-		[DataMember(Name="context", EmitDefaultValue=false)]
+		[DataMember(Name = "context", EmitDefaultValue = false)]
 		public Object Context { get; set; }
 
 		/// <summary>
 		/// Returns the string presentation of the object
 		/// </summary>
 		/// <returns>String presentation of the object</returns>
-		public override string ToString()
-		{
+		public override string ToString() {
 			var sb = new StringBuilder();
 			sb.Append("class TimeElapsedEvent {\n");
 			sb.Append("  OriginalDuration: ").Append(OriginalDuration).Append("\n");
@@ -62,8 +59,7 @@ namespace Tgm.Roborally.Server.Models
 		/// Returns the JSON string presentation of the object
 		/// </summary>
 		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson()
-		{
+		public string ToJson() {
 			return JsonConvert.SerializeObject(this, Formatting.Indented);
 		}
 
@@ -72,11 +68,10 @@ namespace Tgm.Roborally.Server.Models
 		/// </summary>
 		/// <param name="obj">Object to be compared</param>
 		/// <returns>Boolean</returns>
-		public override bool Equals(object obj)
-		{
+		public override bool Equals(object obj) {
 			if (obj is null) return false;
 			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((TimeElapsedEvent)obj);
+			return obj.GetType() == GetType() && Equals((TimeElapsedEvent) obj);
 		}
 
 		/// <summary>
@@ -84,17 +79,15 @@ namespace Tgm.Roborally.Server.Models
 		/// </summary>
 		/// <param name="other">Instance of TimeElapsedEvent to be compared</param>
 		/// <returns>Boolean</returns>
-		public bool Equals(TimeElapsedEvent other)
-		{
+		public bool Equals(TimeElapsedEvent other) {
 			if (other is null) return false;
 			if (ReferenceEquals(this, other)) return true;
 
-			return 
+			return
 				(
 					OriginalDuration == other.OriginalDuration ||
-					
 					OriginalDuration.Equals(other.OriginalDuration)
-				) && 
+				) &&
 				(
 					Context == other.Context ||
 					Context != null &&
@@ -106,34 +99,33 @@ namespace Tgm.Roborally.Server.Models
 		/// Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
-		public override int GetHashCode()
-		{
+		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
 				var hashCode = 41;
 				// Suitable nullity checks etc, of course :)
-					
-					hashCode = hashCode * 59 + OriginalDuration.GetHashCode();
-					if (Context != null)
+
+				hashCode = hashCode * 59 + OriginalDuration.GetHashCode();
+				if (Context != null)
 					hashCode = hashCode * 59 + Context.GetHashCode();
 				return hashCode;
 			}
 		}
 
 		#region Operators
+
 		#pragma warning disable 1591
 
-		public static bool operator ==(TimeElapsedEvent left, TimeElapsedEvent right)
-		{
+		public static bool operator ==(TimeElapsedEvent left, TimeElapsedEvent right) {
 			return Equals(left, right);
 		}
 
-		public static bool operator !=(TimeElapsedEvent left, TimeElapsedEvent right)
-		{
+		public static bool operator !=(TimeElapsedEvent left, TimeElapsedEvent right) {
 			return !Equals(left, right);
 		}
 
 		#pragma warning restore 1591
+
 		#endregion Operators
 	}
 }

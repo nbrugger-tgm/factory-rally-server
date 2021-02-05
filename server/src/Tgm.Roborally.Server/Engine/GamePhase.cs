@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine {
@@ -25,9 +26,9 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <returns>the next phase</returns>
 		protected abstract GamePhase Run(GameLogic game);
 
-		public abstract GameState NewState { get; }
-		public abstract void      Notify(ActionType   action);
-		public abstract bool      Notify(GenericEvent action);
-		public abstract IList<EntityEventOportunity> GetPossibleActions(int robot,int player);
+		public abstract GameState                    NewState { get; }
+		public abstract void                         Notify(ActionType      action);
+		public abstract bool                         Notify(GenericEvent    action);
+		public abstract IList<EntityEventOportunity> GetPossibleActions(int robot, int player);
 	}
 }
