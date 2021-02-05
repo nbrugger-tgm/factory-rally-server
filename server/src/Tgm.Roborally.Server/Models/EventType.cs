@@ -178,8 +178,13 @@ namespace Tgm.Roborally.Server.Models {
 		[EnumMember(Value = "game end event")] GameEndEvent = 28,
 
 		/// <summary>
-		/// Enum ClearRegister for clear register
+		///     Enum ClearRegister for clear register
 		/// </summary>
-		[EnumMember(Value = "clear register")] ClearRegister = 29
+		[EnumMember(Value = "clear register")] ClearRegister = 29,
+
+		/// <summary>
+		///     Enum TimeElapsed for time elapsed
+		/// </summary>
+		[EnumMember(Value = "time elapsed")] TimeElapsed = 30
 	}
 }

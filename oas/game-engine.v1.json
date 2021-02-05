@@ -2482,7 +2482,8 @@
           "shutdown",
           "change register",
           "game end event",
-          "clear register"
+          "clear register",
+          "time elapsed"
         ],
         "x-tags": [
           "EventHandling"
