@@ -1,3 +1,9 @@
+## v1.1.1 (2021-02-05)
+
+### Fix
+
+- missing closing bracket
+
 ## v1.1.0 (2021-02-05)
 
 ### Fix
