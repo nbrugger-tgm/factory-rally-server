@@ -110,12 +110,7 @@
     "/games/{game_id}/status": {
       "parameters": [
         {
-          "name": "game_id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          }
+          "$ref": "#/components/parameters/game_id"
         }
       ],
       "get": {
@@ -210,12 +205,7 @@
       },
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         }
       ],
       "put": {
@@ -270,12 +260,7 @@
     "/games/{game_id}/players/": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         }
       ],
       "get": {
@@ -383,20 +368,10 @@
     "/games/{game_id}/players/{player_id}": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         },
         {
-          "schema": {
-            "$ref": "#/components/schemas/PlayerID"
-          },
-          "name": "player_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/player_id"
         }
       ],
       "get": {
@@ -505,12 +480,7 @@
     "/games/{game_id}/upgrades/shop": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         }
       ],
       "get": {
@@ -552,20 +522,10 @@
     "/games/{game_id}/upgrades/{upgrade_id}": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         },
         {
-          "schema": {
-            "$ref": "#/components/schemas/UpgradeID"
-          },
-          "name": "upgrade_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/upgrade_id"
         }
       ],
       "get": {
@@ -607,12 +567,7 @@
     "/games/{game_id}/upgrades/": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         }
       ],
       "get": {
@@ -657,20 +612,10 @@
     "/games/{game_id}/entitys/robots/{robot_id}/registers": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         },
         {
-          "schema": {
-            "$ref": "#/components/schemas/EntityID"
-          },
-          "name": "robot_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/robot_id"
         }
       ],
       "get": {
@@ -743,20 +688,10 @@
     "/games/{game_id}/entitys/robots/{robot_id}/upgrades": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         },
         {
-          "schema": {
-            "$ref": "#/components/schemas/EntityID"
-          },
-          "name": "robot_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/robot_id"
         }
       ],
       "get": {
@@ -867,12 +802,7 @@
     "/games/{game_id}/map/tiles/{x}/{y}": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         },
         {
           "schema": {
@@ -930,12 +860,7 @@
     "/games/{game_id}/map/info": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         }
       ],
       "get": {
@@ -977,13 +902,7 @@
     "/games/{game_id}/map": {
       "parameters": [
         {
-          "schema": {
-            "type": "string"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true,
-          "description": ""
+          "$ref": "#/components/parameters/game_id"
         }
       ],
       "get": {
@@ -1021,12 +940,7 @@
     "/games/{game_id}/entitys/robots/": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         }
       ],
       "get": {
@@ -1119,20 +1033,10 @@
     "/games/{game_id}/entitys/robots/{robot_id}/actions/stack/": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         },
         {
-          "schema": {
-            "type": "string"
-          },
-          "name": "robot_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/robot_id"
         }
       ],
       "post": {
@@ -1214,20 +1118,10 @@
     "/games/{game_id}/entitys/robots/{robot_id}/info": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         },
         {
-          "schema": {
-            "type": "string"
-          },
-          "name": "robot_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/robot_id"
         }
       ],
       "get": {
@@ -1269,12 +1163,7 @@
     "/games/{game_id}/events/type": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         }
       ],
       "get": {
@@ -1493,12 +1382,7 @@
     "/games/{game_id}/events/head": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         }
       ],
       "get": {
@@ -1533,12 +1417,7 @@
     "/games/{game_id}/consumers": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         }
       ],
       "post": {
@@ -1649,12 +1528,7 @@
     "/games/{game_id}/statements/{statement_id}": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         },
         {
           "schema": {
@@ -1695,20 +1569,10 @@
     "/games/{game_id}/entities/robots/{robot_id}/registers/{register}": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         },
         {
-          "schema": {
-            "$ref": "#/components/schemas/EntityID"
-          },
-          "name": "robot_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/robot_id"
         },
         {
           "schema": {
