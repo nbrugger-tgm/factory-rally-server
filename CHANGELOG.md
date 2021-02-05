@@ -1,3 +1,28 @@
+## v1.1.0 (2021-02-05)
+
+### Fix
+
+- null ptr on entity access
+- **oas**: add missing authentication
+
+### Feat
+
+- implement robot register endpoints
+- implement map management
+- implement `GetProgrammingCards`
+- implement `GetProgrammingCard`
+- add programming card backend
+
+### Perf
+
+- remove redundant check
+- **oas**: replace parameters with references
+
+### Refactor
+
+- change Map implementation
+- use GameRequestPipline
+
 ## v1.0.0 (2021-02-05)
 
 ### Refactor
