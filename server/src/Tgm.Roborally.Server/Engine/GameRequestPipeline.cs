@@ -16,6 +16,7 @@ namespace Tgm.Roborally.Server.Engine {
 		private Player        _player;
 		private Event         _event;
 		private RobotInfo     _robot;
+		private RobotCommand  _command;
 
 		/// <summary>
 		/// Constructs an empty pipeline
@@ -148,7 +149,7 @@ namespace Tgm.Roborally.Server.Engine {
 
 			public Event     Event => pipe._event;
 			public RobotInfo Robot => pipe._robot;
-
+			public RobotCommand Command => pipe._command;
 			public IActionResult Response {
 				set => pipe.Response = value;
 			}
@@ -170,6 +171,22 @@ namespace Tgm.Roborally.Server.Engine {
 				});
 			else
 				_robot = (RobotInfo) e;
+			return this;
+		}
+
+		public GameRequestPipeline ProgrammingCard(int statementId) {
+			if (Done)
+				return this;
+			RobotCommand command = _game.Programming[statementId];
+			if (command == null)
+				Response = new ConflictObjectResult(new ErrorMessage() {
+					Error   = "Not Found",
+					Message = "No Programming card with matching ID"
+				});
+			else {
+				_command = command;
+			}
+
 			return this;
 		}
 	}

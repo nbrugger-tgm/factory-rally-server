@@ -7,11 +7,12 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine {
 	public class EntityManager {
-		private readonly GameLogic    _game;
-		private readonly List<Entity> ents = new List<Entity>();
-		public           int          Count  => ents.Count;
-		public           ISet<int>    Ids    => ents.Select(e => e.Id).ToImmutableHashSet();
-		public           ISet<int>    Robots => ents.Where(e => e is RobotInfo).Select(e => e.Id).ToImmutableHashSet();
+		private readonly GameLogic             _game;
+		private readonly List<Entity>          _ents = new List<Entity>();
+		public           int                   Count  => _ents.Count;
+		public           ISet<int>             Ids    => _ents.Select(e => e.Id).ToImmutableHashSet();
+		public           ISet<int>             Robots => _ents.Where(e => e is RobotInfo).Select(e => e.Id).ToImmutableHashSet();
+		public           ImmutableList<Entity> List   => _ents.ToImmutableList();
 
 		public RobotPickEvent PickRobo(Robots type, Player gamePlayer) {
 			RobotInfo info = new RobotInfo() {
