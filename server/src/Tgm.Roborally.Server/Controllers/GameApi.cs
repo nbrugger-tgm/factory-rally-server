@@ -66,8 +66,9 @@ namespace Tgm.Roborally.Server.Controllers {
 		[ValidateModelState]
 		[SwaggerOperation("CreateGame")]
 		public virtual IActionResult CreateGame([FromBody] GameRules gameRules) {
-			int id = GameManager.instance.startGame(gameRules);
-			return new OkObjectResult(id);
+			GameRequestPipeline pip = new GameRequestPipeline();
+			pip.Compute(c => c.Response = new OkObjectResult(GameManager.instance.startGame(gameRules)));
+			return pip.ExecuteSecure();
 		}
 
 		/// <summary>
