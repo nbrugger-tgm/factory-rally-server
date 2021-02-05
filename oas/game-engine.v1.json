@@ -816,19 +816,23 @@
         },
         {
           "schema": {
-            "type": "string"
+            "type": "integer",
+            "minimum": 0
           },
           "name": "x",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "The x codinate of the tile"
         },
         {
           "schema": {
-            "type": "string"
+            "type": "integer",
+            "minimum": 0
           },
           "name": "y",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "The y codinate of the tile"
         }
       ],
       "get": {
