@@ -177,16 +177,10 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
 		public virtual IActionResult GetProgrammingCardIds([FromRoute] [Required] [Range(0, 2048)]
 														   int gameId) {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200, default(List<int>));
-			string exampleJson = null;
-			exampleJson = "null";
-
-			var example = exampleJson != null
-							  ? JsonConvert.DeserializeObject<List<int>>(exampleJson)
-							  : default(List<int>);
-			//TODO: Change the data returned
-			return new ObjectResult(example);
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Compute(c => c.Response = new OkObjectResult(c.Game.Programming.IDs))
+				   .ExecuteSecure();
 		}
 
 		/// <summary>
@@ -203,17 +197,10 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(statusCode: 200, type: typeof(List<RobotCommand>), description: "OK")]
 		public virtual IActionResult GetProgrammingCards([FromRoute] [Required] [Range(0, 2048)]
 														 int gameId) {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200, default(List<RobotCommand>));
-			string exampleJson = null;
-			exampleJson =
-				"{\n  \"times\" : 1,\n  \"name\" : \"Penetration Lazer Mk.2\",\n  \"description\" : \"null\",\n  \"parameters\" : [ {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  }, {\n    \"name\" : \"name\",\n    \"value\" : 1\n  } ]\n}";
-
-			var example = exampleJson != null
-							  ? JsonConvert.DeserializeObject<List<RobotCommand>>(exampleJson)
-							  : default(List<RobotCommand>);
-			//TODO: Change the data returned
-			return new ObjectResult(example);
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Compute(c => c.Response = new OkObjectResult(c.Game.Programming.Cards))
+				   .ExecuteSecure();
 		}
 	}
 }
