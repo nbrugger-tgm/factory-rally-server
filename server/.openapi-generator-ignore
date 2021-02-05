@@ -5,7 +5,6 @@
 **/Startup.cs
 **/Program.cs
 **/Authentication/
-!**/*Type.cs
-!**/GameState.cs
-!**/GameRules.cs
-!**/JoinResponse.cs
+**.cs
+
+!**/CLASS.cs
