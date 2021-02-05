@@ -26,5 +26,6 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			if (!Registers.ContainsKey(robotId))
 				Registers[robotId] = new int[5];
 			return Registers[robotId];
+		}
 	}
 }
