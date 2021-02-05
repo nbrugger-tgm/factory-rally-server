@@ -85,6 +85,11 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		/// Enum Sidekick for sidekick
 		/// </summary>
-		[EnumMember(Value = "sidekick")] Sidekick = 12
+		[EnumMember(Value = "sidekick")] Sidekick = 12,
+
+		/// <summary>
+		/// Enum Pass for pass
+		/// </summary>
+		[EnumMember(Value = "pass")] Pass = 13
 	}
 }
