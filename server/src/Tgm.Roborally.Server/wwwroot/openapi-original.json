@@ -1071,20 +1071,10 @@
     "/games/{game_id}/entitys/robots/{robot_id}/actions/avinable": {
       "parameters": [
         {
-          "schema": {
-            "$ref": "#/components/schemas/GameID"
-          },
-          "name": "game_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/game_id"
         },
         {
-          "schema": {
-            "type": "string"
-          },
-          "name": "robot_id",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/robot_id"
         }
       ],
       "get": {
@@ -2482,7 +2472,8 @@
           "shutdown",
           "change register",
           "game end event",
-          "clear register"
+          "clear register",
+          "time elapsed"
         ],
         "x-tags": [
           "EventHandling"
@@ -2720,7 +2711,7 @@
         "type": "string",
         "title": "EntityActionType",
         "default": "none",
-        "description": "Defines the action itsselft (what the action is doing)",
+        "description": "Defines the action itsselft (what the action is doing)\n\n`pass` means that nothing is done and the action wont happen\n\nIf a type starts with `edit` then all actions within the domain of the second word (eg. remove, add, change) are adressed",
         "enum": [
           "reboot",
           "use upgrade",
@@ -2733,7 +2724,10 @@
           "magnet-ray",
           "pushray",
           "rotation",
-          "sidekick"
+          "sidekick",
+          "pass",
+          "buy upgrade",
+          "edit register"
         ]
       },
       "EntityActionPhase": {
@@ -3240,6 +3234,25 @@
         ],
         "x-tags": [
           "EventHandling"
+        ]
+      },
+      "TimeElapsedEvent": {
+        "title": "TimeElapsedEvent",
+        "type": "object",
+        "description": "A timer run out",
+        "properties": {
+          "original_duration": {
+            "type": "integer",
+            "description": "The duration of the timer\n",
+            "minimum": 0
+          },
+          "context": {
+            "type": "object",
+            "description": "(optional) information about the elapsed timer"
+          }
+        },
+        "required": [
+          "original_duration"
         ]
       }
     },
