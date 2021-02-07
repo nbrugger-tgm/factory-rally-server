@@ -59,7 +59,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 				return true;
 			}
 
-			return false;
+			return action.GetEventType() == EventType.TimeElapsed;
 		}
 
 		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) {
