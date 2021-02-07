@@ -1,3 +1,9 @@
+## v1.2.0 (2021-02-07)
+
+### Feat
+
+- enable `getPlayer` and `getPlayers` for consumers
+
 ## v1.1.1 (2021-02-05)
 
 ### Fix
