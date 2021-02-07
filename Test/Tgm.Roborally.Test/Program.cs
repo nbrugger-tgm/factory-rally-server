@@ -24,7 +24,9 @@ namespace Tgm.Roborally.Test {
 			JoinResponse response = players.Join(game);
 			Print($"id : {response.Id}");
 			Print($"pat : {response.Pat}");
-			config.ApiKey["pat"] = response.Pat;
+			players.Configuration.ApiKey["pat"] = response.Pat;
+			api.Configuration.ApiKey["pat"]     = response.Pat;
+			config.ApiKey["pat"]                = response.Pat;
 			players.Join(game);
 
 			Print(players.GetPlayer(game, response.Id).ToJson());
