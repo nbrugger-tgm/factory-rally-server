@@ -619,7 +619,7 @@
         ]
       }
     },
-    "/games/{game_id}/entitys/robots/{robot_id}/registers": {
+    "/games/{game_id}/entities/robots/{robot_id}/registers": {
       "parameters": [
         {
           "$ref": "#/components/parameters/game_id"
@@ -695,7 +695,7 @@
         ]
       }
     },
-    "/games/{game_id}/entitys/robots/{robot_id}/upgrades": {
+    "/games/{game_id}/entities/robots/{robot_id}/upgrades": {
       "parameters": [
         {
           "$ref": "#/components/parameters/game_id"
@@ -951,7 +951,7 @@
         ]
       }
     },
-    "/games/{game_id}/entitys/robots/": {
+    "/games/{game_id}/entities/robots/": {
       "parameters": [
         {
           "$ref": "#/components/parameters/game_id"
@@ -996,7 +996,7 @@
         ]
       }
     },
-    "/games/{game_id}/entitys/robots/{robot_id}/actions/avinable": {
+    "/games/{game_id}/entities/robots/{robot_id}/actions/avinable": {
       "parameters": [
         {
           "$ref": "#/components/parameters/game_id"
@@ -1044,7 +1044,7 @@
         ]
       }
     },
-    "/games/{game_id}/entitys/robots/{robot_id}/actions/stack/": {
+    "/games/{game_id}/entities/robots/{robot_id}/actions/stack/": {
       "parameters": [
         {
           "$ref": "#/components/parameters/game_id"
@@ -1129,7 +1129,7 @@
         ]
       }
     },
-    "/games/{game_id}/entitys/robots/{robot_id}/info": {
+    "/games/{game_id}/entities/robots/{robot_id}/info": {
       "parameters": [
         {
           "$ref": "#/components/parameters/game_id"

@@ -37,7 +37,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		/// <response code="404">Not Found</response>
 		[HttpDelete]
-		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
+		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/registers")]
 		[ValidateModelState]
 		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[SwaggerOperation("ClearRegisters")]
@@ -62,7 +62,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		/// <response code="404">Not Found</response>
 		[HttpDelete]
-		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
+		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/upgrades")]
 		[ValidateModelState]
 		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[SwaggerOperation("ClearUpgrades")]
@@ -89,7 +89,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		/// <response code="404">Not Found</response>
 		[HttpPost]
-		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/stack/")]
+		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/actions/stack/")]
 		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("DoEntityAction")]
@@ -114,7 +114,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		/// <response code="404">Not Found</response>
 		[HttpGet]
-		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/stack/")]
+		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/actions/stack/")]
 		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetActionStack")]
@@ -146,7 +146,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		/// <response code="404">Not Found</response>
 		[HttpGet]
-		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
+		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/upgrades")]
 		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[ValidateModelState]
 		[SwaggerOperation("GetInstalledUpgrades")]
@@ -172,7 +172,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		/// <response code="404">Not Found</response>
 		[HttpGet]
-		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/actions/avinable")]
+		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/actions/avinable")]
 		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[ValidateModelState]
 		[SwaggerOperation("GetPossibleActions")]
@@ -232,7 +232,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		/// <response code="404">Not Found</response>
 		[HttpGet]
-		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/registers")]
+		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/registers")]
 		[ValidateModelState]
 		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[SwaggerOperation("GetRegisters")]
@@ -258,7 +258,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		/// <response code="404">Not Found</response>
 		[HttpGet]
-		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/info")]
+		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/info")]
 		[ValidateModelState]
 		[GameAuth(Role.PLAYER)]
 		[SwaggerOperation("GetRobotStats")]
@@ -283,7 +283,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		/// <response code="404">Not Found</response>
 		[HttpGet]
-		[Route("/v1/games/{game_id}/entitys/robots/")]
+		[Route("/v1/games/{game_id}/entities/robots/")]
 		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetRobots")]
@@ -308,7 +308,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		/// <response code="404">Not Found</response>
 		[HttpPatch]
-		[Route("/v1/games/{game_id}/entitys/robots/{robot_id}/upgrades")]
+		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/upgrades")]
 		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("RemoveRobotUpgrade")]
