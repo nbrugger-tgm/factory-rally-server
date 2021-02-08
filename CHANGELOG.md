@@ -1,3 +1,17 @@
+## v1.3.0 (2021-02-08)
+
+### Fix
+
+- use implementation instead of interface
+- stop crash on `NotImplementedException`
+- restrict access to change robot register
+- `entitys` -> `entities` typo in path
+- wrong server warning
+
+### Feat
+
+- enable robot endpoints for consumers
+
 ## v1.2.1 (2021-02-07)
 
 ### Fix
