@@ -344,7 +344,12 @@ namespace Tgm.Roborally.Server.Controllers {
 												 [FromRoute] [Required] [Range(0, 4)] int register,
 												 [FromQuery] [Required()] [Range(0, 10000)]
 												 int statementId) {
-			throw new NotImplementedException();
+			return new ObjectResult(new ErrorMessage {
+				Error="Not implemented",
+				Message="This functionality is WIP"
+			}){
+				StatusCode = 500
+			};
 		}
 	}
 }
