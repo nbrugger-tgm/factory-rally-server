@@ -336,7 +336,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpPut]
 		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/registers/{register}")]
-		[GameAuth(typeof(OwnershipEnsurance))]
+		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[ValidateModelState]
 		[SwaggerOperation("SetRegister")]
 		public virtual IActionResult SetRegister([FromRoute] [Required] [Range(0, 2048)]
