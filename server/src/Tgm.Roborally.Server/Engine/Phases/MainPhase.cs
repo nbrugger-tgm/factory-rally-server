@@ -10,9 +10,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			game.Map[1, 1] = new Tile() {
 				Type = TileType.PrioCore
 			};
-			game.CommitEvent(new GenericEvent(EventType.Map) {
-				Data = "Map Created"
-			});
+			game.CommitEvent(new EmptyEvent(EventType.MapCreated));
 			return new UpgradeShopPhase();
 			//throw new System.NotImplementedException();
 		}

@@ -75,12 +75,11 @@ namespace Tgm.Roborally.Server.Engine {
 			_thread.PossibleEntityActions(robot, player);
 
 
-		public void CommitEvent(GenericEvent e) {
+		public void CommitEvent(Event e) {
 			EventManager.Notify(e);
-			_thread.Notify(e);
+			_thread.Notify(new GenericEvent(e));
 		}
 
-		public void CommitEvent(Event e) => CommitEvent(new GenericEvent(e));
 
 		private int NewPlayerId() {
 			int newId;
@@ -112,12 +111,10 @@ namespace Tgm.Roborally.Server.Engine {
 			Player p = new Player {Id = NewPlayerId(), DisplayName = name};
 			Players.Add(p);
 
-			GenericEvent e = new GenericEvent(EventType.Join);
-			e.Data = new JoinEvent {
+			CommitEvent(new JoinEvent {
 				JoinedId = p.Id,
 				Unjoin   = false
-			};
-			CommitEvent(e);
+			});
 			return p;
 		}
 
