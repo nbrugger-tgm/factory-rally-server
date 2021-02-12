@@ -2351,7 +2351,8 @@
           "change register",
           "game end event",
           "clear register",
-          "time elapsed"
+          "time elapsed",
+          "upgrades discarded"
         ],
         "x-tags": [
           "EventHandling"
@@ -3132,6 +3133,23 @@
         "required": [
           "original_duration"
         ]
+      },
+      "DiscardUpgradesEvent": {
+        "title": "DiscardUpgradesEvent",
+        "type": "object",
+        "description": "This event is fired when a player exchanges or actively discards upgrades. The upgrades are removed from the game (but still accessible) ",
+        "properties": {
+          "upgrades": {
+            "type": "array",
+            "description": "The list of upgrades discarded",
+            "items": {
+              "$ref": "#/components/schemas/UpgradeID"
+            }
+          },
+          "robot": {
+            "$ref": "#/components/schemas/EntityID"
+          }
+        }
       }
     },
     "responses": {

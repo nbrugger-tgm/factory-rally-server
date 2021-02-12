@@ -110,10 +110,10 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			foreach (int upgrade in upgrades) {
 				_pool[upgrade].location = UpgradeLocation.Discarded;
 			}
-
-			_game.CommitEvent(new GenericEvent(EventType.UpgradePurchase) {
-				Data = ("Actually not a Upgrade purchase event, just a placeholder", "Discard upgrades",
-						"Robot : " + robotId)
+			//Only commiting it once to prevent spam
+			_game.CommitEvent( new DiscardUpgradesEvent() {
+				Robot = robotId,
+				Upgrades = upgrades.ToList()
 			});
 		}
 
@@ -121,9 +121,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 
 		public void DiscardEntityUpgrade(int robotId, int upgrade) {
 			_pool[upgrade].location = UpgradeLocation.Discarded;
-			_game.CommitEvent(new GenericEvent(EventType.UpgradePurchase) {
-				Data = ("Actually not a Upgrade purchase event, just a placeholder", "Discard upgrade",
-						"Robot : " + robotId, "Upgrade " + upgrade)
+			_game.CommitEvent(new DiscardUpgradesEvent() {
+				Robot = robotId,
+				Upgrades = {upgrade}
 			});
 		}
 
