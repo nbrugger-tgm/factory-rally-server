@@ -28,8 +28,9 @@ namespace Tgm.Roborally.Server.Engine {
 				currentPhase = currentPhase.Start(game);
 			}
 
-			Console.Out.WriteLine("Game " + game.id + " ended");
-			Console.Out.WriteLine("Start memory clean");
+			Console.Out.WriteLine("\nGame " + game.id + " ended wait 10 seconds before deletion");
+			Thread.Sleep(10000);
+			Console.Out.WriteLine("Delete Game "+game.id+" to save memory\n");
 			GameManager.instance.games.Remove(game.id);
 		}
 
@@ -53,5 +54,6 @@ namespace Tgm.Roborally.Server.Engine {
 				currentPhase.Notify(action);
 			}
 		}
+
 	}
 }
