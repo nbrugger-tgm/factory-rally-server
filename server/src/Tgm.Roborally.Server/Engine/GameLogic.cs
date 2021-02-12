@@ -119,8 +119,13 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		public void RemovePlayer(int playerId) {
-			if (_state == GameState.LOBBY)
+			if (_state == GameState.LOBBY) {
 				Players.Remove(GetPlayer(playerId));
+				CommitEvent(new JoinEvent {
+					JoinedId = playerId,
+					Unjoin = true
+				});
+			}
 			else if (_state == GameState.PLAYING || _state == GameState.PLANNING) {
 				Player p = GetPlayer(playerId);
 				p.Active = false;
