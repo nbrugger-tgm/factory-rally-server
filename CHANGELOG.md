@@ -1,3 +1,21 @@
+## v1.4.0 (2021-02-12)
+
+### Feat
+
+- games now store the round phase
+- add empty and dummy events
+- add `MapCreated` Event
+- adding `DiscardUpgrade` event
+
+### Fix
+
+- missing leave event firing
+- double stacking events
+
+### Refactor
+
+- inconsistency of  `GamePhaseChangedEvent`
+
 ## v1.3.0 (2021-02-08)
 
 ### Fix
