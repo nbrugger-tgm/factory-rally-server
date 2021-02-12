@@ -24,7 +24,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		}
 
 		public override bool Notify(GenericEvent action) {
-			bool allow = action.Type == EventType.Map;
+			bool allow = action.Type == EventType.MapCreated;
 			if (!allow)
 				Console.Out.WriteLine("Unexpected "+action.Data+" Event in Main phase");//TODO: proper implementation
 			return allow;

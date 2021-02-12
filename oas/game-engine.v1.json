@@ -2352,6 +2352,7 @@
           "game end event",
           "clear register",
           "time elapsed",
+          "map created",
           "upgrades discarded"
         ],
         "x-tags": [

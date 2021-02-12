@@ -181,6 +181,17 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		///     Enum TimeElapsed for time elapsed
 		/// </summary>
-		[EnumMember(Value = "time elapsed")] TimeElapsed = 30
+		[EnumMember(Value = "time elapsed")] TimeElapsed = 30,
+
+		/// <summary>
+		///     Enum MapCreated for map created
+		/// </summary>
+		[EnumMember(Value = "map created")] MapCreated = 31,
+
+		/// <summary>
+		///     Enum UpgradesDiscarded for upgrades discarded
+		/// </summary>
+		[EnumMember(Value = "upgrades discarded")]
+		UpgradesDiscarded = 32
 	}
 }
