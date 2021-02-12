@@ -15,7 +15,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			//throw new System.NotImplementedException();
 		}
 
-		public override GameState NewState { get; }
+		public override GameState NewState => GameState.PLAYING;
 
 		public override void Notify(ActionType action) {//TODO proper reaction
 			Console.Out.WriteLine("Unexpected Action "+action+" in MainPhase");
