@@ -24,7 +24,7 @@ namespace Tgm.Roborally.Server.Models {
 	/// Used to store any event and generalize them into a single type
 	/// </summary>
 	[DataContract]
-	public partial class GenericEvent : IEquatable<GenericEvent>, Event {
+	public partial class GenericEvent : IEquatable<GenericEvent> {
 		public GenericEvent(EventType type) {
 			Type = type;
 		}
