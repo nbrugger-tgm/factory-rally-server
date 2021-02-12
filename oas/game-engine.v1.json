@@ -2820,17 +2820,28 @@
           }
         }
       },
-      "GamePhaseChangeEvent": {
-        "title": "GamePhaseChangeEvent",
+      "GamePhaseChangedEvent": {
+        "title": "GamePhaseChangedEvent",
         "type": "object",
         "description": "When the next game phase started",
-        "properties": {
-          "new status": {
-            "$ref": "#/components/schemas/GameState"
-          }
-        },
         "x-tags": [
           "EventHandling"
+        ],
+        "properties": {
+          "phase": {
+            "$ref": "#/components/schemas/RoundPhase"
+          },
+          "step": {
+            "$ref": "#/components/schemas/GamePhaseStep"
+          },
+          "information": {
+            "type": "object",
+            "description": "Unspecified information about the game phase (you can also obtain this information in a typesave way using the GameAPI)"
+          }
+        },
+        "required": [
+          "phase",
+          "step"
         ]
       },
       "GenericEvent": {
@@ -3134,6 +3145,11 @@
         "required": [
           "original_duration"
         ]
+      },
+      "GamePhaseStep": {
+        "title": "GamePhaseStep",
+        "type": "string",
+        "description": "WIP!\nCurrently class names. Enum later on\n\nDescribes the game phase more deeply"
       },
       "DiscardUpgradesEvent": {
         "title": "DiscardUpgradesEvent",

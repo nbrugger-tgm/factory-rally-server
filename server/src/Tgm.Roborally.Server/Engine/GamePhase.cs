@@ -12,12 +12,20 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <param name="game">The game to start the phase for</param>
 		/// <returns>The GamePhase which should be activated next</returns>
 		public GamePhase Start(GameLogic game) {
+			RoundPhase? newPhase = Cathegory;
 			game.State = NewState;
-			game.CommitEvent(new GamePhaseChangeEvent() {
-				NewStatus = NewState
+			game.Phase = newPhase;
+			game.CommitEvent(new GamePhaseChangedEvent() {
+				Information = Information,
+				Phase = newPhase,
+				Step = GetType().Name
 			});
 			return Run(game);
 		}
+
+		private RoundPhase? Cathegory => null;
+
+		protected abstract object Information { get; }
 
 		/// <summary>
 		/// Executes the phase itself. Contains the implementation of the phase. Time based events go here
@@ -30,5 +38,6 @@ namespace Tgm.Roborally.Server.Engine {
 		public abstract void                         Notify(ActionType      action);
 		public abstract bool                         Notify(GenericEvent    action);
 		public abstract IList<EntityEventOportunity> GetPossibleActions(int robot, int player);
+
 	}
 }
