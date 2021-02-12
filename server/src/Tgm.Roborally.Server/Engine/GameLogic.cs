@@ -71,6 +71,8 @@ namespace Tgm.Roborally.Server.Engine {
 		public Dictionary<int, ConsumerRegistration> Consumers   => _consumers;
 		public int                                   PlayerCount => Players.Count;
 
+		public RoundPhase? Phase = null;
+
 		public IList<EntityEventOportunity> PossibleEntityActions(int robot, int player) =>
 			_thread.PossibleEntityActions(robot, player);
 
