@@ -1,3 +1,14 @@
+## v2.0.0 (2021-02-12)
+
+### Fix
+
+- add missing phase informations
+
+### Feat
+
+- add all game phases
+- add delay before game deletion
+
 ## v1.4.0 (2021-02-12)
 
 ### Feat
