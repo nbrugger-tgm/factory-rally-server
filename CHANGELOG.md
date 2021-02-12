@@ -1,5 +1,13 @@
 ## v2.0.0 (2021-02-12)
 
+> All phases are **included**. BUT they do nothing/are not implemented
+>
+> They do simulate a game with one round and at the end Player with id `0` wins the game.
+
+> DO NOT Create multiple games with this version as this **can** cause never ending (looping) games **without waiting** which will create a heavy CPU load. Additional your RAM will overflow as many hundred Events would be added to the Queues.
+>
+> This Behaviour is intentional and will stay until the execution phase is fully implemented
+
 ### Fix
 
 - add missing phase informations
