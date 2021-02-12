@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Tgm.Roborally.Api.Api;
 using Tgm.Roborally.Api.Client;
 using Tgm.Roborally.Api.Model;
@@ -9,8 +9,10 @@ namespace Tgm.Roborally.Test {
 			Configuration c       = new Configuration {BasePath = "http://localhost:5050/v1"};
 			GameApi       api     = new GameApi(c);
 			PlayersApi    players = new PlayersApi(c);
-
+			PrintHeader("{Test Game Lifecycle}");
 			TestStartGame(api,players,c);
+			return;
+			PrintHeader("\n{Test Consumers}");
 			TestConsumer(api, players, c);
 		}
 
@@ -35,8 +37,16 @@ namespace Tgm.Roborally.Test {
 			api.CommitAction(game, ActionType.STARTGAME);
 			PrintHeader("Fetch Events");
 			EventHandlingApi eventApi = new EventHandlingApi(config);
-			for (int i = 0; i < 8; i++) {
-				Print(eventApi.FetchNextEvent(game).Type.ToString());
+			bool             run      = true;
+			int              c        = 1;
+			while (run) {
+				GenericEvent ev = eventApi.FetchNextEvent(game);
+				Print(c++ +". Event:");
+				if(ev == null)
+					Print("Whatsefrick");
+				if(ev.Data != null)
+					Print("Type of 'Event.Data' :"+ev.Data.GetType());
+				Print(ev.ToJson() +"\n");
 			}
 		}
 		
@@ -63,9 +73,10 @@ namespace Tgm.Roborally.Test {
 			api.CommitAction(game, ActionType.STARTGAME);
 			PrintHeader("Fetch Events");
 			EventHandlingApi eventApi = new EventHandlingApi(config);
-			for (int i = 0; i < 9; i++) {
+			for (int i = 0; i < 8; i++) {
 				Print(eventApi.FetchNextEvent(game).Type.ToString());
 			}
+			
 		}
 
 		private static void PrintHeader(string createGame) => Print("----------[" + createGame + "]----------");
