@@ -5,6 +5,8 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
 	public class MainPhase : GamePhase {
+		protected override object Information => null;
+
 		protected override GamePhase Run(GameLogic game) {
 			game.Map = new Map();
 			game.Map[1, 1] = new Tile() {

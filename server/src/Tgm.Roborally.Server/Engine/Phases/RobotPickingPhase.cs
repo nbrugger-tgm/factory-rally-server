@@ -5,6 +5,8 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
 	public class RobotPickingPhase : GamePhase {
+		protected override object Information => new PickingInformation(PickingMode.RANDOM_DISTRIBUTION);
+
 		protected override GamePhase Run(GameLogic game) {
 			//TODO: Later on maybe a more intelligent algorithm will take place here
 
@@ -35,5 +37,20 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		public override IList<EntityEventOportunity> GetPossibleActions(int a, int b) {
 			return new List<EntityEventOportunity>();
 		}
+	}
+
+	public class PickingInformation {
+		public PickingMode Mode;
+
+		public PickingInformation(PickingMode mode) {
+			Mode = mode;
+		}
+	}
+
+	public enum PickingMode {
+		RANDOM_DISTRIBUTION,
+		LEAGUE_LIKE_PICKING,
+		FIRST_COME_FIRST_SERVE
+		
 	}
 }

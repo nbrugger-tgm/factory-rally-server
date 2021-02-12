@@ -14,6 +14,8 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		private readonly object    _listener = new object();
 		private          bool      _executed;
 
+		protected override object Information => new UpgradeInfo();
+
 		protected override GamePhase Run(GameLogic game) {
 			this._game = game;
 			game.Upgrades.fillShop();
@@ -80,5 +82,9 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 				}
 			};
 		}
+		public class UpgradeInfo {
+			public int timer => TIME;
+		}
 	}
+
 }

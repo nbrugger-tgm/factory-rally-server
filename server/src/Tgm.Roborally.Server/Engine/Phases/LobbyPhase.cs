@@ -6,6 +6,8 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 	public class LobbyPhase : GamePhase {
 		private bool started;
 
+		protected override object Information => null;
+
 		protected override GamePhase Run(GameLogic game) {
 			while (!started) {
 				Thread.Yield();
