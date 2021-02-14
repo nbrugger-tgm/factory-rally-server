@@ -1,3 +1,13 @@
+## v2.1.0b0 (2021-02-14)
+
+### Feat
+
+- implement pre programming phase
+
+### Refactor
+
+- use more namespaces
+
 ## v2.0.0 (2021-02-12)
 
 > All phases are **included**. BUT they do nothing/are not implemented
