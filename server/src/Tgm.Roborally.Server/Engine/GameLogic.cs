@@ -71,6 +71,10 @@ namespace Tgm.Roborally.Server.Engine {
 		public Dictionary<int, ConsumerRegistration> Consumers   => _consumers;
 		public int                                   PlayerCount => Players.Count;
 
+		public MovementManager Movement {
+			get { throw new NotImplementedException(); }
+		}
+
 		public RoundPhase? Phase = null;
 
 		public IList<EntityEventOportunity> PossibleEntityActions(int robot, int player) =>

@@ -17,34 +17,59 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
+using Tgm.Roborally.Server.Engine;
+using Tgm.Roborally.Server.Engine.Statement;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
 	/// A command for a robot to execute
 	/// </summary>
 	[DataContract]
-	public partial class RobotCommand : IEquatable<RobotCommand> {
+	public abstract class RobotCommand : IEquatable<RobotCommand>,RobotCommandExecutor {
 		/// <summary>
 		/// Gets or Sets Type
 		/// </summary>
-		[Required]
-		[DataMember(Name = "type", EmitDefaultValue = false)]
-		public Instruction Type { get; set; }
+		[Required] [DataMember(Name = "type", EmitDefaultValue = false)]
+		public abstract Instruction Type { get; }
+		
+		/// <summary>
+		/// Returns the value of the given parameter
+		/// </summary>
+		/// <param name="index"> the name of the value</param>
+		public int this[string index] {
+			get => _parameters.ContainsKey(index) ? _parameters[index] : 0;
+			set => _parameters[index] = value;
+		}
+
+		public void Execute(GameLogic game, int robot) {
+			for (int i = 0; i < Times; i++) {
+				this.Do(game,robot);
+			}
+		}
 
 		/// <summary>
 		/// Defines parameters for the instruction.&lt;br&gt;Example: Effect: \&quot;Move {steps} steps forward\&quot;&lt;br&gt; &#x60;{steps}&#x60; is the number of steps the robot will do. And the exact value (of steps) will be defined in here (&#x60;values&#x60;)
 		/// </summary>
 		/// <value>Defines parameters for the instruction.&lt;br&gt;Example: Effect: \&quot;Move {steps} steps forward\&quot;&lt;br&gt; &#x60;{steps}&#x60; is the number of steps the robot will do. And the exact value (of steps) will be defined in here (&#x60;values&#x60;)</value>
 		[DataMember(Name = "parameters", EmitDefaultValue = false)]
-		public List<Pair> Parameters { get; set; }
+		public List<Pair> Parameters {
+			get => _parameters.Select(e => new Pair(e.Key, e.Value)).ToList();
+			set {
+				_parameters.Clear();
+				foreach (Pair pair in value) {
+					_parameters.Add(pair.Name,pair.Value);
+				}
+			}
+		}
 
+		private readonly Dictionary<string, int> _parameters = new Dictionary<string, int>();
 		/// <summary>
 		/// A description about the effect of the command. Variables are using the format &#x60;{name}&#x60; where *name* refers to the names in &#x60;values&#x60;. 
 		/// </summary>
 		/// <value>A description about the effect of the command. Variables are using the format &#x60;{name}&#x60; where *name* refers to the names in &#x60;values&#x60;. </value>
 		[MaxLength(300)]
 		[DataMember(Name = "description", EmitDefaultValue = false)]
-		public string Description { get; set; } = "null";
+		public abstract string Description { get;}
 
 		/// <summary>
 		/// The ame to display for this Command. ***Not*** unique (identifying)
@@ -60,7 +85,18 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>Describes how often this command is going to be executed</value>
 		[Range(1, 10)]
 		[DataMember(Name = "times", EmitDefaultValue = false)]
-		public int Times { get; set; } = 1;
+		public abstract int Times { get; }
+		
+		public string FilledDescription {
+			get {
+				string output = Description;
+				foreach ((string key,int val) in _parameters) {
+					while(output.Contains($"{{{key}}}"))
+						output = output.Replace($"{{{key}}}", val.ToString());
+				}
+				return output;
+			}
+		}
 
 		/// <summary>
 		/// Returns the string presentation of the object
@@ -77,6 +113,8 @@ namespace Tgm.Roborally.Server.Models {
 			sb.Append("}\n");
 			return sb.ToString();
 		}
+
+		public abstract void Do(GameLogic game, int robotId);
 
 		/// <summary>
 		/// Returns the JSON string presentation of the object
