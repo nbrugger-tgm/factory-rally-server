@@ -19,30 +19,27 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				5,
 			   new MoveCommand(3) {
 				   Name        ="Sprint"
-			   },
-			   default
+			   }
 			);
 		
 			AddCard(
 				10,
 				new MoveCommand(2) {
 					Name ="Move"
-				},
-				default
+				}
 			);
 			
 			AddCard(
 				20,
 				new MoveCommand(1) {
 					Name ="Crawl"
-				},
-				CardLocation.DECK
+				}
 			);
 		}
 
-		private void AddCard(int number, RobotCommand moveCommand, CardLocation o) {
+		private void AddCard(int number, RobotCommand moveCommand) {
 			for (int i = 0; i < number; i++)
-				_pool[_pool.Count] = (moveCommand, o,-1);
+				_pool[_pool.Count] = (moveCommand, CardLocation.DECK,-1);
 		}
 
 
