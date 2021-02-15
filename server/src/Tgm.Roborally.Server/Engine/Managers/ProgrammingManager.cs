@@ -47,7 +47,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public  IList<RobotCommand>    Cards     => _pool.Values.Select(e => e.command).ToList();
 		private Dictionary<int, int[]> Registers => new Dictionary<int, int[]>();
 
-		public IList<int> Deck => _pool.Where(e => e.Value.location == CardLocation.DECK).Select(e => e.Key).ToList();
+		public ISet<int> Deck => _pool.Where(e => e.Value.location == CardLocation.DECK).Select(e => e.Key).ToImmutableHashSet();
 
 		public void Clear(int robotId) {
 			int[] regs = Registers[robotId];
