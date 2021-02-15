@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore;
@@ -19,10 +20,10 @@ namespace Tgm.Roborally.Server {
 			if (args.Length > 0) {
 				GameAuth.ChangeAdminKey(args[0]);
 			}
-
-			Console.WriteLine("+--------------------------+");
-			Console.WriteLine("| Robo Rally Server v" + version + " |");
-			Console.WriteLine("+--------------------------+");
+			string line = string.Concat(Enumerable.Repeat("-", VERSION.Length));
+			Console.WriteLine("+---------------------"+line+"+");
+			Console.WriteLine("| Robo Rally Server v" + VERSION + " |");
+			Console.WriteLine("+---------------------"+line+"+");
 			Console.Write("map-repo : ");
 			Console.WriteLine(ServerProperties.mapRepo);
 			Console.Write("admin-key : ");
