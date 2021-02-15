@@ -3168,6 +3168,15 @@
             "$ref": "#/components/schemas/EntityID"
           }
         }
+      },
+      "EmptyEvent": {
+        "title": "EmptyEvent",
+        "type": "object",
+        "description": "Event without data"
+      },
+      "DummyEvent": {
+        "title": "DummyEvent",
+        "type": "object"
       }
     },
     "responses": {
