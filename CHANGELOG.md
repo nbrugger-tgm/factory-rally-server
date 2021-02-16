@@ -1,3 +1,22 @@
+## v2.1.0 (2021-02-16)
+
+### Feat
+
+- add pseudo movement
+- add "DeckEmpty" Exception
+- implement deck re-shuffeling
+- implement `Programming Phase`
+
+### Fix
+
+- make waiting concurrent / thread save
+- bad spelling
+- crash due to too much health
+
+### Perf
+
+- use ID instead of object
+
 ## v2.1.0b1 (2021-02-15)
 
 ### Fix
@@ -22,14 +41,6 @@
 - use more namespaces
 
 ## v2.0.0 (2021-02-12)
-
-> All phases are **included**. BUT they do nothing/are not implemented
->
-> They do simulate a game with one round and at the end Player with id `0` wins the game.
-
-> DO NOT Create multiple games with this version as this **can** cause never ending (looping) games **without waiting** which will create a heavy CPU load. Additional your RAM will overflow as many hundred Events would be added to the Queues.
->
-> This Behaviour is intentional and will stay until the execution phase is fully implemented
 
 ### Fix
 
@@ -155,7 +166,7 @@
 
 ### BREAKING CHANGE
 
-- #6
+- #9
 
 ## v0.9.0 (2021-02-04)
 
