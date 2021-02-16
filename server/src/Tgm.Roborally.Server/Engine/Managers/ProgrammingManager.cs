@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Data;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Tgm.Roborally.Server.Engine.Phases;
 using Tgm.Roborally.Server.Engine.Statement;
 using Tgm.Roborally.Server.Models;
 
@@ -72,7 +74,15 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			Random    r     = new Random();
 			List<int> cards = new List<int>();
 			for (int i = 0; i < robo.Health - 1; i++) {
-				int                                                      cardId = Deck[r.Next(Deck.Count)];
+				if (Deck.Count == 0)
+					ReShuffleDeck();
+				if (Deck.Count == 0) {
+					Console.Out.WriteLine("pool: \n"+string.Join(Environment.NewLine, _pool.Select(e => $"[{e.Key} -> {e.Value}]")));
+					GameFlowException ex = new GameFlowException(GameFlowException.NO_DECK);
+					throw ex;
+				}
+
+				int                                                      cardId = Deck.First();
 				(RobotCommand command, CardLocation location, int owner) elem   = _pool[cardId];
 				elem.owner    = robot;
 				elem.location = CardLocation.IN_HAND;
@@ -85,6 +95,16 @@ namespace Tgm.Roborally.Server.Engine.Managers {
             	Count = cards.Count,
 				Player = robot//todo rename to robot
 			});
+		}
+
+		private void ReShuffleDeck() {
+			foreach (int id in _pool.Keys) {
+				if (_pool[id].location == CardLocation.DISCARDED) {
+					(RobotCommand command, CardLocation location, int owner) stub = _pool[id];
+					stub.location = CardLocation.DECK;
+					_pool[id]     = stub;
+				}
+			}
 		}
 	}
 
