@@ -16,7 +16,6 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public RobotPickEvent PickRobo(Robots type, Player gamePlayer) {
 			RobotInfo info = new RobotInfo() {
-				Health = 10,
 				Id     = NextFreeId()
 			};
 			info.Name = gamePlayer.DisplayName + " " + info.Id;
