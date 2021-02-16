@@ -17,13 +17,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
+using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
 	/// 
 	/// </summary>
 	[DataContract]
-	public partial class ProgrammingTimerStartEvent : IEquatable<ProgrammingTimerStartEvent> {
+	public partial class ProgrammingTimerStartEvent : IEquatable<ProgrammingTimerStartEvent>, Event {
 		/// <summary>
 		/// Time the timer will run for
 		/// </summary>
@@ -53,6 +54,8 @@ namespace Tgm.Roborally.Server.Models {
 			sb.Append("}\n");
 			return sb.ToString();
 		}
+
+		public EventType GetEventType() => EventType.ProgrammingTimerStart;
 
 		/// <summary>
 		/// Returns the JSON string presentation of the object
