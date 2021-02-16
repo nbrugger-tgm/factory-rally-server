@@ -90,7 +90,7 @@ namespace Tgm.Roborally.Server.Controllers {
 			List<EventType>     events = new List<EventType>();
 			GameRequestPipeline pip    = new GameRequestPipeline();
 			pip.Game(gameId)
-			   .Player(((Player) HttpContext.Items[GameAuth.PLAYER]).Id);
+			   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID]);
 			if (batch) {
 				pip.Compute(c => {
 					if (c.Game.EventManager.queues.ContainsKey(c.Player.Id)) {
