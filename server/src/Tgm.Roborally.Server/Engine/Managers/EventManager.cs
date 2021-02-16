@@ -53,7 +53,9 @@ namespace Tgm.Roborally.Server.Engine {
 		/// </summary>
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void Await() {
-			Monitor.Wait(locker);
+			lock (locker) {
+				Monitor.Wait(locker);
+			}
 		}
 
 		public Event Peek(int player) {
