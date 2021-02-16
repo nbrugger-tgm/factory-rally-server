@@ -17,14 +17,15 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		protected override object Information => new UpgradeInfo();
 
 		protected override GamePhase Run(GameLogic game) {
-			this._game = game;
+			_game = game;
 			game.Upgrades.fillShop();
 			_shopFilled = true;
 			//TODO calculate order based on prio beacon
-			for (_activePlayer = 0; _activePlayer < game.PlayerCount; _activePlayer++) {
-				_endTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + TIME;
+			foreach(int activePlayer in game.PlayerIds) {
+				_activePlayer = activePlayer;
+				_endTime      = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + TIME;
+				_executed     = false;
 				lock (_listener) {
-					_executed = false;
 					Monitor.Wait(_listener, TIME);
 					if (!_executed) {
 						game.CommitEvent(new TimeElapsedEvent() {

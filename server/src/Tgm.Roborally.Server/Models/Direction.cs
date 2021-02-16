@@ -44,6 +44,8 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		/// Enum Right for right
 		/// </summary>
-		[EnumMember(Value = "right")] Right = 4
+		[EnumMember(Value = "right")] Right = 4,
+
+		
 	}
 }

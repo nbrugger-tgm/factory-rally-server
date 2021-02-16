@@ -1,3 +1,9 @@
+## v2.2.0b0 (2021-02-16)
+
+### Feat
+
+- implement RandomCardDistribution
+
 ## v2.1.0 (2021-02-16)
 
 ### Feat
