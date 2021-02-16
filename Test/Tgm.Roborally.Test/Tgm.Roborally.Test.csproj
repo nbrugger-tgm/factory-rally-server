@@ -9,7 +9,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
-	  <PackageReference Include="Tgm.Roborally.Api" Version="2.0.0" />
+	  <PackageReference Include="Tgm.Roborally.Api" Version="2.1.0" />
 	</ItemGroup>
 
 </Project>
