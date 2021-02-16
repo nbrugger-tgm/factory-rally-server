@@ -39,14 +39,18 @@ namespace Tgm.Roborally.Test {
 			EventHandlingApi eventApi = new EventHandlingApi(config);
 			bool             run      = true;
 			int              c        = 1;
-			while (run) {
-				GenericEvent ev = eventApi.FetchNextEvent(game);
-				Print(c++ +". Event:");
-				if(ev == null)
-					Print("Whatsefrick");
-				if(ev.Data != null)
-					Print("Type of 'Event.Data' :"+ev.Data.GetType());
-				Print(ev.ToJson() +"\n");
+			try {
+				while (run) {
+					EventType type = eventApi.TraceEvent(game, wait: true,batch:false)[0];
+					run = type != EventType.Gameendevent;
+					GenericEvent ev = eventApi.FetchNextEvent(game);
+					Print(c++         + ". Event: " + type);
+					Print(ev.ToJson() + "\n");
+				}
+			}
+			catch (Exception) {
+				Console.Out.WriteLine("TraceEvent("+game+")");
+				throw;
 			}
 		}
 		
