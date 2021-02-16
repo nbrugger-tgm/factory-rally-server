@@ -91,8 +91,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			}
 
 			_game.CommitEvent(new DrawCardEvent {
-            	Cards = cards,
-            	Count = cards.Count,
+				Cards = cards,
+				Count = cards.Count,
 				Player = robot//todo rename to robot
 			});
 		}
@@ -105,6 +105,24 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 					_pool[id]     = stub;
 				}
 			}
+		}
+
+		public int[] GetHandCards(int rid) => _pool
+											  .Where(e => e.Value.location == CardLocation.IN_HAND && e.Value.owner == rid)
+											  .Select(e => e.Key)
+											  .ToArray();
+
+		public void SetRegister(int rid, int register, int card) {
+			(RobotCommand command, CardLocation location, int owner) entry = _pool[card];
+			entry.location           = CardLocation.IN_REGISTER;
+			entry.owner              = rid;
+			_pool[card]              = entry;
+			Registers[rid][register] = card;
+			_game.CommitEvent(new ChangeRegisterEvent() {
+				Action = ChangeRegisterEvent.ActionEnum.Fill,
+				Card = card,
+				Register = register
+			});
 		}
 	}
 

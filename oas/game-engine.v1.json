@@ -3066,6 +3066,10 @@
       "ChangeRegisterEvent": {
         "title": "ChangeRegisterEvent",
         "type": "object",
+        "description": "The event when a player places or removes an robot command from/to a register",
+        "x-tags": [
+          "EventHandling"
+        ],
         "properties": {
           "action": {
             "type": "string",
@@ -3077,14 +3081,17 @@
           },
           "card": {
             "$ref": "#/components/schemas/UpgradeID"
+          },
+          "register": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8,
+            "description": "The changed register"
           }
         },
         "required": [
-          "action"
-        ],
-        "description": "The event when a player places or removes an robot command from/to a register",
-        "x-tags": [
-          "EventHandling"
+          "action",
+          "register"
         ]
       },
       "ProgrammingTimerStartEvent": {

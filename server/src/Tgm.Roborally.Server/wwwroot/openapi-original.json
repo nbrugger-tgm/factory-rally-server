@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Robot Rally Game logic engine",
-    "version": "v1.4.0",
+    "version": "v2.1.0",
     "description": "This api controlls the flow of a game and provides it's data.\nIt is desiged to be RESTfull so the structure works simmilar as file system.\nThe service will run and only work in a local network, `game.host` is the IP of the Computer hosting the game and will be found via a IP scan",
     "contact": {
       "name": "Nils Brugger",
@@ -3066,6 +3066,10 @@
       "ChangeRegisterEvent": {
         "title": "ChangeRegisterEvent",
         "type": "object",
+        "description": "The event when a player places or removes an robot command from/to a register",
+        "x-tags": [
+          "EventHandling"
+        ],
         "properties": {
           "action": {
             "type": "string",
@@ -3077,14 +3081,17 @@
           },
           "card": {
             "$ref": "#/components/schemas/UpgradeID"
+          },
+          "register": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8,
+            "description": "The changed register"
           }
         },
         "required": [
-          "action"
-        ],
-        "description": "The event when a player places or removes an robot command from/to a register",
-        "x-tags": [
-          "EventHandling"
+          "action",
+          "register"
         ]
       },
       "ProgrammingTimerStartEvent": {
@@ -3168,6 +3175,15 @@
             "$ref": "#/components/schemas/EntityID"
           }
         }
+      },
+      "EmptyEvent": {
+        "title": "EmptyEvent",
+        "type": "object",
+        "description": "Event without data"
+      },
+      "DummyEvent": {
+        "title": "DummyEvent",
+        "type": "object"
       }
     },
     "responses": {
