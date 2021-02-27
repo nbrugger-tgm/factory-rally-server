@@ -63,6 +63,33 @@ namespace Tgm.Roborally.Server.Models {
 		[DataMember(Name = "player-on-turn", EmitDefaultValue = true)]
 		public int PlayerOnTurn => _ref.playerOnTurn;
 
+		/// <summary>
+		/// The default rule for names in the game
+		/// </summary>
+		/// <value>The default rule for names in the game</value>
+		[Required]
+		[RegularExpression("[A-Za-z]+[A-Za-z0-9_ -]+[A-Za-z0-9]{1}")]
+		[StringLength(13, MinimumLength = 3)]
+		[DataMember(Name                = "name", EmitDefaultValue = false)]
+		public string Name => _ref.Name;
+
+		/// <summary>
+		/// The maximum count of players that can participate in this game
+		/// </summary>
+		/// <value>The maximum count of players that can participate in this game</value>
+		[Required]
+		[Range(1, 10)]
+		[DataMember(Name = "max-players", EmitDefaultValue = false)]
+		public int MaxPlayers => _ref.MaxPlayers;
+
+		/// <summary>
+		/// The numbers of players in the game
+		/// </summary>
+		/// <value>The numbers of players in the game</value>
+		[Required]
+		[Range(0, 10)]
+		[DataMember(Name = "current-players", EmitDefaultValue = false)]
+		public int CurrentPlayers => _ref.PlayerCount;
 
 		/// <summary>
 		/// Gets or Sets ExecutionInfo
