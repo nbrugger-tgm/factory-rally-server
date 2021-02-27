@@ -15,14 +15,24 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		private long   end;
 		protected override GamePhase Run(GameLogic game) {
 			lock (_lock) {
+				#region start timer
 				game.CommitEvent(new ProgrammingTimerStartEvent{
 					End     = end = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() +_timerDuration,
 					Seconds = (int) (_timerDuration /1000)
 				});
 				timerUp = true;
 				Monitor.Wait(_lock,_timerDuration);
+				#endregion
+
+				#region stop timer
+
 				game.CommitEvent(new EmptyEvent(EventType.ProgrammingTimerStop));
 				timerUp = false;
+
+				#endregion
+
+				#region Random card distribution
+
 				foreach (int rid in game.Entitys.Robots) {
 					int[] registers = game.Programming.GetRegister(rid);
 					int[] empty     = registers.Where(i => i == -1).Select(selector: (value, index) => index).ToArray();
@@ -35,6 +45,9 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 							game.Programming.SetRegister(rid, register, hand[0]);
 					}
 				}
+
+				#endregion
+				
 			}
 			return new PostProgrammingPhase();
 		}
