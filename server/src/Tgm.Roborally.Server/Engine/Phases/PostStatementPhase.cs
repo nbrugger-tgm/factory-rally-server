@@ -1,26 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.Transactions;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
 	public class PostStatementPhase : GamePhase {
-		public static     int    roboIndex = 0;
+		private GameLogic _game;
 
-		protected override object Information => new PostStatementInfo();
-
-		public class PostStatementInfo {
-			public int RobotIndex => roboIndex;
-		}
+		protected override object Information => new {
+			roboIndex = _game.executionState.CurrentRobot
+		};
 
 		protected override GamePhase Run(GameLogic game) {
+			this._game = game;
+			//TODO robo priority
 			
-			//TODO 
+			int roboIndex = game.executionState.CurrentRobot++;
 			
-			roboIndex++;
-			if (roboIndex >= game.Entitys.Robots.Count) {
-				roboIndex = 0;
+			if (roboIndex >= game.Entitys.Robots.Count) 
 				return new PostExecutionPhase();
-			}
+			
 			//else /*makes no difference if added*/
 			return new PreStatementPhase();
 		}

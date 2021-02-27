@@ -7,6 +7,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		protected override object Information => null;
 
 		protected override GamePhase Run(GameLogic game) {
+			game.executionState.CurrentRegister = 0;
 			return new PreExecutionPhase();
 		}
 
@@ -17,6 +18,6 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 		public override bool Notify(GenericEvent action) => false;
 
-		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) => throw new NotImplementedException();
+		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) => new List<EntityEventOportunity>();
 	}
 }

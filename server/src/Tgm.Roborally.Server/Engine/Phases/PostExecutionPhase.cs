@@ -5,16 +5,20 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
 	public class PostExecutionPhase : GamePhase {
-		public static     int    register = 0;
+		private GameLogic _game;
 
-		protected override object Information => new ExecutionInfo(register);
+		protected override object Information => new {
+			register = _game.executionState.CurrentRegister
+		};
 
 		protected override GamePhase Run(GameLogic game) {
+			_game = game;
+			int register = game.executionState.CurrentRegister++;
 			if (register >= 9) {
-				register = 0;
 				return new GameEndPhase();
 			}
-			register++;
+
+			game.executionState.CurrentRobot = 0;
 			return new PreExecutionPhase();
 		}
 

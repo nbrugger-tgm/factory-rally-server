@@ -4,14 +4,17 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
 	public class PreStatementPhase : GamePhase {
-		protected override object Information => new PreStatementInfo();
+		protected            GameLogic _game;
+		protected override object    Information => new {
+			robotId = _game.executionState.CurrentRobot
+		};
 
 		protected override GamePhase Run(GameLogic game) {
+			this._game = game;
 			return new PostStatementPhase();
 		}
-		public class PreStatementInfo {
-			public int RobotIndex => PostStatementPhase.roboIndex;
-		}
+
+		
 		public override GameState NewState => GameState.PLAYING;
 
 		public override void Notify(ActionType action) { //TODO

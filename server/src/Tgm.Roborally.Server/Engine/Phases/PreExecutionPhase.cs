@@ -4,9 +4,14 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
 	public class PreExecutionPhase : GamePhase {
-		protected override object Information => new ExecutionInfo(PostExecutionPhase.register);
+		private GameLogic _game;
+
+		protected override object Information => new {
+			register = _game.executionState.CurrentRegister
+		};
 
 		protected override GamePhase Run(GameLogic game) {
+			_game = game;
 			return new PreStatementPhase();
 		}
 
@@ -18,13 +23,5 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		public override bool Notify(GenericEvent action) => false;
 
 		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) => throw new NotImplementedException();
-	}
-
-	public class ExecutionInfo {
-		public readonly int RegisterIndex;
-
-		public ExecutionInfo(int registerIndex) {
-			RegisterIndex = registerIndex;
-		}
 	}
 }

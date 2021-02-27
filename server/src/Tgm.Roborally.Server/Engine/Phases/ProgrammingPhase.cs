@@ -27,11 +27,12 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 					int[] registers = game.Programming.GetRegister(rid);
 					int[] empty     = registers.Where(i => i == -1).Select(selector: (value, index) => index).ToArray();
 					if(empty.Length > 0)
-						game.CommitEvent(new DummyEvent(EventType.RandomCardDistribution,"Affected robot "+rid+" will get "+empty.Length+" cards randomly distributed to registers"));
+						game.CommitEvent(new DummyEvent(EventType.RandomCardDistribution, $"Affected robot {rid} will get {empty.Length} cards randomly distributed to registers"));
 					
-					for (int i = 0; i < empty.Length; i++) {
+					foreach (int register in empty) {
 						int[] hand = game.Programming.GetHandCards(rid);
-						game.Programming.SetRegister(rid, empty[i], hand[0]);
+						if(hand.Length>0)
+							game.Programming.SetRegister(rid, register, hand[0]);
 					}
 				}
 			}
