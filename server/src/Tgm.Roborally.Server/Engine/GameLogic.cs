@@ -20,6 +20,7 @@ namespace Tgm.Roborally.Server.Engine {
 		public           int                                   id;
 		public           int                                   playerOnTurn;
 
+		public readonly GameInfoExecutionInfo executionState = new GameInfoExecutionInfo();
 
 		public GameLogic(GameRules r) {
 			Rules         = r;
