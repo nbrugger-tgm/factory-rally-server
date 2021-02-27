@@ -47,9 +47,11 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			cache = cache.OrderBy(e => rand.Next()).ToDictionary(item => item.Key, item => item.Value);;
 			foreach (KeyValuePair<int,(RobotCommand, CardLocation, int)> pair in cache) _pool.Add(pair.Key, pair.Value);
 		}
-		private void AddCard(int number, RobotCommand moveCommand) {
+		
+
+		private void AddCard(int number, RobotCommand command) {
 			for (int i = 0; i < number; i++)
-				_pool[_pool.Count] = (moveCommand, CardLocation.DECK,-1);
+				_pool[_pool.Count] = (command, CardLocation.DECK, -1);
 		}
 
 
