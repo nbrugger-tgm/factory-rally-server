@@ -62,11 +62,14 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public ISet<int> Deck => _pool.Where(e => e.Value.location == CardLocation.DECK).Select(e => e.Key).ToImmutableHashSet();
 
 		public void Clear(int robotId) {
-			int[] regs = Registers[robotId];
+			int[] regs = GetRegister(robotId);
 			for (int i = 0; i < regs.Length; i++) {
 				regs[i] = -1;
+				_game.CommitEvent(new ChangeRegisterEvent() {
+					Action = ChangeRegisterEvent.ActionEnum.Clear,
+					Register = i
+				});
 			}
-
 			Registers[robotId] = regs;
 		}
 
