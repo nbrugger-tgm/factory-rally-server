@@ -1,3 +1,15 @@
+## v2.2.0 (2021-02-27)
+
+### Fix
+
+- execution cycle sharing between games
+- wrong game info value
+
+### Feat
+
+- add game execution info to game info
+- programming card shuffling
+
 ## v2.2.0b0 (2021-02-16)
 
 ### Feat
