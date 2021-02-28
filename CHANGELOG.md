@@ -1,3 +1,9 @@
+## v2.5.1 (2021-02-28)
+
+### Perf
+
+- remove active yield waiting (-98% CPU usage)
+
 ## v2.5.0 (2021-02-28)
 
 ### Refactor
