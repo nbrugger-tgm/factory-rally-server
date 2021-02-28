@@ -1973,11 +1973,11 @@
           },
           "executionInfo": {
             "type": "object",
+            "description": "Information abou the executon cycle",
             "required": [
               "currentRegister",
               "currentRobot"
             ],
-            "description": "Information abou the executon cycle",
             "properties": {
               "currentRegister": {
                 "type": "integer",
@@ -1988,6 +1988,10 @@
                 "description": "The index of the robot currently executing"
               }
             }
+          },
+          "password-protected": {
+            "type": "boolean",
+            "description": "True if the game has a password in order to join\n"
           }
         },
         "required": [
@@ -1998,7 +2002,8 @@
           "name",
           "max-players",
           "current-players",
-          "executionInfo"
+          "executionInfo",
+          "password-protected"
         ]
       },
       "GameState": {

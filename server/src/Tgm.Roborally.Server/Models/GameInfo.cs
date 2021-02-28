@@ -103,6 +103,14 @@ namespace Tgm.Roborally.Server.Models {
 		[DataMember(Name = "executionInfo", EmitDefaultValue = false)]
 		public GameInfoExecutionInfo ExecutionInfo => _ref.executionState;
 
+		/// True if the game has a password in order to join 
+		/// </summary>
+		/// <value>True if the game has a password in order to join </value>
+		[Required]
+		[DataMember(Name = "password-protected", EmitDefaultValue = false)]
+		public bool PasswordProtected => !string.IsNullOrEmpty(_ref.Password);
+		/// <summary>
+
 		/// <summary>
 		///     Returns true if GameInfo instances are equal
 		/// </summary>
