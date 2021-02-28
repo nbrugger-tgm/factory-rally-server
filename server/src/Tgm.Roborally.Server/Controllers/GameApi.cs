@@ -11,9 +11,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using Tgm.Roborally.Server.Attributes;
 using Tgm.Roborally.Server.Authentication;
@@ -22,12 +20,11 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Controllers {
 	/// <summary>
-	/// 
 	/// </summary>
 	[ApiController]
 	public class GameApiController : ControllerBase {
 		/// <summary>
-		/// Commit Action
+		///     Commit Action
 		/// </summary>
 		/// <remarks>Queues an action to be executed</remarks>
 		/// <param name="gameId"></param>
@@ -40,22 +37,20 @@ namespace Tgm.Roborally.Server.Controllers {
 		//[GameAuth(Role.ADMIN)]
 		[ValidateModelState]
 		[SwaggerOperation("CommitAction")]
-		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
-		[SwaggerResponse(statusCode: 409, type: typeof(ErrorMessage), description: "Conflict")]
+		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(409, type: typeof(ErrorMessage), description: "Conflict")]
 		public virtual IActionResult CommitAction([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-												  int gameId, [FromQuery] [Required()] ActionType action) {
-			return
-				new GameRequestPipeline()
-					.Game(gameId)
-					.Compute(c => {
-						c.Game.ActionHandler.Add(action);
-						c.Game.ActionHandler.ExecuteNext();
-					})
-					.ExecuteAction();
-		}
+												  int gameId, [FromQuery] [Required] ActionType action) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Compute(code: c => {
+					c.Game.ActionHandler.Add(action);
+					c.Game.ActionHandler.ExecuteNext();
+				})
+				.ExecuteAction();
 
 		/// <summary>
-		/// Create Game
+		///     Create Game
 		/// </summary>
 		/// <remarks>Creates a random game by your defined rules</remarks>
 		/// <param name="gameRules">*Optional* This rules define how your game will behave</param>
@@ -67,12 +62,12 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerOperation("CreateGame")]
 		public virtual IActionResult CreateGame([FromBody] GameRules gameRules) {
 			GameRequestPipeline pip = new GameRequestPipeline();
-			pip.Compute(c => c.Response = new OkObjectResult(GameManager.instance.startGame(gameRules)));
+			pip.Compute(code: c => c.Response = new OkObjectResult(GameManager.instance.startGame(gameRules)));
 			return pip.ExecuteSecure();
 		}
 
 		/// <summary>
-		/// Get games actions
+		///     Get games actions
 		/// </summary>
 		/// <remarks>Get all (**not robot related**) actions comitted to this game.</remarks>
 		/// <param name="gameId"></param>
@@ -85,19 +80,17 @@ namespace Tgm.Roborally.Server.Controllers {
 		[GameAuth(Role.ADMIN)]
 		[ValidateModelState]
 		[SwaggerOperation("GetActions")]
-		[SwaggerResponse(statusCode: 200, type: typeof(List<Action>), description: "OK")]
-		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(200, type: typeof(List<Action>), description: "OK")]
+		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetActions([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-												int gameId, [FromQuery] string mode) {
-			return
-				new GameRequestPipeline()
-					.Game(gameId)
-					.Compute(c => c.Response = new OkObjectResult(c.Game.ActionHandler.Queue))
-					.ExecuteAction();
-		}
+												int gameId, [FromQuery] string mode) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Compute(code: c => c.Response = new OkObjectResult(c.Game.ActionHandler.Queue))
+				.ExecuteAction();
 
 		/// <summary>
-		/// Get game status
+		///     Get game status
 		/// </summary>
 		/// <remarks>Returns the status of a game</remarks>
 		/// <param name="gameId"></param>
@@ -107,20 +100,19 @@ namespace Tgm.Roborally.Server.Controllers {
 		[Route("/v1/games/{game_id}/status")]
 		[ValidateModelState]
 		[SwaggerOperation("GetGameState")]
-		[SwaggerResponse(statusCode: 200, type: typeof(GameInfo), description: "OK")]
-		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(200, type: typeof(GameInfo), description: "OK")]
+		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetGameState(
 			[FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 			int gameId
-		) {
-			return new GameRequestPipeline()
-				   .Game(gameId)
-				   .Compute(ctx => ctx.Response = new OkObjectResult(ctx.Game.Info))
-				   .ExecuteAction();
-		}
+		) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Compute(code: ctx => ctx.Response = new OkObjectResult(ctx.Game.Info))
+				.ExecuteAction();
 
 		/// <summary>
-		/// Get all games
+		///     Get all games
 		/// </summary>
 		/// <remarks>Returns a list of all hosted games</remarks>
 		/// <param name="joinable">true: only return joinable games</param>
@@ -130,19 +122,18 @@ namespace Tgm.Roborally.Server.Controllers {
 		[Route("/v1/games/")]
 		[ValidateModelState]
 		[SwaggerOperation("GetGames")]
-		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
-		public virtual IActionResult GetGames([FromQuery] bool joinable, [FromQuery] bool unprotected) {
-			return new ObjectResult(
+		[SwaggerResponse(200, type: typeof(List<int>), description: "OK")]
+		public virtual IActionResult GetGames([FromQuery] bool joinable, [FromQuery] bool unprotected) =>
+			new ObjectResult(
 				GameManager.instance.games
-						   .Where(pair => (!joinable    || pair.Value.Joinable) &&
-										  (!unprotected || pair.Value.Password == null))
-						   .Select(e => e.Key)
+						   .Where(predicate: pair => (!joinable    || pair.Value.Joinable) &&
+													 (!unprotected || pair.Value.Password == null))
+						   .Select(selector: e => e.Key)
 						   .ToList()
 			);
-		}
 
 		/// <summary>
-		/// Get Programming Card
+		///     Get Programming Card
 		/// </summary>
 		/// <remarks>Get the programming card by id</remarks>
 		/// <param name="gameId"></param>
@@ -153,19 +144,18 @@ namespace Tgm.Roborally.Server.Controllers {
 		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetProgrammingCard")]
-		[SwaggerResponse(statusCode: 200, type: typeof(RobotCommand), description: "OK")]
+		[SwaggerResponse(200, type: typeof(RobotCommand), description: "OK")]
 		public virtual IActionResult GetProgrammingCard([FromRoute] [Required] [Range(0, 2048)]
 														int gameId, [FromRoute] [Required] [Range(0, 10000)]
-														int statementId) {
-			return new GameRequestPipeline()
-				   .Game(gameId)
-				   .ProgrammingCard(statementId)
-				   .Compute(c => c.Response = new OkObjectResult(c.Command))
-				   .ExecuteSecure();
-		}
+														int statementId) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.ProgrammingCard(statementId)
+				.Compute(code: c => c.Response = new OkObjectResult(c.Command))
+				.ExecuteSecure();
 
 		/// <summary>
-		/// Get Programming Card IDs
+		///     Get Programming Card IDs
 		/// </summary>
 		/// <param name="gameId"></param>
 		/// <response code="200">OK</response>
@@ -174,17 +164,16 @@ namespace Tgm.Roborally.Server.Controllers {
 		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetProgrammingCardIds")]
-		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
+		[SwaggerResponse(200, type: typeof(List<int>), description: "OK")]
 		public virtual IActionResult GetProgrammingCardIds([FromRoute] [Required] [Range(0, 2048)]
-														   int gameId) {
-			return new GameRequestPipeline()
-				   .Game(gameId)
-				   .Compute(c => c.Response = new OkObjectResult(c.Game.Programming.IDs))
-				   .ExecuteSecure();
-		}
+														   int gameId) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Compute(code: c => c.Response = new OkObjectResult(c.Game.Programming.IDs))
+				.ExecuteSecure();
 
 		/// <summary>
-		/// Get Programming cards
+		///     Get Programming cards
 		/// </summary>
 		/// <remarks>Returns the Programming cards in this game</remarks>
 		/// <param name="gameId"></param>
@@ -194,13 +183,12 @@ namespace Tgm.Roborally.Server.Controllers {
 		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetProgrammingCards")]
-		[SwaggerResponse(statusCode: 200, type: typeof(List<RobotCommand>), description: "OK")]
+		[SwaggerResponse(200, type: typeof(List<RobotCommand>), description: "OK")]
 		public virtual IActionResult GetProgrammingCards([FromRoute] [Required] [Range(0, 2048)]
-														 int gameId) {
-			return new GameRequestPipeline()
-				   .Game(gameId)
-				   .Compute(c => c.Response = new OkObjectResult(c.Game.Programming.Cards))
-				   .ExecuteSecure();
-		}
+														 int gameId) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Compute(code: c => c.Response = new OkObjectResult(c.Game.Programming.Cards))
+				.ExecuteSecure();
 	}
 }

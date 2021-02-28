@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Newtonsoft.Json;
 using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Models;
 
@@ -215,7 +213,7 @@ namespace Tgm.Roborally.Server.Authentication {
 		public bool isAdmin;
 
 		/// <summary>
-		///		-1 means not a player
+		///     -1 means not a player
 		/// </summary>
 		public int player = -1;
 

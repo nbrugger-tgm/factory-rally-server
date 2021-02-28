@@ -9,38 +9,38 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// All the data you need as you joined a game.
+	///     All the data you need as you joined a game.
 	/// </summary>
 	[DataContract]
-	public partial class JoinResponse : IEquatable<JoinResponse> {
-		private Player _player { get; }
-
+	public class JoinResponse : IEquatable<JoinResponse> {
 		public JoinResponse(Player player) {
 			_player = player;
 		}
 
+		private Player _player { get; }
+
 		/// <summary>
-		/// This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication
+		///     This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used
+		///     for authentication
 		/// </summary>
-		/// <value>This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication</value>
+		/// <value>
+		///     This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is
+		///     used for authentication
+		/// </value>
 		[Required]
 		[Range(0, 8)]
 		[DataMember(Name = "id", EmitDefaultValue = false)]
 		public int Id => _player.Id;
 
 		/// <summary>
-		/// The uid is the key for the joined player. You need this key for authentication
+		///     The uid is the key for the joined player. You need this key for authentication
 		/// </summary>
 		/// <value>The uid is the key for the joined player. You need this key for authentication</value>
 		[Required]
@@ -48,39 +48,7 @@ namespace Tgm.Roborally.Server.Models {
 		public string Pat => _player.auth;
 
 		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class JoinResponse {\n");
-			sb.Append("  Id: ").Append(Id).Append("\n");
-			sb.Append("  Pat: ").Append(Pat).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
-		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((JoinResponse) obj);
-		}
-
-		/// <summary>
-		/// Returns true if JoinResponse instances are equal
+		///     Returns true if JoinResponse instances are equal
 		/// </summary>
 		/// <param name="other">Instance of JoinResponse to be compared</param>
 		/// <returns>Boolean</returns>
@@ -100,13 +68,43 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class JoinResponse {\n");
+			sb.Append("  Id: ").Append(Id).Append("\n");
+			sb.Append("  Pat: ").Append(Pat).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((JoinResponse) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 
 				hashCode = hashCode * 59 + Id.GetHashCode();
@@ -120,13 +118,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(JoinResponse left, JoinResponse right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(JoinResponse left, JoinResponse right) => Equals(left, right);
 
-		public static bool operator !=(JoinResponse left, JoinResponse right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(JoinResponse left, JoinResponse right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

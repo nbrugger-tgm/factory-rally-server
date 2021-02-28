@@ -1,83 +1,90 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Data;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using Tgm.Roborally.Server.Engine.Phases;
 using Tgm.Roborally.Server.Engine.Statement;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Managers {
 	public class ProgrammingManager {
-		private          GameLogic                                                    _game;
-		private readonly 
-			Dictionary<int,(RobotCommand command,CardLocation location,int owner)> _pool = 
-				new Dictionary<int, (RobotCommand, CardLocation,int)>();
+		private readonly
+			Dictionary<int, (RobotCommand command, CardLocation location, int owner)> _pool =
+				new Dictionary<int, (RobotCommand, CardLocation, int)>();
+
+		private readonly GameLogic _game;
+
 		public ProgrammingManager(GameLogic game) {
 			_game = game;
 
 			AddCard(
 				5,
-			   new MoveCommand(3) {
-				   Name        ="Sprint"
-			   }
+				new MoveCommand(3) {
+					Name = "Sprint"
+				}
 			);
-		
+
 			AddCard(
 				10,
 				new MoveCommand(2) {
-					Name ="Move"
+					Name = "Move"
 				}
 			);
-			
+
 			AddCard(
 				20,
 				new MoveCommand(1) {
-					Name ="Crawl"
+					Name = "Crawl"
 				}
 			);
 			Shuffle();
 		}
 
+
+		public  ISet<int>              IDs       => _pool.Keys.ToHashSet();
+		public  IList<RobotCommand>    Cards     => _pool.Values.Select(selector: e => e.command).ToList();
+		private Dictionary<int, int[]> Registers => new Dictionary<int, int[]>();
+
+		public ISet<int> Deck => _pool.Where(predicate: e => e.Value.location == CardLocation.DECK)
+									  .Select(selector: e => e.Key).ToImmutableHashSet();
+
+		public RobotCommand this[int robotId] => !_pool.ContainsKey(robotId) ? null : _pool[robotId].command;
+
 		private void Shuffle() {
-			Random                                             rand  = new Random();
-			Dictionary<int, (RobotCommand, CardLocation, int)> cache = _pool.ToDictionary(e => e.Key,e=>e.Value);
+			Random rand = new Random();
+			Dictionary<int, (RobotCommand, CardLocation, int)> cache =
+				_pool.ToDictionary(keySelector: e => e.Key, elementSelector: e => e.Value);
 			_pool.Clear();
-			cache = cache.OrderBy(e => rand.Next()).ToDictionary(item => item.Key, item => item.Value);;
-			foreach (KeyValuePair<int,(RobotCommand, CardLocation, int)> pair in cache) _pool.Add(pair.Key, pair.Value);
+			cache = cache.OrderBy(keySelector: e => rand.Next())
+						 .ToDictionary(keySelector: item => item.Key, elementSelector: item => item.Value);
+			;
+			foreach (KeyValuePair<int, (RobotCommand, CardLocation, int)> pair in cache)
+				_pool.Add(pair.Key, pair.Value);
 		}
-		
+
 
 		private void AddCard(int number, RobotCommand command) {
 			for (int i = 0; i < number; i++)
 				_pool[_pool.Count] = (command, CardLocation.DECK, -1);
 		}
 
-
-		public  ISet<int>              IDs       => _pool.Keys.ToHashSet();
-		public  IList<RobotCommand>    Cards     => _pool.Values.Select(e => e.command).ToList();
-		private Dictionary<int, int[]> Registers => new Dictionary<int, int[]>();
-
-		public ISet<int> Deck => _pool.Where(e => e.Value.location == CardLocation.DECK).Select(e => e.Key).ToImmutableHashSet();
-
 		public void Clear(int robotId) {
 			int[] regs = GetRegister(robotId);
 			for (int i = 0; i < regs.Length; i++) {
 				regs[i] = -1;
-				_game.CommitEvent(new ChangeRegisterEvent() {
-					Action = ChangeRegisterEvent.ActionEnum.Clear,
+				_game.CommitEvent(new ChangeRegisterEvent {
+					Action   = ChangeRegisterEvent.ActionEnum.Clear,
 					Register = i
 				});
 			}
+
 			Registers[robotId] = regs;
 		}
-
-		public RobotCommand this[int robotId] => !_pool.ContainsKey(robotId) ? null : _pool[robotId].command;
 
 		public int[] GetRegister(int robotId) {
 			if (!Registers.ContainsKey(robotId))
 				Registers[robotId] = new int[5];
+
 			return Registers[robotId];
 		}
 
@@ -90,7 +97,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				if (Deck.Count == 0)
 					ReShuffleDeck();
 				if (Deck.Count == 0) {
-					Console.Out.WriteLine("pool: \n"+string.Join(Environment.NewLine, _pool.Select(e => $"[{e.Key} -> {e.Value}]")));
+					Console.Out.WriteLine("pool: \n" +
+										  string.Join(Environment.NewLine,
+													  _pool.Select(selector: e => $"[{e.Key} -> {e.Value}]")));
 					GameFlowException ex = new GameFlowException(GameFlowException.NO_DECK);
 					throw ex;
 				}
@@ -104,9 +113,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			}
 
 			_game.CommitEvent(new DrawCardEvent {
-				Cards = cards,
-				Count = cards.Count,
-				Player = robot//todo rename to robot
+				Cards  = cards,
+				Count  = cards.Count,
+				Player = robot //todo rename to robot
 			});
 		}
 
@@ -121,8 +130,10 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		}
 
 		public int[] GetHandCards(int rid) => _pool
-											  .Where(e => e.Value.location == CardLocation.IN_HAND && e.Value.owner == rid)
-											  .Select(e => e.Key)
+											  .Where(predicate: e =>
+														 e.Value.location == CardLocation.IN_HAND &&
+														 e.Value.owner    == rid)
+											  .Select(selector: e => e.Key)
 											  .ToArray();
 
 		public void SetRegister(int rid, int register, int card) {
@@ -131,9 +142,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			entry.owner              = rid;
 			_pool[card]              = entry;
 			Registers[rid][register] = card;
-			_game.CommitEvent(new ChangeRegisterEvent() {
-				Action = ChangeRegisterEvent.ActionEnum.Fill,
-				Card = card,
+			_game.CommitEvent(new ChangeRegisterEvent {
+				Action   = ChangeRegisterEvent.ActionEnum.Fill,
+				Card     = card,
 				Register = register
 			});
 		}

@@ -9,23 +9,19 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// Describes the state/stats of a robot
+	///     Describes the state/stats of a robot
 	/// </summary>
 	[DataContract]
-	public partial class RobotInfo : Entity, IEquatable<RobotInfo> {
+	public class RobotInfo : Entity, IEquatable<RobotInfo> {
 		/// <summary>
-		/// The number of avainable energy cubes
+		///     The number of avainable energy cubes
 		/// </summary>
 		/// <value>The number of avainable energy cubes</value>
 		[Range(0, 20)]
@@ -33,7 +29,7 @@ namespace Tgm.Roborally.Server.Models {
 		public int EnergyCubes { get; set; } = 3;
 
 		/// <summary>
-		/// The remaining health points
+		///     The remaining health points
 		/// </summary>
 		/// <value>The remaining health points</value>
 		[Range(1, 10)]
@@ -41,21 +37,21 @@ namespace Tgm.Roborally.Server.Models {
 		public int Health { get; set; } = 10;
 
 		/// <summary>
-		/// True if the robot is not in rebooting mode
+		///     True if the robot is not in rebooting mode
 		/// </summary>
 		/// <value>True if the robot is not in rebooting mode</value>
 		[DataMember(Name = "active", EmitDefaultValue = false)]
 		public bool Active { get; set; } = true;
 
 		/// <summary>
-		/// If the robot is in virtual mode
+		///     If the robot is in virtual mode
 		/// </summary>
 		/// <value>If the robot is in virtual mode</value>
 		[DataMember(Name = "virtual", EmitDefaultValue = false)]
-		public bool Virtual { get; set; } = false;
+		public bool Virtual { get; set; }
 
 		/// <summary>
-		/// The priority of this player. Higher is more priority. 1 &#x3D; lowest. max &#x3D; number of players
+		///     The priority of this player. Higher is more priority. 1 &#x3D; lowest. max &#x3D; number of players
 		/// </summary>
 		/// <value>The priority of this player. Higher is more priority. 1 &#x3D; lowest. max &#x3D; number of players</value>
 		[Range(1, 8)]
@@ -63,21 +59,21 @@ namespace Tgm.Roborally.Server.Models {
 		public int Priority { get; set; }
 
 		/// <summary>
-		/// True if the robot is currently active (executing a register)
+		///     True if the robot is currently active (executing a register)
 		/// </summary>
 		/// <value>True if the robot is currently active (executing a register)</value>
 		[DataMember(Name = "on-turn", EmitDefaultValue = false)]
 		public bool OnTurn { get; set; }
 
 		/// <summary>
-		/// True if you are the one controlling the robot
+		///     True if you are the one controlling the robot
 		/// </summary>
 		/// <value>True if you are the one controlling the robot</value>
 		[DataMember(Name = "is-mine", EmitDefaultValue = false)]
 		public bool IsMine { get; set; }
 
 		/// <summary>
-		/// The cards in the hand of the robot
+		///     The cards in the hand of the robot
 		/// </summary>
 		/// <value>The cards in the hand of the robot</value>
 		[Range(0, 9)]
@@ -85,65 +81,21 @@ namespace Tgm.Roborally.Server.Models {
 		public int HandCards { get; set; }
 
 		/// <summary>
-		/// The height level of the robot
+		///     The height level of the robot
 		/// </summary>
 		/// <value>The height level of the robot</value>
 		[Range(0, 4)]
 		[DataMember(Name = "attitude", EmitDefaultValue = false)]
-		public int Attitude { get; set; } = 0;
+		public int Attitude { get; set; }
 
 		/// <summary>
-		/// Gets or Sets Type
+		///     Gets or Sets Type
 		/// </summary>
 		[DataMember(Name = "type", EmitDefaultValue = false)]
 		public Robots Type { get; set; }
 
 		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class RobotInfo {\n");
-			sb.Append("  Direction: ").Append(Direction).Append("\n");
-			sb.Append("  Name: ").Append(Name).Append("\n");
-			sb.Append("  Id: ").Append(Id).Append("\n");
-			sb.Append("  Location: ").Append(Location).Append("\n");
-			sb.Append("  EnergyCubes: ").Append(EnergyCubes).Append("\n");
-			sb.Append("  Health: ").Append(Health).Append("\n");
-			sb.Append("  Active: ").Append(Active).Append("\n");
-			sb.Append("  Virtual: ").Append(Virtual).Append("\n");
-			sb.Append("  Priority: ").Append(Priority).Append("\n");
-			sb.Append("  OnTurn: ").Append(OnTurn).Append("\n");
-			sb.Append("  IsMine: ").Append(IsMine).Append("\n");
-			sb.Append("  HandCards: ").Append(HandCards).Append("\n");
-			sb.Append("  Attitude: ").Append(Attitude).Append("\n");
-			sb.Append("  Type: ").Append(Type).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
-		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((RobotInfo) obj);
-		}
-
-		/// <summary>
-		/// Returns true if RobotInfo instances are equal
+		///     Returns true if RobotInfo instances are equal
 		/// </summary>
 		/// <param name="other">Instance of RobotInfo to be compared</param>
 		/// <returns>Boolean</returns>
@@ -213,13 +165,55 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class RobotInfo {\n");
+			sb.Append("  Direction: ").Append(Direction).Append("\n");
+			sb.Append("  Name: ").Append(Name).Append("\n");
+			sb.Append("  Id: ").Append(Id).Append("\n");
+			sb.Append("  Location: ").Append(Location).Append("\n");
+			sb.Append("  EnergyCubes: ").Append(EnergyCubes).Append("\n");
+			sb.Append("  Health: ").Append(Health).Append("\n");
+			sb.Append("  Active: ").Append(Active).Append("\n");
+			sb.Append("  Virtual: ").Append(Virtual).Append("\n");
+			sb.Append("  Priority: ").Append(Priority).Append("\n");
+			sb.Append("  OnTurn: ").Append(OnTurn).Append("\n");
+			sb.Append("  IsMine: ").Append(IsMine).Append("\n");
+			sb.Append("  HandCards: ").Append(HandCards).Append("\n");
+			sb.Append("  Attitude: ").Append(Attitude).Append("\n");
+			sb.Append("  Type: ").Append(Type).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((RobotInfo) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 
 				hashCode = hashCode * 59 + Direction.GetHashCode();
@@ -257,13 +251,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(RobotInfo left, RobotInfo right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(RobotInfo left, RobotInfo right) => Equals(left, right);
 
-		public static bool operator !=(RobotInfo left, RobotInfo right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(RobotInfo left, RobotInfo right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

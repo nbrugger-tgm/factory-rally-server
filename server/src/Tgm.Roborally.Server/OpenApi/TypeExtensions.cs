@@ -4,23 +4,23 @@ using System.Text;
 
 namespace Tgm.Roborally.Server.OpenApi {
 	/// <summary>
-	/// Replacement utilities from Swashbuckle.AspNetCore.SwaggerGen which are not in 5.x
+	///     Replacement utilities from Swashbuckle.AspNetCore.SwaggerGen which are not in 5.x
 	/// </summary>
 	public static class TypeExtensions {
 		/// <summary>
-		/// Produce a friendly name for the type which is unique.
+		///     Produce a friendly name for the type which is unique.
 		/// </summary>
 		/// <param name="type"></param>
 		/// <param name="fullyQualified"></param>
 		public static string FriendlyId(this Type type, bool fullyQualified = false) {
-			var typeName = fullyQualified
-							   ? type.FullNameSansTypeParameters().Replace("+", ".")
-							   : type.Name;
+			string typeName = fullyQualified
+								  ? type.FullNameSansTypeParameters().Replace("+", ".")
+								  : type.Name;
 
 			if (type.IsGenericType) {
-				var genericArgumentIds = type.GetGenericArguments()
-											 .Select(t => t.FriendlyId(fullyQualified))
-											 .ToArray();
+				string[] genericArgumentIds = type.GetGenericArguments()
+												  .Select(selector: t => t.FriendlyId(fullyQualified))
+												  .ToArray();
 
 				return new StringBuilder(typeName)
 					   .Replace($"`{genericArgumentIds.Count()}", string.Empty)
@@ -32,15 +32,15 @@ namespace Tgm.Roborally.Server.OpenApi {
 		}
 
 		/// <summary>
-		/// Determine the fully qualified type name without type parameters.
+		///     Determine the fully qualified type name without type parameters.
 		/// </summary>
 		/// <param name="type"></param>
 		public static string FullNameSansTypeParameters(this Type type) {
-			var fullName = type.FullName;
+			string? fullName = type.FullName;
 			if (string.IsNullOrEmpty(fullName))
 				fullName = type.Name;
-			var chopIndex = fullName.IndexOf("[[", StringComparison.Ordinal);
-			return (chopIndex == -1) ? fullName : fullName.Substring(0, chopIndex);
+			int chopIndex = fullName.IndexOf("[[", StringComparison.Ordinal);
+			return chopIndex == -1 ? fullName : fullName.Substring(0, chopIndex);
 		}
 	}
 }

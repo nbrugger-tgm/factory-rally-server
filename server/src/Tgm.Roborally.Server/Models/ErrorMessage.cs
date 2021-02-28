@@ -9,23 +9,19 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// A message about that went wrong. Usefull to display users a short and usefull prompt
+	///     A message about that went wrong. Usefull to display users a short and usefull prompt
 	/// </summary>
 	[DataContract]
-	public partial class ErrorMessage : IEquatable<ErrorMessage> {
+	public class ErrorMessage : IEquatable<ErrorMessage> {
 		/// <summary>
-		/// A short message describing what happened in human words
+		///     A short message describing what happened in human words
 		/// </summary>
 		/// <value>A short message describing what happened in human words</value>
 		[Required]
@@ -33,46 +29,14 @@ namespace Tgm.Roborally.Server.Models {
 		public string Message { get; set; }
 
 		/// <summary>
-		/// The error/exception
+		///     The error/exception
 		/// </summary>
 		/// <value>The error/exception</value>
 		[DataMember(Name = "error", EmitDefaultValue = false)]
 		public string Error { get; set; }
 
 		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class ErrorMessage {\n");
-			sb.Append("  Message: ").Append(Message).Append("\n");
-			sb.Append("  Error: ").Append(Error).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
-		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((ErrorMessage) obj);
-		}
-
-		/// <summary>
-		/// Returns true if ErrorMessage instances are equal
+		///     Returns true if ErrorMessage instances are equal
 		/// </summary>
 		/// <param name="other">Instance of ErrorMessage to be compared</param>
 		/// <returns>Boolean</returns>
@@ -94,13 +58,43 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class ErrorMessage {\n");
+			sb.Append("  Message: ").Append(Message).Append("\n");
+			sb.Append("  Error: ").Append(Error).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((ErrorMessage) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 				if (Message != null)
 					hashCode = hashCode * 59 + Message.GetHashCode();
@@ -114,13 +108,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(ErrorMessage left, ErrorMessage right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(ErrorMessage left, ErrorMessage right) => Equals(left, right);
 
-		public static bool operator !=(ErrorMessage left, ErrorMessage right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(ErrorMessage left, ErrorMessage right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

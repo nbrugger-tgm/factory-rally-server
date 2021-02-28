@@ -1,35 +1,40 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Microsoft.Extensions.DependencyInjection;
 using Tgm.Roborally.Server.Models;
 using Action = System.Action;
 
 namespace Tgm.Roborally.Server.Engine {
 	public class GameActionHandler {
-		private GameLogic        game;
-		private List<ActionType> _Queue { get; } = new List<ActionType>();
-
-
-		private int                               _queuePos;
-		public  int                               QueuePos => _queuePos;
-		private Dictionary<ActionType, Action>    ActionMap = new Dictionary<ActionType, Action>();
-		private Dictionary<ActionType, EventType> EventMap  = new Dictionary<ActionType, EventType>();
-
-		[MethodImpl(MethodImplOptions.Synchronized)]
-		public void ExecuteNext() {
-			ActionType type = _Queue[_queuePos++];
-			ActionMap[type].Invoke();
-			game.CommitEvent(new ActionEvent(EventMap[type]));
-			game.NotifyThread(type);
-		}
+		private readonly Dictionary<ActionType, Action>    ActionMap = new Dictionary<ActionType, Action>();
+		private readonly Dictionary<ActionType, EventType> EventMap  = new Dictionary<ActionType, EventType>();
+		private readonly GameLogic                         game;
 
 
 		public GameActionHandler(GameLogic game) {
 			this.game = game;
 			InitActionMap();
 			InitEventMap();
+		}
+
+		private List<ActionType> _Queue   { get; } = new List<ActionType>();
+		public  int              QueuePos { get; private set; }
+
+		public List<ActionType> Pending  => _Queue.Where(predicate: (e, index) => index >= QueuePos).ToList();
+		public List<ActionType> Executed => _Queue.Where(predicate: (e, index) => index < QueuePos).ToList();
+
+		public List<Models.Action> Queue => _Queue
+											.Select(
+												selector: (e, i) => new Models.Action {
+													Index = i, Executed = i < QueuePos, Type = e
+												}).ToList();
+
+		[MethodImpl(MethodImplOptions.Synchronized)]
+		public void ExecuteNext() {
+			ActionType type = _Queue[QueuePos++];
+			ActionMap[type].Invoke();
+			game.CommitEvent(new ActionEvent(EventMap[type]));
+			game.NotifyThread(type);
 		}
 
 		private void InitActionMap() {
@@ -46,14 +51,5 @@ namespace Tgm.Roborally.Server.Engine {
 
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void Add(ActionType t) => _Queue.Add(t);
-
-		public List<ActionType> Pending  => _Queue.Where((e, index) => index >= _queuePos).ToList();
-		public List<ActionType> Executed => _Queue.Where((e, index) => index < _queuePos).ToList();
-
-		public List<Tgm.Roborally.Server.Models.Action> Queue => _Queue
-																 .Select(
-																	 (e, i) => new Tgm.Roborally.Server.Models.Action() {
-																		 Index = i, Executed = i < _queuePos, Type = e,
-																	 }).ToList();
 	}
 }

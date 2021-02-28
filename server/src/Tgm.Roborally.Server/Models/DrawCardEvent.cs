@@ -9,33 +9,35 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// The event that occurs if a player gets his programming cards
+	///     The event that occurs if a player gets his programming cards
 	/// </summary>
 	[DataContract]
-	public partial class DrawCardEvent : IEquatable<DrawCardEvent>, Event {
+	public class DrawCardEvent : IEquatable<DrawCardEvent>, Event {
 		/// <summary>
-		/// This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication
+		///     This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used
+		///     for authentication
 		/// </summary>
-		/// <value>This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication</value>
+		/// <value>
+		///     This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is
+		///     used for authentication
+		/// </value>
 		[Required]
 		[Range(0, 8)]
 		[DataMember(Name = "player", EmitDefaultValue = false)]
 		public int Player { get; set; }
 
 		/// <summary>
-		/// The number of cards drawn
+		///     The number of cards drawn
 		/// </summary>
 		/// <value>The number of cards drawn</value>
 		[Required]
@@ -44,49 +46,16 @@ namespace Tgm.Roborally.Server.Models {
 		public int Count { get; set; }
 
 		/// <summary>
-		/// The drawn cards. **This is only visible for the player himself**
+		///     The drawn cards. **This is only visible for the player himself**
 		/// </summary>
 		/// <value>The drawn cards. **This is only visible for the player himself**</value>
 		[DataMember(Name = "cards", EmitDefaultValue = false)]
 		public List<int> Cards { get; set; }
 
-		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class DrawCardEvent {\n");
-			sb.Append("  Player: ").Append(Player).Append("\n");
-			sb.Append("  Count: ").Append(Count).Append("\n");
-			sb.Append("  Cards: ").Append(Cards).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
 		public EventType GetEventType() => EventType.TakeCardEvent;
 
 		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((DrawCardEvent) obj);
-		}
-
-		/// <summary>
-		/// Returns true if DrawCardEvent instances are equal
+		///     Returns true if DrawCardEvent instances are equal
 		/// </summary>
 		/// <param name="other">Instance of DrawCardEvent to be compared</param>
 		/// <returns>Boolean</returns>
@@ -112,13 +81,44 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class DrawCardEvent {\n");
+			sb.Append("  Player: ").Append(Player).Append("\n");
+			sb.Append("  Count: ").Append(Count).Append("\n");
+			sb.Append("  Cards: ").Append(Cards).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((DrawCardEvent) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 
 				hashCode = hashCode * 59 + Player.GetHashCode();
@@ -134,13 +134,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(DrawCardEvent left, DrawCardEvent right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(DrawCardEvent left, DrawCardEvent right) => Equals(left, right);
 
-		public static bool operator !=(DrawCardEvent left, DrawCardEvent right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(DrawCardEvent left, DrawCardEvent right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

@@ -9,46 +9,59 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
+namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// Information abou the executon cycle
+	///     Information abou the executon cycle
 	/// </summary>
 	[DataContract]
-	public partial class GameInfoExecutionInfo : IEquatable<GameInfoExecutionInfo>
-	{
+	public class GameInfoExecutionInfo : IEquatable<GameInfoExecutionInfo> {
 		/// <summary>
-		/// The index of the register currently executed
+		///     The index of the register currently executed
 		/// </summary>
 		/// <value>The index of the register currently executed</value>
 		[Required]
-		[DataMember(Name="currentRegister", EmitDefaultValue=false)]
+		[DataMember(Name = "currentRegister", EmitDefaultValue = false)]
 		public int CurrentRegister { get; set; }
 
 		/// <summary>
-		/// The index of the robot currently executing
+		///     The index of the robot currently executing
 		/// </summary>
 		/// <value>The index of the robot currently executing</value>
 		[Required]
-		[DataMember(Name="currentRobot", EmitDefaultValue=false)]
+		[DataMember(Name = "currentRobot", EmitDefaultValue = false)]
 		public int CurrentRobot { get; set; }
 
 		/// <summary>
-		/// Returns the string presentation of the object
+		///     Returns true if GameInfoExecutionInfo instances are equal
+		/// </summary>
+		/// <param name="other">Instance of GameInfoExecutionInfo to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(GameInfoExecutionInfo other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
+
+			return
+				(
+					CurrentRegister == other.CurrentRegister ||
+					CurrentRegister.Equals(other.CurrentRegister)
+				) &&
+				(
+					CurrentRobot == other.CurrentRobot ||
+					CurrentRobot.Equals(other.CurrentRobot)
+				);
+		}
+
+		/// <summary>
+		///     Returns the string presentation of the object
 		/// </summary>
 		/// <returns>String presentation of the object</returns>
-		public override string ToString()
-		{
-			var sb = new StringBuilder();
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
 			sb.Append("class GameInfoExecutionInfo {\n");
 			sb.Append("  CurrentRegister: ").Append(CurrentRegister).Append("\n");
 			sb.Append("  CurrentRobot: ").Append(CurrentRobot).Append("\n");
@@ -57,81 +70,49 @@ namespace Tgm.Roborally.Server.Models
 		}
 
 		/// <summary>
-		/// Returns the JSON string presentation of the object
+		///     Returns the JSON string presentation of the object
 		/// </summary>
 		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson()
-		{
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
 
 		/// <summary>
-		/// Returns true if objects are equal
+		///     Returns true if objects are equal
 		/// </summary>
 		/// <param name="obj">Object to be compared</param>
 		/// <returns>Boolean</returns>
-		public override bool Equals(object obj)
-		{
+		public override bool Equals(object obj) {
 			if (obj is null) return false;
 			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((GameInfoExecutionInfo)obj);
+			return obj.GetType() == GetType() && Equals((GameInfoExecutionInfo) obj);
 		}
 
 		/// <summary>
-		/// Returns true if GameInfoExecutionInfo instances are equal
-		/// </summary>
-		/// <param name="other">Instance of GameInfoExecutionInfo to be compared</param>
-		/// <returns>Boolean</returns>
-		public bool Equals(GameInfoExecutionInfo other)
-		{
-			if (other is null) return false;
-			if (ReferenceEquals(this, other)) return true;
-
-			return 
-				(
-					CurrentRegister == other.CurrentRegister ||
-					
-					CurrentRegister.Equals(other.CurrentRegister)
-				) && 
-				(
-					CurrentRobot == other.CurrentRobot ||
-					
-					CurrentRobot.Equals(other.CurrentRobot)
-				);
-		}
-
-		/// <summary>
-		/// Gets the hash code
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
-		public override int GetHashCode()
-		{
+		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
-					
-					hashCode = hashCode * 59 + CurrentRegister.GetHashCode();
-					
-					hashCode = hashCode * 59 + CurrentRobot.GetHashCode();
+
+				hashCode = hashCode * 59 + CurrentRegister.GetHashCode();
+
+				hashCode = hashCode * 59 + CurrentRobot.GetHashCode();
 				return hashCode;
 			}
 		}
 
 		#region Operators
+
 		#pragma warning disable 1591
 
-		public static bool operator ==(GameInfoExecutionInfo left, GameInfoExecutionInfo right)
-		{
-			return Equals(left, right);
-		}
+		public static bool operator ==(GameInfoExecutionInfo left, GameInfoExecutionInfo right) => Equals(left, right);
 
-		public static bool operator !=(GameInfoExecutionInfo left, GameInfoExecutionInfo right)
-		{
-			return !Equals(left, right);
-		}
+		public static bool operator !=(GameInfoExecutionInfo left, GameInfoExecutionInfo right) => !Equals(left, right);
 
 		#pragma warning restore 1591
+
 		#endregion Operators
 	}
 }

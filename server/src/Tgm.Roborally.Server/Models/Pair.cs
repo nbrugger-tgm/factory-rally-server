@@ -9,28 +9,24 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// A named value. A pair of an index and value. (Part of a map)
+	///     A named value. A pair of an index and value. (Part of a map)
 	/// </summary>
 	[DataContract]
-	public partial class Pair : IEquatable<Pair> {
+	public class Pair : IEquatable<Pair> {
 		public Pair(string fields, int i) {
 			Name  = fields;
 			Value = i;
 		}
 
 		/// <summary>
-		/// The name the value is bound to
+		///     The name the value is bound to
 		/// </summary>
 		/// <value>The name the value is bound to</value>
 		[Required]
@@ -39,46 +35,14 @@ namespace Tgm.Roborally.Server.Models {
 		public string Name { get; set; }
 
 		/// <summary>
-		/// The value behind the name. Can be null
+		///     The value behind the name. Can be null
 		/// </summary>
 		/// <value>The value behind the name. Can be null</value>
 		[DataMember(Name = "value", EmitDefaultValue = false)]
 		public int Value { get; set; }
 
 		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class Pair {\n");
-			sb.Append("  Name: ").Append(Name).Append("\n");
-			sb.Append("  Value: ").Append(Value).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
-		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((Pair) obj);
-		}
-
-		/// <summary>
-		/// Returns true if Pair instances are equal
+		///     Returns true if Pair instances are equal
 		/// </summary>
 		/// <param name="other">Instance of Pair to be compared</param>
 		/// <returns>Boolean</returns>
@@ -99,13 +63,43 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class Pair {\n");
+			sb.Append("  Name: ").Append(Name).Append("\n");
+			sb.Append("  Value: ").Append(Value).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((Pair) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 				if (Name != null)
 					hashCode = hashCode * 59 + Name.GetHashCode();
@@ -119,13 +113,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(Pair left, Pair right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(Pair left, Pair right) => Equals(left, right);
 
-		public static bool operator !=(Pair left, Pair right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(Pair left, Pair right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

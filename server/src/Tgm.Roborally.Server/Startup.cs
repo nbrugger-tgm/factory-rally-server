@@ -11,7 +11,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -20,17 +19,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
-using Tgm.Roborally.Server.Authentication;
 using Tgm.Roborally.Server.Filters;
-
 
 namespace Tgm.Roborally.Server {
 	/// <summary>
-	/// Startup
+	///     Startup
 	/// </summary>
 	public class Startup {
 		/// <summary>
-		/// Constructor
+		///     Constructor
 		/// </summary>
 		/// <param name="configuration"></param>
 		public Startup(IConfiguration configuration) {
@@ -38,20 +35,20 @@ namespace Tgm.Roborally.Server {
 		}
 
 		/// <summary>
-		/// The application configuration.
+		///     The application configuration.
 		/// </summary>
 		public IConfiguration Configuration { get; }
 
 		/// <summary>
-		/// This method gets called by the runtime. Use this method to add services to the container.
+		///     This method gets called by the runtime. Use this method to add services to the container.
 		/// </summary>
 		/// <param name="services"></param>
 		public void ConfigureServices(IServiceCollection services) {
 			// Add framework services.
 			services
-				.AddMvc(opts => opts.EnableEndpointRouting = false)
+				.AddMvc(setupAction: opts => opts.EnableEndpointRouting = false)
 				.SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-				.AddNewtonsoftJson(opts => {
+				.AddNewtonsoftJson(setupAction: opts => {
 					opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 					opts.SerializerSettings.Converters.Add(new StringEnumConverter {
 						NamingStrategy = new CamelCaseNamingStrategy()
@@ -59,16 +56,16 @@ namespace Tgm.Roborally.Server {
 				});
 
 			services
-				.AddSwaggerGen(c => {
+				.AddSwaggerGen(setupAction: c => {
 					c.SwaggerDoc("0.1.0", new OpenApiInfo {
 						Version     = "0.1.0",
 						Title       = "Robot Rally Game logic engine",
 						Description = "Robot Rally Game logic engine (ASP.NET Core 3.1)",
-						Contact = new OpenApiContact() {
+						Contact = new OpenApiContact {
 							Name  = "Nils Brugger",
 							Url   = new Uri("https://github.com/openapitools/openapi-generator"),
 							Email = "nbrugger@student.tgm.ac.at"
-						},
+						}
 						//TermsOfService = new Uri("")
 					});
 					//c.CustomSchemaIds(type => type.(true));
@@ -85,7 +82,7 @@ namespace Tgm.Roborally.Server {
 		}
 
 		/// <summary>
-		/// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		///     This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		/// </summary>
 		/// <param name="app"></param>
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
@@ -94,8 +91,8 @@ namespace Tgm.Roborally.Server {
 				.UseMvc()
 				.UseDefaultFiles()
 				.UseStaticFiles()
-				.UseSwagger(c => { c.RouteTemplate = "swagger/{documentName}/openapi.json"; })
-				.UseSwaggerUI(c => {
+				.UseSwagger(setupAction: c => { c.RouteTemplate = "swagger/{documentName}/openapi.json"; })
+				.UseSwaggerUI(setupAction: c => {
 					//TODO: Either use the SwaggerGen generated Swagger contract (generated from C# classes)
 					c.SwaggerEndpoint("/swagger/0.1.0/openapi.json", "Robot Rally Game logic engine");
 
@@ -103,14 +100,12 @@ namespace Tgm.Roborally.Server {
 					// c.SwaggerEndpoint("/openapi-original.json", "Robot Rally Game logic engine Original");
 				});
 			app.UseRouting();
-			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+			app.UseEndpoints(configure: endpoints => { endpoints.MapControllers(); });
 
-			if (env.IsDevelopment()) {
+			if (env.IsDevelopment())
 				app.UseDeveloperExceptionPage();
-			}
-			else {
+			else
 				app.UseHsts();
-			}
 		}
 	}
 }

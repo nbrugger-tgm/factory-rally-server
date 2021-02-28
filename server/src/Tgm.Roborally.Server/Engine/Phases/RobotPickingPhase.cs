@@ -7,6 +7,8 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 	public class RobotPickingPhase : GamePhase {
 		protected override object Information => new PickingInformation(PickingMode.RANDOM_DISTRIBUTION);
 
+		public override GameState NewState => GameState.PLANNING;
+
 		protected override GamePhase Run(GameLogic game) {
 			//TODO: Later on maybe a more intelligent algorithm will take place here
 
@@ -21,11 +23,8 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			return new MainPhase();
 		}
 
-		public override GameState NewState => GameState.PLANNING;
-
-		public override void Notify(ActionType action) {
+		public override void Notify(ActionType action) =>
 			throw new NotImplementedException("This phase cant be paused (received: " + action + ")");
-		}
 
 		public override bool Notify(GenericEvent action) {
 			return action.GetEventType() == EventType.LockIn;
@@ -34,9 +33,8 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 				action.GetEventType()                                                                     + ")");
 		}
 
-		public override IList<EntityEventOportunity> GetPossibleActions(int a, int b) {
-			return new List<EntityEventOportunity>();
-		}
+		public override IList<EntityEventOportunity> GetPossibleActions(int a, int b) =>
+			new List<EntityEventOportunity>();
 	}
 
 	public class PickingInformation {
@@ -51,6 +49,5 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		RANDOM_DISTRIBUTION,
 		LEAGUE_LIKE_PICKING,
 		FIRST_COME_FIRST_SERVE
-		
 	}
 }

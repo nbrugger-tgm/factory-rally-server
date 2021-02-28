@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
-using Microsoft.AspNetCore.Mvc;
 using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Engine.KI;
 using Tgm.Roborally.Server.Engine.Managers;
@@ -13,14 +11,18 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine {
 	public class GameLogic {
-		private readonly GameThread                            _thread;
-		private          GameState                             _state = GameState.LOBBY;
-		private readonly Dictionary<string, int>               _consumerKeys = new Dictionary<string, int>();
-		private readonly Dictionary<int, ConsumerRegistration> _consumers = new Dictionary<int, ConsumerRegistration>();
-		public           int                                   id;
-		public           int                                   playerOnTurn;
+		private static readonly string[] kis = {"Jarvis", "ExMachina", "Ultron", "Vision", "Ordis", "Suda", "Simaris"};
+		private readonly        Dictionary<string, int> _consumerKeys = new Dictionary<string, int>();
+		private readonly        GameThread _thread;
 
 		public readonly GameInfoExecutionInfo executionState = new GameInfoExecutionInfo();
+
+		public readonly ProgrammingManager Programming;
+		private         GameState          _state = GameState.LOBBY;
+		public          int                id;
+
+		public RoundPhase? Phase = null;
+		public int         playerOnTurn;
 
 		public GameLogic(GameRules r) {
 			Rules         = r;
@@ -35,8 +37,6 @@ namespace Tgm.Roborally.Server.Engine {
 			Programming   = new ProgrammingManager(this);
 			_thread.Start();
 		}
-
-		public readonly ProgrammingManager Programming;
 
 		public GameState LastState { get; private set; }
 
@@ -69,14 +69,11 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public bool Joinable => State == GameState.LOBBY && Players.Count < MaxPlayers;
 
-		public Dictionary<int, ConsumerRegistration> Consumers   => _consumers;
-		public int                                   PlayerCount => Players.Count;
+		public Dictionary<int, ConsumerRegistration> Consumers { get; } = new Dictionary<int, ConsumerRegistration>();
 
-		public MovementManager Movement {
-			get { throw new NotImplementedException(); }
-		}
+		public int PlayerCount => Players.Count;
 
-		public RoundPhase? Phase = null;
+		public MovementManager Movement => throw new NotImplementedException();
 
 		public IList<EntityEventOportunity> PossibleEntityActions(int robot, int player) =>
 			_thread.PossibleEntityActions(robot, player);
@@ -130,7 +127,7 @@ namespace Tgm.Roborally.Server.Engine {
 				Players.Remove(GetPlayer(playerId));
 				CommitEvent(new JoinEvent {
 					JoinedId = playerId,
-					Unjoin = true
+					Unjoin   = true
 				});
 			}
 			else if (_state == GameState.PLAYING || _state == GameState.PLANNING) {
@@ -140,8 +137,6 @@ namespace Tgm.Roborally.Server.Engine {
 			else
 				throw new PlayerNotRemoveableException("The player is not removeable in this state of the game");
 		}
-
-		private static String[] kis = {"Jarvis", "ExMachina", "Ultron", "Vision", "Ordis", "Suda", "Simaris"};
 
 		public void StartGame() {
 			if (_state != GameState.LOBBY) throw new WrongStateException(GameState.LOBBY, _state, "Start Game");
@@ -171,12 +166,12 @@ namespace Tgm.Roborally.Server.Engine {
 			int consumerId;
 			do {
 				consumerId = new Random().Next(100, 9999);
-			} while (_consumers.ContainsKey(consumerId));
+			} while (Consumers.ContainsKey(consumerId));
 
-			if (_consumers.Count >= 200)
+			if (Consumers.Count >= 200)
 				return null;
 
-			_consumers[consumerId] = consumerRegistration;
+			Consumers[consumerId] = consumerRegistration;
 			Player pseudo = new Player {
 				Id = consumerId
 			};
@@ -189,7 +184,37 @@ namespace Tgm.Roborally.Server.Engine {
 			return (a = _consumerKeys.ContainsKey(authKey), a ? _consumerKeys[authKey] : -1);
 		}
 
-		public ConsumerRegistration GetConsumer(int resItem2) => _consumers[resItem2];
+		public ConsumerRegistration GetConsumer(int resItem2) => Consumers[resItem2];
+
+		public void BuyUpgrade(int playerId, int upgrade, int exchange) {
+			Player p = GetPlayer(playerId);
+			if (p.ControlledEntities.Count != 1)
+				throw new ActionException("Multiple Robots per player are not implemented.");
+
+			int       roboId = p.ControlledEntities[0];
+			RobotInfo robo   = (RobotInfo) Entitys[roboId];
+			ActionCheck(playerId, roboId, EntityActionType.BuyUpgrade);
+			if (Upgrades.GetEntityUpgrades(roboId).Count >= 3) {
+				ExchangeUpgrade(roboId, upgrade, exchange);
+				return;
+			}
+
+			Upgrades.Buy(upgrade, p.ControlledEntities[0]);
+		}
+
+		/// <summary>
+		///     Checks if the action is excecutable and throws an Exception to be returned if not
+		/// </summary>
+		/// <param name="robot">the id of the robot</param>
+		/// <param name="act">The action to check for</param>
+		/// <param name="player">the id of the player</param>
+		private void ActionCheck(int player, int robot, EntityActionType act) {
+			if (!_thread.PossibleEntityActions(robot, player).Select(selector: eop => eop.Type).Contains(act))
+				throw new ActionException("This action is not available right now");
+		}
+
+		private void ExchangeUpgrade(int playerId, int upgrade, int exchange) =>
+			Upgrades.Exchange(playerId, upgrade, exchange);
 
 		/// Thrown when the game cant be joined (eg. it has reached max players
 		private class GameNotJoinableException : Exception {
@@ -204,38 +229,6 @@ namespace Tgm.Roborally.Server.Engine {
 			/// <inheritdoc />
 			public PlayerNotRemoveableException(string message) : base(message) {
 			}
-		}
-
-		public void BuyUpgrade(int playerId, int upgrade, int exchange) {
-			Player p = GetPlayer(playerId);
-			if (p.ControlledEntities.Count != 1) {
-				throw new ActionException("Multiple Robots per player are not implemented.");
-			}
-
-			int       roboId = p.ControlledEntities[0];
-			RobotInfo robo   = (RobotInfo) Entitys[roboId];
-			ActionCheck(playerId, roboId, EntityActionType.BuyUpgrade);
-			if (Upgrades.GetEntityUpgrades(roboId).Count >= 3) {
-				ExchangeUpgrade(roboId, upgrade, exchange);
-				return;
-			}
-
-			Upgrades.Buy(upgrade, p.ControlledEntities[0]);
-		}
-
-		/// <summary>
-		/// Checks if the action is excecutable and throws an Exception to be returned if not
-		/// </summary>
-		/// <param name="robot">the id of the robot</param>
-		/// <param name="act">The action to check for</param>
-		/// <param name="player">the id of the player</param>
-		private void ActionCheck(int player, int robot, EntityActionType act) {
-			if (!_thread.PossibleEntityActions(robot, player).Select(eop => eop.Type).Contains(act))
-				throw new ActionException("This action is not available right now");
-		}
-
-		private void ExchangeUpgrade(int playerId, int upgrade, int exchange) {
-			Upgrades.Exchange(playerId, upgrade, exchange);
 		}
 	}
 }

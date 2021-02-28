@@ -9,22 +9,21 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// A Game is like a lobby, people can join/leave.&lt;br&gt; A Game is created by a host who does *not* needs to attend the game as a player but in the most cases he will. This is *read-only*
+	///     A Game is like a lobby, people can join/leave.&lt;br&gt; A Game is created by a host who does *not* needs to attend
+	///     the game as a player but in the most cases he will. This is *read-only*
 	/// </summary>
 	[DataContract]
-	public partial class Game : IEquatable<Game> {
+	public class Game : IEquatable<Game> {
 		private readonly GameLogic _logic;
 
 		public Game(GameLogic gameLogic) {
@@ -32,7 +31,7 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// **Unique**&lt;br&gt; This is the parameter a game is identified by
+		///     **Unique**&lt;br&gt; This is the parameter a game is identified by
 		/// </summary>
 		/// <value>**Unique**&lt;br&gt; This is the parameter a game is identified by</value>
 		[Range(0, 2048)]
@@ -40,9 +39,13 @@ namespace Tgm.Roborally.Server.Models {
 		public int Id => _logic.id;
 
 		/// <summary>
-		/// The name is **unique** but it should ***not*** be used as identifer (it&#39;s not natively supportet) It is used to display the game&#39;s name
+		///     The name is **unique** but it should ***not*** be used as identifer (it&#39;s not natively supportet) It is used to
+		///     display the game&#39;s name
 		/// </summary>
-		/// <value>The name is **unique** but it should ***not*** be used as identifer (it&#39;s not natively supportet) It is used to display the game&#39;s name</value>
+		/// <value>
+		///     The name is **unique** but it should ***not*** be used as identifer (it&#39;s not natively supportet) It is used
+		///     to display the game&#39;s name
+		/// </value>
 		[Required]
 		[RegularExpression("[A-Za-z]+[A-Za-z0-9 _-]+")]
 		[StringLength(20, MinimumLength = 3)]
@@ -50,54 +53,20 @@ namespace Tgm.Roborally.Server.Models {
 		public string Name => _logic.Name;
 
 		/// <summary>
-		/// The list of players attending the game. (Only contains the name of the players)
+		///     The list of players attending the game. (Only contains the name of the players)
 		/// </summary>
 		/// <value>The list of players attending the game. (Only contains the name of the players)</value>
 		[DataMember(Name = "players", EmitDefaultValue = false)]
 		public List<int> Players => _logic.PlayerIds;
 
 		/// <summary>
-		/// Gets or Sets RuntimeInfo
+		///     Gets or Sets RuntimeInfo
 		/// </summary>
 		[DataMember(Name = "runtime_info", EmitDefaultValue = false)]
 		public GameState RuntimeInfo => _logic.State;
 
 		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class Game {\n");
-			sb.Append("  Id: ").Append(Id).Append("\n");
-			sb.Append("  Name: ").Append(Name).Append("\n");
-			sb.Append("  Players: ").Append(Players).Append("\n");
-			sb.Append("  RuntimeInfo: ").Append(RuntimeInfo).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
-		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((Game) obj);
-		}
-
-		/// <summary>
-		/// Returns true if Game instances are equal
+		///     Returns true if Game instances are equal
 		/// </summary>
 		/// <param name="other">Instance of Game to be compared</param>
 		/// <returns>Boolean</returns>
@@ -128,13 +97,45 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class Game {\n");
+			sb.Append("  Id: ").Append(Id).Append("\n");
+			sb.Append("  Name: ").Append(Name).Append("\n");
+			sb.Append("  Players: ").Append(Players).Append("\n");
+			sb.Append("  RuntimeInfo: ").Append(RuntimeInfo).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((Game) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 
 				hashCode = hashCode * 59 + Id.GetHashCode();
@@ -152,13 +153,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(Game left, Game right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(Game left, Game right) => Equals(left, right);
 
-		public static bool operator !=(Game left, Game right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(Game left, Game right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

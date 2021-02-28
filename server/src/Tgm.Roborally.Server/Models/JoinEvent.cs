@@ -9,73 +9,41 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// If somebody joins a game
+	///     If somebody joins a game
 	/// </summary>
 	[DataContract]
-	public partial class JoinEvent : IEquatable<JoinEvent>, Event {
+	public class JoinEvent : IEquatable<JoinEvent>, Event {
 		/// <summary>
-		/// This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication
+		///     This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used
+		///     for authentication
 		/// </summary>
-		/// <value>This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication</value>
+		/// <value>
+		///     This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is
+		///     used for authentication
+		/// </value>
 		[Range(0, 8)]
 		[DataMember(Name = "joined_id", EmitDefaultValue = false)]
 		public int JoinedId { get; set; }
 
 		/// <summary>
-		/// True if the player left instead of joining
+		///     True if the player left instead of joining
 		/// </summary>
 		/// <value>True if the player left instead of joining</value>
 		[DataMember(Name = "unjoin", EmitDefaultValue = false)]
 		public bool Unjoin { get; set; }
 
-		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class JoinEvent {\n");
-			sb.Append("  JoinedId: ").Append(JoinedId).Append("\n");
-			sb.Append("  Unjoin: ").Append(Unjoin).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
 		public EventType GetEventType() => EventType.Join;
 
 		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((JoinEvent) obj);
-		}
-
-		/// <summary>
-		/// Returns true if JoinEvent instances are equal
+		///     Returns true if JoinEvent instances are equal
 		/// </summary>
 		/// <param name="other">Instance of JoinEvent to be compared</param>
 		/// <returns>Boolean</returns>
@@ -95,13 +63,43 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class JoinEvent {\n");
+			sb.Append("  JoinedId: ").Append(JoinedId).Append("\n");
+			sb.Append("  Unjoin: ").Append(Unjoin).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((JoinEvent) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 
 				hashCode = hashCode * 59 + JoinedId.GetHashCode();
@@ -115,13 +113,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(JoinEvent left, JoinEvent right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(JoinEvent left, JoinEvent right) => Equals(left, right);
 
-		public static bool operator !=(JoinEvent left, JoinEvent right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(JoinEvent left, JoinEvent right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

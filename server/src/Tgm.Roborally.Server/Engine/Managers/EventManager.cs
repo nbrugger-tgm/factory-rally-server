@@ -1,14 +1,11 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Runtime.CompilerServices;
-using System.Runtime.Intrinsics.X86;
 using System.Threading;
-using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine {
 	public class EventManager {
 		private readonly GameLogic                     game;
-		private          object                        locker = new object();
+		private readonly object                        locker = new object();
 		public           Dictionary<int, Queue<Event>> queues = new Dictionary<int, Queue<Event>>();
 
 		public EventManager(GameLogic game) {
@@ -16,7 +13,7 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		/// <summary>
-		/// Adds the event to the stack and notifies waiting clients
+		///     Adds the event to the stack and notifies waiting clients
 		/// </summary>
 		/// <param name="e"></param>
 		public void Notify(Event e) {
@@ -40,16 +37,14 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		/// <summary>
-		/// Removes and recives the next event for this player
+		///     Removes and recives the next event for this player
 		/// </summary>
 		/// <param name="player">the player to get the event for</param>
 		/// <returns></returns>
-		public Event Pop(int player) {
-			return queues[player].Count > 0 ? queues[player].Dequeue() : null;
-		}
+		public Event Pop(int player) => queues[player].Count > 0 ? queues[player].Dequeue() : null;
 
 		/// <summary>
-		/// Wait for the next event
+		///     Wait for the next event
 		/// </summary>
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void Await() {
@@ -58,8 +53,6 @@ namespace Tgm.Roborally.Server.Engine {
 			}
 		}
 
-		public Event Peek(int player) {
-			return queues[player].Count > 0 ? queues[player].Peek() : null;
-		}
+		public Event Peek(int player) => queues[player].Count > 0 ? queues[player].Peek() : null;
 	}
 }

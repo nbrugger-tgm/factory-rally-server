@@ -21,7 +21,6 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			int      actualAmmount;
 			Position newPos;
 			int      pushing = -1;
-			collisionLoop:
 			for (actualAmmount = 0; actualAmmount <= ammount; actualAmmount++) {
 				newPos = Translate(robotInfo.Location, actualAmmount + 1, resultDirection);
 				Tile tile = _game.Map[newPos.X, newPos.Y];
@@ -39,7 +38,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 					break;
 
 				//Robot Collission check
-				if (!tile.Empty)
+				if (!tile.Empty) {
 					foreach (int roboId in _game.Entitys.Robots) {
 						RobotInfo robo = _game.Entitys[roboId] as RobotInfo;
 						if (robo.Location.Equals(newPos) && !robo.Virtual && robo.Attitude == robotInfo.Attitude) {
@@ -47,17 +46,19 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 							goto brk;
 						}
 					}
+				}
 
-				brk: { };
+				brk:
+				{
+				}
+				;
 			}
 
-			if (actualAmmount != 0) {
-				PerformMove(robotInfo, actualAmmount, resultDirection);
-			}
+			if (actualAmmount != 0) PerformMove(robotInfo, actualAmmount, resultDirection);
 
 			if (pushing != -1) {
 				RobotInfo pushedRobot = (RobotInfo) _game.Entitys[pushing];
-				while(ammount < actualAmmount) {
+				while (ammount < actualAmmount) {
 					bool successfullPush = Move(pushedRobot, 1, resultDirection) == 1;
 					if (successfullPush) {
 						actualAmmount++;
@@ -69,25 +70,25 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 
 			return actualAmmount;
 		}
-	
+
 
 		/// <summary>
-		/// Performs the movement on the map and emitts an event
+		///     Performs the movement on the map and emitts an event
 		/// </summary>
 		/// <param name="robotInfo"></param>
 		/// <param name="actualAmmount"></param>
 		/// <param name="resultDirection"></param>
 		private void PerformMove(RobotInfo robotInfo, int actualAmmount, Direction resultDirection) {
 			Position newPos = Translate(robotInfo.Location, actualAmmount, resultDirection);
-			_game.CommitEvent(new MovementEvent() {
-                Direction       = resultDirection,
-                Entity          = robotInfo.Id,
-                From            = robotInfo.Location,
-                MovementAmmount = actualAmmount,
-                Rotation        = Rotation.Left,
-                RotationTimes   = 0,
-                To              = newPos
-            });
+			_game.CommitEvent(new MovementEvent {
+				Direction       = resultDirection,
+				Entity          = robotInfo.Id,
+				From            = robotInfo.Location,
+				MovementAmmount = actualAmmount,
+				Rotation        = Rotation.Left,
+				RotationTimes   = 0,
+				To              = newPos
+			});
 			robotInfo.Location = newPos;
 		}
 
@@ -113,15 +114,16 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			return endPos;
 		}
 
-		private static Direction ResolveDirection(RelativeDirection direction, Direction orientation) => direction switch {
-			RelativeDirection.Forward   => orientation,
-			RelativeDirection.Backwards => inverse(orientation),
-			RelativeDirection.Right     => roateRight(orientation),
-			_ /*Left*/                  => rotateLeft(orientation)
-		};
+		private static Direction ResolveDirection(RelativeDirection direction, Direction orientation) =>
+			direction switch {
+				RelativeDirection.Forward   => orientation,
+				RelativeDirection.Backwards => inverse(orientation),
+				RelativeDirection.Right     => roateRight(orientation),
+				_ /*Left*/                  => rotateLeft(orientation)
+			};
 
-		static Direction inverse(Direction dir) {
-			return dir switch {
+		private static Direction inverse(Direction dir) =>
+			dir switch {
 				Direction.Up    => Direction.Down,
 				Direction.Left  => Direction.Right,
 				Direction.Right => Direction.Left,
@@ -129,9 +131,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				//should not be reachable
 				_ => default
 			};
-		}
-		static Direction roateRight(Direction dir) {
-			return dir switch {
+
+		private static Direction roateRight(Direction dir) =>
+			dir switch {
 				Direction.Up    => Direction.Right,
 				Direction.Left  => Direction.Up,
 				Direction.Right => Direction.Down,
@@ -139,9 +141,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				//should not be reachable
 				_ => default
 			};
-		}
-		static Direction rotateLeft(Direction dir) {
-			return dir switch {
+
+		private static Direction rotateLeft(Direction dir) =>
+			dir switch {
 				Direction.Up    => Direction.Left,
 				Direction.Left  => Direction.Down,
 				Direction.Right => Direction.Up,
@@ -149,6 +151,5 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				//should not be reachable
 				_ => default
 			};
-		}
 	}
 }

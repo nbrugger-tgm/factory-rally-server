@@ -10,18 +10,20 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			register = _game.executionState.CurrentRegister
 		};
 
+		public override GameState NewState => GameState.PLAYING;
+
 		protected override GamePhase Run(GameLogic game) {
 			_game = game;
 			return new PreStatementPhase();
 		}
 
-		public override GameState NewState => GameState.PLAYING;
-
-		public override void Notify(ActionType action) { //TODO
+		public override void Notify(ActionType action) {
+			//TODO
 		}
 
 		public override bool Notify(GenericEvent action) => false;
 
-		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) => throw new NotImplementedException();
+		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) =>
+			throw new NotImplementedException();
 	}
 }

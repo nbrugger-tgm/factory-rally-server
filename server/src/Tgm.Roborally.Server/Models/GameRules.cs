@@ -9,30 +9,26 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// Game Rules define the rules for a Game
+	///     Game Rules define the rules for a Game
 	/// </summary>
 	[DataContract]
-	public partial class GameRules : IEquatable<GameRules> {
+	public class GameRules : IEquatable<GameRules> {
 		/// <summary>
-		/// If true players can see the name of the player controlling a robot
+		///     If true players can see the name of the player controlling a robot
 		/// </summary>
 		/// <value>If true players can see the name of the player controlling a robot</value>
 		[DataMember(Name = "player-names-visible", EmitDefaultValue = false)]
 		public bool PlayerNamesVisible { get; set; } = true;
 
 		/// <summary>
-		/// The maximum ammount of players able to join the game
+		///     The maximum ammount of players able to join the game
 		/// </summary>
 		/// <value>The maximum ammount of players able to join the game</value>
 		[Range(1, 6)]
@@ -40,7 +36,7 @@ namespace Tgm.Roborally.Server.Models {
 		public int MaxPlayers { get; set; } = 6;
 
 		/// <summary>
-		/// The visible name of the game
+		///     The visible name of the game
 		/// </summary>
 		/// <value>The visible name of the game</value>
 		[Required]
@@ -49,7 +45,7 @@ namespace Tgm.Roborally.Server.Models {
 		public string Name { get; set; }
 
 		/// <summary>
-		/// Defines the number of robots per player
+		///     Defines the number of robots per player
 		/// </summary>
 		/// <value>Defines the number of robots per player</value>
 		[Range(1, 3)]
@@ -57,7 +53,7 @@ namespace Tgm.Roborally.Server.Models {
 		public int RobotsPerPlayer { get; set; } = 1;
 
 		/// <summary>
-		/// The password of a game
+		///     The password of a game
 		/// </summary>
 		/// <value>The password of a game</value>
 		[StringLength(18, MinimumLength = 4)]
@@ -65,50 +61,14 @@ namespace Tgm.Roborally.Server.Models {
 		public string Password { get; set; }
 
 		/// <summary>
-		/// If true emply player slots are going to be filled up with AI enemys
+		///     If true emply player slots are going to be filled up with AI enemys
 		/// </summary>
 		/// <value>If true emply player slots are going to be filled up with AI enemys</value>
 		[DataMember(Name = "fill-with-bots", EmitDefaultValue = false)]
-		public bool FillWithBots { get; set; } = false;
+		public bool FillWithBots { get; set; }
 
 		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class GameRules {\n");
-			sb.Append("  PlayerNamesVisible: ").Append(PlayerNamesVisible).Append("\n");
-			sb.Append("  MaxPlayers: ").Append(MaxPlayers).Append("\n");
-			sb.Append("  Name: ").Append(Name).Append("\n");
-			sb.Append("  RobotsPerPlayer: ").Append(RobotsPerPlayer).Append("\n");
-			sb.Append("  Password: ").Append(Password).Append("\n");
-			sb.Append("  FillWithBots: ").Append(FillWithBots).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
-		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((GameRules) obj);
-		}
-
-		/// <summary>
-		/// Returns true if GameRules instances are equal
+		///     Returns true if GameRules instances are equal
 		/// </summary>
 		/// <param name="other">Instance of GameRules to be compared</param>
 		/// <returns>Boolean</returns>
@@ -146,13 +106,47 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class GameRules {\n");
+			sb.Append("  PlayerNamesVisible: ").Append(PlayerNamesVisible).Append("\n");
+			sb.Append("  MaxPlayers: ").Append(MaxPlayers).Append("\n");
+			sb.Append("  Name: ").Append(Name).Append("\n");
+			sb.Append("  RobotsPerPlayer: ").Append(RobotsPerPlayer).Append("\n");
+			sb.Append("  Password: ").Append(Password).Append("\n");
+			sb.Append("  FillWithBots: ").Append(FillWithBots).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((GameRules) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 
 				hashCode = hashCode * 59 + PlayerNamesVisible.GetHashCode();
@@ -174,13 +168,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(GameRules left, GameRules right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(GameRules left, GameRules right) => Equals(left, right);
 
-		public static bool operator !=(GameRules left, GameRules right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(GameRules left, GameRules right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

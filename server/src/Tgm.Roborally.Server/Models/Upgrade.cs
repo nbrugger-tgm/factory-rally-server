@@ -9,23 +9,21 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// A upgrade is a module making a robot stronger
+	///     A upgrade is a module making a robot stronger
 	/// </summary>
 	[DataContract]
-	public partial class Upgrade : IEquatable<Upgrade> {
+	public class Upgrade : IEquatable<Upgrade> {
 		/// <summary>
-		/// The energy cost to buy this upgrade
+		///     The energy cost to buy this upgrade
 		/// </summary>
 		/// <value>The energy cost to buy this upgrade</value>
 		[Required]
@@ -34,7 +32,7 @@ namespace Tgm.Roborally.Server.Models {
 		public int Cost { get; set; } = 2;
 
 		/// <summary>
-		/// The ame to display for this Upgrade. ***Not*** unique (identifying)
+		///     The ame to display for this Upgrade. ***Not*** unique (identifying)
 		/// </summary>
 		/// <value>The ame to display for this Upgrade. ***Not*** unique (identifying)</value>
 		[Required]
@@ -43,22 +41,26 @@ namespace Tgm.Roborally.Server.Models {
 		public string Name { get; set; }
 
 		/// <summary>
-		/// if true the card belongs to the player for the rest of the game
+		///     if true the card belongs to the player for the rest of the game
 		/// </summary>
 		/// <value>if true the card belongs to the player for the rest of the game</value>
 		[DataMember(Name = "permanent", EmitDefaultValue = false)]
 		public bool Permanent { get; set; } = true;
 
 		/// <summary>
-		/// A description about the effect of the card. Variables are using the format &#x60;{name}&#x60; where *name* refers to the names in &#x60;values&#x60;. 
+		///     A description about the effect of the card. Variables are using the format &#x60;{name}&#x60; where *name* refers
+		///     to the names in &#x60;values&#x60;.
 		/// </summary>
-		/// <value>A description about the effect of the card. Variables are using the format &#x60;{name}&#x60; where *name* refers to the names in &#x60;values&#x60;. </value>
+		/// <value>
+		///     A description about the effect of the card. Variables are using the format &#x60;{name}&#x60; where *name*
+		///     refers to the names in &#x60;values&#x60;.
+		/// </value>
 		[MaxLength(300)]
 		[DataMember(Name = "description", EmitDefaultValue = false)]
 		public string Description { get; set; } = "null";
 
 		/// <summary>
-		/// If the Upgrade is not permanent this variable defines the number of rounds this Upgrade works
+		///     If the Upgrade is not permanent this variable defines the number of rounds this Upgrade works
 		/// </summary>
 		/// <value>If the Upgrade is not permanent this variable defines the number of rounds this Upgrade works</value>
 		[Range(1, 10)]
@@ -66,21 +68,27 @@ namespace Tgm.Roborally.Server.Models {
 		public int Rounds { get; set; }
 
 		/// <summary>
-		/// Defines number values for the upgrade.&lt;br&gt;Example: Effect: \&quot;You have {registers} additonal Registers\&quot;&lt;br&gt; &#x60;{registers}&#x60; is the number of the regsiters (that will be added) and the exact value will be defined in here (&#x60;values&#x60;)
+		///     Defines number values for the upgrade.&lt;br&gt;Example: Effect: \&quot;You have {registers} additonal Registers\
+		///     &quot;&lt;br&gt; &#x60;{registers}&#x60; is the number of the regsiters (that will be added) and the exact value
+		///     will be defined in here (&#x60;values&#x60;)
 		/// </summary>
-		/// <value>Defines number values for the upgrade.&lt;br&gt;Example: Effect: \&quot;You have {registers} additonal Registers\&quot;&lt;br&gt; &#x60;{registers}&#x60; is the number of the regsiters (that will be added) and the exact value will be defined in here (&#x60;values&#x60;)</value>
+		/// <value>
+		///     Defines number values for the upgrade.&lt;br&gt;Example: Effect: \&quot;You have {registers} additonal
+		///     Registers\&quot;&lt;br&gt; &#x60;{registers}&#x60; is the number of the regsiters (that will be added) and the
+		///     exact value will be defined in here (&#x60;values&#x60;)
+		/// </value>
 		[DataMember(Name = "values", EmitDefaultValue = false)]
 		public List<Pair> Values { get; set; }
 
 		/// <summary>
-		/// Gets or Sets Type
+		///     Gets or Sets Type
 		/// </summary>
 		[Required]
 		[DataMember(Name = "type", EmitDefaultValue = false)]
 		public UpgradeType Type { get; set; }
 
 		/// <summary>
-		/// The id of an upgrade. **Unique**
+		///     The id of an upgrade. **Unique**
 		/// </summary>
 		/// <value>The id of an upgrade. **Unique**</value>
 		[Range(0, 10000)]
@@ -88,45 +96,7 @@ namespace Tgm.Roborally.Server.Models {
 		public int Id { get; set; }
 
 		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class Upgrade {\n");
-			sb.Append("  Cost: ").Append(Cost).Append("\n");
-			sb.Append("  Name: ").Append(Name).Append("\n");
-			sb.Append("  Permanent: ").Append(Permanent).Append("\n");
-			sb.Append("  Description: ").Append(Description).Append("\n");
-			sb.Append("  Rounds: ").Append(Rounds).Append("\n");
-			sb.Append("  Values: ").Append(Values).Append("\n");
-			sb.Append("  Type: ").Append(Type).Append("\n");
-			sb.Append("  Id: ").Append(Id).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
-		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((Upgrade) obj);
-		}
-
-		/// <summary>
-		/// Returns true if Upgrade instances are equal
+		///     Returns true if Upgrade instances are equal
 		/// </summary>
 		/// <param name="other">Instance of Upgrade to be compared</param>
 		/// <returns>Boolean</returns>
@@ -174,13 +144,49 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class Upgrade {\n");
+			sb.Append("  Cost: ").Append(Cost).Append("\n");
+			sb.Append("  Name: ").Append(Name).Append("\n");
+			sb.Append("  Permanent: ").Append(Permanent).Append("\n");
+			sb.Append("  Description: ").Append(Description).Append("\n");
+			sb.Append("  Rounds: ").Append(Rounds).Append("\n");
+			sb.Append("  Values: ").Append(Values).Append("\n");
+			sb.Append("  Type: ").Append(Type).Append("\n");
+			sb.Append("  Id: ").Append(Id).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((Upgrade) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 
 				hashCode = hashCode * 59 + Cost.GetHashCode();
@@ -206,13 +212,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(Upgrade left, Upgrade right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(Upgrade left, Upgrade right) => Equals(left, right);
 
-		public static bool operator !=(Upgrade left, Upgrade right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(Upgrade left, Upgrade right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

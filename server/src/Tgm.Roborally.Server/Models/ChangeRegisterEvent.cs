@@ -9,53 +9,52 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// The event when a player places or removes an robot command from/to a register
+	///     The event when a player places or removes an robot command from/to a register
 	/// </summary>
 	[DataContract]
-	public partial class ChangeRegisterEvent : IEquatable<ChangeRegisterEvent>, Event {
+	public class ChangeRegisterEvent : IEquatable<ChangeRegisterEvent>, Event {
 		/// <summary>
-		/// Gets or Sets Action
+		///     Gets or Sets Action
 		/// </summary>
 		[TypeConverter(typeof(CustomEnumConverter<ActionEnum>))]
-		[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public enum ActionEnum {
 			/// <summary>
-			/// Enum Fill for fill
+			///     Enum Fill for fill
 			/// </summary>
 			[EnumMember(Value = "fill")] Fill = 1,
 
 			/// <summary>
-			/// Enum Clear for clear
+			///     Enum Clear for clear
 			/// </summary>
 			[EnumMember(Value = "clear")] Clear = 2,
 
 			/// <summary>
-			/// Enum Replace for replace
+			///     Enum Replace for replace
 			/// </summary>
 			[EnumMember(Value = "replace")] Replace = 3
 		}
 
 		/// <summary>
-		/// Gets or Sets Action
+		///     Gets or Sets Action
 		/// </summary>
 		[Required]
 		[DataMember(Name = "action", EmitDefaultValue = false)]
 		public ActionEnum Action { get; set; }
 
 		/// <summary>
-		/// The id of an upgrade. **Unique**
+		///     The id of an upgrade. **Unique**
 		/// </summary>
 		/// <value>The id of an upgrade. **Unique**</value>
 		[Range(0, 10000)]
@@ -63,20 +62,46 @@ namespace Tgm.Roborally.Server.Models {
 		public int Card { get; set; }
 
 		/// <summary>
-		/// The changed register
+		///     The changed register
 		/// </summary>
 		/// <value>The changed register</value>
 		[Required]
 		[Range(0, 8)]
-		[DataMember(Name="register", EmitDefaultValue=false)]
+		[DataMember(Name = "register", EmitDefaultValue = false)]
 		public int Register { get; set; }
 
+		public EventType GetEventType() => EventType.ChangeRegister;
+
 		/// <summary>
-		/// Returns the string presentation of the object
+		///     Returns true if ChangeRegisterEvent instances are equal
+		/// </summary>
+		/// <param name="other">Instance of ChangeRegisterEvent to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(ChangeRegisterEvent other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
+
+			return
+				(
+					Action == other.Action ||
+					Action.Equals(other.Action)
+				) &&
+				(
+					Card == other.Card ||
+					Card.Equals(other.Card)
+				) &&
+				(
+					Register == other.Register ||
+					Register.Equals(other.Register)
+				);
+		}
+
+		/// <summary>
+		///     Returns the string presentation of the object
 		/// </summary>
 		/// <returns>String presentation of the object</returns>
 		public override string ToString() {
-			var sb = new StringBuilder();
+			StringBuilder sb = new StringBuilder();
 			sb.Append("class ChangeRegisterEvent {\n");
 			sb.Append("  Action: ").Append(Action).Append("\n");
 			sb.Append("  Card: ").Append(Card).Append("\n");
@@ -85,18 +110,14 @@ namespace Tgm.Roborally.Server.Models {
 			return sb.ToString();
 		}
 
-		public EventType GetEventType() => EventType.ChangeRegister;
-
 		/// <summary>
-		/// Returns the JSON string presentation of the object
+		///     Returns the JSON string presentation of the object
 		/// </summary>
 		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
 
 		/// <summary>
-		/// Returns true if objects are equal
+		///     Returns true if objects are equal
 		/// </summary>
 		/// <param name="obj">Object to be compared</param>
 		/// <returns>Boolean</returns>
@@ -107,67 +128,34 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Returns true if ChangeRegisterEvent instances are equal
-		/// </summary>
-		/// <param name="other">Instance of ChangeRegisterEvent to be compared</param>
-		/// <returns>Boolean</returns>
-		public bool Equals(ChangeRegisterEvent other)
-		{
-			if (other is null) return false;
-			if (ReferenceEquals(this, other)) return true;
-
-			return 
-				(
-					Action == other.Action ||
-					
-					Action.Equals(other.Action)
-				) && 
-				(
-					Card == other.Card ||
-					
-					Card.Equals(other.Card)
-				) && 
-				(
-					Register == other.Register ||
-					
-					Register.Equals(other.Register)
-				);
-		}
-
-		/// <summary>
-		/// Gets the hash code
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
-		public override int GetHashCode()
-		{
+		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
-					
-					hashCode = hashCode * 59 + Action.GetHashCode();
-					
-					hashCode = hashCode * 59 + Card.GetHashCode();
-					
-					hashCode = hashCode * 59 + Register.GetHashCode();
+
+				hashCode = hashCode * 59 + Action.GetHashCode();
+
+				hashCode = hashCode * 59 + Card.GetHashCode();
+
+				hashCode = hashCode * 59 + Register.GetHashCode();
 				return hashCode;
 			}
 		}
 
 		#region Operators
+
 		#pragma warning disable 1591
 
-		public static bool operator ==(ChangeRegisterEvent left, ChangeRegisterEvent right)
-		{
-			return Equals(left, right);
-		}
+		public static bool operator ==(ChangeRegisterEvent left, ChangeRegisterEvent right) => Equals(left, right);
 
-		public static bool operator !=(ChangeRegisterEvent left, ChangeRegisterEvent right)
-		{
-			return !Equals(left, right);
-		}
+		public static bool operator !=(ChangeRegisterEvent left, ChangeRegisterEvent right) => !Equals(left, right);
 
 		#pragma warning restore 1591
+
 		#endregion Operators
 	}
 }

@@ -9,50 +9,62 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Tgm.Roborally.Server.Converters;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// Describes the event when the game is paused or unpaused
+	///     Describes the event when the game is paused or unpaused
 	/// </summary>
 	[DataContract]
-	public partial class PauseEvent : IEquatable<PauseEvent> {
+	public class PauseEvent : IEquatable<PauseEvent> {
 		/// <summary>
-		/// Gets or Sets State
+		///     Gets or Sets State
 		/// </summary>
 		[TypeConverter(typeof(CustomEnumConverter<StateEnum>))]
-		[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public enum StateEnum {
 			/// <summary>
-			/// Enum UNPAUSE for UNPAUSE
+			///     Enum UNPAUSE for UNPAUSE
 			/// </summary>
 			[EnumMember(Value = "UNPAUSE")] UNPAUSE = 1,
 
 			/// <summary>
-			/// Enum PAUSE for PAUSE
+			///     Enum PAUSE for PAUSE
 			/// </summary>
 			[EnumMember(Value = "PAUSE")] PAUSE = 2
 		}
 
 		/// <summary>
-		/// Gets or Sets State
+		///     Gets or Sets State
 		/// </summary>
 		[DataMember(Name = "state", EmitDefaultValue = false)]
 		public StateEnum State { get; set; }
 
 		/// <summary>
-		/// Returns the string presentation of the object
+		///     Returns true if PauseEvent instances are equal
+		/// </summary>
+		/// <param name="other">Instance of PauseEvent to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(PauseEvent other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
+
+			return
+				State == other.State ||
+				State.Equals(other.State);
+		}
+
+		/// <summary>
+		///     Returns the string presentation of the object
 		/// </summary>
 		/// <returns>String presentation of the object</returns>
 		public override string ToString() {
-			var sb = new StringBuilder();
+			StringBuilder sb = new StringBuilder();
 			sb.Append("class PauseEvent {\n");
 			sb.Append("  State: ").Append(State).Append("\n");
 			sb.Append("}\n");
@@ -60,15 +72,13 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Returns the JSON string presentation of the object
+		///     Returns the JSON string presentation of the object
 		/// </summary>
 		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
 
 		/// <summary>
-		/// Returns true if objects are equal
+		///     Returns true if objects are equal
 		/// </summary>
 		/// <param name="obj">Object to be compared</param>
 		/// <returns>Boolean</returns>
@@ -79,29 +89,13 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Returns true if PauseEvent instances are equal
-		/// </summary>
-		/// <param name="other">Instance of PauseEvent to be compared</param>
-		/// <returns>Boolean</returns>
-		public bool Equals(PauseEvent other) {
-			if (other is null) return false;
-			if (ReferenceEquals(this, other)) return true;
-
-			return
-				(
-					State == other.State ||
-					State.Equals(other.State)
-				);
-		}
-
-		/// <summary>
-		/// Gets the hash code
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 
 				hashCode = hashCode * 59 + State.GetHashCode();
@@ -113,13 +107,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(PauseEvent left, PauseEvent right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(PauseEvent left, PauseEvent right) => Equals(left, right);
 
-		public static bool operator !=(PauseEvent left, PauseEvent right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(PauseEvent left, PauseEvent right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

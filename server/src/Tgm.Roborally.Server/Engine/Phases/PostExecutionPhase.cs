@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
@@ -11,24 +10,24 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			register = _game.executionState.CurrentRegister
 		};
 
+		public override GameState NewState => GameState.PLAYING;
+
 		protected override GamePhase Run(GameLogic game) {
 			_game = game;
 			int register = game.executionState.CurrentRegister++;
-			if (register >= 9) {
-				return new GameEndPhase();
-			}
+			if (register >= 9) return new GameEndPhase();
 
 			game.executionState.CurrentRobot = 0;
 			return new PreExecutionPhase();
 		}
 
-		public override GameState NewState => GameState.PLAYING;
-
-		public override void Notify(ActionType action) {//TODO
+		public override void Notify(ActionType action) {
+			//TODO
 		}
 
 		public override bool Notify(GenericEvent action) => false;
 
-		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) => throw new NotImplementedException();
+		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) =>
+			throw new NotImplementedException();
 	}
 }

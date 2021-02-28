@@ -9,31 +9,32 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Engine.Statement;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// A command for a robot to execute
+	///     A command for a robot to execute
 	/// </summary>
 	[DataContract]
-	public abstract class RobotCommand : IEquatable<RobotCommand>,RobotCommandExecutor {
+	public abstract class RobotCommand : IEquatable<RobotCommand>, RobotCommandExecutor {
+		private readonly Dictionary<string, int> _parameters = new Dictionary<string, int>();
+
 		/// <summary>
-		/// Gets or Sets Type
+		///     Gets or Sets Type
 		/// </summary>
-		[Required] [DataMember(Name = "type", EmitDefaultValue = false)]
+		[Required]
+		[DataMember(Name = "type", EmitDefaultValue = false)]
 		public abstract Instruction Type { get; }
-		
+
 		/// <summary>
-		/// Returns the value of the given parameter
+		///     Returns the value of the given parameter
 		/// </summary>
 		/// <param name="index"> the name of the value</param>
 		public int this[string index] {
@@ -41,38 +42,39 @@ namespace Tgm.Roborally.Server.Models {
 			set => _parameters[index] = value;
 		}
 
-		public void Execute(GameLogic game, int robot) {
-			for (int i = 0; i < Times; i++) {
-				this.Do(game,robot);
-			}
-		}
-
 		/// <summary>
-		/// Defines parameters for the instruction.&lt;br&gt;Example: Effect: \&quot;Move {steps} steps forward\&quot;&lt;br&gt; &#x60;{steps}&#x60; is the number of steps the robot will do. And the exact value (of steps) will be defined in here (&#x60;values&#x60;)
+		///     Defines parameters for the instruction.&lt;br&gt;Example: Effect: \&quot;Move {steps} steps forward\&quot;&lt;br
+		///     &gt; &#x60;{steps}&#x60; is the number of steps the robot will do. And the exact value (of steps) will be defined
+		///     in here (&#x60;values&#x60;)
 		/// </summary>
-		/// <value>Defines parameters for the instruction.&lt;br&gt;Example: Effect: \&quot;Move {steps} steps forward\&quot;&lt;br&gt; &#x60;{steps}&#x60; is the number of steps the robot will do. And the exact value (of steps) will be defined in here (&#x60;values&#x60;)</value>
+		/// <value>
+		///     Defines parameters for the instruction.&lt;br&gt;Example: Effect: \&quot;Move {steps} steps forward\&quot;&lt;br
+		///     &gt; &#x60;{steps}&#x60; is the number of steps the robot will do. And the exact value (of steps) will be defined
+		///     in here (&#x60;values&#x60;)
+		/// </value>
 		[DataMember(Name = "parameters", EmitDefaultValue = false)]
 		public List<Pair> Parameters {
-			get => _parameters.Select(e => new Pair(e.Key, e.Value)).ToList();
+			get => _parameters.Select(selector: e => new Pair(e.Key, e.Value)).ToList();
 			set {
 				_parameters.Clear();
-				foreach (Pair pair in value) {
-					_parameters.Add(pair.Name,pair.Value);
-				}
+				foreach (Pair pair in value) _parameters.Add(pair.Name, pair.Value);
 			}
 		}
 
-		private readonly Dictionary<string, int> _parameters = new Dictionary<string, int>();
 		/// <summary>
-		/// A description about the effect of the command. Variables are using the format &#x60;{name}&#x60; where *name* refers to the names in &#x60;values&#x60;. 
+		///     A description about the effect of the command. Variables are using the format &#x60;{name}&#x60; where *name*
+		///     refers to the names in &#x60;values&#x60;.
 		/// </summary>
-		/// <value>A description about the effect of the command. Variables are using the format &#x60;{name}&#x60; where *name* refers to the names in &#x60;values&#x60;. </value>
+		/// <value>
+		///     A description about the effect of the command. Variables are using the format &#x60;{name}&#x60; where *name*
+		///     refers to the names in &#x60;values&#x60;.
+		/// </value>
 		[MaxLength(300)]
 		[DataMember(Name = "description", EmitDefaultValue = false)]
-		public abstract string Description { get;}
+		public abstract string Description { get; }
 
 		/// <summary>
-		/// The ame to display for this Command. ***Not*** unique (identifying)
+		///     The ame to display for this Command. ***Not*** unique (identifying)
 		/// </summary>
 		/// <value>The ame to display for this Command. ***Not*** unique (identifying)</value>
 		[StringLength(27, MinimumLength = 2)]
@@ -80,63 +82,27 @@ namespace Tgm.Roborally.Server.Models {
 		public string Name { get; set; }
 
 		/// <summary>
-		/// Describes how often this command is going to be executed
+		///     Describes how often this command is going to be executed
 		/// </summary>
 		/// <value>Describes how often this command is going to be executed</value>
 		[Range(1, 10)]
 		[DataMember(Name = "times", EmitDefaultValue = false)]
 		public abstract int Times { get; }
-		
+
 		public string FilledDescription {
 			get {
 				string output = Description;
-				foreach ((string key,int val) in _parameters) {
-					while(output.Contains($"{{{key}}}"))
+				foreach ((string key, int val) in _parameters) {
+					while (output.Contains($"{{{key}}}"))
 						output = output.Replace($"{{{key}}}", val.ToString());
 				}
+
 				return output;
 			}
 		}
 
 		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class RobotCommand {\n");
-			sb.Append("  Type: ").Append(Type).Append("\n");
-			sb.Append("  Parameters: ").Append(Parameters).Append("\n");
-			sb.Append("  Description: ").Append(Description).Append("\n");
-			sb.Append("  Name: ").Append(Name).Append("\n");
-			sb.Append("  Times: ").Append(Times).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
-		public abstract void Do(GameLogic game, int robotId);
-
-		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((RobotCommand) obj);
-		}
-
-		/// <summary>
-		/// Returns true if RobotCommand instances are equal
+		///     Returns true if RobotCommand instances are equal
 		/// </summary>
 		/// <param name="other">Instance of RobotCommand to be compared</param>
 		/// <returns>Boolean</returns>
@@ -171,14 +137,53 @@ namespace Tgm.Roborally.Server.Models {
 				);
 		}
 
+		public abstract void Do(GameLogic game, int robotId);
+
+		public void Execute(GameLogic game, int robot) {
+			for (int i = 0; i < Times; i++) Do(game, robot);
+		}
+
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class RobotCommand {\n");
+			sb.Append("  Type: ").Append(Type).Append("\n");
+			sb.Append("  Parameters: ").Append(Parameters).Append("\n");
+			sb.Append("  Description: ").Append(Description).Append("\n");
+			sb.Append("  Name: ").Append(Name).Append("\n");
+			sb.Append("  Times: ").Append(Times).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((RobotCommand) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 
 				hashCode = hashCode * 59 + Type.GetHashCode();
@@ -198,13 +203,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(RobotCommand left, RobotCommand right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(RobotCommand left, RobotCommand right) => Equals(left, right);
 
-		public static bool operator !=(RobotCommand left, RobotCommand right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(RobotCommand left, RobotCommand right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

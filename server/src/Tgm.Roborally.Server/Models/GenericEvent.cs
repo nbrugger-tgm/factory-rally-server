@@ -9,22 +9,17 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// Used to store any event and generalize them into a single type
+	///     Used to store any event and generalize them into a single type
 	/// </summary>
 	[DataContract]
-	public partial class GenericEvent : IEquatable<GenericEvent> {
+	public class GenericEvent : IEquatable<GenericEvent> {
 		public GenericEvent(EventType type) {
 			Type = type;
 		}
@@ -35,56 +30,24 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Gets or Sets Type
+		///     Gets or Sets Type
 		/// </summary>
 		[DataMember(Name = "type", EmitDefaultValue = false)]
 		public EventType Type { get; set; }
 
 		/// <summary>
-		/// This is the data for the Event. In the case of type beeing &#x60;lazer hit&#x60;, data will be of the type &#x60;LazerHitEvent&#x60;. So the object-type allways matches to the &#x60;type&#x60; field 
+		///     This is the data for the Event. In the case of type beeing &#x60;lazer hit&#x60;, data will be of the type &#x60;
+		///     LazerHitEvent&#x60;. So the object-type allways matches to the &#x60;type&#x60; field
 		/// </summary>
-		/// <value>This is the data for the Event. In the case of type beeing &#x60;lazer hit&#x60;, data will be of the type &#x60;LazerHitEvent&#x60;. So the object-type allways matches to the &#x60;type&#x60; field </value>
+		/// <value>
+		///     This is the data for the Event. In the case of type beeing &#x60;lazer hit&#x60;, data will be of the type
+		///     &#x60;LazerHitEvent&#x60;. So the object-type allways matches to the &#x60;type&#x60; field
+		/// </value>
 		[DataMember(Name = "data", EmitDefaultValue = false)]
 		public object Data { get; set; }
 
 		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class GenericEvent {\n");
-			sb.Append("  Type: ").Append(Type).Append("\n");
-			sb.Append("  Data: ").Append(Data).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
-		public EventType GetEventType() {
-			return Type;
-		}
-
-		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((GenericEvent) obj);
-		}
-
-		/// <summary>
-		/// Returns true if GenericEvent instances are equal
+		///     Returns true if GenericEvent instances are equal
 		/// </summary>
 		/// <param name="other">Instance of GenericEvent to be compared</param>
 		/// <returns>Boolean</returns>
@@ -105,13 +68,45 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class GenericEvent {\n");
+			sb.Append("  Type: ").Append(Type).Append("\n");
+			sb.Append("  Data: ").Append(Data).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		public EventType GetEventType() => Type;
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((GenericEvent) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 
 				hashCode = hashCode * 59 + Type.GetHashCode();
@@ -125,13 +120,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(GenericEvent left, GenericEvent right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(GenericEvent left, GenericEvent right) => Equals(left, right);
 
-		public static bool operator !=(GenericEvent left, GenericEvent right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(GenericEvent left, GenericEvent right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

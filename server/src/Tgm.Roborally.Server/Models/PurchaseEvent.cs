@@ -9,74 +9,42 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// The event that occurs if a player buys an upgrade
+	///     The event that occurs if a player buys an upgrade
 	/// </summary>
 	[DataContract]
-	public partial class PurchaseEvent : IEquatable<PurchaseEvent>, Event {
+	public class PurchaseEvent : IEquatable<PurchaseEvent>, Event {
 		/// <summary>
-		/// This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication
+		///     This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used
+		///     for authentication
 		/// </summary>
-		/// <value>This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication</value>
+		/// <value>
+		///     This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is
+		///     used for authentication
+		/// </value>
 		[Range(0, 8)]
 		[DataMember(Name = "player", EmitDefaultValue = false)]
 		public int Player { get; set; }
 
 		/// <summary>
-		/// The id of an upgrade. **Unique**
+		///     The id of an upgrade. **Unique**
 		/// </summary>
 		/// <value>The id of an upgrade. **Unique**</value>
 		[Range(0, 10000)]
 		[DataMember(Name = "upgrade", EmitDefaultValue = false)]
 		public int Upgrade { get; set; }
 
-		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class PurchaseEvent {\n");
-			sb.Append("  Player: ").Append(Player).Append("\n");
-			sb.Append("  Upgrade: ").Append(Upgrade).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
 		public EventType GetEventType() => EventType.UpgradePurchase;
 
 		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((PurchaseEvent) obj);
-		}
-
-		/// <summary>
-		/// Returns true if PurchaseEvent instances are equal
+		///     Returns true if PurchaseEvent instances are equal
 		/// </summary>
 		/// <param name="other">Instance of PurchaseEvent to be compared</param>
 		/// <returns>Boolean</returns>
@@ -96,13 +64,43 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class PurchaseEvent {\n");
+			sb.Append("  Player: ").Append(Player).Append("\n");
+			sb.Append("  Upgrade: ").Append(Upgrade).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((PurchaseEvent) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 
 				hashCode = hashCode * 59 + Player.GetHashCode();
@@ -116,13 +114,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(PurchaseEvent left, PurchaseEvent right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(PurchaseEvent left, PurchaseEvent right) => Equals(left, right);
 
-		public static bool operator !=(PurchaseEvent left, PurchaseEvent right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(PurchaseEvent left, PurchaseEvent right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

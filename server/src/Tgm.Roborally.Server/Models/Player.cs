@@ -9,50 +9,42 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// A player attending in a game. #### Warning This is **not** permanent. It is created and removed with the game (or with you joining and leaving the game)
+	///     A player attending in a game. #### Warning This is **not** permanent. It is created and removed with the game (or
+	///     with you joining and leaving the game)
 	/// </summary>
 	[DataContract]
-	public partial class Player : IEquatable<Player> {
+	public class Player : IEquatable<Player> {
+		private const string chars = "ABCDEFGHIJKLMNOPQRSTabcdefghijklmnopqrst1234567890-_+?:!";
+
 		/// <summary>
-		/// This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication
+		///     This is the ID used for authentication
 		/// </summary>
-		/// <value>This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used for authentication</value>
+		public readonly string auth = AuthID();
+
+		/// <summary>
+		///     This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is used
+		///     for authentication
+		/// </summary>
+		/// <value>
+		///     This id uniquely identifys the player (in a game).   **Not** to be confused with the &#x60;uid&#x60; which is
+		///     used for authentication
+		/// </value>
 		[Required]
 		[Range(0, 8)]
 		[DataMember(Name = "id", EmitDefaultValue = false)]
 		public int Id { get; set; }
 
 		/// <summary>
-		/// This is the ID used for authentication
-		/// </summary>
-		public readonly string auth = AuthID();
-
-		private const string chars = "ABCDEFGHIJKLMNOPQRSTabcdefghijklmnopqrst1234567890-_+?:!";
-
-		private static string AuthID() {
-			Random        r = new Random();
-			int           l = r.Next(65) + 10;
-			StringBuilder b = new StringBuilder();
-			for (int i = 0; i < l; i++) {
-				b.Append(chars[r.Next(chars.Length)]);
-			}
-
-			return b.ToString();
-		}
-
-		/// <summary>
-		/// The list of entities controlled by this player
+		///     The list of entities controlled by this player
 		/// </summary>
 		/// <value>The list of entities controlled by this player</value>
 		[Required]
@@ -60,21 +52,25 @@ namespace Tgm.Roborally.Server.Models {
 		public List<int> ControlledEntities { get; set; } = new List<int>();
 
 		/// <summary>
-		/// Îf this is true rhe player is able to interact at the moment
+		///     Îf this is true rhe player is able to interact at the moment
 		/// </summary>
 		/// <value>Îf this is true rhe player is able to interact at the moment</value>
 		[DataMember(Name = "on-turn", EmitDefaultValue = false)]
-		public bool OnTurn { get; set; } = false;
+		public bool OnTurn { get; set; }
 
 		/// <summary>
-		/// Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects
+		///     Defines if the player is actively playing. If this is false the player does random moves. This is only false if the
+		///     player disconnects
 		/// </summary>
-		/// <value>Defines if the player is actively playing. If this is false the player does random moves. This is only false if the player disconnects</value>
+		/// <value>
+		///     Defines if the player is actively playing. If this is false the player does random moves. This is only false if
+		///     the player disconnects
+		/// </value>
 		[DataMember(Name = "active", EmitDefaultValue = false)]
 		public bool Active { get; set; } = true;
 
 		/// <summary>
-		/// The display name of a player including rules
+		///     The display name of a player including rules
 		/// </summary>
 		/// <value>The display name of a player including rules</value>
 		[Required]
@@ -84,42 +80,7 @@ namespace Tgm.Roborally.Server.Models {
 		public string DisplayName { get; set; }
 
 		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class Player {\n");
-			sb.Append("  Id: ").Append(Id).Append("\n");
-			sb.Append("  ControlledEntities: ").Append(ControlledEntities).Append("\n");
-			sb.Append("  OnTurn: ").Append(OnTurn).Append("\n");
-			sb.Append("  Active: ").Append(Active).Append("\n");
-			sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
-		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((Player) obj);
-		}
-
-		/// <summary>
-		/// Returns true if Player instances are equal
+		///     Returns true if Player instances are equal
 		/// </summary>
 		/// <param name="other">Instance of Player to be compared</param>
 		/// <returns>Boolean</returns>
@@ -153,14 +114,56 @@ namespace Tgm.Roborally.Server.Models {
 				);
 		}
 
+		private static string AuthID() {
+			Random        r = new Random();
+			int           l = r.Next(65) + 10;
+			StringBuilder b = new StringBuilder();
+			for (int i = 0; i < l; i++) b.Append(chars[r.Next(chars.Length)]);
+
+			return b.ToString();
+		}
+
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class Player {\n");
+			sb.Append("  Id: ").Append(Id).Append("\n");
+			sb.Append("  ControlledEntities: ").Append(ControlledEntities).Append("\n");
+			sb.Append("  OnTurn: ").Append(OnTurn).Append("\n");
+			sb.Append("  Active: ").Append(Active).Append("\n");
+			sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((Player) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 
 				hashCode = hashCode * 59 + Id.GetHashCode();
@@ -180,13 +183,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(Player left, Player right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(Player left, Player right) => Equals(left, right);
 
-		public static bool operator !=(Player left, Player right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(Player left, Player right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

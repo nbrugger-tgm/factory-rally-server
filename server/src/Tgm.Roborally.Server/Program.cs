@@ -1,29 +1,27 @@
 using System;
 using System.Linq;
 using System.Threading;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 using Tgm.Roborally.Server.Authentication;
 
 namespace Tgm.Roborally.Server {
 	/// <summary>
-	/// Program
+	///     Program
 	/// </summary>
 	public class Program {
 		private const string VERSION = "2.2.0";
 
 		/// <summary>
-		/// Main
-		/// </summary> 
+		///     Main
+		/// </summary>
 		/// <param name="args">[0] = Admin key</param>
 		public static void Main(string[] args) {
-			if (args.Length > 0) {
-				GameAuth.ChangeAdminKey(args[0]);
-			}
+			if (args.Length > 0) GameAuth.ChangeAdminKey(args[0]);
 			string line = string.Concat(Enumerable.Repeat("-", VERSION.Length));
-			Console.WriteLine("+---------------------"+line+"+");
-			Console.WriteLine("| Robo Rally Server v" + VERSION + " |");
-			Console.WriteLine("+---------------------"+line+"+");
+			Console.WriteLine("+---------------------" + line    + "+");
+			Console.WriteLine("| Robo Rally Server v"  + VERSION + " |");
+			Console.WriteLine("+---------------------" + line    + "+");
 			Console.Write("map-repo : ");
 			Console.WriteLine(ServerProperties.mapRepo);
 			Console.Write("admin-key : ");
@@ -35,7 +33,7 @@ namespace Tgm.Roborally.Server {
 		}
 
 		/// <summary>
-		/// Create the web host builder.
+		///     Create the web host builder.
 		/// </summary>
 		/// <param name="args"></param>
 		/// <returns>IWebHostBuilder</returns>

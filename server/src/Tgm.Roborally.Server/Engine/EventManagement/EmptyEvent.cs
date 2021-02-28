@@ -6,7 +6,7 @@ namespace Tgm.Roborally.Server.Engine {
 			Type = type;
 		}
 
-		private EventType Type           { get;}
+		private EventType Type           { get; }
 		public  EventType GetEventType() => Type;
 	}
 }

@@ -9,84 +9,45 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// A queued action. Actions are executed in their adding sequence which is represented by their index
+	///     A queued action. Actions are executed in their adding sequence which is represented by their index
 	/// </summary>
 	[DataContract]
-	public partial class Action : IEquatable<Action> {
+	public class Action : IEquatable<Action> {
 		/// <summary>
-		/// The queue index of the action
+		///     The queue index of the action
 		/// </summary>
 		/// <value>The queue index of the action</value>
 		[DataMember(Name = "index", EmitDefaultValue = false)]
 		public int Index { get; set; }
 
 		/// <summary>
-		/// Gets or Sets Type
+		///     Gets or Sets Type
 		/// </summary>
 		[DataMember(Name = "type", EmitDefaultValue = false)]
 		public ActionType Type { get; set; }
 
 		/// <summary>
-		/// true if the action was allready executed
+		///     true if the action was allready executed
 		/// </summary>
 		/// <value>true if the action was allready executed</value>
 		[DataMember(Name = "executed", EmitDefaultValue = false)]
 		public bool Executed { get; set; }
 
 		/// <summary>
-		/// The index of the player this instruction came from
+		///     The index of the player this instruction came from
 		/// </summary>
 		/// <value>The index of the player this instruction came from</value>
 		[DataMember(Name = "requestor", EmitDefaultValue = false)]
 		public int Requestor { get; set; }
 
 		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class Action {\n");
-			sb.Append("  Index: ").Append(Index).Append("\n");
-			sb.Append("  Type: ").Append(Type).Append("\n");
-			sb.Append("  Executed: ").Append(Executed).Append("\n");
-			sb.Append("  Requestor: ").Append(Requestor).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
-		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((Action) obj);
-		}
-
-		/// <summary>
-		/// Returns true if Action instances are equal
+		///     Returns true if Action instances are equal
 		/// </summary>
 		/// <param name="other">Instance of Action to be compared</param>
 		/// <returns>Boolean</returns>
@@ -114,13 +75,45 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class Action {\n");
+			sb.Append("  Index: ").Append(Index).Append("\n");
+			sb.Append("  Type: ").Append(Type).Append("\n");
+			sb.Append("  Executed: ").Append(Executed).Append("\n");
+			sb.Append("  Requestor: ").Append(Requestor).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((Action) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 
 				hashCode = hashCode * 59 + Index.GetHashCode();
@@ -138,13 +131,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(Action left, Action right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(Action left, Action right) => Equals(left, right);
 
-		public static bool operator !=(Action left, Action right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(Action left, Action right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

@@ -1,34 +1,35 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
 	public class UpgradeShopPhase : GamePhase {
-		private          GameLogic _game;
-		private          int       _activePlayer = 0;
-		private          bool      _shopFilled;
-		private          long      _endTime;
 		private const    int       TIME      = 20000;
 		private readonly object    _listener = new object();
+		private          int       _activePlayer;
+		private          long      _endTime;
 		private          bool      _executed;
+		private          GameLogic _game;
+		private          bool      _shopFilled;
 
 		protected override object Information => new UpgradeInfo();
+
+		public override GameState NewState => GameState.PLAYING;
 
 		protected override GamePhase Run(GameLogic game) {
 			_game = game;
 			game.Upgrades.fillShop();
 			_shopFilled = true;
 			//TODO calculate order based on prio beacon
-			foreach(int activePlayer in game.PlayerIds) {
+			foreach (int activePlayer in game.PlayerIds) {
 				_activePlayer = activePlayer;
 				_endTime      = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + TIME;
 				_executed     = false;
 				lock (_listener) {
 					Monitor.Wait(_listener, TIME);
 					if (!_executed) {
-						game.CommitEvent(new TimeElapsedEvent() {
+						game.CommitEvent(new TimeElapsedEvent {
 							OriginalDuration = TIME,
 							Context          = ("player:" + _activePlayer, "action:buy_upgrade")
 						});
@@ -38,8 +39,6 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 			return new PreProgrammingPhase(); //todo
 		}
-
-		public override GameState NewState => GameState.PLAYING;
 
 		public override void Notify(ActionType action) {
 		}
@@ -69,13 +68,13 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			if (_game.State == GameState.BREAK || player != _activePlayer || !_shopFilled)
 				return new List<EntityEventOportunity>();
 
-			return new List<EntityEventOportunity>() {
-				new EntityEventOportunity() {
+			return new List<EntityEventOportunity> {
+				new EntityEventOportunity {
 					EndTime  = _endTime,
 					TimeLeft = _endTime - DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - 30,
 					Type     = EntityActionType.BuyUpgrade
 				},
-				new EntityEventOportunity() {
+				new EntityEventOportunity {
 					EndTime = _endTime,
 					TimeLeft = _endTime - DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() -
 							   30, //-30 to correct timing with ping
@@ -83,9 +82,9 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 				}
 			};
 		}
+
 		public class UpgradeInfo {
 			public int timer => TIME;
 		}
 	}
-
 }

@@ -9,22 +9,16 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// Describes an event from an action without additionaly information
+	///     Describes an event from an action without additionaly information
 	/// </summary>
 	[DataContract]
-	public partial class ActionEvent : IEquatable<ActionEvent>, Event {
+	public class ActionEvent : IEquatable<ActionEvent>, Event {
 		[IgnoreDataMember] private readonly EventType _type;
 
 		public ActionEvent(EventType type) {
@@ -32,20 +26,29 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 
-		public EventType GetEventType() {
-			return _type;
+		public EventType GetEventType() => _type;
+
+		/// <summary>
+		///     Returns true if ActionEvent instances are equal
+		/// </summary>
+		/// <param name="other">Instance of ActionEvent to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(ActionEvent other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
+
+			return
+				true;
 		}
 
 		/// <summary>
-		/// Returns the JSON string presentation of the object
+		///     Returns the JSON string presentation of the object
 		/// </summary>
 		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
 
 		/// <summary>
-		/// Returns true if objects are equal
+		///     Returns true if objects are equal
 		/// </summary>
 		/// <param name="obj">Object to be compared</param>
 		/// <returns>Boolean</returns>
@@ -56,28 +59,13 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Returns true if ActionEvent instances are equal
-		/// </summary>
-		/// <param name="other">Instance of ActionEvent to be compared</param>
-		/// <returns>Boolean</returns>
-		public bool Equals(ActionEvent other) {
-			if (other is null) return false;
-			if (ReferenceEquals(this, other)) return true;
-
-			return
-				(
-					true
-				);
-		}
-
-		/// <summary>
-		/// Gets the hash code
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41 * _type.GetHashCode();
+				int hashCode = 41 * _type.GetHashCode();
 				// Suitable nullity checks etc, of course :)
 				return hashCode;
 			}
@@ -87,13 +75,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(ActionEvent left, ActionEvent right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(ActionEvent left, ActionEvent right) => Equals(left, right);
 
-		public static bool operator !=(ActionEvent left, ActionEvent right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(ActionEvent left, ActionEvent right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

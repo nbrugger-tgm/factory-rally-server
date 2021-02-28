@@ -10,26 +10,23 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
 using Tgm.Roborally.Server.Attributes;
-using Microsoft.AspNetCore.Authorization;
 using Tgm.Roborally.Server.Authentication;
 using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Controllers {
 	/// <summary>
-	/// 
 	/// </summary>
 	[ApiController]
 	public class RobotsApiController : ControllerBase {
 		/// <summary>
-		/// clear registers
+		///     clear registers
 		/// </summary>
 		/// <remarks>Emptys all register of the robot</remarks>
 		/// <param name="gameId"></param>
@@ -41,20 +38,19 @@ namespace Tgm.Roborally.Server.Controllers {
 		[ValidateModelState]
 		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[SwaggerOperation("ClearRegisters")]
-		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult ClearRegisters([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 													int gameId, [FromRoute(Name = "robot_id")] [Required]
-													int robotId) {
-			return new GameRequestPipeline()
-				   .Game(gameId)
-				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
-				   .Robot(robotId)
-				   .Compute(c => c.Game.Programming.Clear(robotId))
-				   .ExecuteAction();
-		}
+													int robotId) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				.Robot(robotId)
+				.Compute(code: c => c.Game.Programming.Clear(robotId))
+				.ExecuteAction();
 
 		/// <summary>
-		/// Clear Robot Upgrades
+		///     Clear Robot Upgrades
 		/// </summary>
 		/// <remarks>Removes all upgrades from a robot</remarks>
 		/// <param name="gameId"></param>
@@ -66,21 +62,20 @@ namespace Tgm.Roborally.Server.Controllers {
 		[ValidateModelState]
 		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[SwaggerOperation("ClearUpgrades")]
-		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult ClearUpgrades([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 												   int gameId,
 												   [FromRoute(Name = "robot_id")] [Required]
-												   int robotId) {
-			return new GameRequestPipeline()
-				   .Game(gameId)
-				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
-				   .Robot(robotId)
-				   .Compute(c => { c.Game.Upgrades.DiscardEntityUpgrades(c.Robot.Id); })
-				   .ExecuteAction();
-		}
+												   int robotId) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				.Robot(robotId)
+				.Compute(code: c => { c.Game.Upgrades.DiscardEntityUpgrades(c.Robot.Id); })
+				.ExecuteAction();
 
 		/// <summary>
-		/// Add Entity Action to stack
+		///     Add Entity Action to stack
 		/// </summary>
 		/// <remarks>Adds an action to the stack. The stack is processed using *first in first out*</remarks>
 		/// <param name="gameId"></param>
@@ -93,20 +88,18 @@ namespace Tgm.Roborally.Server.Controllers {
 		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("DoEntityAction")]
-		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult DoEntityAction([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 													int gameId,     [FromRoute(Name = "robot_id")] [Required]
-													string robotId, [FromBody] EntityAction entityAction) {
+													string robotId, [FromBody] EntityAction entityAction) =>
 			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
 			// return StatusCode(200);
 			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
 			// return StatusCode(404, default(ErrorMessage));
-
 			throw new NotImplementedException();
-		}
 
 		/// <summary>
-		/// Get Robot action stack
+		///     Get Robot action stack
 		/// </summary>
 		/// <remarks>Retuns a list od all actions in the stack</remarks>
 		/// <param name="gameId"></param>
@@ -118,8 +111,8 @@ namespace Tgm.Roborally.Server.Controllers {
 		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("GetActionStack")]
-		[SwaggerResponse(statusCode: 200, type: typeof(List<EntityAction>), description: "OK")]
-		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(200, type: typeof(List<EntityAction>), description: "OK")]
+		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetActionStack([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 													int gameId, [FromRoute(Name = "robot_id")] [Required]
 													string robotId) {
@@ -130,15 +123,15 @@ namespace Tgm.Roborally.Server.Controllers {
 			string exampleJson = null;
 			exampleJson = "{ }";
 
-			var example = exampleJson != null
-							  ? JsonConvert.DeserializeObject<List<EntityAction>>(exampleJson)
-							  : default(List<EntityAction>);
+			List<EntityAction> example = exampleJson != null
+											 ? JsonConvert.DeserializeObject<List<EntityAction>>(exampleJson)
+											 : default;
 			//TODO: Change the data returned
 			return new ObjectResult(example);
 		}
 
 		/// <summary>
-		/// Get Robot Upgrades
+		///     Get Robot Upgrades
 		/// </summary>
 		/// <remarks>Returns the upgrades installed on the robot</remarks>
 		/// <param name="gameId"></param>
@@ -150,21 +143,20 @@ namespace Tgm.Roborally.Server.Controllers {
 		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[ValidateModelState]
 		[SwaggerOperation("GetInstalledUpgrades")]
-		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
-		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(200, type: typeof(List<int>), description: "OK")]
+		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetInstalledUpgrades([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 														  int gameId, [FromRoute(Name = "robot_id")] [Required]
-														  int robotId) {
-			return new GameRequestPipeline()
-				   .Game(gameId)
-				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
-				   .Robot(robotId)
-				   .Compute(c => { c.Response = new ObjectResult(c.Game.Upgrades.GetEntityUpgrades(robotId)); })
-				   .ExecuteAction();
-		}
+														  int robotId) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				.Robot(robotId)
+				.Compute(code: c => { c.Response = new ObjectResult(c.Game.Upgrades.GetEntityUpgrades(robotId)); })
+				.ExecuteAction();
 
 		/// <summary>
-		/// Get Aviable actions
+		///     Get Aviable actions
 		/// </summary>
 		/// <remarks>Returns a list of EntityActionTypes which are possible to be executed at the moment.</remarks>
 		/// <param name="gameId"></param>
@@ -176,24 +168,23 @@ namespace Tgm.Roborally.Server.Controllers {
 		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[ValidateModelState]
 		[SwaggerOperation("GetPossibleActions")]
-		[SwaggerResponse(statusCode: 200, type: typeof(List<EntityEventOportunity>), description: "OK")]
-		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(200, type: typeof(List<EntityEventOportunity>), description: "OK")]
+		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetPossibleActions([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 														int gameId, [FromRoute(Name = "robot_id")] [Required]
-														int robotId) {
-			return new GameRequestPipeline()
-				   .Game(gameId)
-				   .Robot(robotId)
-				   .Compute(c => {
-					   c.Response =
-						   new OkObjectResult(
-							   c.Game.PossibleEntityActions(robotId, (int) HttpContext.Items[GameAuth.PLAYER_ID]));
-				   })
-				   .ExecuteSecure();
-		}
+														int robotId) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Robot(robotId)
+				.Compute(code: c => {
+					c.Response =
+						new OkObjectResult(
+							c.Game.PossibleEntityActions(robotId, (int) HttpContext.Items[GameAuth.PLAYER_ID]));
+				})
+				.ExecuteSecure();
 
 		/// <summary>
-		/// Get Register Content
+		///     Get Register Content
 		/// </summary>
 		/// <remarks>Returns the Programming card in the robots register</remarks>
 		/// <param name="gameId"></param>
@@ -203,28 +194,27 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/registers/{register}")]
-		[GameAuth(Role.PLAYER,allowConsumer: true)]
+		[GameAuth(Role.PLAYER, allowConsumer: true)]
 		[ValidateModelState]
 		[SwaggerOperation("GetRegisterContent")]
-		[SwaggerResponse(statusCode: 200, type: typeof(RobotCommand), description: "OK")]
+		[SwaggerResponse(200, type: typeof(RobotCommand), description: "OK")]
 		public virtual IActionResult GetRegisterContent([FromRoute] [Required] [Range(0, 2048)]
 														int gameId, [FromRoute] [Required] int robotId,
-														[FromRoute] [Required] [Range(0, 4)] int register) {
-			return new GameRequestPipeline()
-				   .Game(gameId)
-				   .Robot(robotId)
-				   .Compute(c => {
-					   int card = c.Game.Programming.GetRegister(robotId)[register];
-					   if (card == -1)
-						   c.Response  = new OkObjectResult("empty");
-					   else 
-						   c.Response = new OkObjectResult(c.Game.Programming[card]);
-				   })
-				   .ExecuteSecure();
-		}
+														[FromRoute] [Required] [Range(0, 4)] int register) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Robot(robotId)
+				.Compute(code: c => {
+					int card = c.Game.Programming.GetRegister(robotId)[register];
+					if (card == -1)
+						c.Response = new OkObjectResult("empty");
+					else
+						c.Response = new OkObjectResult(c.Game.Programming[card]);
+				})
+				.ExecuteSecure();
 
 		/// <summary>
-		/// Get register information
+		///     Get register information
 		/// </summary>
 		/// <remarks>Returns the content of the registers</remarks>
 		/// <param name="gameId"></param>
@@ -234,23 +224,24 @@ namespace Tgm.Roborally.Server.Controllers {
 		[HttpGet]
 		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/registers")]
 		[ValidateModelState]
-		[GameAuth(Role.PLAYER,allowConsumer:true)]
+		[GameAuth(Role.PLAYER, allowConsumer: true)]
 		[SwaggerOperation("GetRegisters")]
-		[SwaggerResponse(statusCode: 200, type: typeof(List<RobotCommand>), description: "OK")]
-		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(200, type: typeof(List<RobotCommand>), description: "OK")]
+		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetRegisters([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 												  int gameId, [FromRoute(Name = "robot_id")] [Required]
-												  int robotId) {
-			return new GameRequestPipeline()
-				   .Game(gameId)
-				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
-				   .Robot(robotId)
-				   .Compute(c => c.Response = new OkObjectResult(c.Game.Programming.GetRegister(robotId).Select(id => c.Game.Programming[id]).ToArray()))
-				   .ExecuteSecure();
-		}
+												  int robotId) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				.Robot(robotId)
+				.Compute(code: c => c.Response = new OkObjectResult(
+										c.Game.Programming.GetRegister(robotId)
+										 .Select(selector: id => c.Game.Programming[id]).ToArray()))
+				.ExecuteSecure();
 
 		/// <summary>
-		/// Get Robot Informations
+		///     Get Robot Informations
 		/// </summary>
 		/// <remarks>Returns the status and info about the robot</remarks>
 		/// <param name="gameId"></param>
@@ -260,46 +251,47 @@ namespace Tgm.Roborally.Server.Controllers {
 		[HttpGet]
 		[Route("/v1/games/{game_id}/entities/robots/{robot_id}/info")]
 		[ValidateModelState]
-		[GameAuth(Role.PLAYER,allowConsumer: true)]
+		[GameAuth(Role.PLAYER, allowConsumer: true)]
 		[SwaggerOperation("GetRobotStats")]
-		[SwaggerResponse(statusCode: 200, type: typeof(RobotInfo), description: "OK")]
-		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(200, type: typeof(RobotInfo), description: "OK")]
+		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetRobotStats([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 												   int gameId, [FromRoute(Name = "robot_id")] [Required]
-												   int robotId) {
-			return new GameRequestPipeline()
-				   .Game(gameId)
-				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
-				   .Robot(robotId)
-				   .Compute(c => { c.Response = new OkObjectResult(c.Robot); })
-				   .ExecuteAction();
-		}
+												   int robotId) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				.Robot(robotId)
+				.Compute(code: c => { c.Response = new OkObjectResult(c.Robot); })
+				.ExecuteAction();
 
 		/// <summary>
-		/// Get all robots
+		///     Get all robots
 		/// </summary>
-		/// <remarks>Returns a list of all robot IDs in this game. &gt; A robot is not a player as a player is able to controll multiple robots</remarks>
+		/// <remarks>
+		///     Returns a list of all robot IDs in this game. &gt; A robot is not a player as a player is able to controll
+		///     multiple robots
+		/// </remarks>
 		/// <param name="gameId"></param>
 		/// <response code="200">OK</response>
 		/// <response code="404">Not Found</response>
 		[HttpGet]
 		[Route("/v1/games/{game_id}/entities/robots/")]
-		[GameAuth(Role.PLAYER,allowConsumer:true)]
+		[GameAuth(Role.PLAYER, allowConsumer: true)]
 		[ValidateModelState]
 		[SwaggerOperation("GetRobots")]
-		[SwaggerResponse(statusCode: 200, type: typeof(List<int>), description: "OK")]
-		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(200, type: typeof(List<int>), description: "OK")]
+		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetRobots([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-											   int gameId) {
-			return new GameRequestPipeline()
-				   .Game(gameId)
-				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
-				   .Compute(c => c.Response = new OkObjectResult(c.Game.Entitys.Robots))
-				   .ExecuteSecure();
-		}
+											   int gameId) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				.Compute(code: c => c.Response = new OkObjectResult(c.Game.Entitys.Robots))
+				.ExecuteSecure();
 
 		/// <summary>
-		/// Remove Upgrade
+		///     Remove Upgrade
 		/// </summary>
 		/// <remarks>Removes a paticular upgrade from the robot</remarks>
 		/// <param name="gameId"></param>
@@ -312,20 +304,19 @@ namespace Tgm.Roborally.Server.Controllers {
 		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("RemoveRobotUpgrade")]
-		[SwaggerResponse(statusCode: 404, type: typeof(ErrorMessage), description: "Not Found")]
+		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult RemoveRobotUpgrade([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 														int gameId,  [FromRoute(Name = "robot_id")] [Required]
-														int robotId, [FromQuery] [Range(0, 10000)] int upgrade) {
-			return new GameRequestPipeline()
-				   .Game(gameId)
-				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
-				   .Robot(robotId)
-				   .Compute(c => { c.Game.Upgrades.DiscardEntityUpgrade(c.Robot.Id, upgrade); })
-				   .ExecuteAction();
-		}
+														int robotId, [FromQuery] [Range(0, 10000)] int upgrade) =>
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				.Robot(robotId)
+				.Compute(code: c => { c.Game.Upgrades.DiscardEntityUpgrade(c.Robot.Id, upgrade); })
+				.ExecuteAction();
 
 		/// <summary>
-		/// Set Register Content
+		///     Set Register Content
 		/// </summary>
 		/// <remarks>Changes the programming card of the robots register</remarks>
 		/// <param name="gameId"></param>
@@ -342,14 +333,13 @@ namespace Tgm.Roborally.Server.Controllers {
 		public virtual IActionResult SetRegister([FromRoute] [Required] [Range(0, 2048)]
 												 int gameId, [FromRoute] [Required] int robotId,
 												 [FromRoute] [Required] [Range(0, 4)] int register,
-												 [FromQuery] [Required()] [Range(0, 10000)]
-												 int statementId) {
-			return new ObjectResult(new ErrorMessage {
-				Error="Not implemented",
-				Message="This functionality is WIP"
-			}){
+												 [FromQuery] [Required] [Range(0, 10000)]
+												 int statementId) =>
+			new ObjectResult(new ErrorMessage {
+				Error   = "Not implemented",
+				Message = "This functionality is WIP"
+			}) {
 				StatusCode = 500
 			};
-		}
 	}
 }

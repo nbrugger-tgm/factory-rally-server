@@ -8,26 +8,19 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 		protected override object Information => null;
 
+		public override GameState NewState => GameState.LOBBY;
+
 		protected override GamePhase Run(GameLogic game) {
-			while (!started) {
-				Thread.Yield();
-			}
+			while (!started) Thread.Yield();
 
 			return new RobotPickingPhase();
 		}
 
-		public override GameState NewState => GameState.LOBBY;
+		public override void Notify(ActionType action) => started = action == ActionType.STARTGAME;
 
-		public override void Notify(ActionType action) {
-			started = action == ActionType.STARTGAME;
-		}
+		public override bool Notify(GenericEvent action) => action.Data is JoinEvent;
 
-		public override bool Notify(GenericEvent action) {
-			return action.Data is JoinEvent;
-		}
-
-		public override IList<EntityEventOportunity> GetPossibleActions(int a, int b) {
-			return new List<EntityEventOportunity>();
-		}
+		public override IList<EntityEventOportunity> GetPossibleActions(int a, int b) =>
+			new List<EntityEventOportunity>();
 	}
 }

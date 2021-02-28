@@ -9,67 +9,32 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// A shop to buy upgrades from. Each element is buyable once and then vanishes from the list
+	///     A shop to buy upgrades from. Each element is buyable once and then vanishes from the list
 	/// </summary>
 	[DataContract]
-	public partial class UpgradeShop : IEquatable<UpgradeShop> {
+	public class UpgradeShop : IEquatable<UpgradeShop> {
 		/// <summary>
-		/// Gets or Sets Upgrades
+		///     Gets or Sets Upgrades
 		/// </summary>
 		[DataMember(Name = "upgrades", EmitDefaultValue = false)]
 		public List<int> Upgrades { get; set; }
 
 		/// <summary>
-		/// Gets or Sets Information
+		///     Gets or Sets Information
 		/// </summary>
 		[DataMember(Name = "information", EmitDefaultValue = false)]
 		public UpgradeShopInformation Information { get; set; }
 
 		/// <summary>
-		/// Returns the string presentation of the object
-		/// </summary>
-		/// <returns>String presentation of the object</returns>
-		public override string ToString() {
-			var sb = new StringBuilder();
-			sb.Append("class UpgradeShop {\n");
-			sb.Append("  Upgrades: ").Append(Upgrades).Append("\n");
-			sb.Append("  Information: ").Append(Information).Append("\n");
-			sb.Append("}\n");
-			return sb.ToString();
-		}
-
-		/// <summary>
-		/// Returns the JSON string presentation of the object
-		/// </summary>
-		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Returns true if objects are equal
-		/// </summary>
-		/// <param name="obj">Object to be compared</param>
-		/// <returns>Boolean</returns>
-		public override bool Equals(object obj) {
-			if (obj is null) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((UpgradeShop) obj);
-		}
-
-		/// <summary>
-		/// Returns true if UpgradeShop instances are equal
+		///     Returns true if UpgradeShop instances are equal
 		/// </summary>
 		/// <param name="other">Instance of UpgradeShop to be compared</param>
 		/// <returns>Boolean</returns>
@@ -92,13 +57,43 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Gets the hash code
+		///     Returns the string presentation of the object
+		/// </summary>
+		/// <returns>String presentation of the object</returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("class UpgradeShop {\n");
+			sb.Append("  Upgrades: ").Append(Upgrades).Append("\n");
+			sb.Append("  Information: ").Append(Information).Append("\n");
+			sb.Append("}\n");
+			return sb.ToString();
+		}
+
+		/// <summary>
+		///     Returns the JSON string presentation of the object
+		/// </summary>
+		/// <returns>JSON string presentation of the object</returns>
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+		/// <summary>
+		///     Returns true if objects are equal
+		/// </summary>
+		/// <param name="obj">Object to be compared</param>
+		/// <returns>Boolean</returns>
+		public override bool Equals(object obj) {
+			if (obj is null) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((UpgradeShop) obj);
+		}
+
+		/// <summary>
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 				if (Upgrades != null)
 					hashCode = hashCode * 59 + Upgrades.GetHashCode();
@@ -112,13 +107,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(UpgradeShop left, UpgradeShop right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(UpgradeShop left, UpgradeShop right) => Equals(left, right);
 
-		public static bool operator !=(UpgradeShop left, UpgradeShop right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(UpgradeShop left, UpgradeShop right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

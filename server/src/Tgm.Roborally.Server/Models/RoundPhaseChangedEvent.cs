@@ -9,33 +9,42 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// Occurs when the next phase of the round starts
+	///     Occurs when the next phase of the round starts
 	/// </summary>
 	[DataContract]
-	public partial class RoundPhaseChangedEvent : IEquatable<RoundPhaseChangedEvent> {
+	public class RoundPhaseChangedEvent : IEquatable<RoundPhaseChangedEvent> {
 		/// <summary>
-		/// Gets or Sets Phase
+		///     Gets or Sets Phase
 		/// </summary>
 		[DataMember(Name = "phase", EmitDefaultValue = false)]
 		public RoundPhase Phase { get; set; }
 
 		/// <summary>
-		/// Returns the string presentation of the object
+		///     Returns true if RoundPhaseChangedEvent instances are equal
+		/// </summary>
+		/// <param name="other">Instance of RoundPhaseChangedEvent to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(RoundPhaseChangedEvent other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
+
+			return
+				Phase == other.Phase ||
+				Phase.Equals(other.Phase);
+		}
+
+		/// <summary>
+		///     Returns the string presentation of the object
 		/// </summary>
 		/// <returns>String presentation of the object</returns>
 		public override string ToString() {
-			var sb = new StringBuilder();
+			StringBuilder sb = new StringBuilder();
 			sb.Append("class RoundPhaseChangedEvent {\n");
 			sb.Append("  Phase: ").Append(Phase).Append("\n");
 			sb.Append("}\n");
@@ -43,15 +52,13 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Returns the JSON string presentation of the object
+		///     Returns the JSON string presentation of the object
 		/// </summary>
 		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
 
 		/// <summary>
-		/// Returns true if objects are equal
+		///     Returns true if objects are equal
 		/// </summary>
 		/// <param name="obj">Object to be compared</param>
 		/// <returns>Boolean</returns>
@@ -62,29 +69,13 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Returns true if RoundPhaseChangedEvent instances are equal
-		/// </summary>
-		/// <param name="other">Instance of RoundPhaseChangedEvent to be compared</param>
-		/// <returns>Boolean</returns>
-		public bool Equals(RoundPhaseChangedEvent other) {
-			if (other is null) return false;
-			if (ReferenceEquals(this, other)) return true;
-
-			return
-				(
-					Phase == other.Phase ||
-					Phase.Equals(other.Phase)
-				);
-		}
-
-		/// <summary>
-		/// Gets the hash code
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 
 				hashCode = hashCode * 59 + Phase.GetHashCode();
@@ -96,13 +87,11 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(RoundPhaseChangedEvent left, RoundPhaseChangedEvent right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(RoundPhaseChangedEvent left, RoundPhaseChangedEvent right) =>
+			Equals(left, right);
 
-		public static bool operator !=(RoundPhaseChangedEvent left, RoundPhaseChangedEvent right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(RoundPhaseChangedEvent left, RoundPhaseChangedEvent right) =>
+			!Equals(left, right);
 
 		#pragma warning restore 1591
 

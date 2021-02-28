@@ -9,52 +9,60 @@
  */
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
-using Tgm.Roborally.Server.Converters;
 using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
-	/// Called when a player is hit by an 
+	///     Called when a player is hit by an
 	/// </summary>
 	[DataContract]
-	public partial class LazerHitEvent : IEquatable<LazerHitEvent>, Event {
+	public class LazerHitEvent : IEquatable<LazerHitEvent>, Event {
 		/// <summary>
-		/// Gets or Sets Id
+		///     Gets or Sets Id
 		/// </summary>
 		[DataMember(Name = "id", EmitDefaultValue = false)]
 		public string Id { get; set; }
 
+		public EventType GetEventType() => EventType.LazerHit;
+
 		/// <summary>
-		/// Returns the string presentation of the object
+		///     Returns true if LazerHitEvent instances are equal
+		/// </summary>
+		/// <param name="other">Instance of LazerHitEvent to be compared</param>
+		/// <returns>Boolean</returns>
+		public bool Equals(LazerHitEvent other) {
+			if (other is null) return false;
+			if (ReferenceEquals(this, other)) return true;
+
+			return
+				Id == other.Id ||
+				Id != null &&
+				Id.Equals(other.Id);
+		}
+
+		/// <summary>
+		///     Returns the string presentation of the object
 		/// </summary>
 		/// <returns>String presentation of the object</returns>
 		public override string ToString() {
-			var sb = new StringBuilder();
+			StringBuilder sb = new StringBuilder();
 			sb.Append("class LazerHitEvent {\n");
 			sb.Append("  Id: ").Append(Id).Append("\n");
 			sb.Append("}\n");
 			return sb.ToString();
 		}
 
-		public EventType GetEventType() => EventType.LazerHit;
-
 		/// <summary>
-		/// Returns the JSON string presentation of the object
+		///     Returns the JSON string presentation of the object
 		/// </summary>
 		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson() {
-			return JsonConvert.SerializeObject(this, Formatting.Indented);
-		}
+		public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
 
 		/// <summary>
-		/// Returns true if objects are equal
+		///     Returns true if objects are equal
 		/// </summary>
 		/// <param name="obj">Object to be compared</param>
 		/// <returns>Boolean</returns>
@@ -65,30 +73,13 @@ namespace Tgm.Roborally.Server.Models {
 		}
 
 		/// <summary>
-		/// Returns true if LazerHitEvent instances are equal
-		/// </summary>
-		/// <param name="other">Instance of LazerHitEvent to be compared</param>
-		/// <returns>Boolean</returns>
-		public bool Equals(LazerHitEvent other) {
-			if (other is null) return false;
-			if (ReferenceEquals(this, other)) return true;
-
-			return
-				(
-					Id == other.Id ||
-					Id != null &&
-					Id.Equals(other.Id)
-				);
-		}
-
-		/// <summary>
-		/// Gets the hash code
+		///     Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
 		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
-				var hashCode = 41;
+				int hashCode = 41;
 				// Suitable nullity checks etc, of course :)
 				if (Id != null)
 					hashCode = hashCode * 59 + Id.GetHashCode();
@@ -100,13 +91,9 @@ namespace Tgm.Roborally.Server.Models {
 
 		#pragma warning disable 1591
 
-		public static bool operator ==(LazerHitEvent left, LazerHitEvent right) {
-			return Equals(left, right);
-		}
+		public static bool operator ==(LazerHitEvent left, LazerHitEvent right) => Equals(left, right);
 
-		public static bool operator !=(LazerHitEvent left, LazerHitEvent right) {
-			return !Equals(left, right);
-		}
+		public static bool operator !=(LazerHitEvent left, LazerHitEvent right) => !Equals(left, right);
 
 		#pragma warning restore 1591
 

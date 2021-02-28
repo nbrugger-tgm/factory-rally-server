@@ -24,13 +24,11 @@ namespace Tgm.Roborally.Server.Engine {
 
 		private void run() {
 			currentPhase = new LobbyPhase();
-			while (currentPhase != null) {
-				currentPhase = currentPhase.Start(game);
-			}
+			while (currentPhase != null) currentPhase = currentPhase.Start(game);
 
 			Console.Out.WriteLine("\nGame " + game.id + " ended wait 10 seconds before deletion");
 			Thread.Sleep(10000);
-			Console.Out.WriteLine("Delete Game "+game.id+" to save memory\n");
+			Console.Out.WriteLine("Delete Game " + game.id + " to save memory\n");
 			GameManager.instance.games.Remove(game.id);
 		}
 
@@ -41,7 +39,8 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		public void Notify(GenericEvent action) {
-			if (action.GetEventType() == EventType.GamePhaseChanged || action.GetEventType() == EventType.GameRoundPhaseChanged)
+			if (action.GetEventType() == EventType.GamePhaseChanged ||
+				action.GetEventType() == EventType.GameRoundPhaseChanged)
 				return;
 			if (
 				action.GetEventType() != EventType.GameStart &&
@@ -50,10 +49,8 @@ namespace Tgm.Roborally.Server.Engine {
 				if (!currentPhase.Notify(action))
 					throw new BadEventException(action.GetEventType().ToString(), currentPhase.GetType().FullName);
 			}
-			else {
+			else
 				currentPhase.Notify(action);
-			}
 		}
-
 	}
 }

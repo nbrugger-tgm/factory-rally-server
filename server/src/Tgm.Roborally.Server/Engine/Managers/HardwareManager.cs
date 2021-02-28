@@ -1,8 +1,6 @@
-using Tgm.Roborally.Server.Models;
-
 namespace Tgm.Roborally.Server.Engine {
 	public class HardwareManager {
-		private GameLogic _game;
+		private readonly GameLogic _game;
 
 		public HardwareManager(GameLogic game) {
 			_game = game;
