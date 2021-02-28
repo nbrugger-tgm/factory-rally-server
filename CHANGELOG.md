@@ -1,3 +1,13 @@
+## v2.4.0 (2021-02-28)
+
+### Feat
+
+- enable falling off the map
+
+### Fix
+
+- emit push event
+
 ## v2.3.0 (2021-02-28)
 
 ### Feat
