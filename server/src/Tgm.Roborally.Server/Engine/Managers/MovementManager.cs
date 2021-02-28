@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using Tgm.Roborally.Server.Engine.Statement;
 using Tgm.Roborally.Server.Models;
 
@@ -18,24 +20,34 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		}
 
 		private int Move(RobotInfo robotInfo, int ammount, Direction resultDirection) {
-			int      actualAmmount;
-			Position newPos;
-			int      pushing = -1;
-			for (actualAmmount = 0; actualAmmount <= ammount; actualAmmount++) {
+			int                          actualAmmount;
+			Position                     newPos;
+			int                          pushing = -1;
+			Dictionary<Position, List<Event>> events  = new Dictionary<Position, List<Event>>();
+			
+			for (actualAmmount = 0; actualAmmount < ammount; actualAmmount++) {
 				newPos = Translate(robotInfo.Location, actualAmmount + 1, resultDirection);
-				if (!_game.Map.IsWithin(newPos)) {
-					if (actualAmmount != 0) PerformMove(robotInfo, actualAmmount, resultDirection);
-					_game.CommitEvent(new DamageEvent() {
+				events[newPos] = new List<Event>();
+				if (!_game.Map.IsWithin(newPos)) {;
+					events[newPos].Add(new DamageEvent() {
 						Ammount = 20,
 						Entity = robotInfo.Id
 					});
-					return actualAmmount;
+					break;
 				}
 				Tile tile = _game.Map[newPos.X, newPos.Y];
 				//HEIGHT DIFFERENCE BLOCK
-				bool onRamp = false; //todo proper implementation
-				if (tile.Level != robotInfo.Attitude && !onRamp)
+				bool onRamp = tile.Type == TileType.Ramp; //todo proper implementation
+				if (tile.Level > robotInfo.Attitude && !onRamp)
 					break;
+				if (tile.Level < robotInfo.Attitude && !onRamp) {
+					events[newPos].Add(new DamageEvent() {
+						Ammount = robotInfo.Attitude - tile.Level,
+						Entity = robotInfo.Id
+					});
+				}else if (tile.Level + 1 == robotInfo.Attitude && onRamp) {
+					//todo elevate it
+				}
 
 				//wall block
 				if (tile.Type == TileType.Wall)
@@ -62,7 +74,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				;
 			}
 
-			if (actualAmmount != 0) PerformMove(robotInfo, actualAmmount, resultDirection);
+			if (actualAmmount != 0) PerformMove(robotInfo, actualAmmount, resultDirection,events);
 
 			if (pushing != -1) {
 				RobotInfo pushedRobot = (RobotInfo) _game.Entitys[pushing];
@@ -76,7 +88,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 					bool successfullPush = Move(pushedRobot, 1, resultDirection) == 1;
 					if (successfullPush) {
 						actualAmmount++;
-						PerformMove(robotInfo, 1, resultDirection);
+						PerformMove(robotInfo, 1, resultDirection,events );
 					}
 					else break;
 				}
@@ -92,18 +104,26 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <param name="robotInfo"></param>
 		/// <param name="actualAmmount"></param>
 		/// <param name="resultDirection"></param>
-		private void PerformMove(RobotInfo robotInfo, int actualAmmount, Direction resultDirection) {
-			Position newPos = Translate(robotInfo.Location, actualAmmount, resultDirection);
-			_game.CommitEvent(new MovementEvent {
-				Direction       = resultDirection,
-				Entity          = robotInfo.Id,
-				From            = robotInfo.Location,
-				MovementAmmount = actualAmmount,
-				Rotation        = Rotation.Left,
-				RotationTimes   = 0,
-				To              = newPos
-			});
-			robotInfo.Location = newPos;
+		/// <param name="dictionary"></param>
+		private void PerformMove(RobotInfo                    robotInfo, int actualAmmount, Direction resultDirection,
+								 Dictionary<Position, List<Event>> dictionary) {
+			for (int i = 0; i < actualAmmount; i++) {
+				Position newPos = Translate(robotInfo.Location, 1, resultDirection);
+				_game.CommitEvent(new MovementEvent {
+					Direction       = resultDirection,
+					Entity          = robotInfo.Id,
+					From            = robotInfo.Location,
+					MovementAmmount = 1,
+					Rotation        = Rotation.Left,
+					RotationTimes   = 0,
+					To              = newPos
+				});
+				robotInfo.Location = newPos;
+				foreach (Event ev in dictionary[newPos]) {
+					_game.CommitEvent(ev);
+				}
+			}
+			
 		}
 
 		private static Position Translate(Position robotInfoLocation, int ammount, Direction resultDirection) {
