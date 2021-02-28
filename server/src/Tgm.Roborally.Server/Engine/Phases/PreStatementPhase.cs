@@ -11,7 +11,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 		protected override GamePhase Run(GameLogic game) {
 			this._game = game;
-			return new PostStatementPhase();
+			return new StatementExecutePhase();
 		}
 
 		
