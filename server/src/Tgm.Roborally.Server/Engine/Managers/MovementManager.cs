@@ -2,7 +2,7 @@ using System;
 using Tgm.Roborally.Server.Engine.Statement;
 using Tgm.Roborally.Server.Models;
 
-namespace Tgm.Roborally.Server.Engine {
+namespace Tgm.Roborally.Server.Engine.Managers {
 	public class MovementManager {
 		private readonly GameLogic _game;
 
@@ -10,19 +10,64 @@ namespace Tgm.Roborally.Server.Engine {
 			_game = game;
 		}
 
-		public void Move(int robotId, int i, RelativeDirection forward) {
-			Console.Out.WriteLine("Robot : "+robotId+" moves "+i+" fields "+forward);
+		public int Move(int robotId, int ammount, RelativeDirection forward) {
+			Console.Out.WriteLine("Robot : " + robotId + " moves " + ammount + " fields " + forward);
 			RobotInfo robotInfo       = _game.Entitys[robotId] as RobotInfo;
-			Direction       resultDirection = ResolveDirection(forward, robotInfo.Direction);
+			Direction resultDirection = ResolveDirection(forward, robotInfo.Direction);
+			return Move(robotInfo, ammount, resultDirection);
+		}
+
+		private int Move(RobotInfo robotInfo, int ammount, Direction resultDirection) {
+			int      actualAmmount;
+			Position newPos;
+			int      pushing = -1;
+			collisionLoop:
+			for (actualAmmount = 0; actualAmmount <= ammount; actualAmmount++) {
+				newPos = Translate(robotInfo.Location, actualAmmount + 1, resultDirection);
+				Tile tile = _game.Map[newPos.X, newPos.Y];
+				//HEIGHT DIFFERENCE BLOCK
+				bool onRamp = false; //todo proper implementation
+				if (tile.Level != robotInfo.Attitude && !onRamp)
+					break;
+
+				//wall block
+				if (tile.Type == TileType.Wall)
+					break;
+
+				//One way wall block
+				if (tile.Type == TileType.OneWayWall && tile.Direction != resultDirection)
+					break;
+
+				brk: { };
+			}
+
+			if (actualAmmount != 0) {
+				PerformMove(robotInfo, actualAmmount, resultDirection);
+			}
+
+
+			return actualAmmount;
+		}
+	
+
+		/// <summary>
+		/// Performs the movement on the map and emitts an event
+		/// </summary>
+		/// <param name="robotInfo"></param>
+		/// <param name="actualAmmount"></param>
+		/// <param name="resultDirection"></param>
+		private void PerformMove(RobotInfo robotInfo, int actualAmmount, Direction resultDirection) {
+			Position newPos = Translate(robotInfo.Location, actualAmmount, resultDirection);
 			_game.CommitEvent(new MovementEvent() {
-				Direction = resultDirection,
-				Entity = robotId,
-				From = robotInfo.Location,
-				MovementAmmount = i,
-				Rotation = Rotation.Left,
-				RotationTimes = 0,
-				To = Translate(robotInfo.Location,i,resultDirection)
-			});
+                Direction       = resultDirection,
+                Entity          = robotInfo.Id,
+                From            = robotInfo.Location,
+                MovementAmmount = actualAmmount,
+                Rotation        = Rotation.Left,
+                RotationTimes   = 0,
+                To              = newPos
+            });
+			robotInfo.Location = newPos;
 		}
 
 		private static Position Translate(Position robotInfoLocation, int ammount, Direction resultDirection) {
