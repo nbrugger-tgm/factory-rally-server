@@ -1,3 +1,12 @@
+## v2.3.0 (2021-02-28)
+
+### Feat
+
+- enable robots pushig each other
+- base physical rules
+- enable statement execution
+- add missing `clearRegister` event
+
 ## v2.2.0 (2021-02-27)
 
 ### Fix
