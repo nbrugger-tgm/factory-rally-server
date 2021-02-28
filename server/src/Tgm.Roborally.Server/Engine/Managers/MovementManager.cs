@@ -59,6 +59,12 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			if (pushing != -1) {
 				RobotInfo pushedRobot = (RobotInfo) _game.Entitys[pushing];
 				while (ammount < actualAmmount) {
+					_game.CommitEvent(new PushEvent() {
+						Ammount = 1,
+						PushDirecton = resultDirection,
+						PushedId = pushing,
+						PusherId = robotInfo.Id
+					});
 					bool successfullPush = Move(pushedRobot, 1, resultDirection) == 1;
 					if (successfullPush) {
 						actualAmmount++;
