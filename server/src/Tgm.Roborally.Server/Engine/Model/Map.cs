@@ -258,5 +258,7 @@ namespace Tgm.Roborally.Server.Engine {
 
 			return mapString;
 		}
+
+		public bool IsWithin(Position newPos) => newPos.X < Width && newPos.Y < Height;
 	}
 }

@@ -23,6 +23,14 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			int      pushing = -1;
 			for (actualAmmount = 0; actualAmmount <= ammount; actualAmmount++) {
 				newPos = Translate(robotInfo.Location, actualAmmount + 1, resultDirection);
+				if (!_game.Map.IsWithin(newPos)) {
+					if (actualAmmount != 0) PerformMove(robotInfo, actualAmmount, resultDirection);
+					_game.CommitEvent(new DamageEvent() {
+						Ammount = 20,
+						Entity = robotInfo.Id
+					});
+					return actualAmmount;
+				}
 				Tile tile = _game.Map[newPos.X, newPos.Y];
 				//HEIGHT DIFFERENCE BLOCK
 				bool onRamp = false; //todo proper implementation
