@@ -38,6 +38,16 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				if (tile.Type == TileType.OneWayWall && tile.Direction != resultDirection)
 					break;
 
+				//Robot Collission check
+				if (!tile.Empty)
+					foreach (int roboId in _game.Entitys.Robots) {
+						RobotInfo robo = _game.Entitys[roboId] as RobotInfo;
+						if (robo.Location.Equals(newPos) && !robo.Virtual && robo.Attitude == robotInfo.Attitude) {
+							pushing = roboId;
+							goto brk;
+						}
+					}
+
 				brk: { };
 			}
 
@@ -45,6 +55,17 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				PerformMove(robotInfo, actualAmmount, resultDirection);
 			}
 
+			if (pushing != -1) {
+				RobotInfo pushedRobot = (RobotInfo) _game.Entitys[pushing];
+				while(ammount < actualAmmount) {
+					bool successfullPush = Move(pushedRobot, 1, resultDirection) == 1;
+					if (successfullPush) {
+						actualAmmount++;
+						PerformMove(robotInfo, 1, resultDirection);
+					}
+					else break;
+				}
+			}
 
 			return actualAmmount;
 		}
