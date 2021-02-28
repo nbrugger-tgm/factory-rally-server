@@ -1,3 +1,14 @@
+## v2.5.0 (2021-02-28)
+
+### Refactor
+
+- better movement event system
+
+### Feat
+
+- enable 'self'-leaving
+- add password-protected info
+
 ## v2.4.0 (2021-02-28)
 
 ### Feat
