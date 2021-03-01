@@ -47,7 +47,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			});
 			
 			AddCard(6,new RotateCommand(Rotation.Left,2) {
-				Name ="180 turnaraund"
+				Name ="180 Quickscope"
 			});
 			Shuffle();
 		}
