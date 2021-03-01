@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Tgm.Roborally.Server.Engine.Statement;
 using Tgm.Roborally.Server.Models;
+using Action = System.Action;
 
 namespace Tgm.Roborally.Server.Engine.Managers {
 	public class MovementManager {
@@ -12,41 +13,42 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			_game = game;
 		}
 
-		public int Move(int robotId, int ammount, RelativeDirection forward) {
-			Console.Out.WriteLine("Robot : " + robotId + " moves " + ammount + " fields " + forward);
-			RobotInfo robotInfo       = _game.Entitys[robotId] as RobotInfo;
-			Direction resultDirection = ResolveDirection(forward, robotInfo.Direction);
-			return Move(robotInfo, ammount, resultDirection);
+		public Position Move(int robotId, int amount, RelativeDirection forward) {
+			Console.Out.WriteLine("Robot : " + robotId + " moves " + amount + " fields " + forward);
+			if (_game.Entitys[robotId] is RobotInfo { } robotInfo) {
+				Direction resultDirection = DirectionExtension.ResolveDirection(forward, robotInfo.Direction);
+				return Move(robotInfo, amount, resultDirection);
+			}
+			else
+				throw new ArgumentOutOfRangeException($"There is no robot with the id {robotId}");
 		}
 
-		private int Move(RobotInfo robotInfo, int ammount, Direction resultDirection) {
-			int                          actualAmmount;
-			Position                     newPos;
-			int                          pushing = -1;
-			Dictionary<Position, List<Event>> events  = new Dictionary<Position, List<Event>>();
-			
-			for (actualAmmount = 0; actualAmmount < ammount; actualAmmount++) {
-				newPos = Translate(robotInfo.Location, actualAmmount + 1, resultDirection);
-				events[newPos] = new List<Event>();
-				if (!_game.Map.IsWithin(newPos)) {;
-					events[newPos].Add(new DamageEvent() {
-						Ammount = 20,
-						Entity = robotInfo.Id
-					});
+		private Position Move(RobotInfo robotInfo, int amount, Direction resultDirection) {
+			for (int actualAmount = 0; actualAmount < amount; actualAmount++) {
+				Position    newPos = robotInfo.Location.Translate( 1, resultDirection);
+				List<Action> events = new List<Action>();
+				if (!robotInfo.Virtual && robotInfo.Health <= 0)
 					break;
+				//FALL OF MAP
+				if (!_game.Map.IsWithin(newPos)) {;
+					events.Add(()=> {
+						Damage(robotInfo, 20);
+					});
 				}
 				Tile tile = _game.Map[newPos.X, newPos.Y];
 				//HEIGHT DIFFERENCE BLOCK
 				bool onRamp = tile.Type == TileType.Ramp; //todo proper implementation
 				if (tile.Level > robotInfo.Attitude && !onRamp)
 					break;
+				//FALL ONE LEVEL DOWN
 				if (tile.Level < robotInfo.Attitude && !onRamp) {
-					events[newPos].Add(new DamageEvent() {
-						Ammount = robotInfo.Attitude - tile.Level,
-						Entity = robotInfo.Id
+					events.Add(()=>_game.CommitEvent(new DummyEvent(EventType.Movement,$"Robot {robotInfo.Id} change level. From {robotInfo.Attitude} to {tile.Level}")));
+					events.Add(()=> {
+						Damage(robotInfo, (robotInfo.Attitude - tile.Level)*2);
 					});
 				}else if (tile.Level + 1 == robotInfo.Attitude && onRamp) {
 					//todo elevate it
+					events.Add(()=>_game.CommitEvent(new DummyEvent(EventType.Movement,$"Robot {robotInfo.Id} change level. From {robotInfo.Attitude} to {tile.Level}")));
 				}
 
 				//wall block
@@ -62,128 +64,76 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 					foreach (int roboId in _game.Entitys.Robots) {
 						RobotInfo robo = _game.Entitys[roboId] as RobotInfo;
 						if (robo.Location.Equals(newPos) && !robo.Virtual && robo.Attitude == robotInfo.Attitude) {
-							pushing = roboId;
-							goto brk;
+							_game.CommitEvent(new PushEvent() {
+	                            Ammount = 1,
+	                            PushDirecton = resultDirection,
+	                            PushedId = roboId,
+	                            PusherId = robotInfo.Id
+	                        });
+							Move(robo, 1, resultDirection);
 						}
+						if(robo.Location.Equals(newPos))
+							break;
 					}
 				}
-
-				brk:
-				{
-				}
-				;
+				PerformMove(robotInfo, actualAmount, resultDirection);
 			}
+			return robotInfo.Location;
+		}
 
-			if (actualAmmount != 0) PerformMove(robotInfo, actualAmmount, resultDirection,events);
-
-			if (pushing != -1) {
-				RobotInfo pushedRobot = (RobotInfo) _game.Entitys[pushing];
-				while (ammount < actualAmmount) {
-					_game.CommitEvent(new PushEvent() {
-						Ammount = 1,
-						PushDirecton = resultDirection,
-						PushedId = pushing,
-						PusherId = robotInfo.Id
-					});
-					bool successfullPush = Move(pushedRobot, 1, resultDirection) == 1;
-					if (successfullPush) {
-						actualAmmount++;
-						PerformMove(robotInfo, 1, resultDirection,events );
-					}
-					else break;
-				}
-			}
-
-			return actualAmmount;
+		private void Damage(RobotInfo robotInfo, int i) {
+			robotInfo.Health -= i;
+			_game.CommitEvent(new DamageEvent() {
+				Ammount = i,
+				Entity = robotInfo.Id
+			});
+			if(robotInfo.Health <= 0)
+				_game.CommitEvent(new EmptyEvent(EventType.Shutdown));
 		}
 
 
 		/// <summary>
 		///     Performs the movement on the map and emitts an event
 		/// </summary>
-		/// <param name="robotInfo"></param>
-		/// <param name="actualAmmount"></param>
-		/// <param name="resultDirection"></param>
-		/// <param name="dictionary"></param>
-		private void PerformMove(RobotInfo                    robotInfo, int actualAmmount, Direction resultDirection,
-								 Dictionary<Position, List<Event>> dictionary) {
-			for (int i = 0; i < actualAmmount; i++) {
-				Position newPos = Translate(robotInfo.Location, 1, resultDirection);
+		/// <param name="entity">The entity to move</param>
+		/// <param name="actualAmount">the fields to move</param>
+		/// <param name="resultDirection">the direction to move into</param>
+		private void PerformMove(
+			Entity                                     entity, 
+			int                                        actualAmount, 
+			Direction                                  resultDirection
+			){
+			for (int i = 0; i < actualAmount; i++) {
+				Position newPos = entity.Location.Translate(1, resultDirection);
 				_game.CommitEvent(new MovementEvent {
 					Direction       = resultDirection,
-					Entity          = robotInfo.Id,
-					From            = robotInfo.Location,
+					Entity          = entity.Id,
+					From            = entity.Location,
 					MovementAmmount = 1,
 					Rotation        = Rotation.Left,
 					RotationTimes   = 0,
 					To              = newPos
 				});
-				robotInfo.Location = newPos;
-				foreach (Event ev in dictionary[newPos]) {
-					_game.CommitEvent(ev);
-				}
+				entity.Location = newPos;
 			}
 			
 		}
 
-		private static Position Translate(Position robotInfoLocation, int ammount, Direction resultDirection) {
-			Position endPos = new Position(robotInfoLocation.X, robotInfoLocation.Y);
-			switch (resultDirection) {
-				case Direction.Up:
-					endPos.Y -= ammount;
-					break;
-				case Direction.Down:
-					endPos.Y += ammount;
-					break;
-				case Direction.Left:
-					endPos.X -= ammount;
-					break;
-				case Direction.Right:
-					endPos.X += ammount;
-					break;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(resultDirection), resultDirection, null);
+
+
+		public void Rotate(int robotId, Rotation rotationDirection, int i) {
+			Entity ent = _game.Entitys[robotId];
+			for (int j = 0; j < i; j++) {
+				ent.Direction = ent.Direction.Rotate(rotationDirection);
 			}
-
-			return endPos;
+			_game.CommitEvent(new MovementEvent() {
+				Entity = robotId,
+				From = ent.Location,
+				To = ent.Location,
+				MovementAmmount = 0,
+				Rotation = rotationDirection,
+				RotationTimes = i
+			});
 		}
-
-		private static Direction ResolveDirection(RelativeDirection direction, Direction orientation) =>
-			direction switch {
-				RelativeDirection.Forward   => orientation,
-				RelativeDirection.Backwards => inverse(orientation),
-				RelativeDirection.Right     => roateRight(orientation),
-				_ /*Left*/                  => rotateLeft(orientation)
-			};
-
-		private static Direction inverse(Direction dir) =>
-			dir switch {
-				Direction.Up    => Direction.Down,
-				Direction.Left  => Direction.Right,
-				Direction.Right => Direction.Left,
-				Direction.Down  => Direction.Up,
-				//should not be reachable
-				_ => default
-			};
-
-		private static Direction roateRight(Direction dir) =>
-			dir switch {
-				Direction.Up    => Direction.Right,
-				Direction.Left  => Direction.Up,
-				Direction.Right => Direction.Down,
-				Direction.Down  => Direction.Left,
-				//should not be reachable
-				_ => default
-			};
-
-		private static Direction rotateLeft(Direction dir) =>
-			dir switch {
-				Direction.Up    => Direction.Left,
-				Direction.Left  => Direction.Down,
-				Direction.Right => Direction.Up,
-				Direction.Down  => Direction.Right,
-				//should not be reachable
-				_ => default
-			};
 	}
 }

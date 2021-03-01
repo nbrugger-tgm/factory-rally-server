@@ -37,6 +37,18 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 					Name = "Crawl"
 				}
 			);
+			
+			AddCard(5,new RotateCommand(Rotation.Left,1) {
+				Name="Left turn"
+			});
+			
+			AddCard(5,new RotateCommand(Rotation.Right,1) {
+				Name ="Right turn"
+			});
+			
+			AddCard(6,new RotateCommand(Rotation.Left,2) {
+				Name ="180 turnaraund"
+			});
 			Shuffle();
 		}
 

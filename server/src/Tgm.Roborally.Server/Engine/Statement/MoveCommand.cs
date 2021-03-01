@@ -8,7 +8,7 @@ namespace Tgm.Roborally.Server.Engine.Statement {
 			this[FIELDS] = fields;
 		}
 
-		public override string Description => $"Move {FIELDS} fields forward";
+		public override string Description => $"Move {{{FIELDS}}} fields forward";
 
 		/// <inheritdoc />
 		public override int Times => this[FIELDS];
