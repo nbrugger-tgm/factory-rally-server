@@ -41,14 +41,14 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>True if the robot is not in rebooting mode</value>
 		[DataMember(Name = "active", EmitDefaultValue = false)]
-		public bool Active { get; set; } = true;
+		public bool Active => Health <= 0;
 
 		/// <summary>
 		///     If the robot is in virtual mode
 		/// </summary>
 		/// <value>If the robot is in virtual mode</value>
 		[DataMember(Name = "virtual", EmitDefaultValue = false)]
-		public bool Virtual { get; set; }
+		public bool Virtual { get; set; }//todo yeet
 
 		/// <summary>
 		///     The priority of this player. Higher is more priority. 1 &#x3D; lowest. max &#x3D; number of players
@@ -56,7 +56,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The priority of this player. Higher is more priority. 1 &#x3D; lowest. max &#x3D; number of players</value>
 		[Range(1, 8)]
 		[DataMember(Name = "priority", EmitDefaultValue = false)]
-		public int Priority { get; set; }
+		public int Priority { get; set; }//todo auto
 
 		/// <summary>
 		///     True if the robot is currently active (executing a register)
@@ -84,9 +84,8 @@ namespace Tgm.Roborally.Server.Models {
 		///     The height level of the robot
 		/// </summary>
 		/// <value>The height level of the robot</value>
-		[Range(0, 4)]
-		[DataMember(Name = "attitude", EmitDefaultValue = false)]
-		public int Attitude { get; set; }
+		[Range(0, 4)] [DataMember(Name = "attitude", EmitDefaultValue = false)]
+		public int Attitude = 0;
 
 		/// <summary>
 		///     Gets or Sets Type
