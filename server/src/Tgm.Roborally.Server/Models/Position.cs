@@ -107,7 +107,34 @@ namespace Tgm.Roborally.Server.Models {
 				return hashCode;
 			}
 		}
+		/// <summary>
+		/// Generates a translated Position.
+		/// </summary>
+		/// <param name="amount"> the ammount to translate by</param>
+		/// <param name="resultDirection"> the direction to translate into</param>
+		/// <returns>a translated copy of this position</returns>
+		/// <exception cref="ArgumentOutOfRangeException"></exception>
+		public Position Translate(int amount, Direction resultDirection) {
+			Position endPos = new Position(X, Y);
+			switch (resultDirection) {
+				case Direction.Up:
+					endPos.Y -= amount;
+					break;
+				case Direction.Down:
+					endPos.Y += amount;
+					break;
+				case Direction.Left:
+					endPos.X -= amount;
+					break;
+				case Direction.Right:
+					endPos.X += amount;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(resultDirection), resultDirection, null);
+			}
 
+			return endPos;
+		}
 		#region Operators
 
 		#pragma warning disable 1591
