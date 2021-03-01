@@ -1,3 +1,10 @@
+## v2.7.0 (2021-03-01)
+
+### Feat
+
+- add laser shooting command
+- shooting physix
+
 ## v2.6.0 (2021-03-01)
 
 ### Feat
