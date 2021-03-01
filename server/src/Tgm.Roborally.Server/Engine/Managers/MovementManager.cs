@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Tgm.Roborally.Server.Engine.Statement;
 using Tgm.Roborally.Server.Models;
 using Action = System.Action;
@@ -134,6 +135,28 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				Rotation = rotationDirection,
 				RotationTimes = i
 			});
+		}
+
+		public void Shroot(int robotId) {
+			Entity   e   = _game.Entitys[robotId];
+			
+			Position pos = e.Location;
+			Tile     t;
+			do {
+				pos = pos.Translate(1, e.Direction);
+				t   = _game.Map[pos.X, pos.Y];
+			} while (!t.Empty || t.Type == TileType.Wall);
+
+			List<int> hitEntities = _game.Entitys.List.Where(entity => entity.Location.Equals(pos)).Select(entity => entity.Id).ToList();
+			_game.CommitEvent(new ShootEvent() {
+            	Direction = e.Direction,
+            	HitEntitys = hitEntities,
+            	Shooter = robotId,
+            	To =pos
+            });
+			foreach (int hitEntity in hitEntities) {
+				Damage((RobotInfo) _game.Entitys[hitEntity],1);	
+			}
 		}
 	}
 }
