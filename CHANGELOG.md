@@ -1,3 +1,11 @@
+## v2.6.0 (2021-03-01)
+
+### Feat
+
+- rotation cards
+- implement robot `active` state
+- internal utility methods
+
 ## v2.5.1 (2021-02-28)
 
 ### Perf
