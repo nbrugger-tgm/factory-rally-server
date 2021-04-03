@@ -14,6 +14,7 @@ namespace Tgm.Roborally.Server.Engine {
 		private GameLogic _game;
 		private Player    _player;
 		private RobotInfo _robot;
+		private Upgrade   _upgrade;
 
 		/// <summary>
 		///     Constructs an empty pipeline
@@ -168,6 +169,22 @@ namespace Tgm.Roborally.Server.Engine {
 			return this;
 		}
 
+		public GameRequestPipeline Upgrade(int upgradeId) {
+			if (Done)
+				return this;
+			Upgrade command = _game.Upgrades[upgradeId];
+			if (command == null) {
+				Response = new ConflictObjectResult(new ErrorMessage {
+					Error   = "Not Found",
+					Message = "No Upgrade card with matching ID"
+				});
+			}
+			else
+				_upgrade = command;
+
+			return this;
+		}
+
 		public class PipelineContext {
 			private readonly GameRequestPipeline pipe;
 
@@ -181,10 +198,22 @@ namespace Tgm.Roborally.Server.Engine {
 			public Event        Event   => pipe._event;
 			public RobotInfo    Robot   => pipe._robot;
 			public RobotCommand Command => pipe._command;
+			public Upgrade      Upgrade => pipe._upgrade;
 
 			public IActionResult Response {
 				set => pipe.Response = value;
 			}
+
+			/**
+			 * Creates and sets an OkObjectResult
+			 */
+			public void SetResponse(object obj) => Response = new OkObjectResult(obj);
+
+			/**
+			 * Sends a 404 Response with an error message
+			 */
+			public void SetNotFoundResponse(ErrorMessage errorMessage) =>
+				Response = new NotFoundObjectResult(errorMessage);
 		}
 	}
 }
