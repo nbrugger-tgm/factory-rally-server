@@ -5,6 +5,9 @@ using Tgm.Roborally.Server.Models;
 using Action = System.Action;
 
 namespace Tgm.Roborally.Server.Engine {
+	/// <summary>
+	/// Handles Actions that can happen all the time. Kepps a history of all comitted events
+	/// </summary>
 	public class GameActionHandler {
 		private readonly Dictionary<ActionType, Action>    ActionMap = new Dictionary<ActionType, Action>();
 		private readonly Dictionary<ActionType, EventType> EventMap  = new Dictionary<ActionType, EventType>();
@@ -18,17 +21,32 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		private List<ActionType> _Queue   { get; } = new List<ActionType>();
+		/// <summary>
+		/// The index of the last executed Action
+		/// </summary>
 		public  int              QueuePos { get; private set; }
 
+		/// <summary>
+		/// A list of all Actions that still need to be executed
+		/// </summary>
 		public List<ActionType> Pending  => _Queue.Where(predicate: (e, index) => index >= QueuePos).ToList();
+		/// <summary>
+		/// A list of all actions that were executed in the past
+		/// </summary>
 		public List<ActionType> Executed => _Queue.Where(predicate: (e, index) => index < QueuePos).ToList();
 
+		/// <summary>
+		/// The Action Queue with all data at once
+		/// </summary>
 		public List<Models.Action> Queue => _Queue
 											.Select(
 												selector: (e, i) => new Models.Action {
 													Index = i, Executed = i < QueuePos, Type = e
 												}).ToList();
 
+		/// <summary>
+		/// Execute the next pending action
+		/// </summary>
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void ExecuteNext() {
 			ActionType type = _Queue[QueuePos++];
@@ -49,6 +67,10 @@ namespace Tgm.Roborally.Server.Engine {
 			EventMap[ActionType.STARTGAME] = EventType.GameStart;
 		}
 
+		/// <summary>
+		/// Add an action to be executed FIFO
+		/// </summary>
+		/// <param name="t">the action to add</param>
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void Add(ActionType t) => _Queue.Add(t);
 	}

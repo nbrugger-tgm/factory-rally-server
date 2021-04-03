@@ -1,6 +1,9 @@
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine {
+	/// <summary>
+	/// An event to use for debugging/development
+	/// </summary>
 	public class DummyEvent : Event {
 		public readonly object Information;
 
@@ -9,6 +12,11 @@ namespace Tgm.Roborally.Server.Engine {
 
 		private readonly EventType Type;
 
+		/// <summary>
+		/// Constructs an event to use for Debugging
+		/// </summary>
+		/// <param name="type">The type to send</param>
+		/// <param name="information">additional information for the client</param>
 		public DummyEvent(EventType type, object information) {
 			Information = information;
 			Type        = type;

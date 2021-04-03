@@ -7,7 +7,17 @@ using Tgm.Roborally.Server.Engine.Statement;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Managers {
+	/// <summary>
+	/// Manages the registers and execution of the programming cards
+	/// </summary>
 	public class ProgrammingManager {
+		/// <summary>
+		/// Maps additional values to the commands. This is the pool it contails ALL the cards in the game.
+		///  <br/>
+		/// * Key: CardID, <br/>
+		/// * Value: (TheCommandObject, LocationOfTheCard, IdOfTheOwningEntity)
+		/// 
+		/// </summary>
 		private readonly
 			Dictionary<int, (RobotCommand command, CardLocation location, int owner)> _pool =
 				new Dictionary<int, (RobotCommand, CardLocation, int)>();

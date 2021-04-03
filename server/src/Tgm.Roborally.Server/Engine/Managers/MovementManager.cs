@@ -7,6 +7,9 @@ using Tgm.Roborally.Server.Models;
 using Action = System.Action;
 
 namespace Tgm.Roborally.Server.Engine.Managers {
+	/// <summary>
+	/// Manages and controls the movement of entities
+	/// </summary>
 	public class MovementManager {
 		private readonly GameLogic _game;
 
@@ -14,6 +17,14 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			_game = game;
 		}
 
+		/// <summary>
+		/// Moves an robot in an straight line. Applies collisions
+		/// </summary>
+		/// <param name="robotId">the id of the robot to move</param>
+		/// <param name="amount">the number of fields to move</param>
+		/// <param name="forward">the relative direction to move to</param>
+		/// <returns>the new position of the robot after the movement executed</returns>
+		/// <exception cref="ArgumentOutOfRangeException">If the robot is not fetchable</exception>
 		public Position Move(int robotId, int amount, RelativeDirection forward) {
 			Console.Out.WriteLine("Robot : " + robotId + " moves " + amount + " fields " + forward);
 			if (_game.Entitys[robotId] is RobotInfo { } robotInfo) {
@@ -23,7 +34,14 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			else
 				throw new ArgumentOutOfRangeException($"There is no robot with the id {robotId}");
 		}
-
+		/// <summary>
+		/// Moves an robot in an straight line. Applies collisions
+		/// </summary>
+		/// <param name="robotInfo">the robot to move</param>
+		/// <param name="amount">the number of fields to move</param>
+		/// <param name="resultDirection">the absolute direction to move towards (absolute to the player but relative to the map)</param>
+		/// <returns>the new position of the robot after the movement executed</returns>
+		/// <exception cref="ArgumentOutOfRangeException">If the robot is not fetchable</exception>
 		private Position Move(RobotInfo robotInfo, int amount, Direction resultDirection) {
 			for (int actualAmount = 0; actualAmount < amount; actualAmount++) {
 				Position     newPos = robotInfo.Location.Translate(1, resultDirection);
@@ -86,7 +104,12 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			return robotInfo.Location;
 		}
 
-		private void Damage(RobotInfo robotInfo, int i) {
+		/// <summary>
+		/// Damages an robot and emits the coresponding event
+		/// </summary>
+		/// <param name="robotInfo">the robot to damage</param>
+		/// <param name="i">the dmg amount</param>
+		public void Damage(RobotInfo robotInfo, int i) {
 			robotInfo.Health -= i;
 			_game.CommitEvent(new DamageEvent() {
 				Ammount = i,
@@ -124,6 +147,12 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		}
 
 
+		/// <summary>
+		/// Rotates the robot into the direction i times
+		/// </summary>
+		/// <param name="robotId">the id of the robot</param>
+		/// <param name="rotationDirection">the direction to rotate in</param>
+		/// <param name="i">the count of 90° turns to perform</param>
 		public void Rotate(int robotId, Rotation rotationDirection, int i) {
 			Entity ent = _game.Entitys[robotId];
 			for (int j = 0; j < i; j++) {
@@ -140,10 +169,21 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			});
 		}
 
+		/// <summary>
+		/// Make a robot shooting a laser
+		/// </summary>
+		/// <param name="robotId">the robot to shoot from</param>
 		public void Shroot(int robotId) {
 			Entity e = _game.Entitys[robotId];
 
 			Position pos = e.Location;
+
+		/// <summary>
+		/// Shoots a ray into the given direction
+		/// </summary>
+		/// <param name="shooter">The entity who fired the shot (used for emiting the event/s</param>
+		/// <param name="pos">the position to fre from</param>
+		/// <param name="direction">the direction of the raycast</param>
 			Tile     t;
 			do {
 				pos = pos.Translate(1, e.Direction);

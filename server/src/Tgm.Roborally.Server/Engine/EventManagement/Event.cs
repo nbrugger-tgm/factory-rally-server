@@ -8,7 +8,7 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <summary>
 		///     Returns the matching type for the event
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>The type the event originates from</returns>
 		EventType GetEventType();
 	}
 }
