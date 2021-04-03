@@ -43,12 +43,12 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult BuyUpgrade([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 												int gameId,  [FromQuery] [Required] [Range(0, 10000)]
-												int upgrade, [FromQuery] [Range(0, 10000)] int exchange) =>
-			new GameRequestPipeline()
-				.Game(gameId)
-				.Compute(code: c => c.Game.BuyUpgrade(((Player) HttpContext.Items[GameAuth.PLAYER]).Id, upgrade,
-													  exchange))
-				.ExecuteAction();
+												int upgrade, [FromQuery] [Range(0, 10000)] int exchange) {
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Compute(code: c => c.Game.BuyUpgrade(this.GetPlayerID(), upgrade, exchange))
+				   .ExecuteAction();
+		}
 
 		/// <summary>
 		///     get all Upgrades
@@ -65,10 +65,12 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(200, type: typeof(List<int>), description: "OK")]
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetAllUpgradeIDs([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-													  int gameId) =>
-			new GameRequestPipeline()
-				.Game(gameId)
-				.Compute(code: c => { c.Response = new ObjectResult(c.Game.Upgrades.Ids); }).ExecuteSecure();
+													  int gameId) {
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Compute(code: c => c.SetResponse(c.Game.Upgrades.Ids))
+				   .ExecuteSecure();
+		}
 
 		/// <summary>
 		///     Get upgrade information
@@ -92,13 +94,8 @@ namespace Tgm.Roborally.Server.Controllers {
 														   int upgradeId) =>
 			new GameRequestPipeline()
 				.Game(gameId)
-				.Compute(code: c => {
-					Upgrade u = c.Game.Upgrades[upgradeId];
-					if (u == null)
-						c.Response = StatusCode(404);
-					else
-						c.Response = new ObjectResult(u);
-				})
+				.Upgrade(upgradeId)
+				.Compute(c => c.SetResponse(c.Upgrade))
 				.ExecuteSecure();
 
 		/// <summary>
@@ -119,7 +116,7 @@ namespace Tgm.Roborally.Server.Controllers {
 													int gameId) =>
 			new GameRequestPipeline()
 				.Game(gameId)
-				.Compute(code: c => { c.Response = new ObjectResult(c.Game.Upgrades.Shop); })
+				.Compute(c => c.SetResponse(c.Game.Upgrades.Shop))
 				.ExecuteSecure();
 	}
 }

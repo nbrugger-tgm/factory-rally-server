@@ -37,23 +37,24 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerOperation("FetchNextEvent")]
 		[SwaggerResponse(200, type: typeof(GenericEvent), description: "OK")]
 		public virtual IActionResult FetchNextEvent([FromRoute(Name = "game_id")] [Required]
-													int gameId) =>
-			new GameRequestPipeline()
-				.Game(gameId)
-				.Player(((Player) HttpContext.Items[GameAuth.PLAYER]).Id)
-				.NextEvent(false)
-				.Compute(code: e => {
-					if (e.Event == null) {
-						e.Response = new NotFoundObjectResult(new ErrorMessage {
-							Error   = "Event not found",
-							Message = "There is no unfetched event"
-						});
-					}
-				})
-				.Compute(code: e => e.Response = new OkObjectResult(new GenericEvent(e.Event.GetEventType()) {
-					Data = e.Event
-				}))
-				.ExecuteSecure();
+													int gameId) {
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Player(this.GetPlayerID())
+				   .NextEvent(false)
+				   .Compute(code: e => {
+					   if (e.Event == null) {
+						   e.SetNotFoundResponse(new ErrorMessage {
+							   Error   = "Event not found",
+							   Message = "There is no unfetched event"
+						   });
+					   }
+				   })
+				   .Compute(code: e => e.SetResponse(new GenericEvent(e.Event.GetEventType()) {
+					   Data = e.Event
+				   }))
+				   .ExecuteSecure();
+		}
 
 
 		/// <summary>
@@ -93,7 +94,7 @@ namespace Tgm.Roborally.Server.Controllers {
 			List<EventType>     events = new List<EventType>();
 			GameRequestPipeline pip    = new GameRequestPipeline();
 			pip.Game(gameId)
-			   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID]);
+			   .Player(this.GetPlayerID());
 			if (batch) {
 				pip.Compute(code: c => {
 					if (c.Game.EventManager.queues.ContainsKey(c.Player.Id))
@@ -108,7 +109,7 @@ namespace Tgm.Roborally.Server.Controllers {
 			}
 
 			return pip
-				   .Compute(code: e => e.Response = new OkObjectResult(events))
+				   .Compute(code: e => e.SetResponse(events))
 				   .ExecuteSecure();
 		}
 	}

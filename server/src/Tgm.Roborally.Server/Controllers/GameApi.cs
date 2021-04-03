@@ -86,8 +86,8 @@ namespace Tgm.Roborally.Server.Controllers {
 												int gameId, [FromQuery] string mode) =>
 			new GameRequestPipeline()
 				.Game(gameId)
-				.Compute(code: c => c.Response = new OkObjectResult(c.Game.ActionHandler.Queue))
-				.ExecuteAction();
+				.Compute(code: c => c.SetResponse(c.Game.ActionHandler.Queue))
+				.ExecuteSecure();
 
 		/// <summary>
 		///     Get game status
@@ -108,8 +108,8 @@ namespace Tgm.Roborally.Server.Controllers {
 		) =>
 			new GameRequestPipeline()
 				.Game(gameId)
-				.Compute(code: ctx => ctx.Response = new OkObjectResult(ctx.Game.Info))
-				.ExecuteAction();
+				.Compute(code: ctx => ctx.SetResponse(ctx.Game.Info))
+				.ExecuteSecure();
 
 		/// <summary>
 		///     Get all games
@@ -123,14 +123,15 @@ namespace Tgm.Roborally.Server.Controllers {
 		[ValidateModelState]
 		[SwaggerOperation("GetGames")]
 		[SwaggerResponse(200, type: typeof(List<int>), description: "OK")]
-		public virtual IActionResult GetGames([FromQuery] bool joinable, [FromQuery] bool unprotected) =>
-			new ObjectResult(
+		public virtual IActionResult GetGames([FromQuery] bool joinable, [FromQuery] bool unprotected) {
+			return new ObjectResult(
 				GameManager.instance.games
 						   .Where(predicate: pair => (!joinable    || pair.Value.Joinable) &&
 													 (!unprotected || pair.Value.Password == null))
 						   .Select(selector: e => e.Key)
 						   .ToList()
 			);
+		}
 
 		/// <summary>
 		///     Get Programming Card
@@ -147,12 +148,13 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(200, type: typeof(RobotCommand), description: "OK")]
 		public virtual IActionResult GetProgrammingCard([FromRoute] [Required] [Range(0, 2048)]
 														int gameId, [FromRoute] [Required] [Range(0, 10000)]
-														int statementId) =>
-			new GameRequestPipeline()
-				.Game(gameId)
-				.ProgrammingCard(statementId)
-				.Compute(code: c => c.Response = new OkObjectResult(c.Command))
-				.ExecuteSecure();
+														int statementId) {
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .ProgrammingCard(statementId)
+				   .Compute(c => c.SetResponse(c.Command))
+				   .ExecuteSecure();
+		}
 
 		/// <summary>
 		///     Get Programming Card IDs
@@ -166,11 +168,12 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerOperation("GetProgrammingCardIds")]
 		[SwaggerResponse(200, type: typeof(List<int>), description: "OK")]
 		public virtual IActionResult GetProgrammingCardIds([FromRoute] [Required] [Range(0, 2048)]
-														   int gameId) =>
-			new GameRequestPipeline()
-				.Game(gameId)
-				.Compute(code: c => c.Response = new OkObjectResult(c.Game.Programming.IDs))
-				.ExecuteSecure();
+														   int gameId) {
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Compute(code: c => c.SetResponse(c.Game.Programming.IDs))
+				   .ExecuteSecure();
+		}
 
 		/// <summary>
 		///     Get Programming cards
@@ -185,10 +188,11 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerOperation("GetProgrammingCards")]
 		[SwaggerResponse(200, type: typeof(List<RobotCommand>), description: "OK")]
 		public virtual IActionResult GetProgrammingCards([FromRoute] [Required] [Range(0, 2048)]
-														 int gameId) =>
-			new GameRequestPipeline()
-				.Game(gameId)
-				.Compute(code: c => c.Response = new OkObjectResult(c.Game.Programming.Cards))
-				.ExecuteSecure();
+														 int gameId) {
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Compute(code: c => c.SetResponse(c.Game.Programming.Cards))
+				   .ExecuteSecure();
+		}
 	}
 }

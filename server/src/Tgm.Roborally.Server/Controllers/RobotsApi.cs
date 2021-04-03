@@ -41,13 +41,14 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult ClearRegisters([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 													int gameId, [FromRoute(Name = "robot_id")] [Required]
-													int robotId) =>
-			new GameRequestPipeline()
-				.Game(gameId)
-				.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
-				.Robot(robotId)
-				.Compute(code: c => c.Game.Programming.Clear(robotId))
-				.ExecuteAction();
+													int robotId) {
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Player(this.GetPlayerID())
+				   .Robot(robotId)
+				   .Compute(code: c => c.Game.Programming.Clear(robotId))
+				   .ExecuteAction();
+		}
 
 		/// <summary>
 		///     Clear Robot Upgrades
@@ -69,7 +70,7 @@ namespace Tgm.Roborally.Server.Controllers {
 												   int robotId) =>
 			new GameRequestPipeline()
 				.Game(gameId)
-				.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				.Player(this.GetPlayerID())
 				.Robot(robotId)
 				.Compute(code: c => { c.Game.Upgrades.DiscardEntityUpgrades(c.Robot.Id); })
 				.ExecuteAction();
@@ -116,18 +117,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		public virtual IActionResult GetActionStack([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 													int gameId, [FromRoute(Name = "robot_id")] [Required]
 													string robotId) {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200, default(List<EntityAction>));
-			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(404, default(ErrorMessage));
-			string exampleJson = null;
-			exampleJson = "{ }";
-
-			List<EntityAction> example = exampleJson != null
-											 ? JsonConvert.DeserializeObject<List<EntityAction>>(exampleJson)
-											 : default;
-			//TODO: Change the data returned
-			return new ObjectResult(example);
+			return new StatusCodeResult(501);
 		}
 
 		/// <summary>
@@ -147,13 +137,14 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetInstalledUpgrades([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 														  int gameId, [FromRoute(Name = "robot_id")] [Required]
-														  int robotId) =>
-			new GameRequestPipeline()
-				.Game(gameId)
-				.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
-				.Robot(robotId)
-				.Compute(code: c => { c.Response = new ObjectResult(c.Game.Upgrades.GetEntityUpgrades(robotId)); })
-				.ExecuteAction();
+														  int robotId) {
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				   .Robot(robotId)
+				   .Compute(code: c => c.SetResponse(c.Game.Upgrades.GetEntityUpgrades(robotId)))
+				   .ExecuteSecure();
+		}
 
 		/// <summary>
 		///     Get Aviable actions
@@ -172,16 +163,13 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetPossibleActions([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 														int gameId, [FromRoute(Name = "robot_id")] [Required]
-														int robotId) =>
-			new GameRequestPipeline()
-				.Game(gameId)
-				.Robot(robotId)
-				.Compute(code: c => {
-					c.Response =
-						new OkObjectResult(
-							c.Game.PossibleEntityActions(robotId, (int) HttpContext.Items[GameAuth.PLAYER_ID]));
-				})
-				.ExecuteSecure();
+														int robotId) {
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Robot(robotId)
+				   .Compute(code: c => c.SetResponse(c.Game.PossibleEntityActions(robotId, this.GetPlayerID())))
+				   .ExecuteSecure();
+		}
 
 		/// <summary>
 		///     Get Register Content
@@ -200,18 +188,21 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(200, type: typeof(RobotCommand), description: "OK")]
 		public virtual IActionResult GetRegisterContent([FromRoute] [Required] [Range(0, 2048)]
 														int gameId, [FromRoute] [Required] int robotId,
-														[FromRoute] [Required] [Range(0, 4)] int register) =>
-			new GameRequestPipeline()
-				.Game(gameId)
-				.Robot(robotId)
-				.Compute(code: c => {
-					int card = c.Game.Programming.GetRegister(robotId)[register];
-					if (card == -1)
-						c.Response = new OkObjectResult("empty");
-					else
-						c.Response = new OkObjectResult(c.Game.Programming[card]);
-				})
-				.ExecuteSecure();
+														[FromRoute] [Required] [Range(0, 4)] int register) {
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Robot(robotId)
+				   .Compute(code: c => {
+					   int card = c.Game.Programming.GetRegister(robotId)[register];
+					   if (card == -1)
+						   c.SetNotFoundResponse(new ErrorMessage {
+							   Error = "Register Empty"
+						   });
+					   else
+						   c.SetResponse(c.Game.Programming[card]);
+				   })
+				   .ExecuteSecure();
+		}
 
 		/// <summary>
 		///     Get register information
@@ -233,11 +224,11 @@ namespace Tgm.Roborally.Server.Controllers {
 												  int robotId) =>
 			new GameRequestPipeline()
 				.Game(gameId)
-				.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				.Player(this.GetPlayerID())
 				.Robot(robotId)
-				.Compute(code: c => c.Response = new OkObjectResult(
-										c.Game.Programming.GetRegister(robotId)
-										 .Select(selector: id => c.Game.Programming[id]).ToArray()))
+				.Compute(code: c => c.SetResponse(
+							 c.Game.Programming.GetRegister(robotId)
+							  .Select(selector: id => c.Game.Programming[id]).ToArray()))
 				.ExecuteSecure();
 
 		/// <summary>
@@ -257,19 +248,20 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetRobotStats([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 												   int gameId, [FromRoute(Name = "robot_id")] [Required]
-												   int robotId) =>
-			new GameRequestPipeline()
-				.Game(gameId)
-				.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
-				.Robot(robotId)
-				.Compute(code: c => { c.Response = new OkObjectResult(c.Robot); })
-				.ExecuteAction();
+												   int robotId) {
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				   .Robot(robotId)
+				   .Compute(code: c => c.SetResponse(c.Robot))
+				   .ExecuteSecure();
+		}
 
 		/// <summary>
 		///     Get all robots
 		/// </summary>
 		/// <remarks>
-		///     Returns a list of all robot IDs in this game. &gt; A robot is not a player as a player is able to controll
+		///     Returns a list of all robot IDs in this game. &gt; A robot is not a player as a player is able to control
 		///     multiple robots
 		/// </remarks>
 		/// <param name="gameId"></param>
@@ -283,12 +275,13 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(200, type: typeof(List<int>), description: "OK")]
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetRobots([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-											   int gameId) =>
-			new GameRequestPipeline()
-				.Game(gameId)
-				.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
-				.Compute(code: c => c.Response = new OkObjectResult(c.Game.Entitys.Robots))
-				.ExecuteSecure();
+											   int gameId) {
+			return new GameRequestPipeline()
+				   .Game(gameId)
+				   .Player(this.GetPlayerID())
+				   .Compute(code: c => c.SetResponse(c.Game.Entitys.Robots))
+				   .ExecuteSecure();
+		}
 
 		/// <summary>
 		///     Remove Upgrade
@@ -310,9 +303,9 @@ namespace Tgm.Roborally.Server.Controllers {
 														int robotId, [FromQuery] [Range(0, 10000)] int upgrade) =>
 			new GameRequestPipeline()
 				.Game(gameId)
-				.Player((int) HttpContext.Items[GameAuth.PLAYER_ID])
+				.Player(this.GetPlayerID())
 				.Robot(robotId)
-				.Compute(code: c => { c.Game.Upgrades.DiscardEntityUpgrade(c.Robot.Id, upgrade); })
+				.Compute(code: c => c.Game.Upgrades.DiscardEntityUpgrade(c.Robot.Id, upgrade))
 				.ExecuteAction();
 
 		/// <summary>

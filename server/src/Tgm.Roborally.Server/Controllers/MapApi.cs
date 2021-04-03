@@ -40,7 +40,7 @@ namespace Tgm.Roborally.Server.Controllers {
 			new GameRequestPipeline()
 				.Game(gameId)
 				.Compute(code: c => c.Game.Map.CalculateEmpty())
-				.Compute(code: c => c.Response = new ObjectResult(c.Game.Map))
+				.Compute(code: c => c.SetResponse(c.Game.Map))
 				.ExecuteSecure();
 
 		/// <summary>
@@ -61,8 +61,8 @@ namespace Tgm.Roborally.Server.Controllers {
 												int gameId) =>
 			new GameRequestPipeline()
 				.Game(gameId)
-				.Compute(code: c => c.Response = new ObjectResult(c.Game.Map.Info))
-				.ExecuteAction();
+				.Compute(code: c => c.SetResponse(c.Game.Map.Info))
+				.ExecuteSecure();
 
 		/// <summary>
 		///     Get tile
@@ -85,7 +85,7 @@ namespace Tgm.Roborally.Server.Controllers {
 			new GameRequestPipeline()
 				.Game(gameId)
 				.Compute(code: c => c.Game.Map.CalculateEmpty())
-				.Compute(code: c => c.Response = new ObjectResult(c.Game.Map[x, y]))
-				.ExecuteAction();
+				.Compute(code: c => c.SetResponse(c.Game.Map[x, y]))
+				.ExecuteSecure();
 	}
 }

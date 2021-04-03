@@ -63,8 +63,8 @@ namespace Tgm.Roborally.Server.Controllers {
 												   int gameId) =>
 			new GameRequestPipeline()
 				.Game(gameId)
-				.Compute(code: c => c.Response = new ObjectResult(c.Game.PlayerIds))
-				.ExecuteAction();
+				.Compute(code: c => c.SetResponse(c.Game.PlayerIds))
+				.ExecuteSecure();
 
 		/// <summary>
 		///     Get player
@@ -87,8 +87,8 @@ namespace Tgm.Roborally.Server.Controllers {
 			new GameRequestPipeline()
 				.Game(gameId)
 				.Player(playerId)
-				.Compute(code: c => c.Response = new ObjectResult(c.Player))
-				.ExecuteAction();
+				.Compute(code: c => c.SetResponse(c.Player))
+				.ExecuteSecure();
 
 		/// <summary>
 		///     Join game
@@ -113,14 +113,15 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		[SwaggerResponse(409, type: typeof(ErrorMessage), description: "Not Joinable")]
 		public virtual IActionResult Join([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-										  int gameId, [FromQuery] string password,
+										  int gameId,
+										  [FromQuery] string password,
 										  [FromQuery]
 										  [RegularExpression("[A-Za-z0-9_-]+")]
 										  [StringLength(30, MinimumLength = 3)]
 										  string name) =>
 			new GameRequestPipeline()
 				.Game(gameId)
-				.Compute(code: c => c.Response = new ObjectResult(new JoinResponse(c.Game.Join(password, name))))
+				.Compute(code: c => c.SetResponse(new JoinResponse(c.Game.Join(password, name))))
 				.ExecuteAction();
 
 		/// <summary>
@@ -133,7 +134,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="404">Not Found</response>
 		[HttpDelete]
 		[Route("/v1/games/{game_id}/players/{player_id}")]
-		[GameAuth(Role.ANYONE,playerSelf:true)]
+		[GameAuth(Role.ANYONE, playerSelf: true)]
 		[ValidateModelState]
 		[SwaggerOperation("KickPlayer")]
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
