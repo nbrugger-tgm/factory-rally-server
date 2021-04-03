@@ -69,6 +69,10 @@ namespace Tgm.Roborally.Server.Engine {
 			return tiles;
 		}
 
+
+		/// <summary>
+		/// Caculates wich fields are empty (no entities on top) and sets the regarding property
+		/// </summary>
 		public void CalculateEmpty() {
 			ImmutableList<(int X, int Y)> occupied = _game.Entitys.List.Select(selector: e => e.Location)
 														  .Select(selector: p => (p.X, p.Y)).ToImmutableList();

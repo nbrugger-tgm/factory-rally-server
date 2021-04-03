@@ -64,6 +64,11 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public ISet<int> Deck => _pool.Where(predicate: e => e.Value.location == CardLocation.DECK)
 									  .Select(selector: e => e.Key).ToImmutableHashSet();
 
+
+		/// <summary>
+		/// Get the Command for the regarding id
+		/// </summary>
+		/// <param name="robotId">the id of the command</param>
 		public RobotCommand this[int robotId] => !_pool.ContainsKey(robotId) ? null : _pool[robotId].command;
 
 		private void Shuffle() {

@@ -4,7 +4,7 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine {
 	/**
-	 * This pipeline processes a request to produce a result
+	 * This pipeline processes a request to produce a result. More to read in the diploma thesis
 	 */
 	public class GameRequestPipeline {
 		private readonly PipelineContext _context;
@@ -24,10 +24,12 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		private IActionResult Response { get; set; }
+		private bool          Done     => Response != null;
 
-		private bool Done => Response != null;
 
-
+		/**
+		 * Selects a game for further processing. If no game is found an error response is set
+		 */
 		public GameRequestPipeline Game(int game) {
 			if (Done) return this;
 
@@ -43,9 +45,9 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		/// <summary>
-		///     Executes custom code to create and modify the response or handle the request
-		///     Exceptions are handled save
-		///     use <code>executeAction</code> or <code>executeSecure</code> to send the response
+		///     Executes custom code to create and modify the response or handle the request.
+		///     Exceptions are handled save.
+		///     Use <code>executeAction</code> or <code>executeSecure</code> to send the response
 		/// </summary>
 		/// <param name="code">the runnable code</param>
 		/// <returns>the pipeline itslef</returns>
@@ -65,6 +67,10 @@ namespace Tgm.Roborally.Server.Engine {
 			return this;
 		}
 
+		/**
+		 * Executes the pipeline, produces and returns a result.
+		 * Use this if the pipeline is meant to execute an action but not necessary produces a response other than 200
+		 */
 		public IActionResult ExecuteAction() => Execute(new OkResult());
 
 		/// <summary>
@@ -78,11 +84,10 @@ namespace Tgm.Roborally.Server.Engine {
 			return Execute(result);
 		}
 
-		private IActionResult Execute(IActionResult defaultResult) {
-			if (Response == null) return defaultResult;
-
-			return Response;
-		}
+		/**
+		 * Executes the pipeline and returns the produced result. If there is no result return the parameter as response ("Fallback Response")
+		 */
+		public IActionResult Execute(IActionResult defaultResult) => Response ?? defaultResult;
 
 
 		public GameRequestPipeline Player(int playerId) {
