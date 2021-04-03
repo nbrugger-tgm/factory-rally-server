@@ -1,7 +1,7 @@
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Statement {
-	public class RobotShrootCommand  : RobotCommand{
+	public class RobotShrootCommand : RobotCommand {
 		public override Instruction Type => Instruction.Shroot;
 
 		public override string Description => "Shrouutz a lazer forward";

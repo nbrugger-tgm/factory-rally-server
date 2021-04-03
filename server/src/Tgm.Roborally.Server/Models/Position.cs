@@ -107,6 +107,7 @@ namespace Tgm.Roborally.Server.Models {
 				return hashCode;
 			}
 		}
+
 		/// <summary>
 		/// Generates a translated Position.
 		/// </summary>
@@ -135,6 +136,7 @@ namespace Tgm.Roborally.Server.Models {
 
 			return endPos;
 		}
+
 		#region Operators
 
 		#pragma warning disable 1591

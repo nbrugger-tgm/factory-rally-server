@@ -26,16 +26,16 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 
 		private Position Move(RobotInfo robotInfo, int amount, Direction resultDirection) {
 			for (int actualAmount = 0; actualAmount < amount; actualAmount++) {
-				Position    newPos = robotInfo.Location.Translate( 1, resultDirection);
+				Position     newPos = robotInfo.Location.Translate(1, resultDirection);
 				List<Action> events = new List<Action>();
 				if (!robotInfo.Virtual && robotInfo.Health <= 0)
 					break;
 				//FALL OF MAP
-				if (!_game.Map.IsWithin(newPos)) {;
-					events.Add(()=> {
-						Damage(robotInfo, 20);
-					});
+				if (!_game.Map.IsWithin(newPos)) {
+					;
+					events.Add(() => { Damage(robotInfo, 20); });
 				}
+
 				Tile tile = _game.Map[newPos.X, newPos.Y];
 				//HEIGHT DIFFERENCE BLOCK
 				bool onRamp = tile.Type == TileType.Ramp; //todo proper implementation
@@ -43,13 +43,14 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 					break;
 				//FALL ONE LEVEL DOWN
 				if (tile.Level < robotInfo.Attitude && !onRamp) {
-					events.Add(()=>_game.CommitEvent(new DummyEvent(EventType.Movement,$"Robot {robotInfo.Id} change level. From {robotInfo.Attitude} to {tile.Level}")));
-					events.Add(()=> {
-						Damage(robotInfo, (robotInfo.Attitude - tile.Level)*2);
-					});
-				}else if (tile.Level + 1 == robotInfo.Attitude && onRamp) {
+					events.Add(() => _game.CommitEvent(new DummyEvent(EventType.Movement,
+																	  $"Robot {robotInfo.Id} change level. From {robotInfo.Attitude} to {tile.Level}")));
+					events.Add(() => { Damage(robotInfo, (robotInfo.Attitude - tile.Level) * 2); });
+				}
+				else if (tile.Level + 1 == robotInfo.Attitude && onRamp) {
 					//todo elevate it
-					events.Add(()=>_game.CommitEvent(new DummyEvent(EventType.Movement,$"Robot {robotInfo.Id} change level. From {robotInfo.Attitude} to {tile.Level}")));
+					events.Add(() => _game.CommitEvent(new DummyEvent(EventType.Movement,
+																	  $"Robot {robotInfo.Id} change level. From {robotInfo.Attitude} to {tile.Level}")));
 				}
 
 				//wall block
@@ -66,19 +67,22 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 						RobotInfo robo = _game.Entitys[roboId] as RobotInfo;
 						if (robo.Location.Equals(newPos) && !robo.Virtual && robo.Attitude == robotInfo.Attitude) {
 							_game.CommitEvent(new PushEvent() {
-	                            Ammount = 1,
-	                            PushDirecton = resultDirection,
-	                            PushedId = roboId,
-	                            PusherId = robotInfo.Id
-	                        });
+								Ammount      = 1,
+								PushDirecton = resultDirection,
+								PushedId     = roboId,
+								PusherId     = robotInfo.Id
+							});
 							Move(robo, 1, resultDirection);
 						}
-						if(robo.Location.Equals(newPos))
+
+						if (robo.Location.Equals(newPos))
 							break;
 					}
 				}
+
 				PerformMove(robotInfo, actualAmount, resultDirection);
 			}
+
 			return robotInfo.Location;
 		}
 
@@ -86,9 +90,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			robotInfo.Health -= i;
 			_game.CommitEvent(new DamageEvent() {
 				Ammount = i,
-				Entity = robotInfo.Id
+				Entity  = robotInfo.Id
 			});
-			if(robotInfo.Health <= 0)
+			if (robotInfo.Health <= 0)
 				_game.CommitEvent(new EmptyEvent(EventType.Shutdown));
 		}
 
@@ -100,10 +104,10 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <param name="actualAmount">the fields to move</param>
 		/// <param name="resultDirection">the direction to move into</param>
 		private void PerformMove(
-			Entity                                     entity, 
-			int                                        actualAmount, 
-			Direction                                  resultDirection
-			){
+			Entity    entity,
+			int       actualAmount,
+			Direction resultDirection
+		) {
 			for (int i = 0; i < actualAmount; i++) {
 				Position newPos = entity.Location.Translate(1, resultDirection);
 				_game.CommitEvent(new MovementEvent {
@@ -117,9 +121,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				});
 				entity.Location = newPos;
 			}
-			
 		}
-
 
 
 		public void Rotate(int robotId, Rotation rotationDirection, int i) {
@@ -127,19 +129,20 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			for (int j = 0; j < i; j++) {
 				ent.Direction = ent.Direction.Rotate(rotationDirection);
 			}
+
 			_game.CommitEvent(new MovementEvent() {
-				Entity = robotId,
-				From = ent.Location,
-				To = ent.Location,
+				Entity          = robotId,
+				From            = ent.Location,
+				To              = ent.Location,
 				MovementAmmount = 0,
-				Rotation = rotationDirection,
-				RotationTimes = i
+				Rotation        = rotationDirection,
+				RotationTimes   = i
 			});
 		}
 
 		public void Shroot(int robotId) {
-			Entity   e   = _game.Entitys[robotId];
-			
+			Entity e = _game.Entitys[robotId];
+
 			Position pos = e.Location;
 			Tile     t;
 			do {
@@ -147,15 +150,16 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				t   = _game.Map[pos.X, pos.Y];
 			} while (!t.Empty || t.Type == TileType.Wall);
 
-			List<int> hitEntities = _game.Entitys.List.Where(entity => entity.Location.Equals(pos)).Select(entity => entity.Id).ToList();
+			List<int> hitEntities = _game.Entitys.List.Where(entity => entity.Location.Equals(pos))
+										 .Select(entity => entity.Id).ToList();
 			_game.CommitEvent(new ShootEvent() {
-            	Direction = e.Direction,
-            	HitEntitys = hitEntities,
-            	Shooter = robotId,
-            	To =pos
-            });
+				Direction  = e.Direction,
+				HitEntitys = hitEntities,
+				Shooter    = robotId,
+				To         = pos
+			});
 			foreach (int hitEntity in hitEntities) {
-				Damage((RobotInfo) _game.Entitys[hitEntity],1);	
+				Damage((RobotInfo) _game.Entitys[hitEntity], 1);
 			}
 		}
 	}

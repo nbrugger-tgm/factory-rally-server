@@ -46,9 +46,7 @@ namespace Tgm.Roborally.Server.Models {
 		[EnumMember(Value = "right")] Right = 4
 	}
 
-	static class DirectionExtension
-	{
-
+	static class DirectionExtension {
 		public static Direction Rotate(this Direction toTransform, Rotation rotation) =>
 			rotation switch {
 				Rotation.Left  => RotateLeft(toTransform),

@@ -48,7 +48,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>If the robot is in virtual mode</value>
 		[DataMember(Name = "virtual", EmitDefaultValue = false)]
-		public bool Virtual { get; set; }//todo yeet
+		public bool Virtual { get; set; } //todo yeet
 
 		/// <summary>
 		///     The priority of this player. Higher is more priority. 1 &#x3D; lowest. max &#x3D; number of players
@@ -56,7 +56,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The priority of this player. Higher is more priority. 1 &#x3D; lowest. max &#x3D; number of players</value>
 		[Range(1, 8)]
 		[DataMember(Name = "priority", EmitDefaultValue = false)]
-		public int Priority { get; set; }//todo auto
+		public int Priority { get; set; } //todo auto
 
 		/// <summary>
 		///     True if the robot is currently active (executing a register)

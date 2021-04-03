@@ -7,7 +7,7 @@ namespace Tgm.Roborally.Server.Authentication {
 	/// Checks if the requested robot is owned by the player
 	/// </summary>
 	public class RobotOwnerShipEnsurance : OwnershipEnsurance {
-		private string robotIdPathVariable ;
+		private string robotIdPathVariable;
 
 		public RobotOwnerShipEnsurance(string robotIdPathVariable = "robot_id") {
 			this.robotIdPathVariable = robotIdPathVariable;

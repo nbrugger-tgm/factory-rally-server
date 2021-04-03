@@ -109,8 +109,8 @@ namespace Tgm.Roborally.Server.Models {
 		[Required]
 		[DataMember(Name = "password-protected", EmitDefaultValue = false)]
 		public bool PasswordProtected => !string.IsNullOrEmpty(_ref.Password);
-		/// <summary>
 
+		/// <summary>
 		/// <summary>
 		///     Returns true if GameInfo instances are equal
 		/// </summary>

@@ -37,20 +37,20 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 					Name = "Crawl"
 				}
 			);
-			
-			AddCard(5,new RotateCommand(Rotation.Left,1) {
-				Name="Left turn"
+
+			AddCard(5, new RotateCommand(Rotation.Left, 1) {
+				Name = "Left turn"
 			});
-			
-			AddCard(5,new RotateCommand(Rotation.Right,1) {
-				Name ="Right turn"
+
+			AddCard(5, new RotateCommand(Rotation.Right, 1) {
+				Name = "Right turn"
 			});
-			
-			AddCard(6,new RotateCommand(Rotation.Left,2) {
-				Name ="180 Quickscope"
+
+			AddCard(6, new RotateCommand(Rotation.Left, 2) {
+				Name = "180 Quickscope"
 			});
-			
-			AddCard(4,new RobotShrootCommand() {
+
+			AddCard(4, new RobotShrootCommand() {
 				Name = "Shoot"
 			});
 			Shuffle();

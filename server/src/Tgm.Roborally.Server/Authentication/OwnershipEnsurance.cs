@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Routing;
 using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Authentication {
-	
 	/// <summary>
 	/// Implement this interface in order to add an ownership check option for GameAuth
 	/// </summary>

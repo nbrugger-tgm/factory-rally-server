@@ -70,25 +70,27 @@ namespace Tgm.Roborally.Server.Authentication {
 			Type   ownershipEnsurance,
 			bool   playerSelf       = false,
 			string playerIdPathName = "player_id",
-            string gameIdPathName   = "game_id"
-		):this((OwnershipEnsurance) Activator.CreateInstance(ownershipEnsurance),playerSelf,playerIdPathName,gameIdPathName) { }
-		
+			string gameIdPathName   = "game_id"
+		) : this((OwnershipEnsurance) Activator.CreateInstance(ownershipEnsurance), playerSelf, playerIdPathName,
+				 gameIdPathName) {
+		}
+
 		/// <param name="ownershipEnsurance">A method to determine if the accessed object is owned by the player</param>
-        /// <param name="gameIdPathName">this is the name of the gameID field in the path</param>
-        /// <param name="playerSelf">When true the player must match `player_id`(customizeable) from path</param>
-        /// <param name="playerIdPathName">Defines the name of the Authentication ID in the querry (default `player_id`)</param>
-        /// <param name="belongsTo">Only allows the player to pass if he owns the resource</param>
+		/// <param name="gameIdPathName">this is the name of the gameID field in the path</param>
+		/// <param name="playerSelf">When true the player must match `player_id`(customizeable) from path</param>
+		/// <param name="playerIdPathName">Defines the name of the Authentication ID in the querry (default `player_id`)</param>
+		/// <param name="belongsTo">Only allows the player to pass if he owns the resource</param>
 		public GameAuth(
 			OwnershipEnsurance ownershipEnsurance,
 			bool               playerSelf       = false,
 			string             playerIdPathName = "player_id",
-            string             gameIdPathName   = "game_id"
+			string             gameIdPathName   = "game_id"
 		) {
-			_needed_role      = Role.PLAYER;
-			_gameIdPathName   = gameIdPathName;
-			_belongsTo        = true;
-			_playerSelf       = playerSelf;
-			_playerIdPathName = playerIdPathName;
+			_needed_role        = Role.PLAYER;
+			_gameIdPathName     = gameIdPathName;
+			_belongsTo          = true;
+			_playerSelf         = playerSelf;
+			_playerIdPathName   = playerIdPathName;
 			_ownershipEnsurance = ownershipEnsurance;
 		}
 
@@ -127,7 +129,7 @@ namespace Tgm.Roborally.Server.Authentication {
 		}
 
 		private static void StoreInContext(ActionContext context, bool   isPlayer, bool isAdmin, bool owns,
-										   bool                       isSelf,  Player player,   bool isConsumer) {
+										   bool          isSelf,  Player player,   bool isConsumer) {
 			context.HttpContext.Items[IS_PLAYER]            = isPlayer;
 			context.HttpContext.Items[IS_ADMIN]             = isAdmin;
 			context.HttpContext.Items[PLAYER_OWNS_RESOURCE] = owns;
@@ -137,7 +139,8 @@ namespace Tgm.Roborally.Server.Authentication {
 			context.HttpContext.Items[IS_CONSUMER]          = isConsumer;
 		}
 
-		private void SendResponse(AuthorizationFilterContext context, bool isPlayer, bool isAdmin, bool isSelf, bool owns,
+		private void SendResponse(AuthorizationFilterContext context, bool isPlayer, bool isAdmin, bool isSelf,
+								  bool                       owns,
 								  bool                       isConsumer) {
 			if (_needed_role == Role.ANYONE) {
 				if (!(isPlayer || isAdmin)) {
@@ -224,7 +227,8 @@ namespace Tgm.Roborally.Server.Authentication {
 			}
 		}
 
-		private GameLogic DetectGame(HttpRequest request) => GameManager.instance.GetGame(Convert.ToInt32(request.RouteValues[_gameIdPathName].ToString()));
+		private GameLogic DetectGame(HttpRequest request) =>
+			GameManager.instance.GetGame(Convert.ToInt32(request.RouteValues[_gameIdPathName].ToString()));
 
 		/**
 		 * Verifies if the request is submitted by the admin of the server
