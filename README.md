@@ -17,17 +17,9 @@ The Game Controller is an Web API controlling the logic/flow of one (or multiple
 
   * Windows
     * `WIN`+`R`  -> `shell:autostart`+`ENTER`
-    * Hidden Autostart (no command line)
-      1. Move the `zip` directly into the opened folder
-    * Visual Autostart \[WIP\]
-      1. Download `autostart.bat` from the lastest release
-      2. Move `autostart.bat`  into the folder that opened
-      3. Close the explorer
-      4. `WIN`+`R` and type `cmd /C "mkdir %homepath%\robo-rally-server & cd %homepath%\robo-rally-server && explorer ."`
-      5. Extract the content of the `zip` to the folder that opened
-  * Linux \[WIP\]
-    * Download and execute `enable-systemd-autostart.sh` 
-    * This only works on systems using `systemd` as the name states 
+    * Autostart
+      1. Move the extracted content of the `zip` directly into the opened folder
+  * Linux [\[WIP\]](https://github.com/FactoryRally/game-controller/issues/22)
 3. Execute the server manually (optional)
     * Windows: extract the zip and double click the `exe` file
     * Linux/MacOs:
@@ -56,7 +48,7 @@ The Game Controller is an Web API controlling the logic/flow of one (or multiple
   | *fill-with-bots*       | If true open places will be filled with bots                 | boolean    | false                                                   |
   | *open-map-repo*        | if true players can commit maps                              | boolean    | false                                                   |
   | *map-repo-location*    | The location where the maps are located (without / in front relative to exeuteable) | path       | maps                                                    |
-  | only-one-lobby         | If this is set to true, only one joinable game at a time will exist.<br />This is useful for servers with many `max-games` |            |                                                         |
+  | only-one-lobby         | If this is set to true, only one joinable game at a time will exist.<br />This is useful for servers with many `max-games` | boolean    |                                                         |
 
 ## Using the ReST API
 
