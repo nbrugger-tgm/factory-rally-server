@@ -30,7 +30,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public Map BlankMap {
 			get {
 				Map m = new Map();
-				m[0, 0] = new Tile();
+				m.CalculateEmpty();
 				return m;
 			}
 		}
