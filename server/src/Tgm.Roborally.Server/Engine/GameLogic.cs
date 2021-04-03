@@ -147,11 +147,11 @@ namespace Tgm.Roborally.Server.Engine {
 			Random rng     = new Random();
 			while (Players.Count < MaxPlayers && Rules.FillWithBots) {
 				int botId = NewPlayerId();
-				RobotKI ki = new RobotKI {
+				RobotAI ai = new RobotAI {
 					Id          = botId,
 					DisplayName = kis[rng.Next(kis.Length)] + " #" + kiCount++
 				};
-				Players.Add(ki);
+				Players.Add(ai);
 			}
 
 			Map = new Map(20, 20);

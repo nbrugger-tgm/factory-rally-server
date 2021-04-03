@@ -13,7 +13,8 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public static int randomID => new Random().Next(2048);
 
-		public int startGame(GameRules rules) {
+		/// <summary>
+		public int CreateGame(GameRules rules) {
 			Console.WriteLine("Create game with rules : " + rules);
 			int       id   = randomID;
 			GameLogic game = new GameLogic(rules) {id = id};

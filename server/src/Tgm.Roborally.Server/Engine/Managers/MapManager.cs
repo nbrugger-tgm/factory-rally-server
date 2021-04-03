@@ -9,13 +9,13 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 
 		private static readonly DataContractSerializer serializer = new DataContractSerializer(typeof(Map));
 
-		public string MapExtendion = "rmap";
+		private const string MAP_EXTENSION = "rmap";
 
 		public MapManager() {
-			if (names.Length == 0) Add(BlankMap, "BLANK");
+			if (Names.Length == 0) Add(BlankMap, "BLANK");
 		}
 
-		public string MapExtedionWithDot => $".{MapExtendion}";
+		private string MapExtedionWithDot => $".{MAP_EXTENSION}";
 
 		public DirectoryInfo Directory { get; private set; } =
 			new DirectoryInfo(@"D:\Users\Nils\Desktop\Schule\ITP\robot-rally\game-controller\maps\");
@@ -45,6 +45,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			}).ToArray();
 
 		public string[] names => MapFiles.Select(selector: info => info.Name.Replace(MapExtedionWithDot, "")).ToArray();
+		public string[] Names => MapFiles.Select(selector: info => info.Name.Replace(MapExtedionWithDot, "")).ToArray();
 
 		public Map Get(string name) {
 			FileStream fs = Directory.GetFiles($"{name}{MapExtedionWithDot}")[0].OpenRead();

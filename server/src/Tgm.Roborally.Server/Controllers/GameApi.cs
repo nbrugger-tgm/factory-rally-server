@@ -62,7 +62,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerOperation("CreateGame")]
 		public virtual IActionResult CreateGame([FromBody] GameRules gameRules) {
 			GameRequestPipeline pip = new GameRequestPipeline();
-			pip.Compute(code: c => c.Response = new OkObjectResult(GameManager.instance.startGame(gameRules)));
+			pip.Compute(code: c => c.Response = new OkObjectResult(GameManager.instance.CreateGame(gameRules)));
 			return pip.ExecuteSecure();
 		}
 
