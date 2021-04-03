@@ -15,8 +15,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			List<Robots> available = Enum.GetValues(typeof(Robots)).Cast<Robots>().ToList();
 			foreach (Player gamePlayer in game.Players) {
 				Robots type = available[0];
-				Event  e    = game.Entitys.PickRobo(type, gamePlayer);
-				game.CommitEvent(e);
+				game.Entitys.PickRobo(type, gamePlayer);
 				available.Remove(type);
 			}
 

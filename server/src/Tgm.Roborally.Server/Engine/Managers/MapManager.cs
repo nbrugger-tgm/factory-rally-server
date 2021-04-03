@@ -21,7 +21,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 
 		private string MapExtedionWithDot => $".{MAP_EXTENSION}";
 
-		public DirectoryInfo Directory { get; private set; } =
+		private DirectoryInfo Directory { get; set; } =
 			new DirectoryInfo(@"D:\Users\Nils\Desktop\Schule\ITP\robot-rally\game-controller\maps\");
 
 		/// <summary>
@@ -44,7 +44,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			get => Directory.FullName;
 		}
 
-		private FileInfo[] MapFiles => Directory.GetFiles($"*{MapExtedionWithDot}").ToArray();
+		private IEnumerable<FileInfo> MapFiles => Directory.GetFiles($"*{MapExtedionWithDot}").ToArray();
 
 		/// <summary>
 		/// The list of all maps

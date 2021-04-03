@@ -44,9 +44,7 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <param name="gameId">the id of the game</param>
 		/// <returns>the game itself or null</returns>
 		public GameLogic GetGame(int gameId) {
-			if (!games.ContainsKey(gameId)) return null;
-
-			return games[gameId];
+			return games.ContainsKey(gameId) ? games[gameId] : null;
 		}
 	}
 }
