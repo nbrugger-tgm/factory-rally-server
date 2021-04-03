@@ -121,7 +121,7 @@ return new GameRequestPipeline()
     .Game(gameId) //selects the game with the regarding ID
     .Robot(robotId)//select the robot you want to interact with
     .Compute(c => {
-        c.Response = new OkObjectResult(c.Game.Programming.GetRegisters(c.Robot.ID));
+        c.SetResponse(c.Game.Programming.GetRegisters(c.Robot.ID));
 	})
 	.ExecuteSecure();//sends a 404 response if no result was produced
 ```
