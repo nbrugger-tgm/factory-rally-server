@@ -148,3 +148,21 @@ The global namespace is : `Tgm.Roborally.Server`
 
 * `GameLogic`
 * All Managers
+
+### Authentication
+
+To add authentication to an Endpoint use the `GameAuth` attribute. 
+
+Examples:
+
+```c#
+[GameAuth(Role.ADMIN)] //only admin can access
+[GameAuth(Role.ANYONE,playerSelf:true)] //admin or the player himself can acccess
+[GameAuth(Role.ANYONE)] // admin or any player can access
+[GameAuth(Role.PLAYER, allowConsumer: true)] //Players and consumers are allowed to access 
+[GameAuth(typeof(RobotOwnerShipEnsurance))] //The robot mentioned in the path has to belong to the requesting player
+```
+
+The class is well documented.
+
+### 
