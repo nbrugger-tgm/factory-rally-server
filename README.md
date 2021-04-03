@@ -8,28 +8,33 @@ The Game Controller is an Web API controlling the logic/flow of one (or multiple
 
 ## Usage
 
-> **IMPORTANT** As of the moment the server has no standalone executable
->                       The guide below shows how it will work as soon as the executable is available 
+> While the application supports Linux, Windows and MAC. There are no installers for mac and linux so you have to configure this for yourself at the moment.<br>
+> Dependencie : dotnetcore 3.1
 
-* Download the `robo-rally-server.exe` from the [release section](https://github.com/FactoryRally/game-controller/releases).
+1. Download the `robo-rally-server.zip` from the [release section](https://github.com/FactoryRally/game-controller/releases).
 
-* Enable autostart (optional)
+2. Enable autostart (optional)
 
   * Windows
     * `WIN`+`R`  -> `shell:autostart`+`ENTER`
     * Hidden Autostart (no command line)
-      * Move the `exe` directly into the opened folder
-    * Visual Autostart
-      * Download `autostart.bat` from the lastest release
-      * Move `autostart.bat`  into the folder that opened
-      * Close the explorer
-      * `WIN`+`R`->`cmd /C "mkdir %homepath%\robo-rally-server & cd %homepath%\robo-rally-server && explorer ."`
-      * Move the `exe` to the folder that opened
-  * Linux (not docker)
+      1. Move the `zip` directly into the opened folder
+    * Visual Autostart \[WIP\]
+      1. Download `autostart.bat` from the lastest release
+      2. Move `autostart.bat`  into the folder that opened
+      3. Close the explorer
+      4. `WIN`+`R` and type `cmd /C "mkdir %homepath%\robo-rally-server & cd %homepath%\robo-rally-server && explorer ."`
+      5. Extract the content of the `zip` to the folder that opened
+  * Linux \[WIP\]
     * Download and execute `enable-systemd-autostart.sh` 
     * This only works on systems using `systemd` as the name states 
+3. Execute the server manually (optional)
+    * Windows: extract the zip and double click the `exe` file
+    * Linux/MacOs:
+        * Download `dotnetcore 3.1`
+        * `./Tgm.Roborally.Server`
 
-  ### Config file 
+  ### Config file \[WIP\]
 
   The config file defines the behaviour of the server.
 
@@ -53,7 +58,7 @@ The Game Controller is an Web API controlling the logic/flow of one (or multiple
   | *map-repo-location*    | The location where the maps are located (without / in front relative to exeuteable) | path       | maps                                                    |
   | only-one-lobby         | If this is set to true, only one joinable game at a time will exist.<br />This is useful for servers with many `max-games` |            |                                                         |
 
-## Functionality
+## Using the ReST API
 
 The complete logic is accessible via a HTTP Rest API. The core features are:
 
