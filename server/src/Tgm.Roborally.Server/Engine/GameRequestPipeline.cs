@@ -90,6 +90,9 @@ namespace Tgm.Roborally.Server.Engine {
 		public IActionResult Execute(IActionResult defaultResult) => Response ?? defaultResult;
 
 
+		/**
+		 * Selects a player from the selected game
+		 */
 		public GameRequestPipeline Player(int playerId) {
 			if (Done)
 				return this;
@@ -112,6 +115,11 @@ namespace Tgm.Roborally.Server.Engine {
 			return this;
 		}
 
+		/// <summary>
+		/// Fetchs and pops the next event into the pipeline. A player must be selected first
+		/// </summary>
+		/// <param name="wait">if true this method will wait/block until there is a new event</param>
+		/// <returns>the pipeline itself</returns>
 		public GameRequestPipeline NextEvent(bool wait) {
 			if (!Done) {
 				_event = _game.EventManager.Pop(_player.Id);
@@ -124,6 +132,11 @@ namespace Tgm.Roborally.Server.Engine {
 			return this;
 		}
 
+		/// <summary>
+		/// Fetchs the next event BUT does NOT pop it. A player has to be selected first
+		/// </summary>
+		/// <param name="wait">if true this method will wait/block until there is a new event</param>
+		/// <returns>the pipeline itself</returns>
 		public GameRequestPipeline PeekNextEvent(bool wait) {
 			if (!Done) {
 				_event = _game.EventManager.Peek(_player.Id);
@@ -136,6 +149,12 @@ namespace Tgm.Roborally.Server.Engine {
 			return this;
 		}
 
+		
+		/// <summary>
+		/// Selects a robot
+		/// </summary>
+		/// <param name="robotId">the id of the robot to select</param>
+		/// <returns>the pipeline itself</returns>
 		public GameRequestPipeline Robot(int robotId) {
 			if (Done)
 				return this;
@@ -158,6 +177,11 @@ namespace Tgm.Roborally.Server.Engine {
 			return this;
 		}
 
+		/// <summary>
+		/// Selects a programming card
+		/// </summary>
+		/// <param name="statementId">the id of the card</param>
+		/// <returns>the pipeline</returns>
 		public GameRequestPipeline ProgrammingCard(int statementId) {
 			if (Done)
 				return this;
@@ -190,6 +214,9 @@ namespace Tgm.Roborally.Server.Engine {
 			return this;
 		}
 
+		/// <summary>
+		/// This context is used to read and manipulate the GRP. It limits access with r/w operations in an useful way
+		/// </summary>
 		public class PipelineContext {
 			private readonly GameRequestPipeline pipe;
 
@@ -197,14 +224,35 @@ namespace Tgm.Roborally.Server.Engine {
 				this.pipe = pipe;
 			}
 
+			/// <summary>
+			/// the selected game
+			/// </summary>
 			public GameLogic Game   => pipe._game;
+			/// <summary>
+			/// the selected player
+			/// </summary>
 			public Player    Player => pipe._player;
 
+			/// <summary>
+			/// the peeked/poped event
+			/// </summary>
 			public Event        Event   => pipe._event;
+			/// <summary>
+			/// The selected robot
+			/// </summary>
 			public RobotInfo    Robot   => pipe._robot;
+			/// <summary>
+			/// the selected command
+			/// </summary>
 			public RobotCommand Command => pipe._command;
+			/// <summary>
+			/// The selected Upgrade
+			/// </summary>
 			public Upgrade      Upgrade => pipe._upgrade;
 
+			/// <summary>
+			/// Use this to  set the response of the GRP. For convenience use <code>SetResponse</code> and <code>SetNotFoundResponse</code>
+			/// </summary>
 			public IActionResult Response {
 				set => pipe.Response = value;
 			}
