@@ -48,22 +48,27 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				List<Action> events = new List<Action>();
 				if (!robotInfo.Virtual && robotInfo.Health <= 0)
 					break;
+				
 				//FALL OF MAP
 				if (!_game.Map.IsWithin(newPos)) {
-					;
-					events.Add(() => { Damage(robotInfo, 20); });
+					events.Add(() => Damage(robotInfo, 20));
+					foreach (Action e in events) e();
+					break;
 				}
 
 				Tile tile = _game.Map[newPos.X, newPos.Y];
+				
 				//HEIGHT DIFFERENCE BLOCK
-				bool onRamp = tile.Type == TileType.Ramp; //todo proper implementation
+				bool onRamp = tile.Type == TileType.Ramp; //todo proper implementation (respect rotation)
 				if (tile.Level > robotInfo.Attitude && !onRamp)
 					break;
+				
 				//FALL ONE LEVEL DOWN
 				if (tile.Level < robotInfo.Attitude && !onRamp) {
+					//todo actual events
 					events.Add(() => _game.CommitEvent(new DummyEvent(EventType.Movement,
 																	  $"Robot {robotInfo.Id} change level. From {robotInfo.Attitude} to {tile.Level}")));
-					events.Add(() => { Damage(robotInfo, (robotInfo.Attitude - tile.Level) * 2); });
+					events.Add(() => Damage(robotInfo, (robotInfo.Attitude - tile.Level) * 2));
 				}
 				else if (tile.Level + 1 == robotInfo.Attitude && onRamp) {
 					//todo elevate it
@@ -98,7 +103,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 					}
 				}
 
-				PerformMove(robotInfo, actualAmount, resultDirection);
+				PerformMove(robotInfo, 1, resultDirection,events);
 			}
 
 			return robotInfo.Location;
@@ -126,11 +131,10 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <param name="entity">The entity to move</param>
 		/// <param name="actualAmount">the fields to move</param>
 		/// <param name="resultDirection">the direction to move into</param>
-		private void PerformMove(
-			Entity    entity,
-			int       actualAmount,
-			Direction resultDirection
-		) {
+		/// <param name="actions"></param>
+		private void PerformMove(Entity    entity,
+								 int       actualAmount,
+								 Direction resultDirection, List<Action> actions) {
 			for (int i = 0; i < actualAmount; i++) {
 				Position newPos = entity.Location.Translate(1, resultDirection);
 				_game.CommitEvent(new MovementEvent {
@@ -144,6 +148,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				});
 				entity.Location = newPos;
 			}
+
+			foreach (Action action in actions) action();
 		}
 
 
@@ -177,6 +183,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			Entity e = _game.Entitys[robotId];
 
 			Position pos = e.Location;
+			Shoot(robotId, pos, e.Direction);
+		}
 
 		/// <summary>
 		/// Shoots a ray into the given direction
@@ -184,18 +192,23 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <param name="shooter">The entity who fired the shot (used for emiting the event/s</param>
 		/// <param name="pos">the position to fre from</param>
 		/// <param name="direction">the direction of the raycast</param>
+		private void Shoot(int shooter, Position pos, Direction direction,bool penentration = false) {
 			Tile     t;
+			List<int> hitEntities = new List<int>();
+			_game.Map.CalculateEmpty();
 			do {
-				pos = pos.Translate(1, e.Direction);
+				pos = pos.Translate(1, direction);
+				if (!_game.Map.IsWithin(pos))
+					break;
 				t   = _game.Map[pos.X, pos.Y];
-			} while (!t.Empty || t.Type == TileType.Wall);
+				hitEntities.AddRange(_game.Entitys.List.Where(entity => entity.Location.Equals(pos))
+										  .Select(entity => entity.Id).ToList());
+			} while ((!t.Empty&&!penentration) || t.Type == TileType.Wall);
 
-			List<int> hitEntities = _game.Entitys.List.Where(entity => entity.Location.Equals(pos))
-										 .Select(entity => entity.Id).ToList();
 			_game.CommitEvent(new ShootEvent() {
-				Direction  = e.Direction,
+				Direction  = direction,
 				HitEntitys = hitEntities,
-				Shooter    = robotId,
+				Shooter    = shooter,
 				To         = pos
 			});
 			foreach (int hitEntity in hitEntities) {
