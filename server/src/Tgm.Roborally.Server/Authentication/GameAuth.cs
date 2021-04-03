@@ -7,6 +7,9 @@ using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Authentication {
+	/// <summary>
+	/// An attribute to add authentication to an Endpoint
+	/// </summary>
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 	public class GameAuth : Attribute, IAuthorizationFilter {
 		public const string
@@ -52,8 +55,8 @@ namespace Tgm.Roborally.Server.Authentication {
 		/// <param name="playerSelf">When true the player must match `player_id`(customizeable) from path</param>
 		/// <param name="playerIdPathName">Defines the name of the Authentication ID in the querry (default `player_id`)</param>
 		/// <param name="allowConsumer">True if this action can be executed by consumers</param>
-		public GameAuth(Role   neededRole, string gameIdPathName = "game_id", bool playerSelf = false,
-						string playerIdPathName = "player_id", bool allowConsumer = false) {
+		public GameAuth(Role   neededRole,                 bool   playerSelf       = false, bool allowConsumer = false,
+						string gameIdPathName = "game_id", string playerIdPathName = "player_id") {
 			_needed_role      = neededRole;
 			_gameIdPathName   = gameIdPathName;
 			_playerSelf       = playerSelf;
@@ -83,9 +86,16 @@ namespace Tgm.Roborally.Server.Authentication {
 		}
 
 
+		/**
+		 * The key to get admin access, initially randomly generated
+		 */
 		public static string AdminKey { get; private set; } = RandomString(256, false);
 
 
+		/**
+		 * Verifies the identity of a Request.
+		 * results are stored in HttpContext.Items
+		 */
 		public void OnAuthorization(AuthorizationFilterContext context) {
 			bool        isAdmin    = false;
 			bool        isPlayer   = false;
@@ -94,43 +104,24 @@ namespace Tgm.Roborally.Server.Authentication {
 			bool        isConsumer = false;
 			Player      player     = null;
 			HttpRequest request    = context.HttpContext.Request;
+
+
 			if (_needed_role == Role.ADMIN || _needed_role == Role.ANYONE)
-				isAdmin = request.Query["skey"].Equals(AdminKey);
+				isAdmin = VerifyAdmin(request);
 
-			if (_needed_role == Role.PLAYER || _needed_role == Role.ANYONE) {
-				string authKey = request.Query["pat"].ToString();
-				GameLogic game =
-					GameManager.instance.GetGame(
-						Convert.ToInt32(request.RouteValues[_gameIdPathName].ToString()));
-				if (game != null) {
-					player   = game.AuthPlayer(authKey);
-					isPlayer = player != null;
-					(bool, int) res = game.IsConsumer(authKey);
-					if (!isPlayer && res.Item1) {
-						isPlayer   = true;
-						isConsumer = true;
-						player = new Player {
-							Id          = res.Item2,
-							DisplayName = game.GetConsumer(res.Item2).Name,
-							Active      = false,
-							OnTurn      = false
-						};
-					}
-					else if (player != null) {
-						if (_playerSelf) {
-							isSelf =
-								Convert.ToInt32(request.RouteValues[_playerIdPathName].ToString()) ==
-								player.Id;
-						}
-
-						if (_belongsTo)
-							owns = _ownershipEnsurance.DoesOwn(player.Id, request.RouteValues, game);
-					}
-				}
-			}
+			VerifyPlayer(request, ref player, ref isPlayer, ref isConsumer, ref isSelf, ref owns);
 
 			#region processResult
 
+			StoreInContext(context, isPlayer, isAdmin, owns, isSelf, player, isConsumer);
+
+			SendResponse(context, isPlayer, isAdmin, isSelf, owns, isConsumer);
+
+			#endregion
+		}
+
+		private static void StoreInContext(ActionContext context, bool   isPlayer, bool isAdmin, bool owns,
+										   bool                       isSelf,  Player player,   bool isConsumer) {
 			context.HttpContext.Items[IS_PLAYER]            = isPlayer;
 			context.HttpContext.Items[IS_ADMIN]             = isAdmin;
 			context.HttpContext.Items[PLAYER_OWNS_RESOURCE] = owns;
@@ -138,6 +129,10 @@ namespace Tgm.Roborally.Server.Authentication {
 			context.HttpContext.Items[PLAYER]               = player;
 			context.HttpContext.Items[PLAYER_ID]            = player == null ? -1 : player.Id;
 			context.HttpContext.Items[IS_CONSUMER]          = isConsumer;
+		}
+
+		private void SendResponse(AuthorizationFilterContext context, bool isPlayer, bool isAdmin, bool isSelf, bool owns,
+								  bool                       isConsumer) {
 			if (_needed_role == Role.ANYONE) {
 				if (!(isPlayer || isAdmin)) {
 					context.Result = new UnauthorizedObjectResult(new ErrorMessage {
@@ -187,10 +182,52 @@ namespace Tgm.Roborally.Server.Authentication {
 					Message = "This action can only be used by real players. Consumers do not work here"
 				});
 			}
-
-			#endregion
 		}
 
+		private void VerifyPlayer(HttpRequest request, ref Player player, ref bool isPlayer, ref bool isConsumer,
+								  ref bool    isSelf,  ref bool   owns) {
+			if (_needed_role == Role.PLAYER || _needed_role == Role.ANYONE) {
+				GameLogic game    = DetectGame(request);
+				string    authKey = request.Query["pat"].ToString();
+
+				if (game != null) {
+					player   = game.AuthPlayer(authKey);
+					isPlayer = player != null;
+					(bool, int) res = game.IsConsumer(authKey);
+					if (!isPlayer && res.Item1) {
+						isPlayer   = true;
+						isConsumer = true;
+						player = new Player {
+							Id          = res.Item2,
+							DisplayName = game.GetConsumer(res.Item2).Name,
+							Active      = false,
+							OnTurn      = false
+						};
+					}
+					else if (player != null) {
+						if (_playerSelf) {
+							isSelf =
+								Convert.ToInt32(request.RouteValues[_playerIdPathName].ToString()) ==
+								player.Id;
+						}
+
+						if (_belongsTo)
+							owns = _ownershipEnsurance.DoesOwn(player.Id, request.RouteValues, game);
+					}
+				}
+			}
+		}
+
+		private GameLogic DetectGame(HttpRequest request) => GameManager.instance.GetGame(Convert.ToInt32(request.RouteValues[_gameIdPathName].ToString()));
+
+		/**
+		 * Verifies if the request is submitted by the admin of the server
+		 */
+		private bool VerifyAdmin(HttpRequest request) => request.Query["skey"].Equals(AdminKey);
+
+		/**
+		 * Changes the key tha admin needs to access the server
+		 */
 		public static void ChangeAdminKey(string key) => AdminKey = key;
 
 
@@ -203,20 +240,7 @@ namespace Tgm.Roborally.Server.Authentication {
 				builder.Append(ch);
 			}
 
-			if (lowerCase)
-				return builder.ToString().ToLower();
-			return builder.ToString();
+			return lowerCase ? builder.ToString().ToLower() : builder.ToString();
 		}
-	}
-
-	public class AuthResult {
-		public bool isAdmin;
-
-		/// <summary>
-		///     -1 means not a player
-		/// </summary>
-		public int player = -1;
-
-		public bool isPlayer => player != -1;
 	}
 }
