@@ -163,6 +163,6 @@ Examples:
 [GameAuth(typeof(RobotOwnerShipEnsurance))] //The robot mentioned in the path has to belong to the requesting player
 ```
 
-The class is well documented.
+`RobotOwnerShipEnsurance` is an implementation of `OwnershipEnsurance` so you can write your own implementations
 
-### 
+The class is well documented.

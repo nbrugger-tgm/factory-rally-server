@@ -64,27 +64,33 @@ namespace Tgm.Roborally.Server.Authentication {
 			_allowConsumer    = allowConsumer;
 		}
 
-		/// <param name="ownershipEnsurance">A method to determine if the accessed object is owned by the player</param>
-		/// <param name="gameIdPathName">this is the name of the gameID field in the path</param>
-		/// <param name="playerSelf">When true the player must match `player_id`(customizeable) from path</param>
-		/// <param name="playerIdPathName">Defines the name of the Authentication ID in the querry (default `player_id`)</param>
-		/// <param name="belongsTo">Only allows the player to pass if he owns the resource</param>
+
+		/// <inheritdoc />
 		public GameAuth(
 			Type   ownershipEnsurance,
-			string gameIdPathName   = "game_id",
 			bool   playerSelf       = false,
-			string playerIdPathName = "player_id"
+			string playerIdPathName = "player_id",
+            string gameIdPathName   = "game_id"
+		):this((OwnershipEnsurance) Activator.CreateInstance(ownershipEnsurance),playerSelf,playerIdPathName,gameIdPathName) { }
+		
+		/// <param name="ownershipEnsurance">A method to determine if the accessed object is owned by the player</param>
+        /// <param name="gameIdPathName">this is the name of the gameID field in the path</param>
+        /// <param name="playerSelf">When true the player must match `player_id`(customizeable) from path</param>
+        /// <param name="playerIdPathName">Defines the name of the Authentication ID in the querry (default `player_id`)</param>
+        /// <param name="belongsTo">Only allows the player to pass if he owns the resource</param>
+		public GameAuth(
+			OwnershipEnsurance ownershipEnsurance,
+			bool               playerSelf       = false,
+			string             playerIdPathName = "player_id",
+            string             gameIdPathName   = "game_id"
 		) {
 			_needed_role      = Role.PLAYER;
 			_gameIdPathName   = gameIdPathName;
 			_belongsTo        = true;
 			_playerSelf       = playerSelf;
 			_playerIdPathName = playerIdPathName;
-			//_ownershipEnsurance = (OwnershipEnsurance) ownershipEnsurance.GetConstructor(new Type[0]).Invoke(new object[0]);
-
-			_ownershipEnsurance = (OwnershipEnsurance) Activator.CreateInstance(ownershipEnsurance);
+			_ownershipEnsurance = ownershipEnsurance;
 		}
-
 
 		/**
 		 * The key to get admin access, initially randomly generated
