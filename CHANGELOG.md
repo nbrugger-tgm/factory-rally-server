@@ -1,3 +1,15 @@
+## v2.8.0a0 (2021-04-03)
+
+### Fix
+
+- map not empty
+- shooting bug
+- no access restriction on CommitAction
+
+### Feat
+
+- add Upgrade selection to GRP
+
 ## v2.7.0 (2021-03-01)
 
 ### Feat
