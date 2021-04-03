@@ -34,7 +34,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="409">Conflict</response>
 		[HttpPut]
 		[Route("/v1/games/{game_id}/actions")]
-		//[GameAuth(Role.ADMIN)]
+		[GameAuth(Role.PLAYER)]
 		[ValidateModelState]
 		[SwaggerOperation("CommitAction")]
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
