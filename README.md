@@ -26,7 +26,7 @@ The Game Controller is an Web API controlling the logic/flow of one (or multiple
         * Download `dotnetcore 3.1`
         * `./Tgm.Roborally.Server`
 
-  ### Config file \[WIP\]
+  ### Config file [\[WIP\]](https://github.com/FactoryRally/game-controller/issues/23)
 
   The config file defines the behaviour of the server.
 
