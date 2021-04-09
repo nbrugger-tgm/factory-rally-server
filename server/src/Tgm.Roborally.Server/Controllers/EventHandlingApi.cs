@@ -97,8 +97,8 @@ namespace Tgm.Roborally.Server.Controllers {
 			   .Player(this.GetPlayerID());
 			if (batch) {
 				pip.Compute(code: c => {
-					if (c.Game.EventManager.queues.ContainsKey(c.Player.Id))
-						events = c.Game.EventManager.queues[c.Player.Id].Select(selector: e => e.GetEventType())
+					if (c.Game.EventManager.HasQueue(c.PlayerID))
+						events = c.Game.EventManager.GetQueue(c.PlayerID).Select(selector: e => e.GetEventType())
 								  .ToList();
 				});
 			}

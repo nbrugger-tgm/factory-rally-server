@@ -252,6 +252,11 @@ namespace Tgm.Roborally.Server.Engine {
 			public Upgrade      Upgrade => pipe._upgrade;
 
 			/// <summary>
+			/// The id of the selected Player
+			/// </summary>
+			public int PlayerID => Player.Id;
+
+			/// <summary>
 			/// Use this to  set the response of the GRP. For convenience use <code>SetResponse</code> and <code>SetNotFoundResponse</code>
 			/// </summary>
 			public IActionResult Response {
