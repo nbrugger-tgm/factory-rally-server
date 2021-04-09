@@ -4,6 +4,9 @@ using System.Threading;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Tgm.Roborally.Server.Authentication;
+using Tgm.Roborally.Server.Engine;
+using Tgm.Roborally.Server.Engine.Abstraction;
+using Tgm.Roborally.Server.Engine.Managers;
 
 namespace Tgm.Roborally.Server {
 	/// <summary>
@@ -18,18 +21,47 @@ namespace Tgm.Roborally.Server {
 		/// <param name="args">[0] = Admin key</param>
 		public static void Main(string[] args) {
 			if (args.Length > 0) GameAuth.ChangeAdminKey(args[0]);
-			string line = string.Concat(Enumerable.Repeat("-", VERSION.Length));
-			Console.WriteLine("+---------------------" + line    + "+");
-			Console.WriteLine("| Robo Rally Server v"  + VERSION + " |");
-			Console.WriteLine("+---------------------" + line    + "+");
+
+			PrintVersion();
+
+			ReadConfig();
+
+			PrintInfo();
+
+			InitLogic();
+
+			StartAPI(args);
+		}
+
+		private static void StartAPI(string[] args) {
+			Console.WriteLine("\n\nStart API\n");
+			CreateWebHostBuilder(args).Build().Run();
+			Thread.Sleep(2000);
+		}
+
+		private static void InitLogic() {
+			MapManager.createInstance(ServerProperties.mapRepo);
+			GameManager.Init(new DefaultImplementation());
+		}
+
+		private static void ReadConfig() {
+			//TODO: READ CONFIG!
+		}
+		
+
+		private static void PrintInfo() {
 			Console.Write("map-repo : ");
 			Console.WriteLine(ServerProperties.mapRepo);
 			Console.Write("admin-key : ");
 			Console.WriteLine(GameAuth.AdminKey);
 			Console.WriteLine("github : https://github.com/FactoryRally/game-controller");
-			Console.WriteLine("\n\nStart API\n");
-			CreateWebHostBuilder(args).Build().Run();
-			Thread.Sleep(2000);
+		}
+
+		private static void PrintVersion() {
+			string line = string.Concat(Enumerable.Repeat("-", VERSION.Length));
+			Console.WriteLine("+--------------------" + line    + "-+");
+			Console.WriteLine("| Robo Rally Server v" + VERSION + " |");
+			Console.WriteLine("+--------------------" + line    + "-+");
 		}
 
 		/// <summary>
