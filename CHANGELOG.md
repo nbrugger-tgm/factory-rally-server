@@ -1,3 +1,20 @@
+## v2.8.0a1 (2021-04-10)
+
+### Fix
+
+- missing "OwnershipEnsurance" Constructor
+- adapt startup to modular abstraction
+
+### Feat
+
+- add AI names
+- **dev**: add PlayerID to PipelineContext
+- **dev**: add abstraction layer for expansion
+
+### Refactor
+
+- map using 1D array with mapping
+
 ## v2.8.0a0 (2021-04-03)
 
 ### Fix
