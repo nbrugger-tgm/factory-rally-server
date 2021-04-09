@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Tgm.Roborally.Server.Engine.Abstraction;
 using Tgm.Roborally.Server.Models;
 
-namespace Tgm.Roborally.Server.Engine {
+namespace Tgm.Roborally.Server.Engine.Managers {
 	/// <summary>
 	/// Manages all running games. Only one instance allowed
 	/// </summary>
@@ -11,7 +11,7 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <summary>
 		/// The list of all running games
 		/// </summary>
-		public readonly Dictionary<int, GameLogic> games = new Dictionary<int, GameLogic>();
+		public readonly Dictionary<int, GameLogic> Games = new Dictionary<int, GameLogic>();
 
 		/// <summary>
 		/// Creates the first and only game manager with the specified Impl.Provider.<br/>
@@ -35,12 +35,12 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <summary>
 		/// The GameManger instance
 		/// </summary>
-		public static GameManager instance { get; } = new GameManager();
+		public static GameManager Instance => _instance;
 
 		/// <summary>
 		/// Generates a random ID from 0 to 2048
 		/// </summary>
-		public static int randomID => new Random().Next(2048);
+		public static int RandomId => new Random().Next(2048);
 
 		/// <summary>
 		/// Create a new Game with a random id
@@ -49,9 +49,9 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <returns> the id of the created game </returns>
 		public int CreateGame(GameRules rules) {
 			Console.WriteLine("Create game with rules : " + rules);
-			int       id   = randomID;
+			int       id   = RandomId;
 			GameLogic game = new GameLogic(rules,_implementationProvider) {id = id};
-			games[id] = game;
+			Games[id] = game;
 			return id;
 		}
 
@@ -61,7 +61,7 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <param name="gameId">the id of the game</param>
 		/// <returns>the game itself or null</returns>
 		public GameLogic GetGame(int gameId) {
-			return games.ContainsKey(gameId) ? games[gameId] : null;
+			return Games.ContainsKey(gameId) ? Games[gameId] : null;
 		}
 	}
 }

@@ -16,6 +16,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using Tgm.Roborally.Server.Attributes;
 using Tgm.Roborally.Server.Authentication;
 using Tgm.Roborally.Server.Engine;
+using Tgm.Roborally.Server.Engine.Managers;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Controllers {
@@ -62,7 +63,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerOperation("CreateGame")]
 		public virtual IActionResult CreateGame([FromBody] GameRules gameRules) {
 			GameRequestPipeline pip = new GameRequestPipeline();
-			pip.Compute(code: c => c.Response = new OkObjectResult(GameManager.instance.CreateGame(gameRules)));
+			pip.Compute(code: c => c.Response = new OkObjectResult(GameManager.Instance.CreateGame(gameRules)));
 			return pip.ExecuteSecure();
 		}
 
@@ -125,7 +126,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(200, type: typeof(List<int>), description: "OK")]
 		public virtual IActionResult GetGames([FromQuery] bool joinable, [FromQuery] bool unprotected) {
 			return new ObjectResult(
-				GameManager.instance.games
+				GameManager.Instance.Games
 						   .Where(predicate: pair => (!joinable    || pair.Value.Joinable) &&
 													 (!unprotected || pair.Value.Password == null))
 						   .Select(selector: e => e.Key)

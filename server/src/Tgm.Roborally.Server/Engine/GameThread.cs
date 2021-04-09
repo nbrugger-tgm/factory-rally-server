@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Tgm.Roborally.Server.Engine.Exceptions;
+using Tgm.Roborally.Server.Engine.Managers;
 using Tgm.Roborally.Server.Engine.Phases;
 using Tgm.Roborally.Server.Models;
 
@@ -29,7 +30,7 @@ namespace Tgm.Roborally.Server.Engine {
 			Console.Out.WriteLine("\nGame " + game.id + " ended wait 10 seconds before deletion");
 			Thread.Sleep(10000);
 			Console.Out.WriteLine("Delete Game " + game.id + " to save memory\n");
-			GameManager.instance.games.Remove(game.id);
+			GameManager.Instance.Games.Remove(game.id);
 		}
 
 		public void Notify(ActionType action) {

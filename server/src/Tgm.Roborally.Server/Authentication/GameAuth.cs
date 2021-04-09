@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Tgm.Roborally.Server.Engine;
+using Tgm.Roborally.Server.Engine.Managers;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Authentication {
@@ -228,7 +229,7 @@ namespace Tgm.Roborally.Server.Authentication {
 		}
 
 		private GameLogic DetectGame(HttpRequest request) =>
-			GameManager.instance.GetGame(Convert.ToInt32(request.RouteValues[_gameIdPathName].ToString()));
+			GameManager.Instance.GetGame(Convert.ToInt32(request.RouteValues[_gameIdPathName].ToString()));
 
 		/**
 		 * Verifies if the request is submitted by the admin of the server

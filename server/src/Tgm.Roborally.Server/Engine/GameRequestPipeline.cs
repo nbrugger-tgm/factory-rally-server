@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
+using Tgm.Roborally.Server.Engine.Managers;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine {
@@ -33,7 +34,7 @@ namespace Tgm.Roborally.Server.Engine {
 		public GameRequestPipeline Game(int game) {
 			if (Done) return this;
 
-			_game = GameManager.instance.GetGame(game);
+			_game = GameManager.Instance.GetGame(game);
 			if (_game == null) {
 				Response = new NotFoundObjectResult(new ErrorMessage {
 					Error   = "Game not found",
