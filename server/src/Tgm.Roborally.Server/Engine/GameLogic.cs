@@ -14,7 +14,8 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine {
 	public class GameLogic {
-		private static readonly string[] kis = {"Jarvis", "ExMachina", "Ultron", "Vision", "Ordis", "Suda", "Simaris"};
+		// Possilbe names for KI players
+		private static readonly string[] kis = {"Jarvis", "ExMachina", "Ultron", "Vision", "Ordis", "Suda", "Simaris","Cy","Claptrap"};
 		private readonly        Dictionary<string, int> _consumerKeys = new Dictionary<string, int>();
 		private readonly        GameThread _thread;
 
