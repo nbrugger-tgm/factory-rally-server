@@ -9,9 +9,11 @@ namespace Tgm.Roborally.Server.Authentication {
 	public class RobotOwnerShipEnsurance : OwnershipEnsurance {
 		private string robotIdPathVariable;
 
-		public RobotOwnerShipEnsurance(string robotIdPathVariable = "robot_id") {
+		public RobotOwnerShipEnsurance(string robotIdPathVariable) {
 			this.robotIdPathVariable = robotIdPathVariable;
 		}
+
+		public RobotOwnerShipEnsurance():this("robot_id") {}
 
 		public bool DoesOwn(int playerId, RouteValueDictionary path, GameLogic gameLogic) {
 			int    roboId = (int) path[robotIdPathVariable];
