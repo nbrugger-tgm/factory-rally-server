@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using Tgm.Roborally.Server.Engine.Abstraction.Managers;
 using Tgm.Roborally.Server.Engine.Phases;
 using Tgm.Roborally.Server.Engine.Statement;
 using Tgm.Roborally.Server.Models;
@@ -10,7 +11,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 	/// <summary>
 	/// Manages the registers and execution of the programming cards
 	/// </summary>
-	public class ProgrammingManager {
+	public class ProgrammingManager : IProgrammingManager {
 		/// <summary>
 		/// Maps additional values to the commands. This is the pool it contails ALL the cards in the game.
 		///  <br/>
@@ -150,6 +151,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			});
 		}
 
+		/// <summary>
+		/// Recycles the DISCARDED cards and reinserts them into the deck
+		/// </summary>
 		private void ReShuffleDeck() {
 			foreach (int id in _pool.Keys) {
 				if (_pool[id].location == CardLocation.DISCARDED) {
@@ -158,6 +162,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 					_pool[id]     = stub;
 				}
 			}
+			Shuffle();
 		}
 
 		public int[] GetHandCards(int rid) => _pool

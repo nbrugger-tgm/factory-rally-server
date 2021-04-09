@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Tgm.Roborally.Server.Engine.Abstraction.Managers;
 using Tgm.Roborally.Server.Models;
 using Action = System.Action;
 
 namespace Tgm.Roborally.Server.Engine {
-	/// <summary>
-	/// Handles Actions that can happen all the time. Kepps a history of all comitted events
-	/// </summary>
-	public class GameActionHandler {
+	
+	public class GameActionHandler : IGameActionHandler {
 		private readonly Dictionary<ActionType, Action>    ActionMap = new Dictionary<ActionType, Action>();
 		private readonly Dictionary<ActionType, EventType> EventMap  = new Dictionary<ActionType, EventType>();
 		private readonly GameLogic                         game;

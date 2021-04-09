@@ -1,8 +1,8 @@
-namespace Tgm.Roborally.Server.Engine {
-	/// <summary>
-	/// Manages attached hardware
-	/// </summary>
-	public class HardwareManager {
+using Tgm.Roborally.Server.Engine.Abstraction.Managers;
+
+namespace Tgm.Roborally.Server.Engine.Managers {
+	/// <inheritdoc />
+	public class HardwareManager : IHardwareManager {
 		private readonly GameLogic _game;
 
 		public HardwareManager(GameLogic game) {

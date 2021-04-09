@@ -5,7 +5,7 @@ using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Managers {
-	public class UpgradeManager {
+	public class UpgradeManager : IUpgradeManager {
 		private readonly Dictionary<int, ISet<int>> _entityUpgrades = new Dictionary<int, ISet<int>>();
 
 		private readonly GameLogic                       _game;

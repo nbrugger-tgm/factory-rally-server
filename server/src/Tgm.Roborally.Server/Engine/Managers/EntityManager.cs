@@ -4,11 +4,9 @@ using System.Collections.Immutable;
 using System.Linq;
 using Tgm.Roborally.Server.Models;
 
-namespace Tgm.Roborally.Server.Engine {
-	/// <summary>
-	/// Manages all entities including robots of the game. Does NOT manages their movement or programming
-	/// </summary>
-	public class EntityManager {
+namespace Tgm.Roborally.Server.Engine.Managers {
+	/// <inheritdoc />
+	public class EntityManager : IEntityManager {
 		private static readonly Random       Rng   = new Random();
 		private readonly        List<Entity> _ents = new List<Entity>();
 		private readonly        GameLogic    _game;
@@ -24,18 +22,18 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <summary>
 		/// Each entity has an ID, all IDs can be found in this Property
 		/// </summary>
-		public ISet<int> Ids   => _ents.Select(selector: e => e.Id).ToImmutableHashSet();
+		public IImmutableSet<int> Ids   => _ents.Select(selector: e => e.Id).ToImmutableHashSet();
 
 		/// <summary>
 		/// Contains the id of each robot 
 		/// </summary>
-		public ISet<int> Robots =>
+		public IImmutableSet<int> Robots =>
 			_ents.Where(predicate: e => e is RobotInfo).Select(selector: e => e.Id).ToImmutableHashSet();
 
 		/// <summary>
 		/// All entities in the game (alive and dead)
 		/// </summary>
-		public ImmutableList<Entity> List => _ents.ToImmutableList();
+		public IEnumerable<Entity> List => _ents.ToImmutableList();
 
 		/// <summary>
 		///     Return the entity wth the matching ID

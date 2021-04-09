@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Authentication;
+using Tgm.Roborally.Server.Engine.Abstraction;
+using Tgm.Roborally.Server.Engine.Abstraction.Managers;
 using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Engine.KI;
 using Tgm.Roborally.Server.Engine.Managers;
@@ -15,41 +18,60 @@ namespace Tgm.Roborally.Server.Engine {
 		private readonly        Dictionary<string, int> _consumerKeys = new Dictionary<string, int>();
 		private readonly        GameThread _thread;
 
+		/// <summary>
+		/// Information about the current execution cycle of the robotoos
+		/// </summary>
 		public readonly GameInfoExecutionInfo executionState = new GameInfoExecutionInfo();
 
-		public readonly ProgrammingManager Programming;
 		private         GameState          _state = GameState.LOBBY;
 		public          int                id;
 
 		public RoundPhase? Phase = null;
 		public int         playerOnTurn;
 
-		public GameLogic(GameRules r) {
+		/// <summary>
+		/// Creates a game
+		/// </summary>
+		/// <param name="r"> the rules that apply to the game</param>
+		/// <param name="implProvider">the provider of the manager implementations</param>
+		public GameLogic(GameRules r, EngineImplementationProvider implProvider) {
 			Rules         = r;
-			EventManager  = new EventManager(this);
-			ActionHandler = new GameActionHandler(this);
-			Hardware      = new HardwareManager(this);
+			EventManager  = implProvider.EventManager(this);
+			ActionHandler = implProvider.GameActionHandler(this);
+			Hardware      = implProvider.HardwareManager(this);
 			Info          = new GameInfo(this);
 			Game          = new Game(this);
 			_thread       = new GameThread(this);
-			Entitys       = new EntityManager(this);
-			Upgrades      = new UpgradeManager(this);
-			Programming   = new ProgrammingManager(this);
+			Entitys       = implProvider.EntityManager(this);
+			Upgrades      = implProvider.UpgradeManager(this);
+			Programming   = implProvider.ProgrammingManager(this);
 			_thread.Start();
 		}
 
 		public GameState LastState { get; private set; }
 
-		public string            Password      => Rules.Password;
-		public List<Player>      Players       { get; } = new List<Player>();
-		public Map               Map           { get; set; }
-		public EventManager      EventManager  { get; }
-		public HardwareManager   Hardware      { get; }
-		public EntityManager     Entitys       { get; }
-		public GameActionHandler ActionHandler { get; }
-		public Game              Game          { get; }
-		public GameInfo          Info          { get; }
-		public UpgradeManager    Upgrades      { get; }
+		public          string       Password => Rules.Password;
+		public readonly List<Player> Players = new List<Player>();
+		private         Map          _map;
+		public Map Map {
+			get => _map;
+			set {
+				_map = value;
+				_map.Assign(this);
+			}
+		}
+
+		public readonly IEventManager       EventManager;
+		public readonly IHardwareManager    Hardware;
+		public readonly IEntityManager      Entitys;
+		public readonly IGameActionHandler  ActionHandler;
+		/// <summary>
+		/// The game object, main usage for the api, preferably do not mess with it
+		/// </summary>
+		public          Game                Game;
+		public readonly GameInfo            Info;
+		public readonly IUpgradeManager     Upgrades;
+		public readonly IProgrammingManager Programming;
 
 		public GameState State {
 			get => _state;
