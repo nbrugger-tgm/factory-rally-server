@@ -63,6 +63,9 @@ namespace Tgm.Roborally.Server.Engine {
 				Response = new ObjectResult(err) {
 					StatusCode = 500
 				};
+				#if DEBUG
+				Console.Error.WriteLine(ex.ToString());
+				#endif
 			}
 
 			return this;
@@ -150,7 +153,7 @@ namespace Tgm.Roborally.Server.Engine {
 			return this;
 		}
 
-		
+
 		/// <summary>
 		/// Selects a robot
 		/// </summary>
@@ -228,28 +231,32 @@ namespace Tgm.Roborally.Server.Engine {
 			/// <summary>
 			/// the selected game
 			/// </summary>
-			public GameLogic Game   => pipe._game;
+			public GameLogic Game => pipe._game;
+
 			/// <summary>
 			/// the selected player
 			/// </summary>
-			public Player    Player => pipe._player;
+			public Player Player => pipe._player;
 
 			/// <summary>
 			/// the peeked/poped event
 			/// </summary>
-			public Event        Event   => pipe._event;
+			public Event Event => pipe._event;
+
 			/// <summary>
 			/// The selected robot
 			/// </summary>
-			public RobotInfo    Robot   => pipe._robot;
+			public RobotInfo Robot => pipe._robot;
+
 			/// <summary>
 			/// the selected command
 			/// </summary>
 			public RobotCommand Command => pipe._command;
+
 			/// <summary>
 			/// The selected Upgrade
 			/// </summary>
-			public Upgrade      Upgrade => pipe._upgrade;
+			public Upgrade Upgrade => pipe._upgrade;
 
 			/// <summary>
 			/// The id of the selected Player

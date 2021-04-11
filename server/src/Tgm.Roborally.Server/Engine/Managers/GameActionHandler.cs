@@ -6,7 +6,6 @@ using Tgm.Roborally.Server.Models;
 using Action = System.Action;
 
 namespace Tgm.Roborally.Server.Engine {
-	
 	public class GameActionHandler : IGameActionHandler {
 		private readonly Dictionary<ActionType, Action>    ActionMap = new Dictionary<ActionType, Action>();
 		private readonly Dictionary<ActionType, EventType> EventMap  = new Dictionary<ActionType, EventType>();
@@ -19,16 +18,18 @@ namespace Tgm.Roborally.Server.Engine {
 			InitEventMap();
 		}
 
-		private List<ActionType> _Queue   { get; } = new List<ActionType>();
+		private List<ActionType> _Queue { get; } = new List<ActionType>();
+
 		/// <summary>
 		/// The index of the last executed Action
 		/// </summary>
-		public  int              QueuePos { get; private set; }
+		public int QueuePos { get; private set; }
 
 		/// <summary>
 		/// A list of all Actions that still need to be executed
 		/// </summary>
-		public List<ActionType> Pending  => _Queue.Where(predicate: (e, index) => index >= QueuePos).ToList();
+		public List<ActionType> Pending => _Queue.Where(predicate: (e, index) => index >= QueuePos).ToList();
+
 		/// <summary>
 		/// A list of all actions that were executed in the past
 		/// </summary>
@@ -72,5 +73,7 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <param name="t">the action to add</param>
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void Add(ActionType t) => _Queue.Add(t);
+
+		public void Setup() {}
 	}
 }

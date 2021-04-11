@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using Tgm.Roborally.Server.Engine.Abstraction.Managers;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine {
 	/// <summary>
 	/// Manages all entities including robots of the game. Does NOT manages their movement or programming
 	/// </summary>
-	public interface IEntityManager {
+	public interface IEntityManager : IManager {
 		/// <summary>
 		/// The ammount of entities (alive or dead)
 		/// </summary>

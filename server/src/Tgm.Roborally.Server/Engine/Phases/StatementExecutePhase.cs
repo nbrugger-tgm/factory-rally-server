@@ -18,7 +18,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 		public override void Notify(ActionType action) => throw new NotImplementedException();
 
-		public override bool Notify(GenericEvent action) => true; //todo Be a little more restrictive
+		public override bool Notify(GenericEvent ev) => true; //todo Be a little more restrictive
 
 		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) =>
 			throw new NotImplementedException();

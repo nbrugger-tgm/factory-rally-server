@@ -19,7 +19,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 		public override void Notify(ActionType action) => throw new BadEventException(action.ToString(), "GAME_END");
 
-		public override bool Notify(GenericEvent action) => false;
+		public override bool Notify(GenericEvent ev) => false;
 
 		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) =>
 			new List<EntityEventOportunity>();

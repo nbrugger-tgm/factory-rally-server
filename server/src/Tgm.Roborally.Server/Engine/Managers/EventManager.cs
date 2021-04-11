@@ -6,15 +6,16 @@ using Tgm.Roborally.Server.Engine.Abstraction.Managers;
 namespace Tgm.Roborally.Server.Engine.Managers {
 	/// <inheritdoc />
 	public class EventManager : IEventManager {
-		private readonly GameLogic                     _game;
-		private readonly object                        _locker = new object();
+		private readonly GameLogic _game;
+		private readonly object    _locker = new object();
+
 		/// <summary>
 		/// The event queues for each player
 		/// </summary>
-		public           Dictionary<int, Queue<Event>> queues = new Dictionary<int, Queue<Event>>();
+		public Dictionary<int, Queue<Event>> queues = new Dictionary<int, Queue<Event>>();
 
 		public EventManager(GameLogic game) {
-			this._game = game;
+			_game = game;
 		}
 
 		/// <summary>
@@ -67,5 +68,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 
 		/// <inheritdoc />
 		public Queue<Event> GetQueue(int playerId) => queues[playerId];
+
+		public void Setup() {}
 	}
 }

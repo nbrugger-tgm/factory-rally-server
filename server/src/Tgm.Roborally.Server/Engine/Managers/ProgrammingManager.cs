@@ -27,44 +27,6 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 
 		public ProgrammingManager(GameLogic game) {
 			_game = game;
-
-			AddCard(
-				5,
-				new MoveCommand(3) {
-					Name = "Sprint"
-				}
-			);
-
-			AddCard(
-				10,
-				new MoveCommand(2) {
-					Name = "Move"
-				}
-			);
-
-			AddCard(
-				20,
-				new MoveCommand(1) {
-					Name = "Crawl"
-				}
-			);
-
-			AddCard(5, new RotateCommand(Rotation.Left, 1) {
-				Name = "Left turn"
-			});
-
-			AddCard(5, new RotateCommand(Rotation.Right, 1) {
-				Name = "Right turn"
-			});
-
-			AddCard(6, new RotateCommand(Rotation.Left, 2) {
-				Name = "180 Quickscope"
-			});
-
-			AddCard(4, new RobotShrootCommand() {
-				Name = "Shoot"
-			});
-			Shuffle();
 		}
 
 
@@ -72,8 +34,10 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public  IList<RobotCommand>    Cards     => _pool.Values.Select(selector: e => e.command).ToList();
 		private Dictionary<int, int[]> Registers => new Dictionary<int, int[]>();
 
-		public ISet<int> Deck => _pool.Where(predicate: e => e.Value.location == CardLocation.DECK)
-									  .Select(selector: e => e.Key).ToImmutableHashSet();
+		public ISet<int> Deck => _pool
+								 .Where(predicate: e => e.Value.location == CardLocation.DECK)
+								 .Select(selector: e => e.Key)
+								 .ToImmutableHashSet();
 
 
 		/// <summary>
@@ -95,7 +59,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		}
 
 
-		private void AddCard(int number, RobotCommand command) {
+		/// <inheritdoc />
+		public void AddCard(int number, RobotCommand command) {
 			for (int i = 0; i < number; i++)
 				_pool[_pool.Count] = (command, CardLocation.DECK, -1);
 		}
@@ -162,6 +127,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 					_pool[id]     = stub;
 				}
 			}
+
 			Shuffle();
 		}
 
@@ -184,6 +150,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				Register = register
 			});
 		}
+
+		public void Setup() {}
 	}
 
 	internal enum CardLocation {

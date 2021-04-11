@@ -21,10 +21,10 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		public override void Notify(ActionType action) => //TODO proper reaction
 			Console.Out.WriteLine("Unexpected Action " + action + " in MainPhase");
 
-		public override bool Notify(GenericEvent action) {
-			bool allow = action.Type == EventType.MapCreated;
+		public override bool Notify(GenericEvent ev) {
+			bool allow = ev.Type == EventType.MapCreated;
 			if (!allow)
-				Console.Out.WriteLine("Unexpected " + action.Data +
+				Console.Out.WriteLine("Unexpected " + ev.Data +
 									  " Event in Main phase"); //TODO: proper implementation
 			return allow;
 		}

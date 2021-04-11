@@ -5,7 +5,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
 	/// <summary>
 	/// Handles Actions that can happen all the time. Kepps a history of all comitted events
 	/// </summary>
-	public interface IGameActionHandler {
+	public interface IGameActionHandler : IManager{
 		/// <summary>
 		/// The index of the last executed Action
 		/// </summary>

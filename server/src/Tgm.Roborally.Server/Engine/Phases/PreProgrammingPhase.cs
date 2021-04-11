@@ -16,7 +16,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			//TODO
 		}
 
-		public override bool Notify(GenericEvent action) => action.Data is DrawCardEvent;
+		public override bool Notify(GenericEvent ev) => ev.Data is DrawCardEvent;
 
 		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) =>
 			new List<EntityEventOportunity>();

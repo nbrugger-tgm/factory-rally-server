@@ -4,7 +4,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
 	/// <summary>
 	/// Handles event stacks and reacting. Each player has his own event Stack to consume from. Used to add/commit and consume events
 	/// </summary>
-	public interface IEventManager {
+	public interface IEventManager : IManager {
 		/// <summary>
 		///     Adds the event to the stack and notifies waiting clients
 		/// </summary>
@@ -22,6 +22,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
 		///     Wait for the next event
 		/// </summary>
 		void Await();
+
 		/// <summary>
 		/// Look at the next event for an specific player without popping it
 		/// </summary>
@@ -34,7 +35,8 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
 		/// </summary>
 		/// <param name="playerId">the player to check</param>
 		/// <returns>true if the player has a queue</returns>
-		bool               HasQueue(int playerId);
+		bool HasQueue(int playerId);
+
 		/// <summary>
 		/// Returns the Queue of the
 		/// </summary>

@@ -8,6 +8,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 	/// Manages all running games. Only one instance allowed
 	/// </summary>
 	public class GameManager {
+		private readonly Modloader _loader = new Modloader();
+
 		/// <summary>
 		/// The list of all running games
 		/// </summary>
@@ -25,6 +27,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			else
 				throw new ApplicationException("Game Manager can only be instanciated once");
 		}
+
 		private readonly EngineImplementationProvider _implementationProvider;
 		private static   GameManager                  _instance;
 
@@ -43,6 +46,11 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public static int RandomId => new Random().Next(2048);
 
 		/// <summary>
+		/// The modloader
+		/// </summary>
+		public Modloader ModLoader => _loader;
+
+		/// <summary>
 		/// Create a new Game with a random id
 		/// </summary>
 		/// <param name="rules">The rules that apply for this game session</param>
@@ -50,8 +58,18 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public int CreateGame(GameRules rules) {
 			Console.WriteLine("Create game with rules : " + rules);
 			int       id   = RandomId;
-			GameLogic game = new GameLogic(rules,_implementationProvider) {id = id};
+			GameLogic game = new(rules) {id = id};//blame microsoft this syntax is  .... special
+			_loader.LoadMods(game);
+			game.UseImplementation(_loader, _loader.StartingPhase);
+			_loader.managers.ForEach(e => e.Setup());
+			_loader.ItemLoadingStartegy.LoadAllItems(
+				_loader.ItemLoaders,
+				game.Upgrades.AddToDeck,
+				game.Programming.AddCard,
+				() => game.Upgrades.Deck.Count,
+				() => game.Programming.Deck.Count);
 			Games[id] = game;
+			game.StartThread();
 			return id;
 		}
 

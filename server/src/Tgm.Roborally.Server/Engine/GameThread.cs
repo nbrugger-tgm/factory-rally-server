@@ -9,6 +9,7 @@ using Tgm.Roborally.Server.Models;
 namespace Tgm.Roborally.Server.Engine {
 	public class GameThread {
 		private GamePhase currentPhase;
+		private Type      startPhase;
 
 		public GameThread(GameLogic game) {
 			this.game = game;
@@ -18,13 +19,14 @@ namespace Tgm.Roborally.Server.Engine {
 		private GameLogic game   { get; }
 		private Thread    Thread { get; }
 
-		public IList<EntityEventOportunity> PossibleEntityActions(int robot, int player) =>
+		public IEnumerable<EntityEventOportunity> PossibleEntityActions(int robot, int player) =>
 			currentPhase.GetPossibleActions(robot, player);
 
 		public void Start() => Thread.Start();
 
 		private void run() {
-			currentPhase = new LobbyPhase();
+			currentPhase = game.StartingPhase;
+			startPhase   = currentPhase.GetType();
 			while (currentPhase != null) currentPhase = currentPhase.Start(game);
 
 			Console.Out.WriteLine("\nGame " + game.id + " ended wait 10 seconds before deletion");
@@ -34,7 +36,7 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		public void Notify(ActionType action) {
-			if (!(currentPhase is LobbyPhase) && action == ActionType.STARTGAME)
+			if (currentPhase.GetType() != startPhase && action == ActionType.STARTGAME)
 				throw new WrongStateException(GameState.LOBBY, GameState.PLAYING, action.ToString());
 			currentPhase.Notify(action);
 		}

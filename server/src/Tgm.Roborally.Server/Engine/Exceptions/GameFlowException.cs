@@ -9,6 +9,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		public const string BAD_EVENT = "The game died due to an illegal event";
 
 		/// <inheritdoc />
-		public GameFlowException(string badEvent) : base(badEvent) {}
+		public GameFlowException(string badEvent) : base(badEvent) {
+		}
 	}
 }

@@ -19,7 +19,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 		protected override GamePhase Run(GameLogic game) {
 			_game = game;
-			game.Upgrades.fillShop();
+			game.Upgrades.FillShop();
 			_shopFilled = true;
 			//TODO calculate order based on prio beacon
 			foreach (int activePlayer in game.PlayerIds) {
@@ -43,9 +43,9 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		public override void Notify(ActionType action) {
 		}
 
-		public override bool Notify(GenericEvent action) {
-			if (action.GetEventType() == EventType.UpgradePurchase) {
-				PurchaseEvent @event = action.Data as PurchaseEvent;
+		public override bool Notify(GenericEvent ev) {
+			if (ev.GetEventType() == EventType.UpgradePurchase) {
+				PurchaseEvent @event = ev.Data as PurchaseEvent;
 				if (@event.Player != _activePlayer)
 					throw new GameFlowException(GameFlowException.BAD_EVENT);
 				lock (_listener) {
@@ -56,12 +56,12 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 				return true;
 			}
 
-			if (action.GetEventType() == EventType.ActivateUpgrade) {
+			if (ev.GetEventType() == EventType.ActivateUpgrade) {
 				//TODO handle
 				return true;
 			}
 
-			return action.GetEventType() == EventType.TimeElapsed;
+			return ev.GetEventType() == EventType.TimeElapsed;
 		}
 
 		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) {

@@ -63,12 +63,12 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			//TODO
 		}
 
-		public override bool Notify(GenericEvent action) =>
-			action.Type == EventType.ProgrammingTimerStart ||
-			action.Type == EventType.ProgrammingTimerStop  ||
-			action.Type == EventType.TimeElapsed           ||
-			action.Type == EventType.ChangeRegister        ||
-			action.Type == EventType.ClearRegister;
+		public override bool Notify(GenericEvent ev) =>
+			ev.Type == EventType.ProgrammingTimerStart ||
+			ev.Type == EventType.ProgrammingTimerStop  ||
+			ev.Type == EventType.TimeElapsed           ||
+			ev.Type == EventType.ChangeRegister        ||
+			ev.Type == EventType.ClearRegister;
 
 		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) {
 			List<EntityEventOportunity> list = new List<EntityEventOportunity>();

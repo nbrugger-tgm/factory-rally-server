@@ -18,11 +18,12 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <summary>
 		/// The ammount of entities (alive or dead)
 		/// </summary>
-		public int       Count => _ents.Count;
+		public int Count => _ents.Count;
+
 		/// <summary>
 		/// Each entity has an ID, all IDs can be found in this Property
 		/// </summary>
-		public IImmutableSet<int> Ids   => _ents.Select(selector: e => e.Id).ToImmutableHashSet();
+		public IImmutableSet<int> Ids => _ents.Select(selector: e => e.Id).ToImmutableHashSet();
 
 		/// <summary>
 		/// Contains the id of each robot 
@@ -70,6 +71,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			} while (_ents.Select(selector: e => e.Id).Contains(r));
 
 			return r;
+		}
+
+		public void Setup() {
 		}
 	}
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Security.Authentication;
 using Tgm.Roborally.Server.Engine.Abstraction;
+using Tgm.Roborally.Server.Engine.Abstraction.Adders;
 using Tgm.Roborally.Server.Engine.Abstraction.Managers;
 using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Engine.KI;
@@ -15,17 +16,19 @@ using Tgm.Roborally.Server.Models;
 namespace Tgm.Roborally.Server.Engine {
 	public class GameLogic {
 		// Possilbe names for KI players
-		private static readonly string[] kis = {"Jarvis", "ExMachina", "Ultron", "Vision", "Ordis", "Suda", "Simaris","Cy","Claptrap"};
-		private readonly        Dictionary<string, int> _consumerKeys = new Dictionary<string, int>();
-		private readonly        GameThread _thread;
+		private static readonly string[] kis =
+			{"Jarvis", "ExMachina", "Ultron", "Vision", "Ordis", "Suda", "Simaris", "Cy", "Claptrap"};
+
+		private readonly Dictionary<string, int> _consumerKeys = new Dictionary<string, int>();
+		private readonly GameThread              _thread;
 
 		/// <summary>
 		/// Information about the current execution cycle of the robotoos
 		/// </summary>
 		public readonly GameInfoExecutionInfo executionState = new GameInfoExecutionInfo();
 
-		private         GameState          _state = GameState.LOBBY;
-		public          int                id;
+		private GameState _state = GameState.LOBBY;
+		public  int       id;
 
 		public RoundPhase? Phase = null;
 		public int         playerOnTurn;
@@ -34,26 +37,32 @@ namespace Tgm.Roborally.Server.Engine {
 		/// Creates a game
 		/// </summary>
 		/// <param name="r"> the rules that apply to the game</param>
-		/// <param name="implProvider">the provider of the manager implementations</param>
-		public GameLogic(GameRules r, EngineImplementationProvider implProvider) {
-			Rules         = r;
-			EventManager  = implProvider.EventManager(this);
-			ActionHandler = implProvider.GameActionHandler(this);
-			Hardware      = implProvider.HardwareManager(this);
-			Info          = new GameInfo(this);
-			Game          = new Game(this);
-			_thread       = new GameThread(this);
-			Entitys       = implProvider.EntityManager(this);
-			Upgrades      = implProvider.UpgradeManager(this);
-			Programming   = implProvider.ProgrammingManager(this);
-			_thread.Start();
+		/// <param name="sPhase">the phase to start the game with</param>
+		public GameLogic(GameRules r) {
+			Rules          = r;
+			Info           = new GameInfo(this);
+			Game           = new Game(this);
+			_thread        = new GameThread(this);
 		}
 
-		public GameState LastState { get; private set; }
+		public void UseImplementation(EngineImplementationProvider implProvider,GamePhase startPhase) {
+			_implementation = implProvider;
+			EventManager    = implProvider.EventManager(this);
+			ActionHandler   = implProvider.GameActionHandler(this);
+			Hardware        = implProvider.HardwareManager(this);
+			Entitys         = implProvider.EntityManager(this);
+			Upgrades        = implProvider.UpgradeManager(this);
+			Programming     = implProvider.ProgrammingManager(this);
+			_startingPhase  = startPhase;
+		}
+		
+		public void      StartThread() => _thread.Start();
+		public GameState LastState     { get; private set; }
 
 		public          string       Password => Rules.Password;
 		public readonly List<Player> Players = new List<Player>();
 		private         Map          _map;
+
 		public Map Map {
 			get => _map;
 			set {
@@ -62,17 +71,21 @@ namespace Tgm.Roborally.Server.Engine {
 			}
 		}
 
-		public readonly IEventManager       EventManager;
-		public readonly IHardwareManager    Hardware;
-		public readonly IEntityManager      Entitys;
-		public readonly IGameActionHandler  ActionHandler;
+		public IEventManager      EventManager;
+		public IHardwareManager   Hardware;
+		public IEntityManager     Entitys;
+		public IGameActionHandler ActionHandler;
+
 		/// <summary>
 		/// The game object, main usage for the api, preferably do not mess with it
 		/// </summary>
-		public          Game                Game;
-		public readonly GameInfo            Info;
-		public readonly IUpgradeManager     Upgrades;
-		public readonly IProgrammingManager Programming;
+		public Game Game;
+
+		public readonly GameInfo                     Info;
+		public          IUpgradeManager              Upgrades;
+		public          IProgrammingManager          Programming;
+		private         EngineImplementationProvider _implementation;
+		private         GamePhase                    _startingPhase;
 
 		public GameState State {
 			get => _state;
@@ -98,7 +111,7 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public MovementManager Movement => throw new NotImplementedException();
 
-		public IList<EntityEventOportunity> PossibleEntityActions(int robot, int player) =>
+		public IEnumerable<EntityEventOportunity> PossibleEntityActions(int robot, int player) =>
 			_thread.PossibleEntityActions(robot, player);
 
 
@@ -253,5 +266,8 @@ namespace Tgm.Roborally.Server.Engine {
 			public PlayerNotRemoveableException(string message) : base(message) {
 			}
 		}
+
+		/// <inheritdoc cref="Mod.StartingPhase()"/>
+		public GamePhase StartingPhase => _startingPhase;
 	}
 }

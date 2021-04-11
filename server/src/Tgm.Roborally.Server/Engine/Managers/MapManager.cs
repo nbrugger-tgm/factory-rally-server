@@ -10,9 +10,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 	/// Manages the global map repository. Singelton
 	/// </summary>
 	public class MapManager {
-		public static MapManager Instance => _i;
-		private static         MapManager _i;
-		
+		public static  MapManager Instance => _i;
+		private static MapManager _i;
+
 		public static void createInstance(string path) {
 			_i = new MapManager(path);
 		}
@@ -60,9 +60,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// </summary>
 		public Map[] Maps =>
 			MapFiles.Select(selector: file => {
-				FileStream fs     = file.OpenRead();
+				FileStream     fs     = file.OpenRead();
 				JsonTextReader reader = new JsonTextReader(new StreamReader(fs));
-				Map        m      = serializer.Deserialize<Map>(reader);
+				Map            m      = serializer.Deserialize<Map>(reader);
 				reader.Close();
 				fs.Close();
 				return m;
@@ -96,7 +96,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			FileStream fs = new FileStream(Path.Combine(Directory.FullName, $"{name}{MapExtedionWithDot}"),
 										   FileMode.Create, FileAccess.Write);
 			JsonTextWriter writer = new JsonTextWriter(new StreamWriter(fs));
-			serializer.Serialize(writer,m);
+			serializer.Serialize(writer, m);
 			writer.Flush();
 			writer.Close();
 		}
@@ -107,6 +107,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				while (!dir.Parent.Exists) {
 					dir = dir.Parent;
 				}
+
 				dir.Create();
 			}
 		}

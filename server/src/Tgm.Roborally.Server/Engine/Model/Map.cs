@@ -8,11 +8,11 @@ using Tgm.Roborally.Server.Models;
 namespace Tgm.Roborally.Server.Engine {
 	[DataContract]
 	public class Map {
-		private              GameLogic _game;
-		
-		
+		private GameLogic _game;
+
+
 		//This is mapped to a 1d array because KALIAN FUCKED UP AGAIN
-		[DataMember] private Tile[]    _tiles;
+		[DataMember] private Tile[] _tiles;
 
 		public Map(int columnCount = 10, int rowCount = 10) {
 			Height = columnCount;
@@ -29,6 +29,7 @@ namespace Tgm.Roborally.Server.Engine {
 		public void Assign(GameLogic logic) {
 			_game = logic;
 		}
+
 		public Position PrioCorePos {
 			get {
 				for (int y = 0; y < Width; y++) {
@@ -37,6 +38,7 @@ namespace Tgm.Roborally.Server.Engine {
 							return new Position(x, y);
 					}
 				}
+
 				return null;
 			}
 		}
@@ -49,11 +51,11 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <param name="y">the y cordinate (starting at 0)</param>
 		/// <exception cref="ArgumentException">When trying to set an illegal tile (eg. 2 prio cores on one map)</exception>
 		public Tile this[int x, int y] {
-			get => _tiles[x+y*Width];
+			get => _tiles[x + y * Width];
 			set {
 				if (value.Type == TileType.PrioCore && PrioCoreCount > 0)
 					throw new ArgumentException("Only one Prio Core per Map allowed");
-				_tiles[x+y*Width] = value;
+				_tiles[x + y * Width] = value;
 			}
 		}
 
@@ -76,6 +78,7 @@ namespace Tgm.Roborally.Server.Engine {
 			for (int c = 0; c < columnCount; c++) {
 				for (int r = 0; r < rowCount; r++) tiles[r * columnCount + c] = new Tile();
 			}
+
 			return tiles;
 		}
 
@@ -84,7 +87,7 @@ namespace Tgm.Roborally.Server.Engine {
 		/// Caculates wich fields are empty (no entities on top) and sets the regarding property
 		/// </summary>
 		public void CalculateEmpty() {
-			if(_game == null)
+			if (_game == null)
 				return;
 			ImmutableList<(int X, int Y)> occupied = _game.Entitys.List
 														  .Select(selector: e => e.Location)
@@ -142,7 +145,7 @@ namespace Tgm.Roborally.Server.Engine {
 		private void SetDeepTiles(Tile[,] tiles) {
 			Height = tiles.GetLength(1);
 			Width  = tiles.GetLength(0);
-			_tiles = new Tile[Height*Width];
+			_tiles = new Tile[Height * Width];
 			for (int y = 0; y < Height; y++) {
 				for (int x = 0; x < Width; x++) {
 					this[x, y] = tiles[x, y];
@@ -288,12 +291,10 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public bool IsWithin(Position newPos) => newPos.X < Width && newPos.Y < Height;
 	}
-	
+
 	//SOURCE: Stackoverflow    #CSHARP is a pain in the a**
-	public static class ArrayExt
-	{
-		public static T[] GetRow<T>(this T[,] array, int row)
-		{
+	public static class ArrayExt {
+		public static T[] GetRow<T>(this T[,] array, int row) {
 			if (!typeof(T).IsPrimitive)
 				throw new InvalidOperationException("Not supported for managed types.");
 
@@ -312,7 +313,7 @@ namespace Tgm.Roborally.Server.Engine {
 			else
 				size = Marshal.SizeOf<T>();
 
-			Buffer.BlockCopy(array, row *cols *size, result, 0, cols *size);
+			Buffer.BlockCopy(array, row * cols * size, result, 0, cols * size);
 
 			return result;
 		}

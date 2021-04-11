@@ -36,8 +36,29 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <returns>the next phase</returns>
 		protected abstract GamePhase Run(GameLogic game);
 
-		public abstract void                         Notify(ActionType      action);
-		public abstract bool                         Notify(GenericEvent    action);
+		/// <summary>
+		/// Notifies the Phase about an submitted action command so the Phase can react to it. This should ether halt timers or pause them for example
+		/// </summary>
+		/// <param name="action">the type of the submitted command</param>
+		public abstract void Notify(ActionType action);
+
+		/// <summary>
+		/// Notifies the Phase about an happend event and evaluates if the event was valid.<br/>
+		/// This method should return false if the event was not supposed or allowed to happen at this stage.<br/><br/>
+		/// The events for `GameRoundPhaseChanged`, `GamePhaseChanged`, `GameStart`, `Pause`, `Unpause` are NOT forwarded so there is no need to check for them
+		/// </summary>
+		/// <param name="ev">the event that happend</param>
+		/// <returns>false if this event shouldn't have occured, true otherwise</returns>
+		public abstract bool Notify(GenericEvent ev);
+
+		/// <summary>
+		/// Creates the list of possible actions that are executable at the moment of the call at this function.
+		/// So this should not return a stsatic list but also be dynamic in regard to the state of the phase.
+		/// This list can also be influenced by the robot that asks for the list as well as the requesting player
+		/// </summary>
+		/// <param name="robot">the id of the requesting robot</param>
+		/// <param name="player">the id of the requesting player</param>
+		/// <returns>a dynamic list of all exeuteable actions</returns>
 		public abstract IList<EntityEventOportunity> GetPossibleActions(int robot, int player);
 	}
 }

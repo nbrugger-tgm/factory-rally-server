@@ -25,7 +25,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 				}
 		}
 
-		public override bool Notify(GenericEvent action) => action.Data is JoinEvent;
+		public override bool Notify(GenericEvent ev) => ev.Data is JoinEvent;
 
 		public override IList<EntityEventOportunity> GetPossibleActions(int a, int b) =>
 			new List<EntityEventOportunity>();

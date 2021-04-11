@@ -25,11 +25,11 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		public override void Notify(ActionType action) =>
 			throw new NotImplementedException("This phase cant be paused (received: " + action + ")");
 
-		public override bool Notify(GenericEvent action) {
-			return action.GetEventType() == EventType.LockIn;
+		public override bool Notify(GenericEvent ev) {
+			return ev.GetEventType() == EventType.LockIn;
 			throw new NotImplementedException(
 				"The picking phase works automaticaly at the moment, no need for events (recived event: " +
-				action.GetEventType()                                                                     + ")");
+				ev.GetEventType()                                                                         + ")");
 		}
 
 		public override IList<EntityEventOportunity> GetPossibleActions(int a, int b) =>

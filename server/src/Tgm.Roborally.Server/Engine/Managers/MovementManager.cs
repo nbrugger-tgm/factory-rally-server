@@ -34,6 +34,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			else
 				throw new ArgumentOutOfRangeException($"There is no robot with the id {robotId}");
 		}
+
 		/// <summary>
 		/// Moves an robot in an straight line. Applies collisions
 		/// </summary>
@@ -48,7 +49,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				List<Action> events = new List<Action>();
 				if (!robotInfo.Virtual && robotInfo.Health <= 0)
 					break;
-				
+
 				//FALL OF MAP
 				if (!_game.Map.IsWithin(newPos)) {
 					events.Add(() => Damage(robotInfo, 20));
@@ -57,12 +58,12 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				}
 
 				Tile tile = _game.Map[newPos.X, newPos.Y];
-				
+
 				//HEIGHT DIFFERENCE BLOCK
 				bool onRamp = tile.Type == TileType.Ramp; //todo proper implementation (respect rotation)
 				if (tile.Level > robotInfo.Attitude && !onRamp)
 					break;
-				
+
 				//FALL ONE LEVEL DOWN
 				if (tile.Level < robotInfo.Attitude && !onRamp) {
 					//todo actual events
@@ -103,7 +104,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 					}
 				}
 
-				PerformMove(robotInfo, 1, resultDirection,events);
+				PerformMove(robotInfo, 1, resultDirection, events);
 			}
 
 			return robotInfo.Location;
@@ -192,18 +193,18 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <param name="shooter">The entity who fired the shot (used for emiting the event/s</param>
 		/// <param name="pos">the position to fre from</param>
 		/// <param name="direction">the direction of the raycast</param>
-		private void Shoot(int shooter, Position pos, Direction direction,bool penentration = false) {
-			Tile     t;
+		private void Shoot(int shooter, Position pos, Direction direction, bool penentration = false) {
+			Tile      t;
 			List<int> hitEntities = new List<int>();
 			_game.Map.CalculateEmpty();
 			do {
 				pos = pos.Translate(1, direction);
 				if (!_game.Map.IsWithin(pos))
 					break;
-				t   = _game.Map[pos.X, pos.Y];
+				t = _game.Map[pos.X, pos.Y];
 				hitEntities.AddRange(_game.Entitys.List.Where(entity => entity.Location.Equals(pos))
 										  .Select(entity => entity.Id).ToList());
-			} while ((!t.Empty&&!penentration) || t.Type == TileType.Wall);
+			} while ((!t.Empty && !penentration) || t.Type == TileType.Wall);
 
 			_game.CommitEvent(new ShootEvent() {
 				Direction  = direction,

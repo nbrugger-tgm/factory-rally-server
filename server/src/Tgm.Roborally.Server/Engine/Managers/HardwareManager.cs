@@ -13,5 +13,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// True if the game can be used with a board
 		/// </summary>
 		public bool Compatible => _game.MaxPlayers <= 4 && _game.Rules.RobotsPerPlayer == 1;
+
+		public void Setup() {}
 	}
 }
