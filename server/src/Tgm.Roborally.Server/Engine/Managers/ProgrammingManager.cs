@@ -151,7 +151,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			});
 		}
 
-		public void Setup() {}
+		public void Setup() {
+		}
 	}
 
 	internal enum CardLocation {

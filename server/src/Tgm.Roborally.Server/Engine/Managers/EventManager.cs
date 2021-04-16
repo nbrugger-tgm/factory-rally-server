@@ -69,6 +69,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <inheritdoc />
 		public Queue<Event> GetQueue(int playerId) => queues[playerId];
 
-		public void Setup() {}
+		public void Setup() {
+		}
 	}
 }

@@ -37,13 +37,14 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 		public void BevoreLoad() {
 		}
 
-		public         string Name                                  { get; }
+		public string Name { get; }
 
 		/// <summary>
 		/// Called by the game in the case of an event
 		/// </summary>
 		/// <param name="game">the game that called the function and the event appeared</param>
 		/// <param name="event">the fired event</param>
-		public virtual void   OnEvent(GameLogic game, Event @event) {}
+		public virtual void OnEvent(GameLogic game, Event @event) {
+		}
 	}
 }

@@ -58,9 +58,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public int CreateGame(GameRules rules) {
 			Console.WriteLine("Create game with rules : " + rules);
 			int       id   = RandomId;
-			GameLogic game = new(rules) {id = id};//blame microsoft this syntax is  .... special
+			GameLogic game = new(rules) {id = id}; //blame microsoft this syntax is  .... special
 			_loader.LoadMods(game);
-			game.UseImplementation(_loader, _loader.StartingPhase,_loader.OnEvent);
+			game.UseImplementation(_loader, _loader.StartingPhase, _loader.OnEvent);
 			_loader.managers.ForEach(e => e.Setup());
 			_loader.ItemLoadingStartegy.LoadAllItems(
 				_loader.ItemLoaders,

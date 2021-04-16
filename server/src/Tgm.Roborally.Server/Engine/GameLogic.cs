@@ -38,17 +38,16 @@ namespace Tgm.Roborally.Server.Engine {
 		/// </summary>
 		/// <param name="r"> the rules that apply to the game</param>
 		public GameLogic(GameRules r) {
-			Rules          = r;
-			Info           = new GameInfo(this);
-			Game           = new Game(this);
-			_thread        = new GameThread(this);
+			Rules   = r;
+			Info    = new GameInfo(this);
+			Game    = new Game(this);
+			_thread = new GameThread(this);
 		}
 
 		public void UseImplementation(
 			EngineImplementationProvider implProvider,
 			GamePhase                    startPhase,
-			EventListener                eventListener)
-		{
+			EventListener                eventListener) {
 			_implementation = implProvider;
 			EventManager    = implProvider.EventManager(this);
 			ActionHandler   = implProvider.GameActionHandler(this);
@@ -59,7 +58,7 @@ namespace Tgm.Roborally.Server.Engine {
 			_eventListener  = eventListener;
 			_startingPhase  = startPhase;
 		}
-		
+
 		public void      StartThread() => _thread.Start();
 		public GameState LastState     { get; private set; }
 
@@ -91,9 +90,10 @@ namespace Tgm.Roborally.Server.Engine {
 		private         EngineImplementationProvider _implementation;
 		private         GamePhase                    _startingPhase;
 
-		public delegate void EventListener(GameLogic logic,Event ev);
+		public delegate void EventListener(GameLogic logic, Event ev);
 
 		private EventListener _eventListener;
+
 		public GameState State {
 			get => _state;
 			set {

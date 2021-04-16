@@ -25,16 +25,22 @@ namespace Tgm.Roborally.Server.Mods {
 		public void              AddUpgrades(Add<Upgrade>                    add)  => Loader.AddUpgrades(add);
 		public void              AddProgrammingCards(IItemLoader.AddCommands add)  => Loader.AddProgrammingCards(add);
 
-		public IEventManager? EventManager(GameLogic gameLogic, IEventManager? oldManager) => _impl.EventManager(gameLogic, oldManager);
+		public IEventManager? EventManager(GameLogic gameLogic, IEventManager? oldManager) =>
+			_impl.EventManager(gameLogic, oldManager);
 
-		public IGameActionHandler? GameActionHandler(GameLogic gameLogic, IGameActionHandler? oldManager) => _impl.GameActionHandler(gameLogic, oldManager);
+		public IGameActionHandler? GameActionHandler(GameLogic gameLogic, IGameActionHandler? oldManager) =>
+			_impl.GameActionHandler(gameLogic, oldManager);
 
-		public IHardwareManager? HardwareManager(GameLogic gameLogic, IHardwareManager? oldManager) => _impl.HardwareManager(gameLogic, oldManager);
+		public IHardwareManager? HardwareManager(GameLogic gameLogic, IHardwareManager? oldManager) =>
+			_impl.HardwareManager(gameLogic, oldManager);
 
-		public IEntityManager? EntityManager(GameLogic gameLogic, IEntityManager? oldManager) => _impl.EntityManager(gameLogic, oldManager);
+		public IEntityManager? EntityManager(GameLogic gameLogic, IEntityManager? oldManager) =>
+			_impl.EntityManager(gameLogic, oldManager);
 
-		public IUpgradeManager? UpgradeManager(GameLogic gameLogic, IUpgradeManager? oldManager) => _impl.UpgradeManager(gameLogic, oldManager);
+		public IUpgradeManager? UpgradeManager(GameLogic gameLogic, IUpgradeManager? oldManager) =>
+			_impl.UpgradeManager(gameLogic, oldManager);
 
-		public IProgrammingManager? ProgrammingManager(GameLogic gameLogic, IProgrammingManager? oldManager) => _impl.ProgrammingManager(gameLogic, oldManager);
+		public IProgrammingManager? ProgrammingManager(GameLogic gameLogic, IProgrammingManager? oldManager) =>
+			_impl.ProgrammingManager(gameLogic, oldManager);
 	}
 }

@@ -14,6 +14,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// </summary>
 		public bool Compatible => _game.MaxPlayers <= 4 && _game.Rules.RobotsPerPlayer == 1;
 
-		public void Setup() {}
+		public void Setup() {
+		}
 	}
 }

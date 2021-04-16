@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
-	public interface IProgrammingManager : IManager{
+	public interface IProgrammingManager : IManager {
 		ISet<int>           IDs   { get; }
 		IList<RobotCommand> Cards { get; }
 		ISet<int>           Deck  { get; }

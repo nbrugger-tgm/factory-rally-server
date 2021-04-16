@@ -34,7 +34,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 		/// </summary>
 		/// <param name="m">the mod to add</param>
 		/// <exception cref="ArgumentException">Thrown when the modnames conflict</exception>
-		public void AddMod(Mod m){
+		public void AddMod(Mod m) {
 			if (_mods.Select(e => e.Name).Contains(m.Name))
 				throw new ArgumentException("Each Mod-name shall be unique. The Mod : " + m.Name + " was added twice!");
 			_mods.Add(m);
@@ -46,27 +46,28 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 		/// <param name="logic">the game that called the function and the event appeared</param>
 		/// <param name="ev">the fired event</param>
 		public void OnEvent(GameLogic logic, Event ev) {
-			_mods.ForEach(e => e.OnEvent(logic,ev));
+			_mods.ForEach(e => e.OnEvent(logic, ev));
 		}
+
 		/// <summary>
 		/// Reads mods from DLL files 
 		/// </summary>
 		/// <returns>the mods from the DLL files</returns>
 		public Mod[] Load() {
 			//TODO: some dll reflection magic and return the mods
-			return new Mod[]{};
+			return new Mod[] { };
 		}
 	}
 
 	#region EngineImplementationProvider
 
 	public partial class Modloader : EngineImplementationProvider {
-		private          (IEventManager? manager, string? owner)       _eventManager;
-		private          (IGameActionHandler? manager, string? owner)  _gameActionHandler;
-		private          (IHardwareManager? manager, string? owner)    _hwManager;
-		private          (IEntityManager? manager, string? owner)      _entityManager;
-		private          (IUpgradeManager? manager, string? owner)     _upgradeManager;
-		private          (IProgrammingManager? manager, string? owner) _programmingManager;
+		private (IEventManager? manager, string? owner)       _eventManager;
+		private (IGameActionHandler? manager, string? owner)  _gameActionHandler;
+		private (IHardwareManager? manager, string? owner)    _hwManager;
+		private (IEntityManager? manager, string? owner)      _entityManager;
+		private (IUpgradeManager? manager, string? owner)     _upgradeManager;
+		private (IProgrammingManager? manager, string? owner) _programmingManager;
 
 		/// <summary>
 		/// All loaded managers
@@ -79,7 +80,8 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 			_upgradeManager.manager,
 			_programmingManager.manager
 		};
-		private delegate T?                                            ManagerImplementationProvider<T>(GameLogic logic, T? prev);
+
+		private delegate T? ManagerImplementationProvider<T>(GameLogic logic, T? prev);
 
 		public IEventManager? EventManager(GameLogic gameLogic, IEventManager? oldManager) => _eventManager.manager;
 
@@ -170,8 +172,6 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 			strategy          = modStrategy ?? strategy;
 			loadStrategyOwner = modStrategy != null ? mod.Name : loadStrategyOwner;
 		}
-
-		
 	}
 
 	#endregion

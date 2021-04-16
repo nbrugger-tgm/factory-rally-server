@@ -16,7 +16,7 @@ namespace Tgm.Roborally.Server {
 	/// </summary>
 	public class Program {
 		private const string VERSION = "2.8.0";
-		
+
 		/// <summary>
 		///     Main
 		/// </summary>
@@ -32,10 +32,12 @@ namespace Tgm.Roborally.Server {
 
 			StartAPI(args);
 		}
+
 		private static readonly Mod[] InternalMods = {
 			new Vanilla()
 			//TODO: Insert other internal mods here like optional expansions or such
 		};
+
 		private static void InitMods() {
 			Console.Out.WriteLine("\n------------[MODS]------------");
 			loadMods(InternalMods);
@@ -51,7 +53,7 @@ namespace Tgm.Roborally.Server {
 					GameManager.Instance.ModLoader.AddMod(mod);
 				}
 				catch (Exception e) {
-					Console.WriteLine("[ERROR] "+e.Message);
+					Console.WriteLine("[ERROR] " + e.Message);
 				}
 		}
 

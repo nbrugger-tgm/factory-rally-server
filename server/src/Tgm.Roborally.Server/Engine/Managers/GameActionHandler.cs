@@ -74,6 +74,7 @@ namespace Tgm.Roborally.Server.Engine {
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void Add(ActionType t) => _Queue.Add(t);
 
-		public void Setup() {}
+		public void Setup() {
+		}
 	}
 }

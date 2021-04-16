@@ -9,7 +9,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 	/// The interface to create Upgrade Manager implementations. An upgrade manager manages the upgrade deck as well as
 	/// the shop and the upgrades in the hand of players
 	/// </summary>
-	public interface IUpgradeManager : IManager{
+	public interface IUpgradeManager : IManager {
 		List<int> Ids  { get; }
 		List<int> Shop { get; }
 		List<int> Deck { get; }
