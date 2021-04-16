@@ -25,7 +25,7 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <summary>
 		/// Information about the current execution cycle of the robotoos
 		/// </summary>
-		public readonly GameInfoExecutionInfo executionState = new GameInfoExecutionInfo();
+		public readonly GameInfoExecutionInfo executionState = new();
 
 		private GameState _state = GameState.LOBBY;
 		public  int       id;
@@ -37,7 +37,6 @@ namespace Tgm.Roborally.Server.Engine {
 		/// Creates a game
 		/// </summary>
 		/// <param name="r"> the rules that apply to the game</param>
-		/// <param name="sPhase">the phase to start the game with</param>
 		public GameLogic(GameRules r) {
 			Rules          = r;
 			Info           = new GameInfo(this);
@@ -45,7 +44,11 @@ namespace Tgm.Roborally.Server.Engine {
 			_thread        = new GameThread(this);
 		}
 
-		public void UseImplementation(EngineImplementationProvider implProvider,GamePhase startPhase) {
+		public void UseImplementation(
+			EngineImplementationProvider implProvider,
+			GamePhase                    startPhase,
+			EventListener                eventListener)
+		{
 			_implementation = implProvider;
 			EventManager    = implProvider.EventManager(this);
 			ActionHandler   = implProvider.GameActionHandler(this);
@@ -53,6 +56,7 @@ namespace Tgm.Roborally.Server.Engine {
 			Entitys         = implProvider.EntityManager(this);
 			Upgrades        = implProvider.UpgradeManager(this);
 			Programming     = implProvider.ProgrammingManager(this);
+			_eventListener  = eventListener;
 			_startingPhase  = startPhase;
 		}
 		
@@ -87,6 +91,9 @@ namespace Tgm.Roborally.Server.Engine {
 		private         EngineImplementationProvider _implementation;
 		private         GamePhase                    _startingPhase;
 
+		public delegate void EventListener(GameLogic logic,Event ev);
+
+		private EventListener _eventListener;
 		public GameState State {
 			get => _state;
 			set {
@@ -118,6 +125,7 @@ namespace Tgm.Roborally.Server.Engine {
 		public void CommitEvent(Event e) {
 			EventManager.Notify(e);
 			_thread.Notify(new GenericEvent(e));
+			_eventListener(this, e);
 		}
 
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Tgm.Roborally.Server.CSExtensions;
 using Tgm.Roborally.Server.Engine.Abstraction.Adders;
 using Tgm.Roborally.Server.Engine.Abstraction.Managers;
 using Tgm.Roborally.Server.Engine.GameItems;
@@ -39,7 +40,14 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 			_mods.Add(m);
 		}
 
-
+		/// <summary>
+		/// Called by the game in the case of an event
+		/// </summary>
+		/// <param name="logic">the game that called the function and the event appeared</param>
+		/// <param name="ev">the fired event</param>
+		public void OnEvent(GameLogic logic, Event ev) {
+			_mods.ForEach(e => e.OnEvent(logic,ev));
+		}
 		/// <summary>
 		/// Reads mods from DLL files 
 		/// </summary>
@@ -162,6 +170,8 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 			strategy          = modStrategy ?? strategy;
 			loadStrategyOwner = modStrategy != null ? mod.Name : loadStrategyOwner;
 		}
+
+		
 	}
 
 	#endregion
