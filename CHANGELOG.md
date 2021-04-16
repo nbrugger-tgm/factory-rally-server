@@ -1,3 +1,13 @@
+## v2.9.0 (2021-04-16)
+
+### Feat
+
+- **modding**: add event listener
+
+### Fix
+
+- vanilla mod wasnt adding programming cards
+
 ## v2.8.0 (2021-04-11)
 
 ### Feat

@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Robot Rally Game logic engine",
-    "version": "v2.8.0",
+    "version": "v2.9.0",
     "description": "This api controlls the flow of a game and provides it's data.\nIt is desiged to be RESTfull so the structure works simmilar as file system.\nThe service will run and only work in a local network, `game.host` is the IP of the Computer hosting the game and will be found via a IP scan",
     "contact": {
       "name": "Nils Brugger",
