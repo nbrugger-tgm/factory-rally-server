@@ -10,13 +10,11 @@ namespace Tgm.Roborally.Server.Engine {
 	public class Map {
 		private GameLogic _game;
 
-
-		//This is mapped to a 1d array because KALIAN FUCKED UP AGAIN
 		[DataMember] private Tile[] _tiles;
 
 		public Map(int columnCount = 10, int rowCount = 10) {
-			Height = columnCount;
-			Width  = rowCount;
+			Height = rowCount;
+			Width  = columnCount;
 			_tiles = InitEmpty(columnCount, rowCount);
 		}
 
@@ -93,8 +91,8 @@ namespace Tgm.Roborally.Server.Engine {
 														  .Select(selector: e => e.Location)
 														  .Select(selector: p => (p.X, p.Y))
 														  .ToImmutableList();
-			for (int c = 0; c < Height; c++) {
-				for (int r = 0; r < Width; r++) this[c, r].Empty = !occupied.Contains((c, r));
+			for (int c = 0; c < Width; c++) {
+				for (int r = 0; r < Height; r++) this[c, r].Empty = !occupied.Contains((c, r));
 			}
 		}
 
@@ -102,10 +100,10 @@ namespace Tgm.Roborally.Server.Engine {
 			if (index < 0 || index > Height)
 				return false;
 
-			Height++;
-			Tile[,] tiles = new Tile[Height, Width];
-			for (int c = 0; c < Height; c++) {
-				for (int r = 0; r < Width; r++) {
+			Width++;
+			Tile[,] tiles = new Tile[Width, Height];
+			for (int c = 0; c < Width; c++) {
+				for (int r = 0; r < Height; r++) {
 					if (c < index)
 						tiles[c, r] = this[c, r];
 					else if (c > index)
@@ -124,10 +122,10 @@ namespace Tgm.Roborally.Server.Engine {
 			if (index < 0 || index >= Height)
 				return false;
 
-			Height--;
-			Tile[,] tiles = new Tile[Height, Width];
-			for (int c = 0; c < Height; c++) {
-				for (int r = 0; r < Width; r++) {
+			Width--;
+			Tile[,] tiles = new Tile[Width, Height];
+			for (int c = 0; c < Width; c++) {
+				for (int r = 0; r < Height; r++) {
 					if (c < index)
 						tiles[c, r] = this[c, r];
 					else if (c > index)
@@ -157,10 +155,10 @@ namespace Tgm.Roborally.Server.Engine {
 			if (index < 0 || index > Width)
 				return false;
 
-			Width++;
-			Tile[,] tiles = new Tile[Height, Width];
-			for (int c = 0; c < Height; c++) {
-				for (int r = 0; r < Width; r++) {
+			Height++;
+			Tile[,] tiles = new Tile[Width, Height];
+			for (int c = 0; c < Width; c++) {
+				for (int r = 0; r < Height; r++) {
 					if (r < index)
 						tiles[c, r] = this[c, r];
 					else if (r > index)
@@ -179,10 +177,10 @@ namespace Tgm.Roborally.Server.Engine {
 			if (index < 0 || index >= Width)
 				return false;
 
-			Width--;
-			Tile[,] tiles = new Tile[Height, Width];
-			for (int c = 0; c < Height; c++) {
-				for (int r = 0; r < Width; r++) {
+			Height--;
+			Tile[,] tiles = new Tile[Width, Height];
+			for (int c = 0; c < Width; c++) {
+				for (int r = 0; r < Height; r++) {
 					if (r < index)
 						tiles[c, r] = this[c, r];
 					else if (r > index)
@@ -196,7 +194,7 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		public bool SwitchTiles(int x1, int y1, int x2, int y2) {
-			if (Height <= x1 || Width <= y1 || Height <= x2 || Width <= y2)
+			if (Width <= x1 || Height <= y1 || Width <= x2 || Height <= y2)
 				return false;
 
 			Tile tile1 = this[x1, y1];
@@ -209,19 +207,19 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		public bool SwitchColumns(int column1, int column2) {
-			if (Height <= column1 || Height <= column2)
+			if (Width <= column1 || Width <= column2)
 				return false;
 
-			for (int r = 0; r < Width; r++) SwitchTiles(column1, r, column2, r);
+			for (int r = 0; r < Height; r++) SwitchTiles(column1, r, column2, r);
 
 			return true;
 		}
 
 		public bool SwitchRows(int row1, int row2) {
-			if (Width <= row1 || Width <= row2)
+			if (Height <= row1 || Height <= row2)
 				return false;
 
-			for (int c = 0; c < Height; c++) SwitchTiles(c, row1, c, row2);
+			for (int c = 0; c < Width; c++) SwitchTiles(c, row1, c, row2);
 
 			return true;
 		}
@@ -229,8 +227,8 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public bool IsValid() {
 			// Checks if all Tiles are set
-			for (int c = 0; c < Height; c++) {
-				for (int r = 0; r < Width; r++) {
+			for (int c = 0; c < Width; c++) {
+				for (int r = 0; r < Height; r++) {
 					if (this[c, r] == null)
 						return false;
 				}
@@ -245,12 +243,12 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public string ToMapString() {
 			string mapString = "";
-			for (int r = 0; r < Width + 1; r++) {
-				for (int c = 0; c < Height + 1; c++) {
-					if (r == Width) {
+			for (int r = 0; r < Height + 1; r++) {
+				for (int c = 0; c < Width + 1; c++) {
+					if (r == Height) {
 						if (c == 0)
 							mapString += "╚═══";
-						else if (c == Height)
+						else if (c == Width)
 							mapString += "╝\n";
 						else
 							mapString += "╧═══";
@@ -258,11 +256,11 @@ namespace Tgm.Roborally.Server.Engine {
 					else {
 						if (r == 0 && c == 0)
 							mapString += "╔═══";
-						else if (r == 0 && c == Height)
+						else if (r == 0 && c == Width)
 							mapString += "╗\n";
 						else if (c == 0)
 							mapString += "╟═══";
-						else if (c == Height)
+						else if (c == Width)
 							mapString += "╢\n";
 						else if (r == 0)
 							mapString += "╤═══";
@@ -271,8 +269,8 @@ namespace Tgm.Roborally.Server.Engine {
 					}
 				}
 
-				for (int c = 0; c < Height; c++) {
-					if (r == Width) {
+				for (int c = 0; c < Width; c++) {
+					if (r == Height) {
 					}
 					else {
 						string value = ((int) this[c, r].Type).ToString();
@@ -280,7 +278,7 @@ namespace Tgm.Roborally.Server.Engine {
 						mapString += " ";
 						mapString += value;
 						mapString += new string(' ', 2 - value.Length);
-						if (c == Height - 1)
+						if (c == Width - 1)
 							mapString += "║\n";
 					}
 				}
@@ -289,10 +287,10 @@ namespace Tgm.Roborally.Server.Engine {
 			return mapString;
 		}
 
-		public bool IsWithin(Position newPos) => newPos.X < Width && newPos.Y < Height;
+		public bool IsWithin(Position newPos) => newPos.X < Height && newPos.Y < Width;
 	}
 
-	//SOURCE: Stackoverflow    #CSHARP is a pain in the a**
+	// SOURCE: Stackoverflow
 	public static class ArrayExt {
 		public static T[] GetRow<T>(this T[,] array, int row) {
 			if (!typeof(T).IsPrimitive)
