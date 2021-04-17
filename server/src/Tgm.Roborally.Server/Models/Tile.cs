@@ -13,6 +13,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
@@ -25,26 +26,30 @@ namespace Tgm.Roborally.Server.Models {
 		///     Gets or Sets Type
 		/// </summary>
 		[Required]
-		[DataMember(Name = "type", EmitDefaultValue = false)]
+		[DataMember(Name = "type", EmitDefaultValue = true)]
+		[DefaultValue(0)]
 		public TileType Type { get; set; }
 
 		/// <summary>
 		///     If there is no player at the tile this is true
 		/// </summary>
 		/// <value>If there is no player at the tile this is true</value>
-		[DataMember(Name = "empty", EmitDefaultValue = false)]
-		public bool Empty { get; set; }
+		[DataMember(Name = "empty", EmitDefaultValue = true)]
+		[DefaultValue(true)]
+		public bool Empty { get; set; } = true;
 
 		/// <summary>
 		///     Gets or Sets Direction
 		/// </summary>
-		[DataMember(Name = "direction", EmitDefaultValue = false)]
+		[DataMember(Name = "direction", EmitDefaultValue = true)]
+		[DefaultValue(0)]
 		public Direction Direction { get; set; }
 
 		/// <summary>
 		///     Gets or Sets RotatorDirection
 		/// </summary>
-		[DataMember(Name = "rotator-direction", EmitDefaultValue = false)]
+		[DataMember(Name = "rotator-direction", EmitDefaultValue = true)]
+		[DefaultValue(0)]
 		public Rotation RotatorDirection { get; set; }
 
 		/// <summary>
@@ -52,7 +57,8 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The height of the tile. 1 &#x3D; default</value>
 		[Range(1, 3)]
-		[DataMember(Name = "level", EmitDefaultValue = false)]
+		[DataMember(Name = "level", EmitDefaultValue = true)]
+		[DefaultValue(1)]
 		public int Level { get; set; } = 1;
 
 		/// <summary>
