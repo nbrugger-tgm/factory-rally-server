@@ -18,9 +18,9 @@ namespace Tgm.Roborally.Server.Engine {
 			_tiles = InitEmpty(columnCount, rowCount);
 		}
 
-		[field: DataMember] public int Height { get; private set; }
+		[DataMember] public int Height { get; private set; }
 
-		[field: DataMember] public int Width { get; private set; }
+		[DataMember] public int Width { get; private set; }
 
 		public MapInfo Info => new MapInfo(this);
 
