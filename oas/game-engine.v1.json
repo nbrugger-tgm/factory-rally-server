@@ -249,7 +249,7 @@
         ],
         "security": [
           {
-            "admin-access": []
+            "player-auth": []
           }
         ],
         "tags": [
