@@ -36,7 +36,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		[ValidateModelState]
 		[SwaggerOperation("GetGameMap")]
 		[SwaggerResponse(200, type: typeof(Map), description: "OK")]
-		public virtual IActionResult GetGameMap([FromRoute] [Required] int gameId) =>
+		public virtual IActionResult GetGameMap([FromRoute(Name = "game_id")] [Required] int gameId) =>
 			new GameRequestPipeline()
 				.Game(gameId)
 				.Compute(code: c => c.Game.Map.CalculateEmpty())
