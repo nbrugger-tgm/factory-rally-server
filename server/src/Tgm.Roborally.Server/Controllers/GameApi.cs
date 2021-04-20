@@ -147,8 +147,8 @@ namespace Tgm.Roborally.Server.Controllers {
 		[ValidateModelState]
 		[SwaggerOperation("GetProgrammingCard")]
 		[SwaggerResponse(200, type: typeof(RobotCommand), description: "OK")]
-		public virtual IActionResult GetProgrammingCard([FromRoute] [Required] [Range(0, 2048)]
-														int gameId, [FromRoute] [Required] [Range(0, 10000)]
+		public virtual IActionResult GetProgrammingCard([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+														int gameId, [FromRoute(Name = "statement_id")] [Required] [Range(0, 10000)]
 														int statementId) {
 			return new GameRequestPipeline()
 				   .Game(gameId)
@@ -168,7 +168,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		[ValidateModelState]
 		[SwaggerOperation("GetProgrammingCardIds")]
 		[SwaggerResponse(200, type: typeof(List<int>), description: "OK")]
-		public virtual IActionResult GetProgrammingCardIds([FromRoute] [Required] [Range(0, 2048)]
+		public virtual IActionResult GetProgrammingCardIds([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 														   int gameId) {
 			return new GameRequestPipeline()
 				   .Game(gameId)
@@ -188,7 +188,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		[ValidateModelState]
 		[SwaggerOperation("GetProgrammingCards")]
 		[SwaggerResponse(200, type: typeof(List<RobotCommand>), description: "OK")]
-		public virtual IActionResult GetProgrammingCards([FromRoute] [Required] [Range(0, 2048)]
+		public virtual IActionResult GetProgrammingCards([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
 														 int gameId) {
 			return new GameRequestPipeline()
 				   .Game(gameId)
