@@ -32,7 +32,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 
 		public  ISet<int>              IDs       => _pool.Keys.ToHashSet();
 		public  IList<RobotCommand>    Cards     => _pool.Values.Select(selector: e => e.command).ToList();
-		private Dictionary<int, int[]> Registers => new Dictionary<int, int[]>();
+		private Dictionary<int, int[]> Registers = new();
 
 		public ISet<int> Deck => _pool
 								 .Where(predicate: e => e.Value.location == CardLocation.DECK)
@@ -81,7 +81,6 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public int[] GetRegister(int robotId) {
 			if (!Registers.ContainsKey(robotId))
 				Registers[robotId] = new int[5];
-
 			return Registers[robotId];
 		}
 
