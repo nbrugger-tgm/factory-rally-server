@@ -1,3 +1,9 @@
+## v2.12.1 (2021-04-20)
+
+### Fix
+
+- map loading causing crash
+
 ## v2.12.0 (2021-04-20)
 
 ### Feat
