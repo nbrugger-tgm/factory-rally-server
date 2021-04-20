@@ -12,11 +12,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		public override GameState NewState => GameState.PLAYING;
 
 		protected override GamePhase Run(GameLogic game) {
-			//TODO robo priority
-
-			int roboIndex = game.executionState.CurrentRobot++;
-
-			if (roboIndex >= game.Entitys.Robots.Count)
+			if (game.executionState.NextRobot())
 				return new PostExecutionPhase();
 
 			//else /*makes no difference if added*/

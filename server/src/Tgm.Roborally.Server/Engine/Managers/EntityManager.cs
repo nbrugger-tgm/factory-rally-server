@@ -28,8 +28,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <summary>
 		/// Contains the id of each robot 
 		/// </summary>
-		public IImmutableSet<int> Robots =>
-			_ents.Where(predicate: e => e is RobotInfo).Select(selector: e => e.Id).ToImmutableHashSet();
+		public IImmutableList<int> Robots =>
+			_ents.Where(predicate: e => e is RobotInfo).Select(selector: e => e.Id).ToImmutableList();
 
 		/// <summary>
 		/// All entities in the game (alive and dead)
