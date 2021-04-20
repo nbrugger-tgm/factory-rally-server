@@ -21,7 +21,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 		}
 
 		/// <summary>
-		/// Called when the mod was recocniced and addded and the API started
+		/// Called when the mod was recognized and added and the API started
 		/// </summary>
 		public void Ready() {
 			Console.Out.WriteLine($"\"{Name}\" enabled");

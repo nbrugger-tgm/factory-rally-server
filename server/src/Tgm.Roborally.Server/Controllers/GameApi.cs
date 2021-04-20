@@ -58,7 +58,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// <response code="200">OK</response>
 		[HttpPost]
 		[Route("/v1/games/")]
-		//[GameAuth(Role.ADMIN)] todo: enable wen kalian is ready
+		//[GameAuth(Role.ADMIN)] todo: enable when clients are ready to implement this behaviour
 		[ValidateModelState]
 		[SwaggerOperation("CreateGame")]
 		public virtual IActionResult CreateGame([FromBody] GameRules gameRules) {
