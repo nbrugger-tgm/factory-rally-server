@@ -1,3 +1,14 @@
+## v2.12.0 (2021-04-20)
+
+### Feat
+
+- **dev**: add `failIfNull` to GRP
+
+### Fix
+
+- wrong compiler hint
+- map serialisation over ReST
+
 ## v2.11.0 (2021-04-20)
 
 ### Fix
