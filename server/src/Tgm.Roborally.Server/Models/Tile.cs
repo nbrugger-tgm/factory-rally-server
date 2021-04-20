@@ -27,8 +27,8 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		[Required]
 		[DataMember(Name = "type", EmitDefaultValue = true)]
-		[DefaultValue(0)]
-		public TileType Type { get; set; }
+		[DefaultValue(TileType.Normal)]
+		public TileType Type { get; set; } = TileType.Normal;
 
 		/// <summary>
 		///     If there is no player at the tile this is true

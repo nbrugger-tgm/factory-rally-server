@@ -1772,7 +1772,9 @@
           "One Way Wall",
           "Puddle",
           "pit",
-          "Ramp"
+          "Ramp",
+          "spawn",
+          "checkpoint"
         ],
         "x-tags": [
           "Map"
