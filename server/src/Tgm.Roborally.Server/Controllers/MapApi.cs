@@ -14,6 +14,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using Tgm.Roborally.Server.Attributes;
 using Tgm.Roborally.Server.Authentication;
 using Tgm.Roborally.Server.Engine;
+using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Controllers {
@@ -38,6 +39,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		public virtual IActionResult GetGameMap([FromRoute(Name = "game_id")] [Required] int gameId) =>
 			new GameRequestPipeline()
 				.Game(gameId)
+				.FailIfNull(c => c.Game.Map,GameExceptions.MAP_NOT_EXISTING)
 				.Compute(code: c => c.Game.Map.CalculateEmpty())
 				.Compute(code: c => c.SetResponse(c.Game.Map))
 				.ExecuteSecure();
