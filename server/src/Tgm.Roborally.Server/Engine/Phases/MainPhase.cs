@@ -11,11 +11,11 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 		protected override GamePhase Run(GameLogic game) {
 			Map toUse = MapManager.Instance.Get("Default");
-			if(toUse == null) {
+			if (toUse == null) {
 				toUse = new Map();
-                toUse[1, 1] = new Tile {
-                	Type = TileType.PrioCore
-                };
+				toUse[1, 1] = new Tile {
+					Type = TileType.PrioCore
+				};
 			}
 
 			game.Map = toUse;

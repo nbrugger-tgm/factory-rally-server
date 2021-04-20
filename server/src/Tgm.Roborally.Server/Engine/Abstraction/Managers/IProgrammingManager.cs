@@ -7,7 +7,8 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
 		/// <summary>
 		/// The ids of ALL
 		/// </summary>
-		ISet<int>           IDs   { get; }
+		ISet<int> IDs { get; }
+
 		IList<RobotCommand> Cards { get; }
 		ISet<int>           Deck  { get; }
 

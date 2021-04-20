@@ -30,8 +30,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		}
 
 
-		public  ISet<int>              IDs       => _pool.Keys.ToHashSet();
-		public  IList<RobotCommand>    Cards     => _pool.Values.Select(selector: e => e.command).ToList();
+		public  ISet<int>              IDs   => _pool.Keys.ToHashSet();
+		public  IList<RobotCommand>    Cards => _pool.Values.Select(selector: e => e.command).ToList();
 		private Dictionary<int, int[]> Registers = new();
 
 		public ISet<int> Deck => _pool

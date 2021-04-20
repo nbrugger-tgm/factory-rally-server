@@ -18,14 +18,12 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
+namespace Tgm.Roborally.Server.Models {
 	/// <summary>
 	/// A tile is a square at the Game field&lt;br&gt; **Note:**  * &#x60;direction&#x60; is only aviable for belts * properties with a &#x60;rotator-&#x60; prefix are only aviable for rotator (parts)
 	/// </summary>
 	[DataContract]
-	public partial class Tile : IEquatable<Tile>
-	{
+	public partial class Tile : IEquatable<Tile> {
 		/// <summary>
 		/// Gets or Sets Type
 		/// </summary>
@@ -70,15 +68,14 @@ namespace Tgm.Roborally.Server.Models
 		/// Descibes the interal order of the tile type: eg. if order is 3 it is the 4th of its tile-type (because it is 0 based)  Default -1 means the oder has no use to this tile(type)
 		/// </summary>
 		/// <value>Descibes the interal order of the tile type: eg. if order is 3 it is the 4th of its tile-type (because it is 0 based)  Default -1 means the oder has no use to this tile(type)</value>
-		[DataMember(Name="order", EmitDefaultValue=false)]
+		[DataMember(Name = "order", EmitDefaultValue = false)]
 		public int Order { get; set; } = -1;
 
 		/// <summary>
 		/// Returns the string presentation of the object
 		/// </summary>
 		/// <returns>String presentation of the object</returns>
-		public override string ToString()
-		{
+		public override string ToString() {
 			var sb = new StringBuilder();
 			sb.Append("class Tile {\n");
 			sb.Append("  Type: ").Append(Type).Append("\n");
@@ -95,8 +92,7 @@ namespace Tgm.Roborally.Server.Models
 		/// Returns the JSON string presentation of the object
 		/// </summary>
 		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson()
-		{
+		public string ToJson() {
 			return JsonConvert.SerializeObject(this, Formatting.Indented);
 		}
 
@@ -105,11 +101,10 @@ namespace Tgm.Roborally.Server.Models
 		/// </summary>
 		/// <param name="obj">Object to be compared</param>
 		/// <returns>Boolean</returns>
-		public override bool Equals(object obj)
-		{
+		public override bool Equals(object obj) {
 			if (obj is null) return false;
 			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((Tile)obj);
+			return obj.GetType() == GetType() && Equals((Tile) obj);
 		}
 
 		/// <summary>
@@ -117,40 +112,33 @@ namespace Tgm.Roborally.Server.Models
 		/// </summary>
 		/// <param name="other">Instance of Tile to be compared</param>
 		/// <returns>Boolean</returns>
-		public bool Equals(Tile other)
-		{
+		public bool Equals(Tile other) {
 			if (other is null) return false;
 			if (ReferenceEquals(this, other)) return true;
 
-			return 
+			return
 				(
 					Type == other.Type ||
-					
 					Type.Equals(other.Type)
-				) && 
+				) &&
 				(
 					Empty == other.Empty ||
-					
 					Empty.Equals(other.Empty)
-				) && 
+				) &&
 				(
 					Direction == other.Direction ||
-					
 					Direction.Equals(other.Direction)
-				) && 
+				) &&
 				(
 					RotatorDirection == other.RotatorDirection ||
-					
 					RotatorDirection.Equals(other.RotatorDirection)
-				) && 
+				) &&
 				(
 					Level == other.Level ||
-					
 					Level.Equals(other.Level)
-				) && 
+				) &&
 				(
 					Order == other.Order ||
-					
 					Order.Equals(other.Order)
 				);
 		}
@@ -159,42 +147,41 @@ namespace Tgm.Roborally.Server.Models
 		/// Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
-		public override int GetHashCode()
-		{
+		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
 				var hashCode = 41;
 				// Suitable nullity checks etc, of course :)
-					
-					hashCode = hashCode * 59 + Type.GetHashCode();
-					
-					hashCode = hashCode * 59 + Empty.GetHashCode();
-					
-					hashCode = hashCode * 59 + Direction.GetHashCode();
-					
-					hashCode = hashCode * 59 + RotatorDirection.GetHashCode();
-					
-					hashCode = hashCode * 59 + Level.GetHashCode();
-					
-					hashCode = hashCode * 59 + Order.GetHashCode();
+
+				hashCode = hashCode * 59 + Type.GetHashCode();
+
+				hashCode = hashCode * 59 + Empty.GetHashCode();
+
+				hashCode = hashCode * 59 + Direction.GetHashCode();
+
+				hashCode = hashCode * 59 + RotatorDirection.GetHashCode();
+
+				hashCode = hashCode * 59 + Level.GetHashCode();
+
+				hashCode = hashCode * 59 + Order.GetHashCode();
 				return hashCode;
 			}
 		}
 
 		#region Operators
+
 		#pragma warning disable 1591
 
-		public static bool operator ==(Tile left, Tile right)
-		{
+		public static bool operator ==(Tile left, Tile right) {
 			return Equals(left, right);
 		}
 
-		public static bool operator !=(Tile left, Tile right)
-		{
+		public static bool operator !=(Tile left, Tile right) {
 			return !Equals(left, right);
 		}
 
 		#pragma warning restore 1591
+
 		#endregion Operators
 	}
 }

@@ -18,38 +18,38 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
 
-namespace Tgm.Roborally.Server.Models
-{ 
+namespace Tgm.Roborally.Server.Models {
 	/// <summary>
 	/// Describes the map *without* the tiles
 	/// </summary>
 	[DataContract]
 	public class MapInfo : IEquatable<MapInfo> {
 		private readonly Engine.Map _map;
+
 		/// <summary>
 		/// Gets or Sets PrioBeacon
 		/// </summary>
-		[DataMember(Name="prioBeacon", EmitDefaultValue=false)]
+		[DataMember(Name = "prioBeacon", EmitDefaultValue = false)]
 		public Position PrioBeacon { get; set; }
 
 		public MapInfo(Engine.Map map) {
 			_map = map;
 		}
+
 		/// <summary>
 		/// The default rule for names in the game
 		/// </summary>
 		/// <value>The default rule for names in the game</value>
 		[RegularExpression("[A-Za-z]+[A-Za-z0-9_ -]+[A-Za-z0-9]{1}")]
-		[StringLength(13, MinimumLength=3)]
-		[DataMember(Name="name", EmitDefaultValue=false)]
+		[StringLength(13, MinimumLength = 3)]
+		[DataMember(Name                = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 
 		/// <summary>
 		/// Returns the string presentation of the object
 		/// </summary>
 		/// <returns>String presentation of the object</returns>
-		public override string ToString()
-		{
+		public override string ToString() {
 			var sb = new StringBuilder();
 			sb.Append("class MapInfo {\n");
 			sb.Append("  PrioBeacon: ").Append(PrioBeacon).Append("\n");
@@ -62,8 +62,7 @@ namespace Tgm.Roborally.Server.Models
 		/// Returns the JSON string presentation of the object
 		/// </summary>
 		/// <returns>JSON string presentation of the object</returns>
-		public string ToJson()
-		{
+		public string ToJson() {
 			return JsonConvert.SerializeObject(this, Formatting.Indented);
 		}
 
@@ -72,11 +71,10 @@ namespace Tgm.Roborally.Server.Models
 		/// </summary>
 		/// <param name="obj">Object to be compared</param>
 		/// <returns>Boolean</returns>
-		public override bool Equals(object obj)
-		{
+		public override bool Equals(object obj) {
 			if (obj is null) return false;
 			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((MapInfo)obj);
+			return obj.GetType() == GetType() && Equals((MapInfo) obj);
 		}
 
 		/// <summary>
@@ -84,17 +82,16 @@ namespace Tgm.Roborally.Server.Models
 		/// </summary>
 		/// <param name="other">Instance of MapInfo to be compared</param>
 		/// <returns>Boolean</returns>
-		public bool Equals(MapInfo other)
-		{
+		public bool Equals(MapInfo other) {
 			if (other is null) return false;
 			if (ReferenceEquals(this, other)) return true;
 
-			return 
+			return
 				(
 					PrioBeacon == other.PrioBeacon ||
 					PrioBeacon != null &&
 					PrioBeacon.Equals(other.PrioBeacon)
-				) && 
+				) &&
 				(
 					Name == other.Name ||
 					Name != null &&
@@ -106,34 +103,33 @@ namespace Tgm.Roborally.Server.Models
 		/// Gets the hash code
 		/// </summary>
 		/// <returns>Hash code</returns>
-		public override int GetHashCode()
-		{
+		public override int GetHashCode() {
 			unchecked // Overflow is fine, just wrap
 			{
 				var hashCode = 41;
 				// Suitable nullity checks etc, of course :)
-					if (PrioBeacon != null)
+				if (PrioBeacon != null)
 					hashCode = hashCode * 59 + PrioBeacon.GetHashCode();
-					if (Name != null)
+				if (Name != null)
 					hashCode = hashCode * 59 + Name.GetHashCode();
 				return hashCode;
 			}
 		}
 
 		#region Operators
+
 		#pragma warning disable 1591
 
-		public static bool operator ==(MapInfo left, MapInfo right)
-		{
+		public static bool operator ==(MapInfo left, MapInfo right) {
 			return Equals(left, right);
 		}
 
-		public static bool operator !=(MapInfo left, MapInfo right)
-		{
+		public static bool operator !=(MapInfo left, MapInfo right) {
 			return !Equals(left, right);
 		}
 
 		#pragma warning restore 1591
+
 		#endregion Operators
 	}
 }

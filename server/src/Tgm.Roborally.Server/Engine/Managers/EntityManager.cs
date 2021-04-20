@@ -7,8 +7,8 @@ using Tgm.Roborally.Server.Models;
 namespace Tgm.Roborally.Server.Engine.Managers {
 	/// <inheritdoc />
 	public class EntityManager : IEntityManager {
-		private static readonly Random       Rng   = new Random();
-		private readonly        List<Entity> _ents = new List<Entity>();
+		private static readonly Random       Rng   = new();
+		private readonly        List<Entity> _ents = new();
 		private readonly        GameLogic    _game;
 
 		public EntityManager(GameLogic gameLogic) {
@@ -68,7 +68,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 
 			do {
 				r = Rng.Next(16) + 1;
-			} while (_ents.Select(selector: e => e.Id).Contains(r));
+			} while (Ids.Contains(r));
 
 			return r;
 		}

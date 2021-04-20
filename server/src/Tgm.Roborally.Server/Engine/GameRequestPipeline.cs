@@ -282,8 +282,9 @@ namespace Tgm.Roborally.Server.Engine {
 			public void SetNotFoundResponse(ErrorMessage errorMessage) =>
 				Response = new NotFoundObjectResult(errorMessage);
 		}
-		public GameRequestPipeline FailIfNull(Func<PipelineContext,object> code, ErrorMessage error) {
-			if(code(_context) == null)
+
+		public GameRequestPipeline FailIfNull(Func<PipelineContext, object> code, ErrorMessage error) {
+			if (code(_context) == null)
 				_context.SetNotFoundResponse(error);
 			return this;
 		}

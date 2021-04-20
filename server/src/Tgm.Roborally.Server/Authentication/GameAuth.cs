@@ -58,7 +58,7 @@ namespace Tgm.Roborally.Server.Authentication {
 		/// <param name="allowConsumer">True if this action can be executed by consumers</param>
 		public GameAuth(Role   neededRole,                 bool   playerSelf       = false, bool allowConsumer = false,
 						string gameIdPathName = "game_id", string playerIdPathName = "player_id") {
-			_neededRole      = neededRole;
+			_neededRole       = neededRole;
 			_gameIdPathName   = gameIdPathName;
 			_playerSelf       = playerSelf;
 			_playerIdPathName = playerIdPathName;
@@ -87,7 +87,7 @@ namespace Tgm.Roborally.Server.Authentication {
 			string             playerIdPathName = "player_id",
 			string             gameIdPathName   = "game_id"
 		) {
-			_neededRole        = Role.PLAYER;
+			_neededRole         = Role.PLAYER;
 			_gameIdPathName     = gameIdPathName;
 			_belongsTo          = true;
 			_playerSelf         = playerSelf;

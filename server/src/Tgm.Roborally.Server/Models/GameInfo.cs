@@ -34,15 +34,16 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The time passed since the game started in secconds. If the game is not started it will be &#x60;0&#x60;</value>
 		[Required]
 		[DataMember(Name = "passed-time", EmitDefaultValue = false)]
-		public long PassedTime  {
+		public long PassedTime {
 			get {
 				if (_startTime == 0)
 					return -1;
-				return (DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - _startTime)/1000;
+				return (DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - _startTime) / 1000;
 			}
 		}
 
 		private long _startTime;
+
 		/// <summary>
 		///     Gets or Sets State
 		/// </summary>
