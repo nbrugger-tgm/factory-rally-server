@@ -1,3 +1,20 @@
+## v2.11.0 (2021-04-20)
+
+### Fix
+
+- missing default location of entities
+- setting registers not working
+- error when map doesnt exists
+
+### Refactor
+
+- set time on game start
+
+### Feat
+
+- implement `passed-time`
+- use default map by default
+
 ## v2.10.2 (2021-04-20)
 
 ### Fix
