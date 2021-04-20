@@ -6,6 +6,7 @@ namespace Tgm.Roborally.Server.Engine {
 	///     A Task that controlls the flow of a Game Phase, should be used by a seperate Thread
 	/// </summary>
 	public abstract class GamePhase {
+		protected GameLogic   Game;
 		private RoundPhase? Cathegory => null;
 
 		protected abstract object Information { get; }
@@ -18,6 +19,7 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <param name="game">The game to start the phase for</param>
 		/// <returns>The GamePhase which should be activated next</returns>
 		public GamePhase Start(GameLogic game) {
+			Game = game;
 			RoundPhase? newPhase = Cathegory;
 			game.State = NewState;
 			game.Phase = newPhase;
