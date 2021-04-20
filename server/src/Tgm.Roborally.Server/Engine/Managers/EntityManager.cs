@@ -50,7 +50,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <returns>the generated event</returns>
 		public void PickRobo(Robots type, Player gamePlayer) {
 			RobotInfo info = new RobotInfo {
-				Id = NextFreeId()
+				Id = NextFreeId(),
+				Type = type
 			};
 			info.Name = gamePlayer.DisplayName + " " + info.Id;
 			_ents.Add(info);
