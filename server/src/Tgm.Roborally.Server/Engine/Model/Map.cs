@@ -8,9 +8,8 @@ using Tgm.Roborally.Server.Models;
 namespace Tgm.Roborally.Server.Engine {
 	[DataContract]
 	public class Map {
-		private GameLogic _game;
-
-		[DataMember] private Tile[] _tiles;
+		private              GameLogic _game;
+		[DataMember] private Tile[]    _tiles;
 
 		public Map(int columnCount = 10, int rowCount = 10) {
 			Height = rowCount;
@@ -22,7 +21,7 @@ namespace Tgm.Roborally.Server.Engine {
 
 		[DataMember] public int Width { get; private set; }
 
-		public MapInfo Info => new MapInfo(this);
+		[DataMember] public MapInfo Info => new MapInfo(this);
 
 		public void Assign(GameLogic logic) {
 			_game = logic;
@@ -82,7 +81,7 @@ namespace Tgm.Roborally.Server.Engine {
 
 
 		/// <summary>
-		/// Caculates wich fields are empty (no entities on top) and sets the regarding property
+		/// Calculates which fields are empty (no entities on top) and sets the regarding property
 		/// </summary>
 		public void CalculateEmpty() {
 			if (_game == null)

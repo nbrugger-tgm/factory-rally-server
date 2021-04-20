@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using Tgm.Roborally.Server.Attributes;
 using Tgm.Roborally.Server.Authentication;
+using Tgm.Roborally.Server.Engine;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Controllers {
