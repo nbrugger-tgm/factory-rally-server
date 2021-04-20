@@ -84,7 +84,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				return null;
 			FileStream     fs     = info.OpenRead();
 			JsonTextReader reader = new JsonTextReader(new StreamReader(fs));
-			Map            m      = (Map) serializer.Deserialize(reader);
+			Map            m      = serializer.Deserialize<Map>(reader);
 			reader.Close();
 			fs.Close();
 			return m;
