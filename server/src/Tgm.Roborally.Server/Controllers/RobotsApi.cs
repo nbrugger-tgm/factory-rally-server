@@ -329,11 +329,11 @@ namespace Tgm.Roborally.Server.Controllers {
 												 [FromRoute] [Required] [Range(0, 4)] int register,
 												 [FromQuery] [Required] [Range(0, 10000)]
 												 int statementId) =>
-			new ObjectResult(new ErrorMessage {
-				Error   = "Not implemented",
-				Message = "This functionality is WIP"
-			}) {
-				StatusCode = 500
-			};
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Robot(robotId)
+				.ProgrammingCard(statementId)
+				.Compute(c => c.Game.Programming.SetRegister(robotId, register, statementId))
+				.ExecuteAction();
 	}
 }
