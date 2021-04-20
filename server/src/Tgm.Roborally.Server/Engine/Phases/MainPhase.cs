@@ -19,6 +19,9 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			}
 
 			game.Map = toUse;
+
+			game.Entitys.PlaceRobotsOnSpawn();
+			
 			game.CommitEvent(new EmptyEvent(EventType.MapCreated));
 			return new UpgradeShopPhase();
 			//throw new System.NotImplementedException();

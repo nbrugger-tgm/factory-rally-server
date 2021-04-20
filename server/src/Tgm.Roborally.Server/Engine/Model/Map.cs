@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO.Enumeration;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
@@ -56,6 +58,14 @@ namespace Tgm.Roborally.Server.Engine {
 			}
 		}
 
+		/// <inheritdoc>
+		///     <cref>this[int x,int y]</cref>
+		/// </inheritdoc>
+		public Tile this[Position pos] {
+			get => this[pos.X, pos.Y];
+			set => this[pos.X, pos.Y] = value;
+		}
+
 		public int PrioCoreCount {
 			get {
 				int count = 0;
@@ -65,10 +75,25 @@ namespace Tgm.Roborally.Server.Engine {
 							count++;
 					}
 				}
-
 				return count;
 			}
 		}
+
+		/// <summary>
+		/// The locations of the spawns on this map
+		/// </summary>
+		public IImmutableList<Position> Spawns => Find(TileType.Spawn);
+
+		/// <summary>
+		/// Finds all tiles of this type and returns the list of positions
+		/// </summary>
+		/// <param name="type">the type to search for</param>
+		/// <returns>a list of locations</returns>
+		public IImmutableList<Position> Find(TileType type) => _tiles
+																.Select((tile, i) =>(tile.Type,position: new Position(i % Width, i - (i % Width) / Width)))
+																.Where(e => e.Type == type)
+																.Select(e => e.position)
+																.ToImmutableList();
 
 		private static Tile[] InitEmpty(int columnCount, int rowCount) {
 			Tile[] tiles = new Tile[columnCount * rowCount];

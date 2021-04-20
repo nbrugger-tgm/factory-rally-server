@@ -62,6 +62,14 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			_game.CommitEvent(ev);
 		}
 
+		/// <inheritdoc />
+		public void PlaceRobotsOnSpawn() {
+			for (int i = 0; i < Robots.Count; i++) {
+				Position spawn = _game.Map.Spawns[i];
+				_ents[Robots[i]].Location = spawn;
+			}
+		}
+
 
 		private int NextFreeId() {
 			int r;

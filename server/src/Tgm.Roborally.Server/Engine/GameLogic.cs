@@ -27,7 +27,7 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <summary>
 		/// Information about the current execution cycle of the robotoos
 		/// </summary>
-		public readonly GameInfoExecutionInfo executionState = new();
+		public readonly GameInfoExecutionInfo executionState;
 
 		public readonly GameInfo     Info;
 		public readonly List<Player> Players = new List<Player>();
@@ -62,10 +62,11 @@ namespace Tgm.Roborally.Server.Engine {
 		/// </summary>
 		/// <param name="r"> the rules that apply to the game</param>
 		public GameLogic(GameRules r) {
-			Rules   = r;
-			Info    = new GameInfo(this);
-			Game    = new Game(this);
-			_thread = new GameThread(this);
+			Rules          = r;
+			executionState = new GameInfoExecutionInfo(this);
+			Info           = new GameInfo(this);
+			Game           = new Game(this);
+			_thread        = new GameThread(this);
 		}
 
 		public GameState LastState     { get; private set; }
