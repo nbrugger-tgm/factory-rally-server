@@ -37,6 +37,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public ISet<int> Deck => _pool
 								 .Where(predicate: e => e.Value.location == CardLocation.DECK)
 								 .Select(selector: e => e.Key)
+								 .OrderBy(keySelector: (_)=>rand.Next())
 								 .ToImmutableHashSet();
 
 
@@ -46,8 +47,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <param name="robotId">the id of the command</param>
 		public RobotCommand this[int robotId] => !_pool.ContainsKey(robotId) ? null : _pool[robotId].command;
 
+		private Random rand = new Random();
 		private void Shuffle() {
-			Random rand = new Random();
 			Dictionary<int, (RobotCommand, CardLocation, int)> cache =
 				_pool.ToDictionary(keySelector: e => e.Key, elementSelector: e => e.Value);
 			_pool.Clear();
