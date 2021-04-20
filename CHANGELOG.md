@@ -1,3 +1,19 @@
+## v2.10.0 (2021-04-20)
+
+### Fix
+
+- GetMap game_id unusable
+- **oas**: Wrong auth on commit action
+- Map Serialization
+
+### Feat
+
+- **client**: keep up to date
+
+### Refactor
+
+- **dev**: Map Serialization
+
 ## v2.9.0 (2021-04-16)
 
 ### Feat
