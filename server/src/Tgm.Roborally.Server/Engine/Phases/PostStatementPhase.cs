@@ -4,16 +4,14 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
 	public class PostStatementPhase : GamePhase {
-		private GameLogic _game;
 
 		protected override object Information => new {
-			roboIndex = _game.executionState.CurrentRobot
+			roboIndex = Game.executionState.CurrentRobot
 		};
 
 		public override GameState NewState => GameState.PLAYING;
 
 		protected override GamePhase Run(GameLogic game) {
-			_game = game;
 			//TODO robo priority
 
 			int roboIndex = game.executionState.CurrentRobot++;
