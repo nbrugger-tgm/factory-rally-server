@@ -4,13 +4,15 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
 	public class StatementExecutePhase : GamePhase {
-		protected override object Information => throw new NotImplementedException();
+		protected override object Information => new {
+			robot = Game.executionState.CurrentRobot,
+			register = Game.executionState.CurrentRegister
+		};
 
 		public override GameState NewState => GameState.PLAYING;
 
 		protected override GamePhase Run(GameLogic game) {
-			int commandId =
-				game.Programming.GetRegister(game.executionState.CurrentRobot)[game.executionState.CurrentRegister];
+			int commandId = game.Programming.GetRegister(game.executionState.CurrentRobot)[game.executionState.CurrentRegister];
 			RobotCommand cmd = game.Programming[commandId];
 			cmd.Execute(game, game.executionState.CurrentRobot);
 			return new PostStatementPhase();
@@ -18,9 +20,8 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 		public override void Notify(ActionType action) => throw new NotImplementedException();
 
-		public override bool Notify(GenericEvent ev) => true; //todo Be a little more restrictive
+		public override bool Notify(GenericEvent ev) => true; //todo Be more restrictive
 
-		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) =>
-			throw new NotImplementedException();
+		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) => new List<EntityEventOportunity>();
 	}
 }
