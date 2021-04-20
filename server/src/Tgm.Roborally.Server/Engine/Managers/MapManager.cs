@@ -79,7 +79,10 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <param name="name"></param>
 		/// <returns></returns>
 		public Map Get(string name) {
-			FileStream     fs     = Directory.GetFiles($"{name}{MapExtedionWithDot}")[0].OpenRead();
+			FileInfo       info   = Directory.GetFiles($"{name}{MapExtedionWithDot}")[0];
+			if (!info.Exists)
+				return null;
+			FileStream     fs     = info.OpenRead();
 			JsonTextReader reader = new JsonTextReader(new StreamReader(fs));
 			Map            m      = (Map) serializer.Deserialize(reader);
 			reader.Close();
