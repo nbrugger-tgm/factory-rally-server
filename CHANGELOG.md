@@ -1,3 +1,9 @@
+## v2.12.5 (2021-04-20)
+
+### Fix
+
+- missing movement manager
+
 ## v2.12.4 (2021-04-20)
 
 ### Fix
