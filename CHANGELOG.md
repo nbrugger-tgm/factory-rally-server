@@ -1,3 +1,11 @@
+## v2.12.6a1 (2021-04-21)
+
+### Fix
+
+- robot missing type
+- robots being placed wrong
+- robot execution rotation
+
 ## v2.12.6a0 (2021-04-20)
 
 ### Fix
