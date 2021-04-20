@@ -41,7 +41,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// Switches to the next robot and prepares him for command execution
 		/// </summary>
 		/// <returns></returns>
-		public bool NextRobot() => _currentRobotIndex++ < _ref.Entitys.Robots.Count; //TODO implement robo priority (distance from beacon)
+		public bool NextRobot() => _currentRobotIndex++ < _ref.Entitys.Robots.Count-1; //TODO implement robo priority (distance from beacon)
 
 
 		private readonly GameLogic _ref;
