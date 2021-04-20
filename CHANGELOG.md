@@ -1,3 +1,9 @@
+## v2.12.6a0 (2021-04-20)
+
+### Fix
+
+- missing game id mapping
+
 ## v2.12.5 (2021-04-20)
 
 ### Fix
