@@ -47,7 +47,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			if (Shop.Count >= _game.PlayerCount)
 				discardShop();
 			while (Deck.Count > 0 && Shop.Count < _game.PlayerCount)
-				_pool[Shop[rng.Next(Shop.Count)]].Location = UpgradeLocation.Shop;
+				_pool[Deck[rng.Next(Deck.Count)]].Location = UpgradeLocation.Shop;
 		}
 
 		private void discardShop() {
