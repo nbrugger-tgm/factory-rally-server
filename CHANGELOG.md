@@ -1,3 +1,11 @@
+## v2.12.6a2 (2021-04-21)
+
+### Fix
+
+- bad ending condition resulting in game error
+- bad position mapping
+- bad robot selection (chrash)
+
 ## v2.12.6a1 (2021-04-21)
 
 ### Fix
