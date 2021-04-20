@@ -90,7 +90,7 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <param name="type">the type to search for</param>
 		/// <returns>a list of locations</returns>
 		public IImmutableList<Position> Find(TileType type) => _tiles
-																.Select((tile, i) =>(tile.Type,position: new Position(i % Width, i - (i % Width) / Width)))
+																.Select((tile, i) =>(tile.Type,position: new Position(i % Width, (i - (i % Width)) / Width)))
 																.Where(e => e.Type == type)
 																.Select(e => e.position)
 																.ToImmutableList();
