@@ -1,3 +1,9 @@
+## v2.12.3 (2021-04-20)
+
+### Fix
+
+- NullPtr on execution phase change
+
 ## v2.12.2 (2021-04-20)
 
 ### Fix
