@@ -200,6 +200,7 @@ namespace Tgm.Roborally.Server.Engine {
 
 			Map = new Map(20, 20);
 			CommitEvent(new ActionEvent(EventType.GameStart));
+			Info.Started = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 		}
 
 		public void NotifyThread(ActionType type) => _thread.Notify(type);
