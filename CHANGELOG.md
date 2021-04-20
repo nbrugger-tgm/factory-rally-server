@@ -1,3 +1,9 @@
+## v2.12.2 (2021-04-20)
+
+### Fix
+
+- NullPtr on PreExecutionPhase
+
 ## v2.12.1 (2021-04-20)
 
 ### Fix
