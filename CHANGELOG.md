@@ -1,3 +1,15 @@
+## v2.12.4 (2021-04-20)
+
+### Fix
+
+- implement missing endpoint
+- unimplemented statement exe phase
+- bad id mapping
+
+### Refactor
+
+- randomize deck
+
 ## v2.12.3 (2021-04-20)
 
 ### Fix
