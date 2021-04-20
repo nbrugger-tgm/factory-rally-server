@@ -1,3 +1,9 @@
+## v2.10.1 (2021-04-20)
+
+### Fix
+
+- drawing shop was done from shop
+
 ## v2.10.0 (2021-04-20)
 
 ### Fix
