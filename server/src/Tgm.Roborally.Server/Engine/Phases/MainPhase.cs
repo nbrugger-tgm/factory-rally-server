@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Tgm.Roborally.Server.Engine.Managers;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
@@ -9,10 +10,15 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		public override GameState NewState => GameState.PLAYING;
 
 		protected override GamePhase Run(GameLogic game) {
-			game.Map = new Map();
-			game.Map[1, 1] = new Tile {
-				Type = TileType.PrioCore
-			};
+			Map toUse = MapManager.Instance.Get("Default");
+			if(toUse == null) {
+				toUse = new Map();
+                toUse[1, 1] = new Tile {
+                	Type = TileType.PrioCore
+                };
+			}
+
+			game.Map = toUse;
 			game.CommitEvent(new EmptyEvent(EventType.MapCreated));
 			return new UpgradeShopPhase();
 			//throw new System.NotImplementedException();
