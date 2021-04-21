@@ -1,3 +1,12 @@
+## v2.12.6 (2021-04-21)
+
+### Fix
+
+- **dev**: missing Interface adaption
+- server hung up when creating map repo
+- cards not randomly drawn
+- bad indexing of robots causing chrash
+
 ## v2.12.6a2 (2021-04-21)
 
 ### Fix
