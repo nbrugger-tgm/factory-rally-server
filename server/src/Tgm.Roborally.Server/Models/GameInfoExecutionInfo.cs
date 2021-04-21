@@ -35,18 +35,21 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The id of the robot currently executing</value>
 		[Required]
 		[DataMember(Name = "currentRobot", EmitDefaultValue = false)]
-		public int CurrentRobot => _ref.Entitys.Robots[_currentRobotIndex];
+		public int CurrentRobot => _ref.State != GameState.LOBBY ? _ref.Entitys.Robots[_currentRobotIndex] : -1;
 
 		/// <summary>
 		/// Switches to the next robot and prepares him for command execution
 		/// </summary>
 		/// <returns></returns>
-		public bool NextRobot() => _currentRobotIndex++ < _ref.Entitys.Robots.Count-1; //TODO implement robo priority (distance from beacon)
+		public bool NextRobot() => ++_currentRobotIndex < _ref.Entitys.Robots.Count; //TODO implement robo priority (distance from beacon)
 
 
 		private readonly GameLogic _ref;
 		private int       _currentRobotIndex = 0;
 
+		public void RestartRobotCycle() {
+			_currentRobotIndex = 0;
+		}
 		public GameInfoExecutionInfo(GameLogic @ref) {
 			_ref = @ref;
 		}
@@ -129,5 +132,6 @@ namespace Tgm.Roborally.Server.Models {
 		#pragma warning restore 1591
 
 		#endregion Operators
+
 	}
 }

@@ -12,6 +12,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		public override GameState NewState => GameState.PLAYING;
 
 		protected override GamePhase Run(GameLogic game) {
+			Game.executionState.RestartRobotCycle();
 			return new PreStatementPhase();
 		}
 
