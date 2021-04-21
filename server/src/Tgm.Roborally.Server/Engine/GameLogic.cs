@@ -50,7 +50,7 @@ namespace Tgm.Roborally.Server.Engine {
 
 		public IHardwareManager Hardware;
 		public int              id;
-		public MovementManager  Movement;
+		public IMovementManager  Movement;
 
 		public RoundPhase?         Phase = null;
 		public int                 playerOnTurn;

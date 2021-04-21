@@ -64,7 +64,7 @@ namespace Tgm.Roborally.Server.Engine.GameItems {
 				Name = "180 Quickscope"
 			});
 
-			add(4, new RobotShrootCommand() {
+			add(4, new RobotShootCommand() {
 				Name = "Shoot"
 			});
 		}

@@ -68,7 +68,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 		private (IEntityManager? manager, string? owner)      _entityManager;
 		private (IUpgradeManager? manager, string? owner)     _upgradeManager;
 		private (IProgrammingManager? manager, string? owner) _programmingManager;
-
+		private (IMovementManager? manager, string? owner) _movementManager;
 		/// <summary>
 		/// All loaded managers
 		/// </summary>
@@ -78,12 +78,14 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 			_hwManager.manager,
 			_entityManager.manager,
 			_upgradeManager.manager,
-			_programmingManager.manager
+			_programmingManager.manager,
+			_movementManager.manager
 		};
 
 		private delegate T? ManagerImplementationProvider<T>(GameLogic logic, T? prev);
 
-		public IEventManager? EventManager(GameLogic gameLogic, IEventManager? oldManager) => _eventManager.manager;
+		public IEventManager? EventManager(GameLogic gameLogic, IEventManager? oldManager) => 
+			_eventManager.manager;
 
 		public IGameActionHandler? GameActionHandler(GameLogic gameLogic, IGameActionHandler? oldManager) =>
 			_gameActionHandler.manager;
@@ -91,13 +93,17 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 		public IHardwareManager? HardwareManager(GameLogic gameLogic, IHardwareManager? oldManager) =>
 			_hwManager.manager;
 
-		public IEntityManager? EntityManager(GameLogic gameLogic, IEntityManager? oldManager) => _entityManager.manager;
+		public IEntityManager? EntityManager(GameLogic gameLogic, IEntityManager? oldManager) => 
+			_entityManager.manager;
 
 		public IUpgradeManager? UpgradeManager(GameLogic gameLogic, IUpgradeManager? oldManager) =>
 			_upgradeManager.manager;
 
 		public IProgrammingManager? ProgrammingManager(GameLogic gameLogic, IProgrammingManager? oldManager) =>
 			_programmingManager.manager;
+
+		public IMovementManager? MovementManager(GameLogic gameLogic, IMovementManager? oldManager) =>
+			_movementManager.manager;
 	}
 
 	#endregion
@@ -111,7 +117,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 		/// </summary>
 		public void LoadMods(GameLogic logic) {
 			foreach (Mod mod in Mods) {
-				mod.BevoreLoad();
+				mod.BeforeLoad();
 
 				LoadModOverwrite(mod, mod.GetCustomLoadingStrategy, "loading strategy", ref _strategy);
 				LoadModOverwrite(mod, mod.StartingPhase, "Game Cycle/StartingPhase", ref _gamePhase);
@@ -127,6 +133,8 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 								 "Upgrade Manager", ref _upgradeManager);
 				LoadModOverwrite(mod, logic, (gameLogic, oldManager) => mod.ProgrammingManager(gameLogic, oldManager),
 								 "Programming Manager", ref _programmingManager);
+				LoadModOverwrite(mod, logic, (gameLogic, oldManager) => mod.MovementManager(gameLogic, oldManager),
+								 "Movement Manager", ref _movementManager);
 
 				//TODO Load other things
 				mod.Loaded();
@@ -140,7 +148,8 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 				(_gameActionHandler, "GameAction Manager"),
 				(_hwManager, "Hardware Manager"),
 				(_upgradeManager, "Upgrade Manager"),
-				(_programmingManager, "Programming Manager")
+				(_programmingManager, "Programming Manager"),
+				(_movementManager, "Movement Manager")
 			};
 			foreach (((object?, string?) val, var topic) in lst)
 				CheckImplementation(val, topic);

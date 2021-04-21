@@ -34,7 +34,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 		/// <returns>the Loading Strategy that shall be used</returns>
 		public ILoadingStartegy? GetCustomLoadingStrategy(ILoadingStartegy? prev) => null;
 
-		public void BevoreLoad() {
+		public void BeforeLoad() {
 		}
 
 		public string Name { get; }
