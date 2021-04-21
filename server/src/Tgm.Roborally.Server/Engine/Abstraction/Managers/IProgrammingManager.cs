@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
@@ -10,7 +11,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
 		ISet<int> IDs { get; }
 
 		IList<RobotCommand> Cards { get; }
-		ISet<int>           Deck  { get; }
+		IImmutableSet<int>  Deck  { get; }
 
 		/// <summary>
 		/// Get the Command for the regarding id
