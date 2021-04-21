@@ -21,7 +21,7 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <summary>
 		/// Contains the id of each robot 
 		/// </summary>
-		IImmutableSet<int> Robots { get; }
+		IImmutableList<int> Robots { get; }
 
 		/// <summary>
 		/// All entities in the game (alive and dead)
@@ -41,5 +41,10 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <param name="gamePlayer">the picking player</param>
 		/// <returns>the generated event</returns>
 		void PickRobo(Robots type, Player gamePlayer);
+
+		/// <summary>
+		/// Setts the location of the robots to the spawn positions randomly
+		/// </summary>
+		void PlaceRobotsOnSpawn();
 	}
 }

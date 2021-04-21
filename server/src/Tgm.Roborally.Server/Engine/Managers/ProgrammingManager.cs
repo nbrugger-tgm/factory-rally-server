@@ -30,11 +30,11 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		}
 
 
-		public  ISet<int>              IDs       => _pool.Keys.ToHashSet();
-		public  IList<RobotCommand>    Cards     => _pool.Values.Select(selector: e => e.command).ToList();
-		private Dictionary<int, int[]> Registers => new Dictionary<int, int[]>();
+		public  ISet<int>              IDs   => _pool.Keys.ToHashSet();
+		public  IList<RobotCommand>    Cards => _pool.Values.Select(selector: e => e.command).ToList();
+		private Dictionary<int, int[]> Registers = new();
 
-		public ISet<int> Deck => _pool
+		public IImmutableSet<int> Deck => _pool
 								 .Where(predicate: e => e.Value.location == CardLocation.DECK)
 								 .Select(selector: e => e.Key)
 								 .ToImmutableHashSet();
@@ -46,8 +46,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <param name="robotId">the id of the command</param>
 		public RobotCommand this[int robotId] => !_pool.ContainsKey(robotId) ? null : _pool[robotId].command;
 
+		private Random rand = new Random();
 		private void Shuffle() {
-			Random rand = new Random();
 			Dictionary<int, (RobotCommand, CardLocation, int)> cache =
 				_pool.ToDictionary(keySelector: e => e.Key, elementSelector: e => e.Value);
 			_pool.Clear();
@@ -81,14 +81,12 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public int[] GetRegister(int robotId) {
 			if (!Registers.ContainsKey(robotId))
 				Registers[robotId] = new int[5];
-
 			return Registers[robotId];
 		}
 
 		public void Draw(int robot) {
 			RobotInfo robo = (RobotInfo) _game.Entitys[robot];
 
-			Random    r     = new Random();
 			List<int> cards = new List<int>();
 			for (int i = 0; i < robo.Health - 1; i++) {
 				if (Deck.Count == 0)
@@ -101,7 +99,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 					throw ex;
 				}
 
-				int                                                      cardId = Deck.First();
+				int[]                                                    deck   = Deck.ToArray();
+				int                                                      cardId = deck[rand.Next(deck.Length)];
 				(RobotCommand command, CardLocation location, int owner) elem   = _pool[cardId];
 				elem.owner    = robot;
 				elem.location = CardLocation.IN_HAND;

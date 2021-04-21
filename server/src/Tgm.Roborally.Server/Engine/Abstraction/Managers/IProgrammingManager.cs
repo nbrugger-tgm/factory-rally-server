@@ -1,11 +1,17 @@
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
+	/// <inheritdoc />
 	public interface IProgrammingManager : IManager {
-		ISet<int>           IDs   { get; }
+		/// <summary>
+		/// The ids of ALL
+		/// </summary>
+		ISet<int> IDs { get; }
+
 		IList<RobotCommand> Cards { get; }
-		ISet<int>           Deck  { get; }
+		IImmutableSet<int>  Deck  { get; }
 
 		/// <summary>
 		/// Get the Command for the regarding id

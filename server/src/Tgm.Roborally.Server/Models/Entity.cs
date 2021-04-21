@@ -28,7 +28,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		[Required]
 		[DataMember(Name = "direction", EmitDefaultValue = false)]
-		public Direction Direction { get; set; }
+		public Direction Direction { get; set; } = Direction.Up;
 
 		/// <summary>
 		///     The default rule for names in the game
@@ -56,7 +56,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		[Required]
 		[DataMember(Name = "location", EmitDefaultValue = false)]
-		public Position Location { get; set; }
+		public Position Location { get; set; } = new(1, 1);
 
 		/// <summary>
 		///     Returns true if Entity instances are equal

@@ -37,7 +37,7 @@ namespace Tgm.Roborally.Server.Authentication {
 		/**
 		 * This is the role that is needed to pass the filter
 		 */
-		private readonly Role _needed_role;
+		private readonly Role _neededRole;
 
 		private readonly OwnershipEnsurance _ownershipEnsurance;
 
@@ -58,7 +58,7 @@ namespace Tgm.Roborally.Server.Authentication {
 		/// <param name="allowConsumer">True if this action can be executed by consumers</param>
 		public GameAuth(Role   neededRole,                 bool   playerSelf       = false, bool allowConsumer = false,
 						string gameIdPathName = "game_id", string playerIdPathName = "player_id") {
-			_needed_role      = neededRole;
+			_neededRole       = neededRole;
 			_gameIdPathName   = gameIdPathName;
 			_playerSelf       = playerSelf;
 			_playerIdPathName = playerIdPathName;
@@ -87,7 +87,7 @@ namespace Tgm.Roborally.Server.Authentication {
 			string             playerIdPathName = "player_id",
 			string             gameIdPathName   = "game_id"
 		) {
-			_needed_role        = Role.PLAYER;
+			_neededRole         = Role.PLAYER;
 			_gameIdPathName     = gameIdPathName;
 			_belongsTo          = true;
 			_playerSelf         = playerSelf;
@@ -115,7 +115,7 @@ namespace Tgm.Roborally.Server.Authentication {
 			HttpRequest request    = context.HttpContext.Request;
 
 
-			if (_needed_role == Role.ADMIN || _needed_role == Role.ANYONE)
+			if (_neededRole == Role.ADMIN || _neededRole == Role.ANYONE)
 				isAdmin = VerifyAdmin(request);
 
 			VerifyPlayer(request, ref player, ref isPlayer, ref isConsumer, ref isSelf, ref owns);
@@ -143,7 +143,7 @@ namespace Tgm.Roborally.Server.Authentication {
 		private void SendResponse(AuthorizationFilterContext context, bool isPlayer, bool isAdmin, bool isSelf,
 								  bool                       owns,
 								  bool                       isConsumer) {
-			if (_needed_role == Role.ANYONE) {
+			if (_neededRole == Role.ANYONE) {
 				if (!(isPlayer || isAdmin)) {
 					context.Result = new UnauthorizedObjectResult(new ErrorMessage {
 						Error = "Authentication failed",
@@ -153,7 +153,7 @@ namespace Tgm.Roborally.Server.Authentication {
 				}
 			}
 
-			if (_needed_role == Role.ADMIN) {
+			if (_neededRole == Role.ADMIN) {
 				if (!isAdmin) {
 					context.Result = new UnauthorizedObjectResult(new ErrorMessage {
 						Error = "Authentication failed",
@@ -163,7 +163,7 @@ namespace Tgm.Roborally.Server.Authentication {
 				}
 			}
 
-			if (_needed_role == Role.PLAYER) {
+			if (_neededRole == Role.PLAYER) {
 				if (isPlayer) {
 					if (_playerSelf && !isSelf) {
 						context.Result = new UnauthorizedObjectResult(new ErrorMessage {
@@ -196,7 +196,7 @@ namespace Tgm.Roborally.Server.Authentication {
 
 		private void VerifyPlayer(HttpRequest request, ref Player player, ref bool isPlayer, ref bool isConsumer,
 								  ref bool    isSelf,  ref bool   owns) {
-			if (_needed_role == Role.PLAYER || _needed_role == Role.ANYONE) {
+			if (_neededRole == Role.PLAYER || _neededRole == Role.ANYONE) {
 				GameLogic game    = DetectGame(request);
 				string    authKey = request.Query["pat"].ToString();
 

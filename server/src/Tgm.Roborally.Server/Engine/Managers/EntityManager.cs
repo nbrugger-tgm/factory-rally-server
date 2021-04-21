@@ -7,8 +7,8 @@ using Tgm.Roborally.Server.Models;
 namespace Tgm.Roborally.Server.Engine.Managers {
 	/// <inheritdoc />
 	public class EntityManager : IEntityManager {
-		private static readonly Random       Rng   = new Random();
-		private readonly        List<Entity> _ents = new List<Entity>();
+		private static readonly Random       Rng   = new();
+		private readonly        List<Entity> _ents = new();
 		private readonly        GameLogic    _game;
 
 		public EntityManager(GameLogic gameLogic) {
@@ -28,8 +28,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <summary>
 		/// Contains the id of each robot 
 		/// </summary>
-		public IImmutableSet<int> Robots =>
-			_ents.Where(predicate: e => e is RobotInfo).Select(selector: e => e.Id).ToImmutableHashSet();
+		public IImmutableList<int> Robots =>
+			_ents.Where(predicate: e => e is RobotInfo).Select(selector: e => e.Id).ToImmutableList();
 
 		/// <summary>
 		/// All entities in the game (alive and dead)
@@ -50,7 +50,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <returns>the generated event</returns>
 		public void PickRobo(Robots type, Player gamePlayer) {
 			RobotInfo info = new RobotInfo {
-				Id = NextFreeId()
+				Id = NextFreeId(),
+				Type = type
 			};
 			info.Name = gamePlayer.DisplayName + " " + info.Id;
 			_ents.Add(info);
@@ -62,13 +63,21 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			_game.CommitEvent(ev);
 		}
 
+		/// <inheritdoc />
+		public void PlaceRobotsOnSpawn() {
+			for (int i = 0; i < Robots.Count; i++) {
+				Position spawn = _game.Map.Spawns[i];
+				this[Robots[i]].Location = spawn;
+			}
+		}
+
 
 		private int NextFreeId() {
 			int r;
 
 			do {
 				r = Rng.Next(16) + 1;
-			} while (_ents.Select(selector: e => e.Id).Contains(r));
+			} while (Ids.Contains(r));
 
 			return r;
 		}

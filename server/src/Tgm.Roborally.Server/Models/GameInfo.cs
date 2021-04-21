@@ -34,7 +34,15 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The time passed since the game started in secconds. If the game is not started it will be &#x60;0&#x60;</value>
 		[Required]
 		[DataMember(Name = "passed-time", EmitDefaultValue = false)]
-		public int PassedTime { get; set; } = -1;
+		public long PassedTime {
+			get {
+				if (_startTime == 0)
+					return -1;
+				return (DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - _startTime) / 1000;
+			}
+		}
+
+		private long _startTime;
 
 		/// <summary>
 		///     Gets or Sets State
@@ -109,6 +117,10 @@ namespace Tgm.Roborally.Server.Models {
 		[Required]
 		[DataMember(Name = "password-protected", EmitDefaultValue = false)]
 		public bool PasswordProtected => !string.IsNullOrEmpty(_ref.Password);
+
+		public long Started {
+			set => _startTime = value;
+		}
 
 		/// <summary>
 		/// <summary>

@@ -10,7 +10,6 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		private          int       _activePlayer;
 		private          long      _endTime;
 		private          bool      _executed;
-		private          GameLogic _game;
 		private          bool      _shopFilled;
 
 		protected override object Information => new UpgradeInfo();
@@ -18,7 +17,6 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		public override GameState NewState => GameState.PLAYING;
 
 		protected override GamePhase Run(GameLogic game) {
-			_game = game;
 			game.Upgrades.FillShop();
 			_shopFilled = true;
 			//TODO calculate order based on prio beacon
@@ -65,7 +63,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		}
 
 		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) {
-			if (_game.State == GameState.BREAK || player != _activePlayer || !_shopFilled)
+			if (Game.State == GameState.BREAK || player != _activePlayer || !_shopFilled)
 				return new List<EntityEventOportunity>();
 
 			return new List<EntityEventOportunity> {

@@ -13,6 +13,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
 using Newtonsoft.Json;
+using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models {
 	/// <summary>
@@ -29,12 +30,29 @@ namespace Tgm.Roborally.Server.Models {
 		public int CurrentRegister { get; set; }
 
 		/// <summary>
-		///     The index of the robot currently executing
+		///     The id of the robot currently executing
 		/// </summary>
-		/// <value>The index of the robot currently executing</value>
+		/// <value>The id of the robot currently executing</value>
 		[Required]
 		[DataMember(Name = "currentRobot", EmitDefaultValue = false)]
-		public int CurrentRobot { get; set; }
+		public int CurrentRobot => _ref.State != GameState.LOBBY ? _ref.Entitys.Robots[_currentRobotIndex] : -1;
+
+		/// <summary>
+		/// Switches to the next robot and prepares him for command execution
+		/// </summary>
+		/// <returns></returns>
+		public bool NextRobot() => ++_currentRobotIndex < _ref.Entitys.Robots.Count; //TODO implement robo priority (distance from beacon)
+
+
+		private readonly GameLogic _ref;
+		private int       _currentRobotIndex = 0;
+
+		public void RestartRobotCycle() {
+			_currentRobotIndex = 0;
+		}
+		public GameInfoExecutionInfo(GameLogic @ref) {
+			_ref = @ref;
+		}
 
 		/// <summary>
 		///     Returns true if GameInfoExecutionInfo instances are equal
@@ -114,5 +132,6 @@ namespace Tgm.Roborally.Server.Models {
 		#pragma warning restore 1591
 
 		#endregion Operators
+
 	}
 }

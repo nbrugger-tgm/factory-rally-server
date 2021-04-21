@@ -1,3 +1,98 @@
+## v2.12.6 (2021-04-21)
+
+### Fix
+
+- **dev**: missing Interface adaption
+- server hung up when creating map repo
+- cards not randomly drawn
+- bad indexing of robots causing chrash
+
+## v2.12.6a2 (2021-04-21)
+
+### Fix
+
+- bad ending condition resulting in game error
+- bad position mapping
+- bad robot selection (chrash)
+
+## v2.12.6a1 (2021-04-21)
+
+### Fix
+
+- robot missing type
+- robots being placed wrong
+- robot execution rotation
+
+## v2.12.6a0 (2021-04-20)
+
+### Fix
+
+- missing game id mapping
+
+## v2.12.5 (2021-04-20)
+
+### Fix
+
+- missing movement manager
+
+## v2.12.4 (2021-04-20)
+
+### Fix
+
+- implement missing endpoint
+- unimplemented statement exe phase
+- bad id mapping
+
+### Refactor
+
+- randomize deck
+
+## v2.12.3 (2021-04-20)
+
+### Fix
+
+- NullPtr on execution phase change
+
+## v2.12.2 (2021-04-20)
+
+### Fix
+
+- NullPtr on PreExecutionPhase
+
+## v2.12.1 (2021-04-20)
+
+### Fix
+
+- map loading causing crash
+
+## v2.12.0 (2021-04-20)
+
+### Feat
+
+- **dev**: add `failIfNull` to GRP
+
+### Fix
+
+- wrong compiler hint
+- map serialisation over ReST
+
+## v2.11.0 (2021-04-20)
+
+### Fix
+
+- missing default location of entities
+- setting registers not working
+- error when map doesnt exists
+
+### Refactor
+
+- set time on game start
+
+### Feat
+
+- implement `passed-time`
+- use default map by default
+
 ## v2.10.2 (2021-04-20)
 
 ### Fix

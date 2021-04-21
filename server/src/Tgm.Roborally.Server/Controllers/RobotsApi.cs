@@ -186,8 +186,8 @@ namespace Tgm.Roborally.Server.Controllers {
 		[ValidateModelState]
 		[SwaggerOperation("GetRegisterContent")]
 		[SwaggerResponse(200, type: typeof(RobotCommand), description: "OK")]
-		public virtual IActionResult GetRegisterContent([FromRoute] [Required] [Range(0, 2048)]
-														int gameId, [FromRoute] [Required] int robotId,
+		public virtual IActionResult GetRegisterContent([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+														int gameId, [FromRoute(Name = "robot_id")] [Required] int robotId,
 														[FromRoute] [Required] [Range(0, 4)] int register) {
 			return new GameRequestPipeline()
 				   .Game(gameId)
@@ -323,16 +323,17 @@ namespace Tgm.Roborally.Server.Controllers {
 		[GameAuth(typeof(RobotOwnerShipEnsurance))]
 		[ValidateModelState]
 		[SwaggerOperation("SetRegister")]
-		public virtual IActionResult SetRegister([FromRoute] [Required] [Range(0, 2048)]
-												 int gameId, [FromRoute] [Required] int robotId,
+		public virtual IActionResult SetRegister([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
+												 int gameId, [FromRoute(Name = "robot_id")] [Required]
+												 int robotId,
 												 [FromRoute] [Required] [Range(0, 4)] int register,
 												 [FromQuery] [Required] [Range(0, 10000)]
 												 int statementId) =>
-			new ObjectResult(new ErrorMessage {
-				Error   = "Not implemented",
-				Message = "This functionality is WIP"
-			}) {
-				StatusCode = 500
-			};
+			new GameRequestPipeline()
+				.Game(gameId)
+				.Robot(robotId)
+				.ProgrammingCard(statementId)
+				.Compute(c => c.Game.Programming.SetRegister(robotId, register, statementId))
+				.ExecuteAction();
 	}
 }

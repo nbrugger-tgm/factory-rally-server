@@ -34,5 +34,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 		/// <inheritdoc />
 		public IProgrammingManager? ProgrammingManager(GameLogic gameLogic, IProgrammingManager? oldManager) =>
 			new ProgrammingManager(gameLogic);
+
+		public MovementManager? MovementManager(GameLogic gameLogic, MovementManager? oldManager = null) => new MovementManager(gameLogic);
 	}
 }
