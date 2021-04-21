@@ -2,7 +2,7 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Statement {
 	public class RobotShootCommand : RobotCommand {
-		public override Instruction Type => Instruction.Shroot;
+		public override Instruction Type => Instruction.Shoot;
 
 		public override string Description => "Shoots a laser forward";
 
