@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -112,6 +113,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				}
 
 				dir.Create();
+				if (dir.FullName.Equals(Directory.FullName))
+					break;
 			}
 		}
 	}
