@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Transactions;
 using Tgm.Roborally.Server.CSExtensions;
 using Tgm.Roborally.Server.Engine.Abstraction.Adders;
 using Tgm.Roborally.Server.Engine.Abstraction.Managers;
@@ -99,12 +100,12 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Modloader {
 				mod.Loaded();
 			}
 
-			List<(object?, string?)> lst = new() {
-				_strategy,
-				_gamePhase
+			List<(Type,(object?, string?))> lst = new() {
+				(typeof(ILoadingStartegy),_strategy),
+				(typeof(GamePhase),_gamePhase)
 			};
-			_managers.ForEach(r => lst.Add(r.Value));
-			foreach ((object?, string?) val in lst)
+			_managers.ForEach(r => lst.Add((r.Key,r.Value)));
+			foreach ((Type,(object?, string?)) val in lst)
 				CheckImplementation(val);
 		}
 
@@ -121,9 +122,9 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Modloader {
 
 		private IManagerLoader Loader<T>(Func<Mod, ManagerImplementationProvider<T>> entityManager) where T : IManager => new ManagerLoader<T>(this, entityManager);
 
-		private void CheckImplementation((object?, string?) checking) {
-			if (checking.Item1 == null)
-				throw new ApplicationException($"There was no mod loading a {checking.ToTuple().GetType().GetGenericArguments()[0].Name}!");
+		private void CheckImplementation((Type type, (object? impl, string? mod) value) checking) {
+			if (checking.value.impl == null)
+				throw new ApplicationException($"There was no mod loading a {checking.type.Name}!");
 		}
 
 		private static void LoadModOverwrite<T>(string                                       mod,
