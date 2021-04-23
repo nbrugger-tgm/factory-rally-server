@@ -19,6 +19,8 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
 		/// <param name="robotId">the id of the command</param>
 		RobotCommand this[int robotId] { get; }
 
+		string IManager.Name => "Programming Manager";
+
 		/// <summary>
 		/// Clears the registers of the robot
 		/// </summary>

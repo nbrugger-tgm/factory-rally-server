@@ -11,6 +11,8 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
 		/// </summary>
 		int QueuePos { get; }
 
+		string IManager.Name => "Action Manager";
+
 		/// <summary>
 		/// A list of all Actions that still need to be executed
 		/// </summary>

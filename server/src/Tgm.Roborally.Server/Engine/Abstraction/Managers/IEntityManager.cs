@@ -13,6 +13,8 @@ namespace Tgm.Roborally.Server.Engine {
 		/// </summary>
 		int Count { get; }
 
+		string IManager.Name => "Entity Manager";
+
 		/// <summary>
 		/// Each entity has an ID, all IDs can be found in this Property
 		/// </summary>

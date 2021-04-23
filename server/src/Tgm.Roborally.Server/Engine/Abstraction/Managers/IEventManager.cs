@@ -11,6 +11,8 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
 		/// <param name="e"></param>
 		void Notify(Event e);
 
+		string IManager.Name => "Event Manager";
+
 		/// <summary>
 		///     Removes and recives the next event for this player
 		/// </summary>

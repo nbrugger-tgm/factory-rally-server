@@ -2,15 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Tgm.Roborally.Server.Engine.Abstraction.Managers;
 using Tgm.Roborally.Server.Engine.Statement;
 using Tgm.Roborally.Server.Models;
 using Action = System.Action;
 
 namespace Tgm.Roborally.Server.Engine.Managers {
-	/// <summary>
-	/// Manages and controls the movement of entities
-	/// </summary>
-	public class MovementManager {
+	/// <inheritdoc />
+	public class MovementManager : IMovementManager {
 		private readonly GameLogic _game;
 
 		public MovementManager(GameLogic game) {
@@ -215,6 +214,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			foreach (int hitEntity in hitEntities) {
 				Damage((RobotInfo) _game.Entitys[hitEntity], 1);
 			}
+		}
+
+		public void Setup() {
 		}
 	}
 }

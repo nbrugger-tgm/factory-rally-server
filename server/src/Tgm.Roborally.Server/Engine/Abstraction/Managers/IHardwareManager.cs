@@ -7,5 +7,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
 		/// True if the game can be used with a board
 		/// </summary>
 		bool Compatible { get; }
+
+		string IManager.Name => "Hardware Manager";
 	}
 }

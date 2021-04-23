@@ -14,6 +14,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		List<int> Shop { get; }
 		List<int> Deck { get; }
 
+		string IManager.Name => "Upgrade Manager";
+
 		/// <summary>
 		///     Get the upgrade with the matching ID
 		/// </summary>
