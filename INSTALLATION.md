@@ -3,22 +3,23 @@
 > While the application supports Linux, Windows and MAC. There are no installers for mac and linux so you have to configure this for yourself at the moment.<br>
 > Dependencie : dotnetcore 3.1
 
-1. Download the `robo-rally-server.zip` from the [release section](https://github.com/FactoryRally/game-controller/releases).
+1. Download the `robo-rally` binary for your platfrom from the [release section](https://github.com/FactoryRally/game-controller/releases).
 
 2. Enable autostart (optional)
 
   * Windows
     * `WIN`+`R`  -> `shell:autostart`+`ENTER`
     * Autostart
-      1. Move the extracted content of the `zip` directly into the opened folder
+      1. Move the `exe` directly into the opened folder
   * Linux [\[WIP\]](https://github.com/FactoryRally/game-controller/issues/22)
 3. Execute the server manually (optional)
-    * Windows: extract the zip and double click the `exe` file
+    * Windows: exeute the `exe` file
     * Linux/MacOs:
-        * Download `dotnetcore 3.1`
-        * `./Tgm.Roborally.Server`
+        * use `./` and the binary name to execute the server
 
   ### Config file [\[WIP\]](https://github.com/FactoryRally/game-controller/issues/23)
+
+ > The config file is WORK IN PROGRESS / not implemented yet
 
   The config file defines the behaviour of the server.
 
