@@ -311,7 +311,7 @@ namespace Tgm.Roborally.Server.Engine {
 			return mapString;
 		}
 
-		public bool IsWithin(Position newPos) => newPos.X < Height && newPos.Y < Width;
+		public bool IsWithin(Position newPos) => newPos.X < Width && newPos.Y < Height && newPos.X >= 0 && newPos.Y >= 0;
 	}
 
 	// SOURCE: Stackoverflow
