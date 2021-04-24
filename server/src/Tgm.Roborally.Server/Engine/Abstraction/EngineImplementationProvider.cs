@@ -56,9 +56,9 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 		/// <param name="oldManager">the manager implementation that is currently used. If this is null your mod would be the first one to set the implementation</param>
 		/// <returns>the created Manager</returns>
 		IProgrammingManager? ProgrammingManager(GameLogic gameLogic, IProgrammingManager? oldManager = null) => null;
-
+		
 		/// <summary>
-		/// Creates and returns a new Movement Manager
+		/// Creates and returns a new Programming Manager
 		/// </summary>
 		/// <param name="gameLogic">the logic to base the manager of</param>
 		/// <param name="oldManager">the manager implementation that is currently used. If this is null your mod would be the first one to set the implementation</param>
