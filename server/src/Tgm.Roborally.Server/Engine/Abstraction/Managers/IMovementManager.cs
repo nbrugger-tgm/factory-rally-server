@@ -20,7 +20,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
 		Position Move(int robotId, int amount, RelativeDirection forward);
 
 		/// <summary>
-		/// Damages an robot and emits the coresponding event
+		/// Damages an robot and emits the corresponding event
 		/// </summary>
 		/// <param name="robotInfo">the robot to damage</param>
 		/// <param name="i">the dmg amount</param>
@@ -38,6 +38,6 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
 		/// Make a robot shooting a laser
 		/// </summary>
 		/// <param name="robotId">the robot to shoot from</param>
-		void Shroot(int robotId);
+		void Shoot(int robotId);
 	}
 }

@@ -321,7 +321,7 @@ namespace Tgm.Roborally.Server.Engine {
 				throw new InvalidOperationException("Not supported for managed types.");
 
 			if (array == null)
-				throw new ArgumentNullException("array");
+				throw new ArgumentNullException(nameof(array));
 
 			int cols   = array.GetUpperBound(1) + 1;
 			T[] result = new T[cols];

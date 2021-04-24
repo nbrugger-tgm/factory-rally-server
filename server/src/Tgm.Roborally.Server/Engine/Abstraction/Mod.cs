@@ -46,5 +46,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 		/// <param name="event">the fired event</param>
 		public virtual void OnEvent(GameLogic game, Event @event) {
 		}
+
+		public virtual void BevoreLoad(){}
 	}
 }
