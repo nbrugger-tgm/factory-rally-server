@@ -1,3 +1,21 @@
+## v2.13.0 (2021-04-24)
+
+### Feat
+
+- add missng robot types
+
+### Fix
+
+- **merge**: resolve merge conflict
+- chrash on robot falling out of map
+- chrash on no enought spawn points
+- add missing IMovement implementation
+- wrong "missing impl." message
+- **experimental**: not loading MovementManager
+- Wrong phase order
+- Register size
+- MovementManager not loading
+
 ## v2.12.6 (2021-04-21)
 
 ### Fix
