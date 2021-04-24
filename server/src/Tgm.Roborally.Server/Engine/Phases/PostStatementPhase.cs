@@ -12,11 +12,11 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		public override GameState NewState => GameState.PLAYING;
 
 		protected override GamePhase Run(GameLogic game) {
-			if (game.executionState.NextRobot())
-				return new PostExecutionPhase();
+			if(game.executionState.NextRobot())
+				return new PreStatementPhase();
 
 			//else /*makes no difference if added*/
-			return new PreStatementPhase();
+			return new PostExecutionPhase();
 		}
 
 		public override void Notify(ActionType action) {

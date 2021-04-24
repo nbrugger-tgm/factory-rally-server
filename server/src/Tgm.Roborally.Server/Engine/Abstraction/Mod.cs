@@ -34,7 +34,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 		/// <returns>the Loading Strategy that shall be used</returns>
 		public ILoadingStartegy? GetCustomLoadingStrategy(ILoadingStartegy? prev) => null;
 
-		public void BevoreLoad() {
+		public void BeforeLoad() {
 		}
 
 		public string Name { get; }
@@ -46,5 +46,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction {
 		/// <param name="event">the fired event</param>
 		public virtual void OnEvent(GameLogic game, Event @event) {
 		}
+
+		public virtual void BevoreLoad(){}
 	}
 }

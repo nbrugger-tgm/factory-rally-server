@@ -2242,7 +2242,8 @@
         "description": "Defines what a command will do",
         "enum": [
           "move",
-          "rotate"
+          "rotate",
+          "shoot"
         ]
       },
       "Player": {
@@ -2702,9 +2703,15 @@
         "type": "string",
         "title": "Robots",
         "enum": [
-          "dicer",
-          "tank"
-        ]
+          "tank",
+          "drone",
+          "bulldozer",
+          "turtle",
+          "wallE",
+          "robot",
+          "mech"
+        ],
+        "description": "the type of a robot"
       },
       "RobotInfo": {
         "title": "RobotInfo",

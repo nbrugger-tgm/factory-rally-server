@@ -31,6 +31,6 @@ namespace Tgm.Roborally.Server.Models {
 		///     Enum Rotate for rotate
 		/// </summary>
 		[EnumMember(Value = "rotate")] Rotate = 2,
-		Shroot = 3
+		Shoot = 3
 	}
 }

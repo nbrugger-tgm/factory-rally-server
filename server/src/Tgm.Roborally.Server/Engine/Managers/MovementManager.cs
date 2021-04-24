@@ -2,15 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Tgm.Roborally.Server.Engine.Abstraction.Managers;
 using Tgm.Roborally.Server.Engine.Statement;
 using Tgm.Roborally.Server.Models;
 using Action = System.Action;
 
 namespace Tgm.Roborally.Server.Engine.Managers {
-	/// <summary>
-	/// Manages and controls the movement of entities
-	/// </summary>
-	public class MovementManager {
+	/// <inheritdoc />
+	public class MovementManager : IMovementManager {
 		private readonly GameLogic _game;
 
 		public MovementManager(GameLogic game) {
@@ -43,7 +42,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <param name="resultDirection">the absolute direction to move towards (absolute to the player but relative to the map)</param>
 		/// <returns>the new position of the robot after the movement executed</returns>
 		/// <exception cref="ArgumentOutOfRangeException">If the robot is not fetchable</exception>
-		private Position Move(RobotInfo robotInfo, int amount, Direction resultDirection) {
+		public Position Move(RobotInfo robotInfo, int amount, Direction resultDirection) {
 			for (int actualAmount = 0; actualAmount < amount; actualAmount++) {
 				Position     newPos = robotInfo.Location.Translate(1, resultDirection);
 				List<Action> events = new List<Action>();
@@ -133,7 +132,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <param name="actualAmount">the fields to move</param>
 		/// <param name="resultDirection">the direction to move into</param>
 		/// <param name="actions"></param>
-		private void PerformMove(Entity    entity,
+		public void PerformMove(Entity    entity,
 								 int       actualAmount,
 								 Direction resultDirection, List<Action> actions) {
 			for (int i = 0; i < actualAmount; i++) {
@@ -180,7 +179,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// Make a robot shooting a laser
 		/// </summary>
 		/// <param name="robotId">the robot to shoot from</param>
-		public void Shroot(int robotId) {
+		public void Shoot(int robotId) {
 			Entity e = _game.Entitys[robotId];
 
 			Position pos = e.Location;
@@ -191,9 +190,11 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// Shoots a ray into the given direction
 		/// </summary>
 		/// <param name="shooter">The entity who fired the shot (used for emiting the event/s</param>
-		/// <param name="pos">the position to fre from</param>
+		/// <param name="pos">the position to fire from</param>
 		/// <param name="direction">the direction of the raycast</param>
-		private void Shoot(int shooter, Position pos, Direction direction, bool penentration = false) {
+		/// <param name="penentration">if the laser does shoot through the object to hit another</param>
+
+		public void Shoot(int shooter, Position pos, Direction direction, bool penentration = false) {
 			Tile      t;
 			List<int> hitEntities = new List<int>();
 			_game.Map.CalculateEmpty();
@@ -215,6 +216,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			foreach (int hitEntity in hitEntities) {
 				Damage((RobotInfo) _game.Entitys[hitEntity], 1);
 			}
+		}
+
+		public void Setup() {
 		}
 	}
 }

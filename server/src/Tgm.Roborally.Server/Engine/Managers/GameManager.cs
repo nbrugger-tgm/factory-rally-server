@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Tgm.Roborally.Server.CSExtensions;
 using Tgm.Roborally.Server.Engine.Abstraction;
+using Tgm.Roborally.Server.Engine.Abstraction.Modloader;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Managers {
@@ -61,7 +63,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			GameLogic game = new(rules) {id = id}; //blame microsoft this syntax is  .... special
 			_loader.LoadMods(game);
 			game.UseImplementation(_loader, _loader.StartingPhase, _loader.OnEvent);
-			_loader.managers.ForEach(e => e.Setup());
+			_loader.Managers.ForEach(e => e.Setup());
 			_loader.ItemLoadingStartegy.LoadAllItems(
 				_loader.ItemLoaders,
 				game.Upgrades.AddToDeck,

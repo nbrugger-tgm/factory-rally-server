@@ -13,7 +13,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 		protected override GamePhase Run(GameLogic game) {
 			int register = game.executionState.CurrentRegister++;
-			if (register >= 9) return new GameEndPhase();
+			if (register >= 4) return new GameEndPhase();
 			return new PreExecutionPhase();
 		}
 
