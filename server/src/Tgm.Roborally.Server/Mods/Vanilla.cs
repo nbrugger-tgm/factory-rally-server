@@ -42,5 +42,7 @@ namespace Tgm.Roborally.Server.Mods {
 
 		public IProgrammingManager? ProgrammingManager(GameLogic gameLogic, IProgrammingManager? oldManager) =>
 			_impl.ProgrammingManager(gameLogic, oldManager);
+
+		public IMovementManager? MovementManager(GameLogic gameLogic, IMovementManager? oldManager = null) => _impl.MovementManager(gameLogic,oldManager);
 	}
 }
