@@ -78,11 +78,13 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// Expensive Operation: deserialises the map with the given name
 		/// </summary>
 		/// <param name="name"></param>
-		/// <returns></returns>
+		/// <returns>null if the map doesnt exits</returns>
 		public Map Get(string name) {
-			FileInfo info = Directory.GetFiles($"{name}{MapExtedionWithDot}")[0];
-			if (!info.Exists)
+			FileInfo[] files = Directory.GetFiles($"{name}{MapExtedionWithDot}");
+			if (files.Length == 0)
 				return null;
+			FileInfo info = files[0];
+			
 			FileStream     fs     = info.OpenRead();
 			JsonTextReader reader = new JsonTextReader(new StreamReader(fs));
 			Map            m      = serializer.Deserialize<Map>(reader);

@@ -16,6 +16,16 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 				toUse[1, 1] = new Tile {
 					Type = TileType.PrioCore
 				};
+				for (int i = 0; i < game.Entitys.Robots.Count; i++) {
+					toUse[2, i] = new Tile() {
+						Type = TileType.Spawn
+					};
+				}
+			}
+			else {
+				if (toUse.Find(TileType.Spawn).Count < game.Entitys.Robots.Count) {
+					game.CommitEvent(new DummyEvent(EventType.GameEndEvent,"The game has ended due to an error : \"The choosen map has not enought spawn points\""));
+				}
 			}
 
 			game.Map = toUse;
