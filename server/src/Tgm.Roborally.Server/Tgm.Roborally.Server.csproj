@@ -10,7 +10,7 @@
 	
 	<RuntimeIdentifiers>win-x86;win-x64;linux-x64;linux-arm;linux-arm64;osx-x64</RuntimeIdentifiers>
 	<LangVersion>9</LangVersion>
-	<PackageVersion>2.13.0</PackageVersion>
+	<PackageVersion>2.13.1</PackageVersion>
 	<PackageProjectUrl>https://github.com/FactoryRally/game-controller/</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/FactoryRally/game-controller/</RepositoryUrl>
 	<RepositoryType>github</RepositoryType>
