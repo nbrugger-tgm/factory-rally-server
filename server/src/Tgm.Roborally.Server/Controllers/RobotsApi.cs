@@ -328,6 +328,7 @@ namespace Tgm.Roborally.Server.Controllers {
 												 int robotId,
 												 [FromRoute] [Required] [Range(0, 4)] int register,
 												 [FromQuery] [Required] [Range(0, 10000)]
+												 [FromQuery(Name="statement_id")] [Required] [Range(0, 10000)]
 												 int statementId) =>
 			new GameRequestPipeline()
 				.Game(gameId)
