@@ -17,6 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Tgm.Roborally.Server.Converters;
+using Tgm.Roborally.Server.Engine;
 
 namespace Tgm.Roborally.Server.Models
 { 
@@ -24,13 +25,13 @@ namespace Tgm.Roborally.Server.Models
 	/// When the next game phase started
 	/// </summary>
 	[DataContract]
-	public partial class GamePhaseChangedEvent : IEquatable<GamePhaseChangedEvent>
+	public partial class GamePhaseChangedEvent : IEquatable<GamePhaseChangedEvent>,Event
 	{
 		/// <summary>
 		/// Gets or Sets Phase
 		/// </summary>
 		[DataMember(Name="phase", EmitDefaultValue=false)]
-		public RoundPhase Phase { get; set; }
+		public RoundPhase? Phase { get; set; }
 
 		/// <summary>
 		/// WIP! Currently class names. Enum later on  Describes the game phase more deeply
@@ -61,6 +62,8 @@ namespace Tgm.Roborally.Server.Models
 			sb.Append("}\n");
 			return sb.ToString();
 		}
+
+		public EventType GetEventType() => EventType.GameRoundPhaseChanged;
 
 		/// <summary>
 		/// Returns the JSON string presentation of the object
