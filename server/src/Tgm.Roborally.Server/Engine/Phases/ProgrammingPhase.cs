@@ -68,6 +68,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			ev.Type == EventType.ProgrammingTimerStop  ||
 			ev.Type == EventType.TimeElapsed           ||
 			ev.Type == EventType.ChangeRegister        ||
+			ev.Type == EventType.RandomCardDistribution ||
 			ev.Type == EventType.ClearRegister;
 
 		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) {
