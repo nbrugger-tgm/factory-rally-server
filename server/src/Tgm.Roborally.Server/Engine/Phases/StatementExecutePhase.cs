@@ -13,8 +13,10 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 		protected override GamePhase Run(GameLogic game) {
 			int commandId = game.Programming.GetRegister(game.executionState.CurrentRobot)[game.executionState.CurrentRegister];
-			RobotCommand cmd = game.Programming[commandId];
-			cmd.Execute(game, game.executionState.CurrentRobot);
+			if (commandId != -1) {//-1 is an empty register
+				RobotCommand cmd = game.Programming[commandId];
+				cmd.Execute(game, game.executionState.CurrentRobot);
+			}
 			return new PostStatementPhase();
 		}
 
