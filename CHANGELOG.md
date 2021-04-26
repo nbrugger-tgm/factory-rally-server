@@ -1,3 +1,19 @@
+## v2.13.2 (2021-04-26)
+
+### Fix
+
+- crash due to missing event passage (random card distrib=
+- registers having wrong initial values
+- crash on non full register execution
+- `phase` being allways null
+- **api**: add statement_id qualifier
+- crash in some robot-related endpoints
+- **oas**: remove wrong `required`
+
+### Refactor
+
+- allow default value serialization
+
 ## v2.13.1 (2021-04-25)
 
 ### Refactor
