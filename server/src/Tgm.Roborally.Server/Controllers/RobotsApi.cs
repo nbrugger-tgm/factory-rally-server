@@ -91,8 +91,10 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerOperation("DoEntityAction")]
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult DoEntityAction([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-													int gameId,     [FromRoute(Name = "robot_id")] [Required]
-													string robotId, [FromBody] EntityAction entityAction) =>
+													int gameId,
+													[FromRoute(Name = "robot_id")] [Required]
+													string robotId,
+													[FromBody] EntityAction entityAction) =>
 			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
 			// return StatusCode(200);
 			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -115,7 +117,8 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(200, type: typeof(List<EntityAction>), description: "OK")]
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetActionStack([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-													int gameId, [FromRoute(Name = "robot_id")] [Required]
+													int gameId, 
+													[FromRoute(Name = "robot_id")] [Required]
 													string robotId) {
 			return new StatusCodeResult(501);
 		}
@@ -136,7 +139,8 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(200, type: typeof(List<int>), description: "OK")]
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetInstalledUpgrades([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-														  int gameId, [FromRoute(Name = "robot_id")] [Required]
+														  int gameId,
+														  [FromRoute(Name = "robot_id")] [Required]
 														  int robotId) {
 			return new GameRequestPipeline()
 				   .Game(gameId)
@@ -162,7 +166,8 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(200, type: typeof(List<EntityEventOportunity>), description: "OK")]
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		public virtual IActionResult GetPossibleActions([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-														int gameId, [FromRoute(Name = "robot_id")] [Required]
+														int gameId,
+														[FromRoute(Name = "robot_id")] [Required]
 														int robotId) {
 			return new GameRequestPipeline()
 				   .Game(gameId)
@@ -187,8 +192,11 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerOperation("GetRegisterContent")]
 		[SwaggerResponse(200, type: typeof(RobotCommand), description: "OK")]
 		public virtual IActionResult GetRegisterContent([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-														int gameId, [FromRoute(Name = "robot_id")] [Required] int robotId,
-														[FromRoute] [Required] [Range(0, 4)] int register) {
+														int gameId,
+														[FromRoute(Name = "robot_id")] [Required]
+														int robotId,
+														[FromRoute] [Required] [Range(0, 4)] 
+														int register) {
 			return new GameRequestPipeline()
 				   .Game(gameId)
 				   .Robot(robotId)
@@ -324,10 +332,11 @@ namespace Tgm.Roborally.Server.Controllers {
 		[ValidateModelState]
 		[SwaggerOperation("SetRegister")]
 		public virtual IActionResult SetRegister([FromRoute(Name = "game_id")] [Required] [Range(0, 2048)]
-												 int gameId, [FromRoute(Name = "robot_id")] [Required]
+												 int gameId, 
+												 [FromRoute(Name = "robot_id")] [Required]
 												 int robotId,
-												 [FromRoute] [Required] [Range(0, 4)] int register,
-												 [FromQuery] [Required] [Range(0, 10000)]
+												 [FromRoute] [Required] [Range(0, 4)] 
+												 int register,
 												 [FromQuery(Name="statement_id")] [Required] [Range(0, 10000)]
 												 int statementId) =>
 			new GameRequestPipeline()

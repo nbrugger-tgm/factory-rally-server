@@ -5,15 +5,16 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
 	public class UpgradeShopPhase : GamePhase {
-		private const    int       TIME      = 20000;
-		private readonly object    _listener = new object();
-		private          int       _activePlayer;
-		private          long      _endTime;
-		private          bool      _executed;
-		private          bool      _shopFilled;
+		private const      int         TIME      = 20000;
+		private readonly   object      _listener = new object();
+		private            int         _activePlayer;
+		private            long        _endTime;
+		private            bool        _executed;
+		private            bool        _shopFilled;
+
 		protected override RoundPhase? Cathegory => RoundPhase.Upgrade;
 
-		protected override object Information => new UpgradeInfo();
+		protected override object      Information => new UpgradeInfo();
 
 		public override GameState NewState => GameState.PLAYING;
 

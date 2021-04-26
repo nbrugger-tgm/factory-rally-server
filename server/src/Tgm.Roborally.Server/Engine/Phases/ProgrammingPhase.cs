@@ -40,7 +40,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 				foreach (int rid in game.Entitys.Robots) {
 					int[] registers = game.Programming.GetRegister(rid);
-					int[] empty = registers.Where(predicate: i => i == -1).Select(selector: (value, index) => index)
+					int[] empty = registers.Where(predicate: i => i == -1).Select(selector: (_, index) => index)
 										   .ToArray();
 					if (empty.Length > 0)
 						game.CommitEvent(new DummyEvent(EventType.RandomCardDistribution,
@@ -64,10 +64,10 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		}
 
 		public override bool Notify(GenericEvent ev) =>
-			ev.Type == EventType.ProgrammingTimerStart ||
-			ev.Type == EventType.ProgrammingTimerStop  ||
-			ev.Type == EventType.TimeElapsed           ||
-			ev.Type == EventType.ChangeRegister        ||
+			ev.Type == EventType.ProgrammingTimerStart  ||
+			ev.Type == EventType.ProgrammingTimerStop   ||
+			ev.Type == EventType.TimeElapsed            ||
+			ev.Type == EventType.ChangeRegister         ||
 			ev.Type == EventType.RandomCardDistribution ||
 			ev.Type == EventType.ClearRegister;
 
