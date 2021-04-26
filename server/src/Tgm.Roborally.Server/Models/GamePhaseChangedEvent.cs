@@ -24,7 +24,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		///     Gets or Sets Phase
 		/// </summary>
-		[Required]
+		[DataMember(Name="phase", EmitDefaultValue=false)]
 		[DataMember(Name = "phase", EmitDefaultValue = false)]
 		public RoundPhase? Phase { get; set; }
 
