@@ -21,7 +21,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		///     Gets or Sets EventType
 		/// </summary>
-		[DataMember(Name = "event-type", EmitDefaultValue = false)]
+		[DataMember(Name = "event-type", EmitDefaultValue = true)]
 		public EventType EventType { get; set; }
 
 		/// <summary>

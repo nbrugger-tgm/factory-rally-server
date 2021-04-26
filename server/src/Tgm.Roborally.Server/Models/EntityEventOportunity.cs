@@ -22,21 +22,21 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		///     Gets or Sets Type
 		/// </summary>
-		[DataMember(Name = "type", EmitDefaultValue = false)]
+		[DataMember(Name = "type", EmitDefaultValue = true)]
 		public EntityActionType Type { get; set; }
 
 		/// <summary>
 		///     The time in ms left to do this action
 		/// </summary>
 		/// <value>The time in ms left to do this action</value>
-		[DataMember(Name = "time-left", EmitDefaultValue = false)]
+		[DataMember(Name = "time-left", EmitDefaultValue = true)]
 		public long TimeLeft { get; set; }
 
 		/// <summary>
 		///     The in most languages avinable system time in MS as of which the action cant be committed any more
 		/// </summary>
 		/// <value>The in most languages avinable system time in MS as of which the action cant be committed any more</value>
-		[DataMember(Name = "end-time", EmitDefaultValue = false)]
+		[DataMember(Name = "end-time", EmitDefaultValue = true)]
 		public long EndTime { get; set; }
 
 		/// <summary>

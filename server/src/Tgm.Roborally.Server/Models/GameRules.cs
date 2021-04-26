@@ -24,7 +24,7 @@ namespace Tgm.Roborally.Server.Models {
 		///     If true players can see the name of the player controlling a robot
 		/// </summary>
 		/// <value>If true players can see the name of the player controlling a robot</value>
-		[DataMember(Name = "player-names-visible", EmitDefaultValue = false)]
+		[DataMember(Name = "player-names-visible", EmitDefaultValue = true)]
 		public bool PlayerNamesVisible { get; set; } = true;
 
 		/// <summary>
@@ -32,7 +32,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The maximum ammount of players able to join the game</value>
 		[Range(1, 6)]
-		[DataMember(Name = "max-players", EmitDefaultValue = false)]
+		[DataMember(Name = "max-players", EmitDefaultValue = true)]
 		public int MaxPlayers { get; set; } = 6;
 
 		/// <summary>
@@ -41,7 +41,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The visible name of the game</value>
 		[Required]
 		[StringLength(50, MinimumLength = 3)]
-		[DataMember(Name                = "name", EmitDefaultValue = false)]
+		[DataMember(Name                = "name", EmitDefaultValue = true)]
 		public string Name { get; set; }
 
 		/// <summary>
@@ -49,7 +49,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>Defines the number of robots per player</value>
 		[Range(1, 3)]
-		[DataMember(Name = "robots-per-player", EmitDefaultValue = false)]
+		[DataMember(Name = "robots-per-player", EmitDefaultValue = true)]
 		public int RobotsPerPlayer { get; set; } = 1;
 
 		/// <summary>
@@ -57,14 +57,14 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The password of a game</value>
 		[StringLength(18, MinimumLength = 4)]
-		[DataMember(Name                = "password", EmitDefaultValue = false)]
+		[DataMember(Name                = "password", EmitDefaultValue = true)]
 		public string Password { get; set; }
 
 		/// <summary>
 		///     If true emply player slots are going to be filled up with AI enemys
 		/// </summary>
 		/// <value>If true emply player slots are going to be filled up with AI enemys</value>
-		[DataMember(Name = "fill-with-bots", EmitDefaultValue = false)]
+		[DataMember(Name = "fill-with-bots", EmitDefaultValue = true)]
 		public bool FillWithBots { get; set; }
 
 		/// <summary>

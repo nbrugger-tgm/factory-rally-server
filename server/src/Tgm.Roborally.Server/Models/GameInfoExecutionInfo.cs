@@ -26,7 +26,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The index of the register currently executed</value>
 		[Required]
-		[DataMember(Name = "currentRegister", EmitDefaultValue = false)]
+		[DataMember(Name = "currentRegister", EmitDefaultValue = true)]
 		public int CurrentRegister { get; set; }
 
 		/// <summary>
@@ -34,7 +34,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The id of the robot currently executing</value>
 		[Required]
-		[DataMember(Name = "currentRobot", EmitDefaultValue = false)]
+		[DataMember(Name = "currentRobot", EmitDefaultValue = true)]
 		public int CurrentRobot => _ref.State != GameState.LOBBY ? _ref.Entitys.Robots[_currentRobotIndex] : -1;
 
 		/// <summary>

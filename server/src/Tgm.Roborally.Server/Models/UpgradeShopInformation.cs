@@ -22,7 +22,7 @@ namespace Tgm.Roborally.Server.Models {
 		///     if true you can buy uprades
 		/// </summary>
 		/// <value>if true you can buy uprades</value>
-		[DataMember(Name = "open", EmitDefaultValue = false)]
+		[DataMember(Name = "open", EmitDefaultValue = true)]
 		public bool Open { get; set; } = true;
 
 		/// <summary>

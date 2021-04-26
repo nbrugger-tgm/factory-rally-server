@@ -36,7 +36,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </value>
 		[Required]
 		[Range(0, 8)]
-		[DataMember(Name = "id", EmitDefaultValue = false)]
+		[DataMember(Name = "id", EmitDefaultValue = true)]
 		public int Id => _player.Id;
 
 		/// <summary>
@@ -44,7 +44,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The uid is the key for the joined player. You need this key for authentication</value>
 		[Required]
-		[DataMember(Name = "pat", EmitDefaultValue = false)]
+		[DataMember(Name = "pat", EmitDefaultValue = true)]
 		public string Pat => _player.auth;
 
 		/// <summary>

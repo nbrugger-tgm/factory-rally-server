@@ -24,14 +24,14 @@ namespace Tgm.Roborally.Server.Models {
 		///     The number of the checkpoint defining the order they need to be called in
 		/// </summary>
 		/// <value>The number of the checkpoint defining the order they need to be called in</value>
-		[DataMember(Name = "number", EmitDefaultValue = false)]
+		[DataMember(Name = "number", EmitDefaultValue = true)]
 		public int Number { get; set; }
 
 		/// <summary>
 		///     The entities (robots) which allready were at this point
 		/// </summary>
 		/// <value>The entities (robots) which allready were at this point</value>
-		[DataMember(Name = "checked-by", EmitDefaultValue = false)]
+		[DataMember(Name = "checked-by", EmitDefaultValue = true)]
 		public List<int> CheckedBy { get; set; }
 
 		/// <summary>

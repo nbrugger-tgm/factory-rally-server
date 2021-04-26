@@ -22,13 +22,13 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		///     Gets or Sets Phase
 		/// </summary>
-		[DataMember(Name = "phase", EmitDefaultValue = false)]
+		[DataMember(Name = "phase", EmitDefaultValue = true)]
 		public EntityActionPhase Phase { get; set; }
 
 		/// <summary>
 		///     Gets or Sets Type
 		/// </summary>
-		[DataMember(Name = "type", EmitDefaultValue = false)]
+		[DataMember(Name = "type", EmitDefaultValue = true)]
 		public EntityActionType Type { get; set; }
 
 		/// <summary>

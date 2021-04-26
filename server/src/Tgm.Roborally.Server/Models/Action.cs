@@ -23,27 +23,27 @@ namespace Tgm.Roborally.Server.Models {
 		///     The queue index of the action
 		/// </summary>
 		/// <value>The queue index of the action</value>
-		[DataMember(Name = "index", EmitDefaultValue = false)]
+		[DataMember(Name = "index", EmitDefaultValue = true)]
 		public int Index { get; set; }
 
 		/// <summary>
 		///     Gets or Sets Type
 		/// </summary>
-		[DataMember(Name = "type", EmitDefaultValue = false)]
+		[DataMember(Name = "type", EmitDefaultValue = true)]
 		public ActionType Type { get; set; }
 
 		/// <summary>
 		///     true if the action was allready executed
 		/// </summary>
 		/// <value>true if the action was allready executed</value>
-		[DataMember(Name = "executed", EmitDefaultValue = false)]
+		[DataMember(Name = "executed", EmitDefaultValue = true)]
 		public bool Executed { get; set; }
 
 		/// <summary>
 		///     The index of the player this instruction came from
 		/// </summary>
 		/// <value>The index of the player this instruction came from</value>
-		[DataMember(Name = "requestor", EmitDefaultValue = false)]
+		[DataMember(Name = "requestor", EmitDefaultValue = true)]
 		public int Requestor { get; set; }
 
 		/// <summary>

@@ -26,14 +26,14 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The duration of the timer </value>
 		[Required]
-		[DataMember(Name = "original_duration", EmitDefaultValue = false)]
+		[DataMember(Name = "original_duration", EmitDefaultValue = true)]
 		public int OriginalDuration { get; set; }
 
 		/// <summary>
 		///     (optional) information about the elapsed timer
 		/// </summary>
 		/// <value>(optional) information about the elapsed timer</value>
-		[DataMember(Name = "context", EmitDefaultValue = false)]
+		[DataMember(Name = "context", EmitDefaultValue = true)]
 		public object Context { get; set; }
 
 		public EventType GetEventType() => EventType.TimeElapsed;

@@ -68,7 +68,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// Descibes the interal order of the tile type: eg. if order is 3 it is the 4th of its tile-type (because it is 0 based)  Default -1 means the oder has no use to this tile(type)
 		/// </summary>
 		/// <value>Descibes the interal order of the tile type: eg. if order is 3 it is the 4th of its tile-type (because it is 0 based)  Default -1 means the oder has no use to this tile(type)</value>
-		[DataMember(Name = "order", EmitDefaultValue = false)]
+		[DataMember(Name = "order", EmitDefaultValue = true)]
 		public int Order { get; set; } = -1;
 
 		/// <summary>

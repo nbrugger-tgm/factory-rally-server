@@ -27,7 +27,7 @@ namespace Tgm.Roborally.Server.Models {
 		[Required]
 		[RegularExpression("[A-Za-z]+[A-Za-z0-9_ -]+[A-Za-z0-9]{1}")]
 		[StringLength(13, MinimumLength = 3)]
-		[DataMember(Name                = "name", EmitDefaultValue = false)]
+		[DataMember(Name                = "name", EmitDefaultValue = true)]
 		public string Name { get; set; }
 
 		/// <summary>
@@ -36,7 +36,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>A description what the consumer is used for (and or is)</value>
 		[Required]
 		[StringLength(10000, MinimumLength = 5)]
-		[DataMember(Name                   = "description", EmitDefaultValue = false)]
+		[DataMember(Name                   = "description", EmitDefaultValue = true)]
 		public string Description { get; set; }
 
 		/// <summary>

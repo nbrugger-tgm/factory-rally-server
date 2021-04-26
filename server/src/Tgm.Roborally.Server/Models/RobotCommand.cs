@@ -30,7 +30,7 @@ namespace Tgm.Roborally.Server.Models {
 		///     Gets or Sets Type
 		/// </summary>
 		[Required]
-		[DataMember(Name = "type", EmitDefaultValue = false)]
+		[DataMember(Name = "type", EmitDefaultValue = true)]
 		public abstract Instruction Type { get; }
 
 		/// <summary>
@@ -52,7 +52,7 @@ namespace Tgm.Roborally.Server.Models {
 		///     &gt; &#x60;{steps}&#x60; is the number of steps the robot will do. And the exact value (of steps) will be defined
 		///     in here (&#x60;values&#x60;)
 		/// </value>
-		[DataMember(Name = "parameters", EmitDefaultValue = false)]
+		[DataMember(Name = "parameters", EmitDefaultValue = true)]
 		public List<Pair> Parameters {
 			get => _parameters.Select(selector: e => new Pair(e.Key, e.Value)).ToList();
 			set {
@@ -70,7 +70,7 @@ namespace Tgm.Roborally.Server.Models {
 		///     refers to the names in &#x60;values&#x60;.
 		/// </value>
 		[MaxLength(300)]
-		[DataMember(Name = "description", EmitDefaultValue = false)]
+		[DataMember(Name = "description", EmitDefaultValue = true)]
 		public abstract string Description { get; }
 
 		/// <summary>
@@ -78,7 +78,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The ame to display for this Command. ***Not*** unique (identifying)</value>
 		[StringLength(27, MinimumLength = 2)]
-		[DataMember(Name                = "name", EmitDefaultValue = false)]
+		[DataMember(Name                = "name", EmitDefaultValue = true)]
 		public string Name { get; set; }
 
 		/// <summary>
@@ -86,7 +86,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>Describes how often this command is going to be executed</value>
 		[Range(1, 10)]
-		[DataMember(Name = "times", EmitDefaultValue = false)]
+		[DataMember(Name = "times", EmitDefaultValue = true)]
 		public abstract int Times { get; }
 
 		public string FilledDescription {

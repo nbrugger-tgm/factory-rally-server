@@ -23,13 +23,13 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		///     Gets or Sets Phase
 		/// </summary>
-		[DataMember(Name = "phase", EmitDefaultValue = false)]
+		[DataMember(Name = "phase", EmitDefaultValue = true)]
 		public EntityActionPhase Phase { get; set; }
 
 		/// <summary>
 		///     Gets or Sets Type
 		/// </summary>
-		[DataMember(Name = "type", EmitDefaultValue = false)]
+		[DataMember(Name = "type", EmitDefaultValue = true)]
 		public EntityActionType Type { get; set; }
 
 		/// <summary>
@@ -37,7 +37,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The id of an upgrade. **Unique**</value>
 		[Range(0, 10000)]
-		[DataMember(Name = "upgrade", EmitDefaultValue = false)]
+		[DataMember(Name = "upgrade", EmitDefaultValue = true)]
 		public int Upgrade { get; set; }
 
 		/// <summary>

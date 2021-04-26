@@ -50,7 +50,7 @@ namespace Tgm.Roborally.Server.Models {
 		///     Gets or Sets Action
 		/// </summary>
 		[Required]
-		[DataMember(Name = "action", EmitDefaultValue = false)]
+		[DataMember(Name = "action", EmitDefaultValue = true)]
 		public ActionEnum Action { get; set; }
 
 		/// <summary>
@@ -58,7 +58,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The id of an upgrade. **Unique**</value>
 		[Range(0, 10000)]
-		[DataMember(Name = "card", EmitDefaultValue = false)]
+		[DataMember(Name = "card", EmitDefaultValue = true)]
 		public int Card { get; set; }
 
 		/// <summary>
@@ -67,7 +67,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The changed register</value>
 		[Required]
 		[Range(0, 8)]
-		[DataMember(Name = "register", EmitDefaultValue = false)]
+		[DataMember(Name = "register", EmitDefaultValue = true)]
 		public int Register { get; set; }
 
 		public EventType GetEventType() => EventType.ChangeRegister;

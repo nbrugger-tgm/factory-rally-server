@@ -30,14 +30,14 @@ namespace Tgm.Roborally.Server.Models {
 		///     used for authentication
 		/// </value>
 		[Range(0, 8)]
-		[DataMember(Name = "joined_id", EmitDefaultValue = false)]
+		[DataMember(Name = "joined_id", EmitDefaultValue = true)]
 		public int JoinedId { get; set; }
 
 		/// <summary>
 		///     True if the player left instead of joining
 		/// </summary>
 		/// <value>True if the player left instead of joining</value>
-		[DataMember(Name = "unjoin", EmitDefaultValue = false)]
+		[DataMember(Name = "unjoin", EmitDefaultValue = true)]
 		public bool Unjoin { get; set; }
 
 		public EventType GetEventType() => EventType.Join;

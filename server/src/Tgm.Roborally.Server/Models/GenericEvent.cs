@@ -32,7 +32,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		///     Gets or Sets Type
 		/// </summary>
-		[DataMember(Name = "type", EmitDefaultValue = false)]
+		[DataMember(Name = "type", EmitDefaultValue = true)]
 		public EventType Type { get; set; }
 
 		/// <summary>
@@ -43,7 +43,7 @@ namespace Tgm.Roborally.Server.Models {
 		///     This is the data for the Event. In the case of type beeing &#x60;lazer hit&#x60;, data will be of the type
 		///     &#x60;LazerHitEvent&#x60;. So the object-type allways matches to the &#x60;type&#x60; field
 		/// </value>
-		[DataMember(Name = "data", EmitDefaultValue = false)]
+		[DataMember(Name = "data", EmitDefaultValue = true)]
 		public object Data { get; set; }
 
 		/// <summary>

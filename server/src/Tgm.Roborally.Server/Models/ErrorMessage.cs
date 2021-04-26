@@ -25,14 +25,14 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>A short message describing what happened in human words</value>
 		[Required]
-		[DataMember(Name = "message", EmitDefaultValue = false)]
+		[DataMember(Name = "message", EmitDefaultValue = true)]
 		public string Message { get; set; }
 
 		/// <summary>
 		///     The error/exception
 		/// </summary>
 		/// <value>The error/exception</value>
-		[DataMember(Name = "error", EmitDefaultValue = false)]
+		[DataMember(Name = "error", EmitDefaultValue = true)]
 		public string Error { get; set; }
 
 		/// <summary>

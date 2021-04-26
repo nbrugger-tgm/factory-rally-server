@@ -24,14 +24,14 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		///     Gets or Sets Entity
 		/// </summary>
-		[DataMember(Name = "entity", EmitDefaultValue = false)]
+		[DataMember(Name = "entity", EmitDefaultValue = true)]
 		public Entity Entity { get; set; }
 
 		/// <summary>
 		///     Gets or Sets HealAmount
 		/// </summary>
 		[Range(0, 100)]
-		[DataMember(Name = "heal_amount", EmitDefaultValue = false)]
+		[DataMember(Name = "heal_amount", EmitDefaultValue = true)]
 		public int HealAmount { get; set; }
 
 		public EventType GetEventType() => EventType.Heal;

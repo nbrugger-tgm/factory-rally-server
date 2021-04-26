@@ -33,7 +33,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </value>
 		[Required]
 		[Range(0, 8)]
-		[DataMember(Name = "player", EmitDefaultValue = false)]
+		[DataMember(Name = "player", EmitDefaultValue = true)]
 		public int Player { get; set; }
 
 		/// <summary>
@@ -42,14 +42,14 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The number of cards drawn</value>
 		[Required]
 		[Range(0, 9)]
-		[DataMember(Name = "count", EmitDefaultValue = false)]
+		[DataMember(Name = "count", EmitDefaultValue = true)]
 		public int Count { get; set; }
 
 		/// <summary>
 		///     The drawn cards. **This is only visible for the player himself**
 		/// </summary>
 		/// <value>The drawn cards. **This is only visible for the player himself**</value>
-		[DataMember(Name = "cards", EmitDefaultValue = false)]
+		[DataMember(Name = "cards", EmitDefaultValue = true)]
 		public List<int> Cards { get; set; }
 
 		public EventType GetEventType() => EventType.TakeCardEvent;

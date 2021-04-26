@@ -24,13 +24,13 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		///     Gets or Sets Upgrades
 		/// </summary>
-		[DataMember(Name = "upgrades", EmitDefaultValue = false)]
+		[DataMember(Name = "upgrades", EmitDefaultValue = true)]
 		public List<int> Upgrades { get; set; }
 
 		/// <summary>
 		///     Gets or Sets Information
 		/// </summary>
-		[DataMember(Name = "information", EmitDefaultValue = false)]
+		[DataMember(Name = "information", EmitDefaultValue = true)]
 		public UpgradeShopInformation Information { get; set; }
 
 		/// <summary>

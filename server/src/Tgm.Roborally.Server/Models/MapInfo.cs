@@ -29,7 +29,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		/// Gets or Sets PrioBeacon
 		/// </summary>
-		[DataMember(Name = "prioBeacon", EmitDefaultValue = false)]
+		[DataMember(Name = "prioBeacon", EmitDefaultValue = true)]
 		public Position PrioBeacon { get; set; }
 
 		public MapInfo(Engine.Map map) {
@@ -42,7 +42,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The default rule for names in the game</value>
 		[RegularExpression("[A-Za-z]+[A-Za-z0-9_ -]+[A-Za-z0-9]{1}")]
 		[StringLength(13, MinimumLength = 3)]
-		[DataMember(Name                = "name", EmitDefaultValue = false)]
+		[DataMember(Name                = "name", EmitDefaultValue = true)]
 		public string Name { get; set; }
 
 		/// <summary>

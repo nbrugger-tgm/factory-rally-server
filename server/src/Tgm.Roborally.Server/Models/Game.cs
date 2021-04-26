@@ -35,7 +35,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>**Unique**&lt;br&gt; This is the parameter a game is identified by</value>
 		[Range(0, 2048)]
-		[DataMember(Name = "id", EmitDefaultValue = false)]
+		[DataMember(Name = "id", EmitDefaultValue = true)]
 		public int Id => _logic.id;
 
 		/// <summary>
@@ -49,20 +49,20 @@ namespace Tgm.Roborally.Server.Models {
 		[Required]
 		[RegularExpression("[A-Za-z]+[A-Za-z0-9 _-]+")]
 		[StringLength(20, MinimumLength = 3)]
-		[DataMember(Name                = "name", EmitDefaultValue = false)]
+		[DataMember(Name                = "name", EmitDefaultValue = true)]
 		public string Name => _logic.Name;
 
 		/// <summary>
 		///     The list of players attending the game. (Only contains the name of the players)
 		/// </summary>
 		/// <value>The list of players attending the game. (Only contains the name of the players)</value>
-		[DataMember(Name = "players", EmitDefaultValue = false)]
+		[DataMember(Name = "players", EmitDefaultValue = true)]
 		public List<int> Players => _logic.PlayerIds;
 
 		/// <summary>
 		///     Gets or Sets RuntimeInfo
 		/// </summary>
-		[DataMember(Name = "runtime_info", EmitDefaultValue = false)]
+		[DataMember(Name = "runtime_info", EmitDefaultValue = true)]
 		public GameState RuntimeInfo => _logic.State;
 
 		/// <summary>

@@ -24,7 +24,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The number of avainable energy cubes</value>
 		[Range(0, 20)]
-		[DataMember(Name = "energy-cubes", EmitDefaultValue = false)]
+		[DataMember(Name = "energy-cubes", EmitDefaultValue = true)]
 		public int EnergyCubes { get; set; } = 3;
 
 		/// <summary>
@@ -32,21 +32,21 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The remaining health points</value>
 		[Range(1, 10)]
-		[DataMember(Name = "health", EmitDefaultValue = false)]
+		[DataMember(Name = "health", EmitDefaultValue = true)]
 		public int Health { get; set; } = 10;
 
 		/// <summary>
 		///     True if the robot is not in rebooting mode
 		/// </summary>
 		/// <value>True if the robot is not in rebooting mode</value>
-		[DataMember(Name = "active", EmitDefaultValue = false)]
+		[DataMember(Name = "active", EmitDefaultValue = true)]
 		public bool Active { get; set; } = true;
 
 		/// <summary>
 		///     If the robot is in virtual mode
 		/// </summary>
 		/// <value>If the robot is in virtual mode</value>
-		[DataMember(Name = "virtual", EmitDefaultValue = false)]
+		[DataMember(Name = "virtual", EmitDefaultValue = true)]
 		public bool Virtual { get; set; }
 
 		/// <summary>
@@ -54,21 +54,21 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The priority of this player. Higher is more priority. 1 &#x3D; lowest. max &#x3D; number of players</value>
 		[Range(1, 8)]
-		[DataMember(Name = "priority", EmitDefaultValue = false)]
+		[DataMember(Name = "priority", EmitDefaultValue = true)]
 		public int Priority { get; set; }
 
 		/// <summary>
 		///     True if the robot is currently active (executing a register)
 		/// </summary>
 		/// <value>True if the robot is currently active (executing a register)</value>
-		[DataMember(Name = "on-turn", EmitDefaultValue = false)]
+		[DataMember(Name = "on-turn", EmitDefaultValue = true)]
 		public bool OnTurn { get; set; }
 
 		/// <summary>
 		///     True if you are the one controlling the robot
 		/// </summary>
 		/// <value>True if you are the one controlling the robot</value>
-		[DataMember(Name = "is-mine", EmitDefaultValue = false)]
+		[DataMember(Name = "is-mine", EmitDefaultValue = true)]
 		public bool IsMine { get; set; }
 
 		/// <summary>
@@ -76,7 +76,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The cards in the hand of the robot</value>
 		[Range(0, 9)]
-		[DataMember(Name = "hand-cards", EmitDefaultValue = false)]
+		[DataMember(Name = "hand-cards", EmitDefaultValue = true)]
 		public int HandCards { get; set; }
 
 		/// <summary>
@@ -84,13 +84,13 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The height level of the robot</value>
 		[Range(0, 4)]
-		[DataMember(Name = "attitude", EmitDefaultValue = false)]
+		[DataMember(Name = "attitude", EmitDefaultValue = true)]
 		public int Attitude { get; set; }
 
 		/// <summary>
 		///     Gets or Sets Type
 		/// </summary>
-		[DataMember(Name = "type", EmitDefaultValue = false)]
+		[DataMember(Name = "type", EmitDefaultValue = true)]
 		public Robots Type { get; set; }
 
 		/// <summary>

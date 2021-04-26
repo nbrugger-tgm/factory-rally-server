@@ -31,14 +31,14 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The name the value is bound to</value>
 		[Required]
 		[MinLength(1)]
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[DataMember(Name = "name", EmitDefaultValue = true)]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     The value behind the name. Can be null
 		/// </summary>
 		/// <value>The value behind the name. Can be null</value>
-		[DataMember(Name = "value", EmitDefaultValue = false)]
+		[DataMember(Name = "value", EmitDefaultValue = true)]
 		public int Value { get; set; }
 
 		/// <summary>

@@ -42,7 +42,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		///     Gets or Sets State
 		/// </summary>
-		[DataMember(Name = "state", EmitDefaultValue = false)]
+		[DataMember(Name = "state", EmitDefaultValue = true)]
 		public StateEnum State { get; set; }
 
 		/// <summary>

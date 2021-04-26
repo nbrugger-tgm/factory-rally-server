@@ -26,7 +26,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>Time the timer will run for</value>
 		[Required]
 		[Range(3, 300)]
-		[DataMember(Name = "seconds", EmitDefaultValue = false)]
+		[DataMember(Name = "seconds", EmitDefaultValue = true)]
 		public int Seconds { get; set; }
 
 		/// <summary>
@@ -34,7 +34,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The time at which the timer ends. Given as &#x60;ms since epoche&#x60; [link](currentmillis.com) </value>
 		[Required]
-		[DataMember(Name = "end", EmitDefaultValue = false)]
+		[DataMember(Name = "end", EmitDefaultValue = true)]
 		public long End { get; set; }
 
 		public EventType GetEventType() => EventType.ProgrammingTimerStart;

@@ -40,7 +40,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </value>
 		[Required]
 		[Range(0, 8)]
-		[DataMember(Name = "id", EmitDefaultValue = false)]
+		[DataMember(Name = "id", EmitDefaultValue = true)]
 		public int Id { get; set; }
 
 		/// <summary>
@@ -48,14 +48,14 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The list of entities controlled by this player</value>
 		[Required]
-		[DataMember(Name = "controlled_entities", EmitDefaultValue = false)]
+		[DataMember(Name = "controlled_entities", EmitDefaultValue = true)]
 		public List<int> ControlledEntities { get; set; } = new List<int>();
 
 		/// <summary>
 		///     Îf this is true rhe player is able to interact at the moment
 		/// </summary>
 		/// <value>Îf this is true rhe player is able to interact at the moment</value>
-		[DataMember(Name = "on-turn", EmitDefaultValue = false)]
+		[DataMember(Name = "on-turn", EmitDefaultValue = true)]
 		public bool OnTurn { get; set; }
 
 		/// <summary>
@@ -66,7 +66,7 @@ namespace Tgm.Roborally.Server.Models {
 		///     Defines if the player is actively playing. If this is false the player does random moves. This is only false if
 		///     the player disconnects
 		/// </value>
-		[DataMember(Name = "active", EmitDefaultValue = false)]
+		[DataMember(Name = "active", EmitDefaultValue = true)]
 		public bool Active { get; set; } = true;
 
 		/// <summary>
@@ -76,7 +76,7 @@ namespace Tgm.Roborally.Server.Models {
 		[Required]
 		[RegularExpression("[A-Za-z0-9_-]+")]
 		[StringLength(30, MinimumLength = 3)]
-		[DataMember(Name                = "display_name", EmitDefaultValue = false)]
+		[DataMember(Name                = "display_name", EmitDefaultValue = true)]
 		public string DisplayName { get; set; }
 
 		/// <summary>

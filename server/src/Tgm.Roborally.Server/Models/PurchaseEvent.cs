@@ -30,7 +30,7 @@ namespace Tgm.Roborally.Server.Models {
 		///     used for authentication
 		/// </value>
 		[Range(0, 8)]
-		[DataMember(Name = "player", EmitDefaultValue = false)]
+		[DataMember(Name = "player", EmitDefaultValue = true)]
 		public int Player { get; set; }
 
 		/// <summary>
@@ -38,7 +38,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The id of an upgrade. **Unique**</value>
 		[Range(0, 10000)]
-		[DataMember(Name = "upgrade", EmitDefaultValue = false)]
+		[DataMember(Name = "upgrade", EmitDefaultValue = true)]
 		public int Upgrade { get; set; }
 
 		public EventType GetEventType() => EventType.UpgradePurchase;

@@ -30,7 +30,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The X cordinate</value>
 		[Required]
-		[DataMember(Name = "x", EmitDefaultValue = false)]
+		[DataMember(Name = "x", EmitDefaultValue = true)]
 		public int X { get; set; }
 
 		/// <summary>
@@ -38,7 +38,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>Position on the Y axis (top-down on screen)</value>
 		[Required]
-		[DataMember(Name = "y", EmitDefaultValue = false)]
+		[DataMember(Name = "y", EmitDefaultValue = true)]
 		public int Y { get; set; }
 
 		/// <summary>

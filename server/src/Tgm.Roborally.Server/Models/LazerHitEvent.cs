@@ -23,7 +23,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		///     Gets or Sets Id
 		/// </summary>
-		[DataMember(Name = "id", EmitDefaultValue = false)]
+		[DataMember(Name = "id", EmitDefaultValue = true)]
 		public string Id { get; set; }
 
 		public EventType GetEventType() => EventType.LazerHit;

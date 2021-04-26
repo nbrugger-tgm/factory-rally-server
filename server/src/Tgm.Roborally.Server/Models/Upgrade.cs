@@ -28,7 +28,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The energy cost to buy this upgrade</value>
 		[Required]
 		[Range(0, 5)]
-		[DataMember(Name = "cost", EmitDefaultValue = false)]
+		[DataMember(Name = "cost", EmitDefaultValue = true)]
 		public int Cost { get; set; } = 2;
 
 		/// <summary>
@@ -37,14 +37,14 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The ame to display for this Upgrade. ***Not*** unique (identifying)</value>
 		[Required]
 		[StringLength(27, MinimumLength = 2)]
-		[DataMember(Name                = "name", EmitDefaultValue = false)]
+		[DataMember(Name                = "name", EmitDefaultValue = true)]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     if true the card belongs to the player for the rest of the game
 		/// </summary>
 		/// <value>if true the card belongs to the player for the rest of the game</value>
-		[DataMember(Name = "permanent", EmitDefaultValue = false)]
+		[DataMember(Name = "permanent", EmitDefaultValue = true)]
 		public bool Permanent { get; set; } = true;
 
 		/// <summary>
@@ -56,7 +56,7 @@ namespace Tgm.Roborally.Server.Models {
 		///     refers to the names in &#x60;values&#x60;.
 		/// </value>
 		[MaxLength(300)]
-		[DataMember(Name = "description", EmitDefaultValue = false)]
+		[DataMember(Name = "description", EmitDefaultValue = true)]
 		public string Description { get; set; } = "null";
 
 		/// <summary>
@@ -64,7 +64,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>If the Upgrade is not permanent this variable defines the number of rounds this Upgrade works</value>
 		[Range(1, 10)]
-		[DataMember(Name = "rounds", EmitDefaultValue = false)]
+		[DataMember(Name = "rounds", EmitDefaultValue = true)]
 		public int Rounds { get; set; }
 
 		/// <summary>
@@ -77,14 +77,14 @@ namespace Tgm.Roborally.Server.Models {
 		///     Registers\&quot;&lt;br&gt; &#x60;{registers}&#x60; is the number of the regsiters (that will be added) and the
 		///     exact value will be defined in here (&#x60;values&#x60;)
 		/// </value>
-		[DataMember(Name = "values", EmitDefaultValue = false)]
+		[DataMember(Name = "values", EmitDefaultValue = true)]
 		public List<Pair> Values { get; set; }
 
 		/// <summary>
 		///     Gets or Sets Type
 		/// </summary>
 		[Required]
-		[DataMember(Name = "type", EmitDefaultValue = false)]
+		[DataMember(Name = "type", EmitDefaultValue = true)]
 		public UpgradeType Type { get; set; }
 
 		/// <summary>
@@ -92,7 +92,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The id of an upgrade. **Unique**</value>
 		[Range(0, 10000)]
-		[DataMember(Name = "id", EmitDefaultValue = false)]
+		[DataMember(Name = "id", EmitDefaultValue = true)]
 		public int Id { get; set; }
 
 		/// <summary>

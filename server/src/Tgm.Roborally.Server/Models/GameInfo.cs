@@ -33,7 +33,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The time passed since the game started in secconds. If the game is not started it will be &#x60;0&#x60;</value>
 		[Required]
-		[DataMember(Name = "passed-time", EmitDefaultValue = false)]
+		[DataMember(Name = "passed-time", EmitDefaultValue = true)]
 		public long PassedTime {
 			get {
 				if (_startTime == 0)
@@ -48,7 +48,7 @@ namespace Tgm.Roborally.Server.Models {
 		///     Gets or Sets State
 		/// </summary>
 		[Required]
-		[DataMember(Name = "state", EmitDefaultValue = false)]
+		[DataMember(Name = "state", EmitDefaultValue = true)]
 		public GameState State => _ref.State;
 
 		/// <summary>
@@ -60,7 +60,7 @@ namespace Tgm.Roborally.Server.Models {
 		///     this game with hardware
 		/// </value>
 		[Required]
-		[DataMember(Name = "hardware-compatible", EmitDefaultValue = false)]
+		[DataMember(Name = "hardware-compatible", EmitDefaultValue = true)]
 		public bool HardwareCompatible => _ref.Hardware.Compatible;
 
 		/// <summary>
@@ -83,7 +83,7 @@ namespace Tgm.Roborally.Server.Models {
 		[Required]
 		[RegularExpression("[A-Za-z]+[A-Za-z0-9_ -]+[A-Za-z0-9]{1}")]
 		[StringLength(13, MinimumLength = 3)]
-		[DataMember(Name                = "name", EmitDefaultValue = false)]
+		[DataMember(Name                = "name", EmitDefaultValue = true)]
 		public string Name => _ref.Name;
 
 		/// <summary>
@@ -92,7 +92,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The maximum count of players that can participate in this game</value>
 		[Required]
 		[Range(1, 10)]
-		[DataMember(Name = "max-players", EmitDefaultValue = false)]
+		[DataMember(Name = "max-players", EmitDefaultValue = true)]
 		public int MaxPlayers => _ref.MaxPlayers;
 
 		/// <summary>
@@ -101,21 +101,21 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The numbers of players in the game</value>
 		[Required]
 		[Range(0, 10)]
-		[DataMember(Name = "current-players", EmitDefaultValue = false)]
+		[DataMember(Name = "current-players", EmitDefaultValue = true)]
 		public int CurrentPlayers => _ref.PlayerCount;
 
 		/// <summary>
 		///     Gets or Sets ExecutionInfo
 		/// </summary>
 		[Required]
-		[DataMember(Name = "executionInfo", EmitDefaultValue = false)]
+		[DataMember(Name = "executionInfo", EmitDefaultValue = true)]
 		public GameInfoExecutionInfo ExecutionInfo => _ref.executionState;
 
 		/// True if the game has a password in order to join 
 		/// </summary>
 		/// <value>True if the game has a password in order to join </value>
 		[Required]
-		[DataMember(Name = "password-protected", EmitDefaultValue = false)]
+		[DataMember(Name = "password-protected", EmitDefaultValue = true)]
 		public bool PasswordProtected => !string.IsNullOrEmpty(_ref.Password);
 
 		public long Started {

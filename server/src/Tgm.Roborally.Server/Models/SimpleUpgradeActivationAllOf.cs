@@ -24,7 +24,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The id of an upgrade. **Unique**</value>
 		[Range(0, 10000)]
-		[DataMember(Name = "upgrade", EmitDefaultValue = false)]
+		[DataMember(Name = "upgrade", EmitDefaultValue = true)]
 		public int Upgrade { get; set; }
 
 		/// <summary>

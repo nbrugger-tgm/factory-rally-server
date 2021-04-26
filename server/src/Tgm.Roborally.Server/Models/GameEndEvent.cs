@@ -24,7 +24,7 @@ namespace Tgm.Roborally.Server.Models {
 		///     Gets or Sets Winner
 		/// </summary>
 		[Required]
-		[DataMember(Name = "winner", EmitDefaultValue = false)]
+		[DataMember(Name = "winner", EmitDefaultValue = true)]
 		public Player Winner { get; set; }
 
 		/// <summary>
