@@ -13,11 +13,10 @@ namespace Tgm.Roborally.Server.Authentication {
 			this.robotIdPathVariable = robotIdPathVariable;
 		}
 
-		public RobotOwnerShipEnsurance() : this("robot_id") {
-		}
+		public RobotOwnerShipEnsurance() : this("robot_id") {}
 
 		public bool DoesOwn(int playerId, RouteValueDictionary path, GameLogic gameLogic) {
-			int    roboId = (int) path[robotIdPathVariable];
+			int    roboId = int.Parse(path[robotIdPathVariable].ToString());
 			Player p      = gameLogic.GetPlayer(playerId);
 			return p.ControlledEntities.Contains(roboId);
 		}
