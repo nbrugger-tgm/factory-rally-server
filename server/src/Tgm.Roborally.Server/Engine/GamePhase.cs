@@ -7,7 +7,7 @@ namespace Tgm.Roborally.Server.Engine {
 	/// </summary>
 	public abstract class GamePhase {
 		protected GameLogic   Game;
-		private RoundPhase? Cathegory => null;
+		protected virtual RoundPhase? Cathegory => null;
 
 		protected abstract object Information { get; }
 
@@ -20,7 +20,7 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <returns>The GamePhase which should be activated next</returns>
 		public GamePhase Start(GameLogic game) {
 			Game = game;
-			RoundPhase? newPhase = Cathegory;
+			RoundPhase? newPhase = Cathegory??game.Phase;
 			game.State = NewState;
 			game.Phase = newPhase;
 			game.CommitEvent(new GamePhaseChangedEvent {

@@ -11,6 +11,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		private          long      _endTime;
 		private          bool      _executed;
 		private          bool      _shopFilled;
+		protected override RoundPhase? Cathegory => RoundPhase.Upgrade;
 
 		protected override object Information => new UpgradeInfo();
 

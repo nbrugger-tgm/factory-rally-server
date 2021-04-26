@@ -4,6 +4,7 @@ using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
 	public class PreExecutionPhase : GamePhase {
+		protected override RoundPhase? Cathegory => RoundPhase.Activation;
 
 		protected override object Information => new {
 			register = Game.executionState.CurrentRegister
