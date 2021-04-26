@@ -1,5 +1,5 @@
 {
-	"packageVersion":"2.13.2"
+	"packageVersion":"2.13.2",
 	"optionalMethodArgument" : true,
 	"packageName" : "Tgm.Roborally.Api",
 	"netCoreProjectFile": true,
