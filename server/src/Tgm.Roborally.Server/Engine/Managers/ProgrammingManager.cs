@@ -20,8 +20,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// 
 		/// </summary>
 		private readonly
-			Dictionary<int, (RobotCommand command, CardLocation location, int owner)> _pool =
-				new Dictionary<int, (RobotCommand, CardLocation, int)>();
+			Dictionary<int, (RobotCommand command, CardLocation location, int owner)> _pool = new();
 
 		private readonly GameLogic _game;
 
@@ -68,6 +67,13 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public void Clear(int robotId) {
 			int[] regs = GetRegister(robotId);
 			for (int i = 0; i < regs.Length; i++) {
+				int oldCard = regs[i];
+				if (oldCard != -1) {
+					var valueTuple = _pool[oldCard];
+					valueTuple.location = CardLocation.DISCARDED;
+					valueTuple.owner    = -1;
+					_pool[oldCard]      = valueTuple;
+				}
 				regs[i] = -1;
 				_game.CommitEvent(new ChangeRegisterEvent {
 					Action   = ChangeRegisterEvent.ActionEnum.Clear,
@@ -79,8 +85,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		}
 
 		public int[] GetRegister(int robotId) {
-			if (!Registers.ContainsKey(robotId))
-				Registers[robotId] = new int[5];
+			InitMissingRegisters(robotId);
 			return Registers[robotId];
 		}
 
@@ -101,7 +106,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 
 				int[]                                                    deck   = Deck.ToArray();
 				int                                                      cardId = deck[rand.Next(deck.Length)];
-				(RobotCommand command, CardLocation location, int owner) elem   = _pool[cardId];
+				var elem   = _pool[cardId];
 				elem.owner    = robot;
 				elem.location = CardLocation.IN_HAND;
 				_pool[cardId] = elem;
@@ -142,12 +147,20 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			entry.location           = CardLocation.IN_REGISTER;
 			entry.owner              = rid;
 			_pool[card]              = entry;
+			InitMissingRegisters(rid);
 			Registers[rid][register] = card;
 			_game.CommitEvent(new ChangeRegisterEvent {
 				Action   = ChangeRegisterEvent.ActionEnum.Fill,
 				Card     = card,
 				Register = register
 			});
+		}
+
+		private void InitMissingRegisters(int rid) {
+			if (!Registers.ContainsKey(rid)) {
+				Registers[rid] = new int[5];
+				Clear(rid);
+			}
 		}
 
 		public void Setup() {
