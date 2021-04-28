@@ -45,11 +45,11 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 					if (empty.Length > 0)
 						game.CommitEvent(new DummyEvent(EventType.RandomCardDistribution,
 														$"Affected robot {rid} will get {empty.Length} cards randomly distributed to registers"));
-
+					Random r = new();
 					foreach (int register in empty) {
 						int[] hand = game.Programming.GetHandCards(rid);
 						if (hand.Length > 0)
-							game.Programming.SetRegister(rid, register, hand[0]);
+							game.Programming.SetRegister(rid, register, hand[r.Next(hand.Length)]);
 						Thread.Sleep(game.AnimationDelay/empty.Length);
 					}
 				}
