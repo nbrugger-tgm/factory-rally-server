@@ -43,6 +43,10 @@ namespace Tgm.Roborally.Server.Engine.GameItems {
 				Name = "Move 1"
 			});
 
+			add(6, new MoveCommand(1, RelativeDirection.Backwards) {
+				Name = "Back Up"
+			});
+
 			add(9, new RotateCommand(Rotation.Left, 1) {
 				Name = "Turn Left"
 			});
@@ -59,8 +63,16 @@ namespace Tgm.Roborally.Server.Engine.GameItems {
 				Name = "Shoot"
 			});
 
-			add(100, new RepeatCommand() {
+			add(6, new RepeatCommand() {
 				Name = "Repeat"
+			});
+
+			add(6, new EnergyCommand(1) {
+				Name = "Power Up"
+			});
+
+			add(2, new EnergyCommand(2) {
+				Name = "Big Power Up"
 			});
 		}
 	}
