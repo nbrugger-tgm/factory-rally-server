@@ -284,6 +284,8 @@ namespace Tgm.Roborally.Server.Engine {
 		}
 
 		public GameRequestPipeline FailIfNull(Func<PipelineContext, object> code, ErrorMessage error) {
+			if (Done)
+				return this;
 			if (code(_context) == null)
 				_context.SetNotFoundResponse(error);
 			return this;
