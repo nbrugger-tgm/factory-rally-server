@@ -43,6 +43,10 @@ namespace Tgm.Roborally.Server.Engine.GameItems {
 				Name = "Move 1"
 			});
 
+			add(6, new MoveCommand(1, RelativeDirection.Backwards) {
+				Name = "Back Up"
+			});
+
 			add(9, new RotateCommand(Rotation.Left, 1) {
 				Name = "Turn Left"
 			});
