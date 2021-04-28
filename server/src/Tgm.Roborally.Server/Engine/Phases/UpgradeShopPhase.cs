@@ -77,8 +77,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 				},
 				new EntityEventOportunity {
 					EndTime = _endTime,
-					TimeLeft = _endTime - DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() -
-							   30, //-30 to correct timing with ping
+					TimeLeft = _endTime - DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - 30, //-30 to correct timing with ping
 					Type = EntityActionType.Pass
 				}
 			};

@@ -12,7 +12,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Modloader {
 
 		private class ManagerLoader<T> : IManagerLoader where T : IManager {
 			private readonly Func<Mod, ManagerImplementationProvider<T>> _provider;
-			private readonly Modloader                                   _ref;
+			private readonly Modloader                                    _ref;
 
 			public Type Type => typeof(T);
 

@@ -12,7 +12,7 @@ namespace Tgm.Roborally.Server.Engine.Statement {
 
 		public RotateCommand(Rotation dir, int times) {
 			this[TIMES]     = times;
-			this[DIRECTION] = (int) dir;
+			this[DIRECTION] = (int)dir;
 		}
 
 		public override void Do(GameLogic game, int robotId) {

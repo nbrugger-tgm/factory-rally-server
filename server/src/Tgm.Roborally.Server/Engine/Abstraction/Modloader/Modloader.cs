@@ -64,7 +64,8 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Modloader {
 	public partial class Modloader : EngineImplementationProvider {
 		private readonly Dictionary<Type, (IManager? manager, string? owner)> _managers;
 		private          (ILoadingStartegy? implementantion, string? modName) _strategy;
-		private          (GamePhase? implementantion, string? modName)        _gamePhase;/// <summary>
+		private          (GamePhase? implementantion, string? modName)        _gamePhase;
+		/// <summary>
 		/// All loaded managers
 		/// </summary>
 		public IImmutableList<IManager?> Managers => _managers.Select(e => e.Value.manager).ToImmutableList();
@@ -75,8 +76,8 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Modloader {
 			);
 		}
 		private T?           GetManager<T>() where T : class, IManager => _managers[typeof(T)].manager as T;
-		private (T?,string?) GetManagerTuple<T>() where T : IManager   => ((T?, string?)) _managers[typeof(T)];
-		private void SetManagerTuple<T>((T?,string?) data) where T : IManager   => _managers[typeof(T)] = data;
+		private (T?,string?) GetManagerTuple<T>() where T : IManager   => ((T?, string?)) _managers[typeof(T)]!;
+		private void         SetManagerTuple<T>((T?,string?) data) where T : IManager   => _managers[typeof(T)] = data;
 		
 
 		

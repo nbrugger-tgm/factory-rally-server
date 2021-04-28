@@ -46,14 +46,14 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public void FillShop() {
 			Random rng = new Random();
 			if (Shop.Count >= _game.PlayerCount)
-				discardShop();
+				DiscardShop();
 			while (Deck.Count > 0 && Shop.Count < _game.PlayerCount)
 				_pool[Deck[rng.Next(Deck.Count)]].Location = UpgradeLocation.Shop;
 			_game.CommitEvent(new EmptyEvent(EventType.FillShop));
 			Thread.Sleep(_game.AnimationDelay);
 		}
 
-		private void discardShop() {
+		private void DiscardShop() {
 			List<int> shop                            = Shop;
 			foreach (int i in shop) _pool[i].Location = UpgradeLocation.Discarded;
 			_game.CommitEvent(new EmptyEvent(EventType.ClearShop));
