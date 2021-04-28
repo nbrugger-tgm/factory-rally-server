@@ -116,7 +116,7 @@ namespace Tgm.Roborally.Server.Models {
 
 		private static string AuthID() {
 			Random        r = new Random();
-			int           l = r.Next(65) + 10;
+			int           l = r.Next(20) + 20;
 			StringBuilder b = new StringBuilder();
 			for (int i = 0; i < l; i++) b.Append(chars[r.Next(chars.Length)]);
 
