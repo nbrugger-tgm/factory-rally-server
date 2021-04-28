@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
@@ -10,7 +11,10 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		public override    GameState   NewState    => GameState.PLAYING;
 
 		protected override GamePhase Run(GameLogic game) {
-			foreach (int r in game.Entitys.Robots) game.Programming.Draw(r);
+			foreach (int r in game.Entitys.Robots) {
+				game.Programming.Draw(r);
+				Thread.Sleep(game.AnimationDelay);
+			}
 			return new ProgrammingPhase();
 		}
 

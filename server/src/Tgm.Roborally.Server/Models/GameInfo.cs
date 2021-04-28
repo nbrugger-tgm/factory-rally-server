@@ -121,6 +121,12 @@ namespace Tgm.Roborally.Server.Models {
 		public long Started {
 			set => _startTime = value;
 		}
+		
+		
+		[Required]
+		[Range(0, 10000)]
+		[DataMember(Name = "animation-delay", EmitDefaultValue = true)]
+		public int AnimationDelay => _ref.AnimationDelay;
 
 		/// <summary>
 		/// <summary>

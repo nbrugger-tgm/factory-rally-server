@@ -33,6 +33,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 							OriginalDuration = TIME,
 							Context          = ("player:" + _activePlayer, "action:buy_upgrade")
 						});
+						Thread.Sleep(game.AnimationDelay);
 					}
 				}
 			}

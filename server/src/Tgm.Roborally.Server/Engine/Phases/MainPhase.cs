@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Tgm.Roborally.Server.Engine.Managers;
 using Tgm.Roborally.Server.Models;
 
@@ -33,6 +34,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			game.Entitys.PlaceRobotsOnSpawn();
 			
 			game.CommitEvent(new EmptyEvent(EventType.MapCreated));
+			Thread.Sleep(game.AnimationDelay);
 			return new UpgradeShopPhase();
 			//throw new System.NotImplementedException();
 		}

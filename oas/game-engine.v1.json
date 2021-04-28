@@ -1906,6 +1906,13 @@
             "type": "boolean",
             "default": false,
             "description": "If true emply player slots are going to be filled up with AI enemys"
+          },
+          "animation-delay": {
+            "type": "integer",
+            "default": 1500,
+            "description": "Sets GameInfo.animation-delay",
+            "minimum": 0,
+            "maximum": 10000
           }
         },
         "required": [
@@ -2022,6 +2029,14 @@
           "password-protected": {
             "type": "boolean",
             "description": "True if the game has a password in order to join\n"
+          },
+          "animation-delay": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "description": "The delay in `ms` that will be used to give clients the oportulity to play animations after executed commands and other animatable events",
+            "multipleOf": 100,
+            "default": 1500
           }
         },
         "required": [
@@ -2033,7 +2048,8 @@
           "max-players",
           "current-players",
           "executionInfo",
-          "password-protected"
+          "password-protected",
+          "animation-delay"
         ]
       },
       "GameState": {

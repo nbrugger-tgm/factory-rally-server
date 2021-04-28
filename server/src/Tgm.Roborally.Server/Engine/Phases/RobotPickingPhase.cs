@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
@@ -17,6 +18,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 				Robots type = available[0];
 				game.Entitys.PickRobo(type, gamePlayer);
 				available.Remove(type);
+				Thread.Sleep(game.AnimationDelay);
 			}
 
 			return new MainPhase();

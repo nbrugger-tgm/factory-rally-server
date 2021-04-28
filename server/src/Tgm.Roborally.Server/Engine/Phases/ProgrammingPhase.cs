@@ -19,7 +19,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		protected override GamePhase Run(GameLogic game) {
 			lock (_lock) {
 				#region start timer
-
+				Thread.Sleep(game.AnimationDelay);
 				game.CommitEvent(new ProgrammingTimerStartEvent {
 					End     = end = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + _timerDuration,
 					Seconds = _timerDuration / 1000
@@ -50,6 +50,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 						int[] hand = game.Programming.GetHandCards(rid);
 						if (hand.Length > 0)
 							game.Programming.SetRegister(rid, register, hand[0]);
+						Thread.Sleep(game.AnimationDelay/empty.Length);
 					}
 				}
 

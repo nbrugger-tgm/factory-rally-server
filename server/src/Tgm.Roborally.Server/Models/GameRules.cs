@@ -34,7 +34,13 @@ namespace Tgm.Roborally.Server.Models {
 		[Range(1, 6)]
 		[DataMember(Name = "max-players", EmitDefaultValue = true)]
 		public int MaxPlayers { get; set; } = 6;
-
+		/// <summary>
+		///     The maximum ammount of players able to join the game
+		/// </summary>
+		/// <value>The maximum ammount of players able to join the game</value>
+		[Range(0, 10000)]
+		[DataMember(Name = "animation-delay", EmitDefaultValue = true)]
+		public int AnimationDelay { get; set; } = 1500;
 		/// <summary>
 		///     The visible name of the game
 		/// </summary>

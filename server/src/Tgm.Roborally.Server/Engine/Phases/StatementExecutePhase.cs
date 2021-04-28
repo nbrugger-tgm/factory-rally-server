@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
@@ -16,6 +17,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			if (commandId != -1) {//-1 is an empty register
 				RobotCommand cmd = game.Programming[commandId];
 				cmd.Execute(game, game.executionState.CurrentRobot);
+				Thread.Sleep(game.AnimationDelay);
 			}
 			return new PostStatementPhase();
 		}

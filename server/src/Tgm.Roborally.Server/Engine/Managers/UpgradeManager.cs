@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Threading;
 using Tgm.Roborally.Server.Engine.Exceptions;
 using Tgm.Roborally.Server.Models;
 
@@ -48,11 +49,15 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 				discardShop();
 			while (Deck.Count > 0 && Shop.Count < _game.PlayerCount)
 				_pool[Deck[rng.Next(Deck.Count)]].Location = UpgradeLocation.Shop;
+			_game.CommitEvent(new EmptyEvent(EventType.FillShop));
+			Thread.Sleep(_game.AnimationDelay);
 		}
 
 		private void discardShop() {
 			List<int> shop                            = Shop;
 			foreach (int i in shop) _pool[i].Location = UpgradeLocation.Discarded;
+			_game.CommitEvent(new EmptyEvent(EventType.ClearShop));
+			Thread.Sleep(_game.AnimationDelay);
 		}
 
 		/// <summary>

@@ -106,6 +106,8 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <inheritdoc cref="Mod.StartingPhase()"/>
 		public GamePhase StartingPhase => _startingPhase;
 
+		public int AnimationDelay = 1500;
+
 		public void UseImplementation(
 			EngineImplementationProvider implProvider,
 			GamePhase                    startPhase,

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Engine.Phases {
@@ -9,6 +10,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 		protected override GamePhase Run(GameLogic game) {
 			game.executionState.CurrentRegister = 0;
+			Thread.Sleep(game.AnimationDelay);
 			return new PreExecutionPhase();
 		}
 
