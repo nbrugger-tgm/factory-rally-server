@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Robot Rally Game logic engine",
-    "version": "v2.15.1",
+    "version": "v2.13.3",
     "description": "This api controlls the flow of a game and provides it's data.\nIt is desiged to be RESTfull so the structure works simmilar as file system.\nThe service will run and only work in a local network, `game.host` is the IP of the Computer hosting the game and will be found via a IP scan",
     "contact": {
       "name": "Nils Brugger",
@@ -1295,17 +1295,6 @@
         },
         "tags": [
           "Map Repo"
-        ],
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "name",
-            "description": "The name of the map",
-            "required": true
-          }
         ]
       }
     },
@@ -1435,17 +1424,6 @@
         "security": [
           {
             "player-auth": []
-          }
-        ],
-        "parameters": [
-          {
-            "schema": {
-              "type": "boolean",
-              "default": "false"
-            },
-            "in": "query",
-            "name": "wait",
-            "description": "If this is true the server will not responde until there is an event. This prevents fast fetching/active waiting. The server will leave the connection open. > Keep in mind that the connection might times out of no event occurs within the timeout time-frame"
           }
         ]
       }
@@ -1755,7 +1733,7 @@
           },
           "empty": {
             "type": "boolean",
-            "description": "If there is no entity at the tile this is true"
+            "description": "If there is no player at the tile this is true"
           },
           "direction": {
             "$ref": "#/components/schemas/Direction"
@@ -1906,13 +1884,6 @@
             "type": "boolean",
             "default": false,
             "description": "If true emply player slots are going to be filled up with AI enemys"
-          },
-          "animation-delay": {
-            "type": "integer",
-            "default": 1500,
-            "description": "Sets GameInfo.animation-delay",
-            "minimum": 0,
-            "maximum": 10000
           }
         },
         "required": [
@@ -2029,14 +2000,6 @@
           "password-protected": {
             "type": "boolean",
             "description": "True if the game has a password in order to join\n"
-          },
-          "animation-delay": {
-            "type": "integer",
-            "minimum": 0,
-            "maximum": 10000,
-            "description": "The delay in `ms` that will be used to give clients the oportulity to play animations after executed commands and other animatable events",
-            "multipleOf": 100,
-            "default": 1500
           }
         },
         "required": [
@@ -2048,8 +2011,7 @@
           "max-players",
           "current-players",
           "executionInfo",
-          "password-protected",
-          "animation-delay"
+          "password-protected"
         ]
       },
       "GameState": {
@@ -2748,7 +2710,6 @@
           "bulldozer",
           "turtle",
           "wallE",
-          "robot",
           "mech"
         ],
         "description": "the type of a robot"
