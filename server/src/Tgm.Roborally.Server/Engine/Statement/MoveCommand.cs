@@ -16,6 +16,6 @@ namespace Tgm.Roborally.Server.Engine.Statement {
 		public override Instruction Type => Instruction.Move;
 
 		public override void Do(GameLogic game, int robotId) =>
-			game.Movement.Move(robotId, this[FIELDS], RelativeDirection.Forward);
+			game.Movement.Move(robotId, 1, RelativeDirection.Forward);
 	}
 }

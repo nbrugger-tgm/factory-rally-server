@@ -16,7 +16,7 @@ namespace Tgm.Roborally.Server.Engine.Statement {
 		}
 
 		public override void Do(GameLogic game, int robotId) {
-			game.Movement.Rotate(robotId, (Rotation) this[DIRECTION], this[TIMES]);
+			game.Movement.Rotate(robotId, (Rotation) this[DIRECTION], 1);
 		}
 	}
 }
