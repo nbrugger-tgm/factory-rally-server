@@ -14,8 +14,6 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		protected override GamePhase Run(GameLogic game) {
 			if(game.executionState.NextRobot())
 				return new PreStatementPhase();
-
-			//else /*makes no difference if added*/
 			return new PostExecutionPhase();
 		}
 

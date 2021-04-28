@@ -1,3 +1,11 @@
+## v2.15.1 (2021-04-29)
+
+### Fix
+
+- possible index out of bound exception
+- change default attitude of robot to 1
+- robot movements not executing
+
 ## v2.15.0 (2021-04-28)
 
 ### Fix
