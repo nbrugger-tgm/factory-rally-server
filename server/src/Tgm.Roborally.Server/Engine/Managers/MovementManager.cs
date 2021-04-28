@@ -48,7 +48,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			for (int actualAmount = 0; actualAmount < amount; actualAmount++) {
 				Position     newPos = robotInfo.Location.Translate(1, resultDirection);
 				List<Action> events = new List<Action>();
-				if (!robotInfo.Virtual && robotInfo.Health <= 0)
+				
+				//Robot dead robot not movin no more
+				if (robotInfo.Virtual)
 					break;
 
 				//FALL OF MAP
@@ -62,7 +64,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 
 				//HEIGHT DIFFERENCE BLOCK
 				bool onRamp = tile.Type == TileType.Ramp; //todo proper implementation (respect rotation)
-				if (tile.Level > robotInfo.Attitude && !onRamp)
+				if (tile.Level > robotInfo.Attitude && !onRamp)//crashes against a higher elevated block
 					break;
 
 				//FALL ONE LEVEL DOWN
@@ -136,7 +138,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <param name="actions"></param>
 		public void PerformMove(Entity    entity,
 								 int       actualAmount,
-								 Direction resultDirection, List<Action> actions) {
+								 Direction resultDirection,
+								 List<Action> actions) {
 			for (int i = 0; i < actualAmount; i++) {
 				Position newPos = entity.Location.Translate(1, resultDirection);
 				_game.CommitEvent(new MovementEvent {

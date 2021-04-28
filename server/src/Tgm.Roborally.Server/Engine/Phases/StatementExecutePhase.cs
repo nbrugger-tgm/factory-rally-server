@@ -14,7 +14,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 		protected override GamePhase Run(GameLogic game) {
 			int commandId = game.Programming.GetRegister(game.executionState.CurrentRobot)[game.executionState.CurrentRegister];
-			if (commandId != -1) {//-1 is an empty register
+			if (commandId != -1 && (game.Entitys[game.executionState.CurrentRobot] as RobotInfo)?.Health>0) {//-1 is an empty register
 				RobotCommand cmd = game.Programming[commandId];
 				cmd.Execute(game, game.executionState.CurrentRobot);
 				Thread.Sleep(game.AnimationDelay);
