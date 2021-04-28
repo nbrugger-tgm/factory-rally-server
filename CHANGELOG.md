@@ -1,3 +1,33 @@
+## v2.14.0 (2021-04-28)
+
+### Fix
+
+- **dev**: add missing imports
+- **dev**: GRP `FailIfNull` executed regaedless of pipeline state
+- add missing EventOportunity to ProgrammingPhase
+- "random card distribution" is random now
+- add preconditions to map endpoint calls
+- Exponential card execution
+
+### Refactor
+
+- enable Mod-unloading (removes wrong `overwrite` message)
+- **dev**: optimize authentication
+
+### Feat
+
+- **dev**: add default value for ErrorMessage (GRP)
+- block actions in the wrong timeframe
+- add animation delay
+- enable waitig for `FetchNextEvent` operation
+- implement map-repository endpoints
+- Add Repeat Command
+
+### Perf
+
+- change PAT variation from 10-75 to 20-40
+- optimize endpoint call
+
 ## v2.13.3 (2021-04-26)
 
 ### Fix

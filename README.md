@@ -1,4 +1,4 @@
-# Game Controller - 2.13.3
+# Game Controller - 2.14.0
 
 The Game Controller is an Web API controlling the logic/flow of one (or multiple) game sessions.
 
