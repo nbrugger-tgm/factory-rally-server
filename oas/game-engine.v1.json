@@ -2282,7 +2282,8 @@
           "move",
           "rotate",
           "shoot",
-          "repeat"
+          "repeat",
+          "energy"
         ]
       },
       "Player": {

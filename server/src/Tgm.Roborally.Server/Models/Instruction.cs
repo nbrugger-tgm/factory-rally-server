@@ -40,6 +40,11 @@ namespace Tgm.Roborally.Server.Models {
 		/// <summary>
 		///     Enum Repeat for repeat
 		/// </summary>
-		[EnumMember(Value = "repeat")] Repeat = 4
+		[EnumMember(Value = "repeat")] Repeat = 4,
+
+		/// <summary>
+		///     Enum Energy for energy
+		/// </summary>
+		[EnumMember(Value = "energy")] Energy = 5
 	}
 }
