@@ -73,12 +73,17 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 			ev.Type == EventType.ClearRegister;
 
 		public override IList<EntityEventOportunity> GetPossibleActions(int robot, int player) {
-			List<EntityEventOportunity> list = new List<EntityEventOportunity>();
+			List<EntityEventOportunity> list = new();
 			if (timerUp) {
 				list.Add(new EntityEventOportunity {
 					EndTime  = end,
 					TimeLeft = end - DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
 					Type     = EntityActionType.RegisterRefresh
+				});
+				list.Add(new EntityEventOportunity() {
+					Type     = EntityActionType.EditRegister,
+					EndTime  = end,
+					TimeLeft = end - DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
 				});
 			}
 
