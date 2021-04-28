@@ -85,7 +85,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// </summary>
 		/// <value>The height level of the robot</value>
 		[Range(0, 4)] [DataMember(Name = "attitude", EmitDefaultValue = true)]
-		public int Attitude = 0;
+		public int Attitude = 1;
 
 		/// <summary>
 		///     Gets or Sets Type
