@@ -112,7 +112,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Modloader {
 		}
 
 		private void UnloadAll() {
-			foreach (var key in _managers.Keys) {
+			foreach (var key in _managers.Keys.ToList()) {
 				_managers[key] = (null, null);
 			}
 
