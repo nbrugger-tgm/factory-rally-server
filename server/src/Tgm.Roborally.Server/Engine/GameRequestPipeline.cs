@@ -126,12 +126,11 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <param name="wait">if true this method will wait/block until there is a new event</param>
 		/// <returns>the pipeline itself</returns>
 		public GameRequestPipeline NextEvent(bool wait) {
-			if (!Done) {
+			if (Done) return this;
+			_event = _game.EventManager.Pop(_player.Id);
+			if (wait && _event == null) {
+				_game.EventManager.Await();
 				_event = _game.EventManager.Pop(_player.Id);
-				if (wait && _event == null) {
-					_game.EventManager.Await();
-					_event = _game.EventManager.Pop(_player.Id);
-				}
 			}
 
 			return this;
@@ -143,12 +142,11 @@ namespace Tgm.Roborally.Server.Engine {
 		/// <param name="wait">if true this method will wait/block until there is a new event</param>
 		/// <returns>the pipeline itself</returns>
 		public GameRequestPipeline PeekNextEvent(bool wait) {
-			if (!Done) {
+			if (Done) return this;
+			_event = _game.EventManager.Peek(_player.Id);
+			if (wait && _event == null) {
+				_game.EventManager.Await();
 				_event = _game.EventManager.Peek(_player.Id);
-				if (wait && _event == null) {
-					_game.EventManager.Await();
-					_event = _game.EventManager.Peek(_player.Id);
-				}
 			}
 
 			return this;

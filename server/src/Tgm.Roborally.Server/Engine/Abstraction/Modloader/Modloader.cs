@@ -69,9 +69,9 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Modloader {
 		/// </summary>
 		public IImmutableList<IManager?> Managers => _managers.Select(e => e.Value.manager).ToImmutableList();
 		public Modloader() {
-			_managers = Enumerable.ToDictionary<Type,Type,(IManager?,string?)>(managerMatrix
-																				   .Select(e=>e.Type), e => e,
-																			   e => (null, null)
+			_managers = managerMatrix
+						.Select(e=>e.Type).ToDictionary<Type,Type,(IManager?,string?)>(e => e,
+																					   e => (null, null)
 			);
 		}
 		private T?           GetManager<T>() where T : class, IManager => _managers[typeof(T)].manager as T;
