@@ -1295,6 +1295,17 @@
         },
         "tags": [
           "Map Repo"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "name",
+            "description": "The name of the map",
+            "required": true
+          }
         ]
       }
     },
@@ -1733,7 +1744,7 @@
           },
           "empty": {
             "type": "boolean",
-            "description": "If there is no player at the tile this is true"
+            "description": "If there is no entity at the tile this is true"
           },
           "direction": {
             "$ref": "#/components/schemas/Direction"

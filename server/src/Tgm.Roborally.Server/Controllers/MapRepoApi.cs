@@ -11,12 +11,15 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using Tgm.Roborally.Server.Attributes;
 using Tgm.Roborally.Server.Authentication;
 using Tgm.Roborally.Server.Engine;
+using Tgm.Roborally.Server.Engine.Managers;
 using Tgm.Roborally.Server.Models;
 
 namespace Tgm.Roborally.Server.Controllers {
@@ -24,6 +27,7 @@ namespace Tgm.Roborally.Server.Controllers {
 	/// </summary>
 	[ApiController]
 	public class MapRepoApiController : ControllerBase {
+		private MapManager Manager => MapManager.Instance;
 		/// <summary>
 		///     Delete Map
 		/// </summary>
@@ -40,14 +44,22 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(404, type: typeof(ErrorMessage), description: "Not Found")]
 		[SwaggerResponse(500, type: typeof(ErrorMessage), description: "Internal Server Error")]
 		public virtual IActionResult DeleteMap([FromRoute(Name = "map_name")] [Required]
-											   string mapName) =>
-			//TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(204);
-			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(404, default(ErrorMessage));
-			//TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(500, default(ErrorMessage));
-			throw new NotImplementedException();
+											   string mapName) {
+			try {
+				if (Manager.Get(mapName) == null)
+					return new NotFoundObjectResult("The requested map does not exists");
+				MapManager.Instance.RemoveMap(mapName);
+				return new OkResult();
+			}
+			catch (IOException e) {
+				return HandleIOException(e);
+			}
+		}
+
+		private static IActionResult HandleIOException(IOException e) {
+			Console.WriteLine(e);
+			return new ObjectResult($"The map repo is not accessible. ({e.GetType().Name} : {e.Message}");
+		}
 
 		/// <summary>
 		///     Get map
@@ -67,21 +79,16 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerResponse(500, type: typeof(ErrorMessage), description: "Internal Server Error")]
 		public virtual IActionResult GetMap([FromRoute(Name = "map_name")] [Required]
 											string mapName) {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200, default(MapInfo));
-			//TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(404, default(ErrorMessage));
-			//TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(500, default(ErrorMessage));
-			string exampleJson = null;
-			exampleJson =
-				"{\r\n  \"width\" : 43,\r\n  \"name\" : \"Niton 1\",\r\n  \"prioBeacon\" : {\r\n    \"x\" : 1,\r\n    \"y\" : 5\r\n  },\r\n  \"height\" : 302\r\n}";
+			try {
+				Map m = Manager.Get(mapName);
+				if (m == null)
+					return new NotFoundResult();
 
-			MapInfo example = exampleJson != null
-								  ? JsonConvert.DeserializeObject<MapInfo>(exampleJson)
-								  : default;
-			//TODO: Change the data returned
-			return new ObjectResult(example);
+				return new OkObjectResult(m);
+			}
+			catch (IOException e) {
+				return HandleIOException(e);
+			}
 		}
 
 		/// <summary>
@@ -96,16 +103,12 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerOperation("GetMaps")]
 		[SwaggerResponse(200, type: typeof(List<string>), description: "OK")]
 		public virtual IActionResult GetMaps() {
-			//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-			// return StatusCode(200, default(List<string>));
-			string exampleJson = null;
-			exampleJson = "\"Niton 1\"";
-
-			List<string> example = exampleJson != null
-									   ? JsonConvert.DeserializeObject<List<string>>(exampleJson)
-									   : default;
-			//TODO: Change the data returned
-			return new ObjectResult(example);
+			try {
+				return new OkObjectResult(Manager.Names);
+			}
+			catch (IOException e) {
+				return HandleIOException(e);
+			}
 		}
 
 		/// <summary>
@@ -119,9 +122,14 @@ namespace Tgm.Roborally.Server.Controllers {
 		[GameAuth(Role.ADMIN)]
 		[ValidateModelState]
 		[SwaggerOperation("SaveMap")]
-		public virtual IActionResult SaveMap([FromBody] Map map) => throw
-																		//TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-																		// return StatusCode(200);
-																		new NotImplementedException();
+		public virtual IActionResult SaveMap([FromBody] Map map,[FromQuery]string name) {
+			try {
+				Manager.Add(map,name);
+				return new OkResult();
+			}
+			catch (IOException e) {
+				return HandleIOException(e);
+			}
+		}
 	}
 }

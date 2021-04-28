@@ -119,5 +119,11 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 					break;
 			}
 		}
+
+		public void RemoveMap(string mapName) {
+			FileInfo[] files = Directory.GetFiles($"{mapName}{MapExtedionWithDot}");
+			FileInfo info = files[0];
+			info.Delete();
+		}
 	}
 }
