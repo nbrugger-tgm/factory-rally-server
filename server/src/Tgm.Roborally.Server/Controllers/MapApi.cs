@@ -63,6 +63,7 @@ namespace Tgm.Roborally.Server.Controllers {
 												int gameId) =>
 			new GameRequestPipeline()
 				.Game(gameId)
+				.FailIfNull(c => c.Game.Map,GameExceptions.MAP_NOT_EXISTING)
 				.Compute(code: c => c.SetResponse(c.Game.Map.Info))
 				.ExecuteSecure();
 
@@ -86,6 +87,7 @@ namespace Tgm.Roborally.Server.Controllers {
 											 int gameId, [FromRoute] [Required] int x, [FromRoute] [Required] int y) =>
 			new GameRequestPipeline()
 				.Game(gameId)
+				.FailIfNull(c => c.Game.Map,GameExceptions.MAP_NOT_EXISTING)
 				.Compute(code: c => c.Game.Map.CalculateEmpty())
 				.Compute(code: c => c.SetResponse(c.Game.Map[x, y]))
 				.ExecuteSecure();
