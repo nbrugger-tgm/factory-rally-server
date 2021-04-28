@@ -25,7 +25,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <returns>the new position of the robot after the movement executed</returns>
 		/// <exception cref="ArgumentOutOfRangeException">If the robot is not fetchable</exception>
 		public Position Move(int robotId, int amount, RelativeDirection forward) {
+#if DEBUG
 			Console.Out.WriteLine("Robot : " + robotId + " moves " + amount + " fields " + forward);
+#endif
 			if (_game.Entitys[robotId] is RobotInfo { } robotInfo) {
 				Direction resultDirection = DirectionExtension.ResolveDirection(forward, robotInfo.Direction);
 				return Move(robotInfo, amount, resultDirection);
@@ -160,6 +162,9 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <param name="rotationDirection">the direction to rotate in</param>
 		/// <param name="i">the count of 90° turns to perform</param>
 		public void Rotate(int robotId, Rotation rotationDirection, int i) {
+#if DEBUG
+			Console.Out.WriteLine("Robot : " + robotId + " rotates " + i + " times " + rotationDirection);
+#endif
 			Entity ent = _game.Entitys[robotId];
 			for (int j = 0; j < i; j++) {
 				ent.Direction = ent.Direction.Rotate(rotationDirection);
@@ -195,7 +200,10 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		/// <param name="penentration">if the laser does shoot through the object to hit another</param>
 
 		public void Shoot(int shooter, Position pos, Direction direction, bool penentration = false) {
-			Tile      t;
+#if DEBUG
+			Console.Out.WriteLine("Robot : " + shooter + " shoots from (" + pos.X + "|" + pos.Y + ") to direction " + direction);
+#endif
+			Tile t;
 			List<int> hitEntities = new List<int>();
 			_game.Map.CalculateEmpty();
 			do {

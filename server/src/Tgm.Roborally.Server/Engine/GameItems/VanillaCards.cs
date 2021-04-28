@@ -15,57 +15,52 @@ namespace Tgm.Roborally.Server.Engine.GameItems {
 				Values      = new List<Pair> {new Pair("fields", 2)},
 				Type        = UpgradeType.Generator,
 				Permanent   = false,
-				Name        = "Lets muuuv",
+				Name        = "I like to move it move it, ...",
 				Rounds      = 1
 			});
 			add(new Upgrade {
 				Cost        = 3,
 				Description = "Move an additional {fields} fields into a direction of your choice",
 				Id          = 1,
-				Values      = new List<Pair> {new Pair("fields", 4)},
+				Values      = new List<Pair> {new Pair("fields", 3)},
 				Type        = UpgradeType.Generator,
 				Permanent   = false,
-				Name        = "Lets muuuv",
+				Name        = "I like to move it move it, MOVE IT!",
 				Rounds      = 1
 			});
 		}
 
 		public void AddProgrammingCards(IItemLoader.AddCommands add) {
-			add(
-				5,
-				new MoveCommand(3) {
-					Name = "Sprint"
-				}
-			);
-
-			add(
-				10,
-				new MoveCommand(2) {
-					Name = "Move"
-				}
-			);
-
-			add(
-				20,
-				new MoveCommand(1) {
-					Name = "Crawl"
-				}
-			);
-
-			add(5, new RotateCommand(Rotation.Left, 1) {
-				Name = "Left turn"
+			add(6, new MoveCommand(3) {
+				Name = "Move 3"
 			});
 
-			add(5, new RotateCommand(Rotation.Right, 1) {
-				Name = "Right turn"
+			add(12, new MoveCommand(2) {
+				Name = "Move 2"
 			});
 
-			add(6, new RotateCommand(Rotation.Left, 2) {
-				Name = "180 Quickscope"
+			add(18, new MoveCommand(1) {
+				Name = "Move 1"
 			});
 
-			add(4, new RobotShootCommand() {
+			add(9, new RotateCommand(Rotation.Left, 1) {
+				Name = "Turn Left"
+			});
+
+			add(9, new RotateCommand(Rotation.Right, 1) {
+				Name = "Turn Right"
+			});
+
+			add(6, new RotateCommand(Rotation.Right, 2) {
+				Name = "U-Turn"
+			});
+
+			add(6, new RobotShootCommand() {
 				Name = "Shoot"
+			});
+
+			add(100, new RepeatCommand() {
+				Name = "Repeat"
 			});
 		}
 	}

@@ -16,8 +16,8 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Managers {
 		/// <summary>
 		/// Get the Command for the regarding id
 		/// </summary>
-		/// <param name="robotId">the id of the command</param>
-		RobotCommand this[int robotId] { get; }
+		/// <param name="cardId">the id of the command</param>
+		RobotCommand this[int cardId] { get; }
 
 		string IManager.Name => "Programming Manager";
 
