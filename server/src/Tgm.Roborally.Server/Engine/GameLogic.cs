@@ -233,7 +233,13 @@ namespace Tgm.Roborally.Server.Engine {
 			return new JoinResponse(pseudo);
 		}
 
-		public (bool, int) IsConsumer(string authKey) {
+		/// <summary>
+		/// Checks if the authKey (pat) belongs to an consumer<br/>
+		/// Id it not an consumer `consumerID` will be -1
+		/// </summary>
+		/// <param name="authKey"></param>
+		/// <returns>(isConsumer,consumerID)</returns>
+		public (bool isConsumer, int consumerId) IsConsumer(string authKey) {
 			bool a;
 			return (a = _consumerKeys.ContainsKey(authKey), a ? _consumerKeys[authKey] : -1);
 		}

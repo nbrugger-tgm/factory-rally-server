@@ -61,7 +61,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 		}
 
 		public override void Notify(ActionType action) {
-			//TODO
+			//TODO most important is that pause is correctly implemented
 		}
 
 		public override bool Notify(GenericEvent ev) =>

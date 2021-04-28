@@ -38,9 +38,9 @@ namespace Tgm.Roborally.Server.Models {
 		public int CurrentRobot => _ref.State != GameState.LOBBY ? _ref.Entitys.Robots[_currentRobotIndex] : -1;
 
 		/// <summary>
-		/// Switches to the next robot and prepares him for command execution
+		/// Switches to the next robot and prepares him for command execution.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>False if all robots are cycled throgh. True if the next robot is ready</returns>
 		public bool NextRobot() => ++_currentRobotIndex < _ref.Entitys.Robots.Count; //TODO implement robo priority (distance from beacon)
 
 

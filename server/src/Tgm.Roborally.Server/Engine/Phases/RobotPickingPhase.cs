@@ -12,6 +12,7 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 
 		protected override GamePhase Run(GameLogic game) {
 			//TODO: Later on maybe a more intelligent algorithm will take place here
+			//where players can choose their robot type
 
 			List<Robots> available = Enum.GetValues(typeof(Robots)).Cast<Robots>().ToList();
 			foreach (Player gamePlayer in game.Players) {
