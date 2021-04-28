@@ -1,3 +1,14 @@
+## v2.15.0 (2021-04-28)
+
+### Fix
+
+- crash due to new events
+- Unloading mod fails
+
+### Feat
+
+- Add energy command
+
 ## v2.14.0 (2021-04-28)
 
 ### Fix
