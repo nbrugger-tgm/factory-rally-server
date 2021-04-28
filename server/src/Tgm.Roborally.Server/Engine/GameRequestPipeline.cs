@@ -288,5 +288,42 @@ namespace Tgm.Roborally.Server.Engine {
 				_context.SetNotFoundResponse(error);
 			return this;
 		}
+
+		/// <summary>
+		/// Checks if the player is allowed to perform the action at the moment. If this is not the case the pipeline ends with an regarding error response
+		/// </summary>
+		/// <param name="editRegister"></param>
+		/// <param name="playerId"></param>
+		/// <returns></returns>
+		public GameRequestPipeline RequireAction(EntityActionType editRegister,int playerId) {
+			if (Done) return this;
+			if (!_game.PossibleEntityActions(_robot.Id, playerId).Select(e => e.Type).Contains(editRegister))
+				Response = new ObjectResult(new ErrorMessage() {
+					Error = "Action not allowed",
+					Message = $"The action {editRegister} is not allowed in the current state of the game"
+				}) {
+					StatusCode = 400
+				};
+			return this;
+		}
+
+		/// <summary>
+		/// Makes sure that the game is in the required phase for the action.
+		/// If this check fails the pipeline will generate an error response
+		/// </summary>
+		/// <param name="upgrade"></param>
+		public GameRequestPipeline RequireStage(RoundPhase upgrade) {
+			if(Done)
+				return this;
+			if(_game.Phase != upgrade)
+				Response = new ObjectResult(new ErrorMessage{
+					Message = $"The action requires the {upgrade} stage but the game is in the \"{_game.Phase?.ToString()??"Pre-Game"}\" stage",
+					Error = "Wrong Phase"
+				}) {
+					StatusCode = 401
+				};
+			return this;
+				
+		}
 	}
 }

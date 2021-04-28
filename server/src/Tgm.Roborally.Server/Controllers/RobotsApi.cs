@@ -342,6 +342,7 @@ namespace Tgm.Roborally.Server.Controllers {
 			new GameRequestPipeline()
 				.Game(gameId)
 				.Robot(robotId)
+				.RequireAction(EntityActionType.EditRegister,this.GetPlayerID())
 				.ProgrammingCard(statementId)
 				.Compute(c => c.Game.Programming.SetRegister(robotId, register, statementId))
 				.ExecuteAction();

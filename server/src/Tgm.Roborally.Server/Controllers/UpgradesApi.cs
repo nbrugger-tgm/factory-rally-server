@@ -46,6 +46,7 @@ namespace Tgm.Roborally.Server.Controllers {
 												int upgrade, [FromQuery] [Range(0, 10000)] int exchange) {
 			return new GameRequestPipeline()
 				   .Game(gameId)
+				   .RequireAction(EntityActionType.BuyUpgrade,this.GetPlayerID())
 				   .Compute(code: c => c.Game.BuyUpgrade(this.GetPlayerID(), upgrade, exchange))
 				   .ExecuteAction();
 		}
@@ -116,6 +117,7 @@ namespace Tgm.Roborally.Server.Controllers {
 													int gameId) =>
 			new GameRequestPipeline()
 				.Game(gameId)
+				.RequireStage(RoundPhase.Upgrade)
 				.Compute(c => c.SetResponse(c.Game.Upgrades.Shop))
 				.ExecuteSecure();
 	}
