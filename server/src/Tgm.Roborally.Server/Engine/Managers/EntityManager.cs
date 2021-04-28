@@ -67,7 +67,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 		public void PlaceRobotsOnSpawn() {
 			for (int i = 0; i < Robots.Count; i++) {
 				Position spawn = _game.Map.Spawns[i];
-				this[Robots[i]].Location = spawn;
+				this[Robots[i]].Location  = spawn;
+				this[Robots[i]].Direction = _game.Map[spawn].Direction;
 			}
 		}
 
