@@ -9,6 +9,7 @@
  */
 
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,7 @@ namespace Tgm.Roborally.Server.Controllers {
 		/// </summary>
 		/// <remarks>Returns the next unfetched event of the ***any*** type.</remarks>
 		/// <param name="gameId"></param>
+		/// <param name="wait">If this is true the server will not responde until there is an event. This prevents fast fetching/active waiting. The server will leave the connection open. > Keep in mind that the connection might times out of no event occurs within the timeout time-frame</param>
 		/// <response code="200">OK</response>
 		/// <response code="404">No unfetched event</response>
 		[HttpGet]
@@ -37,11 +39,13 @@ namespace Tgm.Roborally.Server.Controllers {
 		[SwaggerOperation("FetchNextEvent")]
 		[SwaggerResponse(200, type: typeof(GenericEvent), description: "OK")]
 		public virtual IActionResult FetchNextEvent([FromRoute(Name = "game_id")] [Required]
-													int gameId) {
+													int gameId,
+													[FromQuery(Name = "wait")][DefaultValue(false)]
+													bool wait = false) {
 			return new GameRequestPipeline()
 				   .Game(gameId)
 				   .Player(this.GetPlayerID())
-				   .NextEvent(false)
+				   .NextEvent(wait)
 				   .Compute(code: e => {
 					   if (e.Event == null) {
 						   e.SetNotFoundResponse(new ErrorMessage {

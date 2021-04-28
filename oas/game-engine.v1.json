@@ -1436,6 +1436,17 @@
           {
             "player-auth": []
           }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "boolean",
+              "default": "false"
+            },
+            "in": "query",
+            "name": "wait",
+            "description": "If this is true the server will not responde until there is an event. This prevents fast fetching/active waiting. The server will leave the connection open. > Keep in mind that the connection might times out of no event occurs within the timeout time-frame"
+          }
         ]
       }
     },
