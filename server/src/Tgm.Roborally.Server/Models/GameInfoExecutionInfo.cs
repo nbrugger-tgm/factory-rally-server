@@ -35,7 +35,7 @@ namespace Tgm.Roborally.Server.Models {
 		/// <value>The id of the robot currently executing</value>
 		[Required]
 		[DataMember(Name = "currentRobot", EmitDefaultValue = true)]
-		public int CurrentRobot => _ref.State != GameState.LOBBY ? _ref.Entitys.Robots[_currentRobotIndex] : -1;
+		public int CurrentRobot => _ref.State != GameState.LOBBY && _currentRobotIndex < _ref.Entitys.Robots.Count ? _ref.Entitys.Robots[_currentRobotIndex] : -1;
 
 		/// <summary>
 		/// Switches to the next robot and prepares him for command execution.
