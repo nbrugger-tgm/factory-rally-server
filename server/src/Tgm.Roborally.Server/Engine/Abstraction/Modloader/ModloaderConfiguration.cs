@@ -42,5 +42,10 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Modloader {
 		/// <inheritdoc cref="EventManager"/>
 		public IMovementManager? MovementManager(GameLogic gameLogic, IMovementManager? oldManager) =>
 			GetManager<IMovementManager>();
+
+		private void UnloadImplementations() {
+			_strategy  = (null, null);
+			_gamePhase = (null, null);
+		}
 	}
 }

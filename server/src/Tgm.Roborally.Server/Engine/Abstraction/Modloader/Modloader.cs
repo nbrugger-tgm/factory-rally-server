@@ -94,6 +94,7 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Modloader {
 		/// Loads the important aspects of the mod
 		/// </summary>
 		public void LoadMods(GameLogic logic) {
+			UnloadAll();
 			foreach (Mod mod in Mods) {
 				mod.BevoreLoad();
 				LoadMod(logic, mod);
@@ -107,6 +108,14 @@ namespace Tgm.Roborally.Server.Engine.Abstraction.Modloader {
 			_managers.ForEach(r => lst.Add((r.Key,r.Value)));
 			foreach ((Type,(object?, string?)) val in lst)
 				CheckImplementation(val);
+		}
+
+		private void UnloadAll() {
+			foreach (var key in _managers.Keys) {
+				_managers[key] = (null, null);
+			}
+
+			UnloadImplementations();
 		}
 
 		private void LoadMod(GameLogic logic, Mod mod) {
