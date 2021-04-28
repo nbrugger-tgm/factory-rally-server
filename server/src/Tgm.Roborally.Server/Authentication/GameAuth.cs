@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -72,9 +73,11 @@ namespace Tgm.Roborally.Server.Authentication {
 			bool   playerSelf       = false,
 			string playerIdPathName = "player_id",
 			string gameIdPathName   = "game_id"
-		) : this((OwnershipEnsurance) Activator.CreateInstance(ownershipEnsurance), playerSelf, playerIdPathName,
-				 gameIdPathName) {
-		}
+		) : this(
+			(OwnershipEnsurance) Activator.CreateInstance(ownershipEnsurance),
+			playerSelf:playerSelf,
+			playerIdPathName:playerIdPathName,
+			gameIdPathName: gameIdPathName){}
 
 		/// <param name="ownershipEnsurance">A method to determine if the accessed object is owned by the player</param>
 		/// <param name="gameIdPathName">this is the name of the gameID field in the path</param>
@@ -214,7 +217,7 @@ namespace Tgm.Roborally.Server.Authentication {
 							OnTurn      = false
 						};
 					}
-					else if (player != null) {
+					else if (isPlayer) {
 						if (_playerSelf) {
 							isSelf =
 								Convert.ToInt32(request.RouteValues[_playerIdPathName].ToString()) ==
