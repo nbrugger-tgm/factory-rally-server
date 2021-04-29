@@ -116,7 +116,7 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			_game.CommitEvent(new DrawCardEvent {
 				Cards  = cards,
 				Count  = cards.Count,
-				Player = robot //todo rename to robot
+				Robot = robot //todo rename to robot
 			});
 		}
 
@@ -152,7 +152,8 @@ namespace Tgm.Roborally.Server.Engine.Managers {
 			_game.CommitEvent(new ChangeRegisterEvent {
 				Action   = ChangeRegisterEvent.ActionEnum.Fill,
 				Card     = card,
-				Register = register
+				Register = register,
+				RobotId = rid
 			});
 		}
 
