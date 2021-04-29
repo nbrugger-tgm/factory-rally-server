@@ -2427,7 +2427,8 @@
           "clear register",
           "time elapsed",
           "map created",
-          "upgrades discarded"
+          "upgrades discarded",
+          "timer start"
         ],
         "x-tags": [
           "EventHandling"
@@ -3270,6 +3271,53 @@
       "DummyEvent": {
         "title": "DummyEvent",
         "type": "object"
+      },
+      "TimerStartEvent": {
+        "title": "TimerStartEvent",
+        "type": "object",
+        "description": "Called when a timer is started",
+        "properties": {
+          "subject": {
+            "type": "string",
+            "description": "Describes the usage of the timer",
+            "enum": [
+              "buy_upgrades"
+            ]
+          },
+          "end_time": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The time in ms since epoche when the timer will ends",
+            "example": 3456787654356
+          },
+          "duration": {
+            "type": "integer",
+            "description": "the duration of the timer in ms",
+            "minimum": 1000,
+            "example": 20000,
+            "default": 20000
+          },
+          "passable": {
+            "type": "boolean",
+            "description": "if this is true the active player can pass the event",
+            "default": false
+          },
+          "robots_active": {
+            "type": "array",
+            "description": "The entites that are able to act during this timer",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/EntityID"
+            }
+          }
+        },
+        "required": [
+          "subject",
+          "end_time",
+          "duration",
+          "passable",
+          "robots_active"
+        ]
       }
     },
     "responses": {

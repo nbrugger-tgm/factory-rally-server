@@ -26,6 +26,13 @@ namespace Tgm.Roborally.Server.Engine.Phases {
 				_activePlayer = activePlayer;
 				_endTime      = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + TIME;
 				_executed     = false;
+				game.CommitEvent(new TimerStartEvent() {
+					EndTime = _endTime,
+					Duration = TIME,
+					Passable = true,
+					RobotsActive = new List<int>(){game.GetPlayer(_activePlayer).ControlledEntities[0]},
+					Subject = TimerStartEvent.SubjectEnum.BuyUpgrades
+				});
 				lock (_listener) {
 					Monitor.Wait(_listener, TIME);
 					if (!_executed) {
