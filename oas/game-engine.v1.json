@@ -3119,9 +3119,12 @@
         "title": "DrawCardEvent",
         "type": "object",
         "description": "The event that occurs if a player gets his programming cards",
+        "x-tags": [
+          "EventHandling"
+        ],
         "properties": {
-          "player": {
-            "$ref": "#/components/schemas/PlayerID"
+          "robot": {
+            "$ref": "#/components/schemas/EntityID"
           },
           "count": {
             "type": "integer",
@@ -3139,11 +3142,8 @@
           }
         },
         "required": [
-          "player",
+          "robot",
           "count"
-        ],
-        "x-tags": [
-          "EventHandling"
         ]
       },
       "ChangeRegisterEvent": {
@@ -3170,6 +3170,9 @@
             "minimum": 0,
             "maximum": 8,
             "description": "The changed register"
+          },
+          "robotId": {
+            "$ref": "#/components/schemas/EntityID"
           }
         },
         "required": [
