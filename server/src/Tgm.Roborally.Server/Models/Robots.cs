@@ -60,15 +60,9 @@ namespace Tgm.Roborally.Server.Models
 			WallE = 5,
 			
 			/// <summary>
-			/// Enum Robot for robot
-			/// </summary>
-			[EnumMember(Value = "robot")]
-			Robot = 6,
-			
-			/// <summary>
 			/// Enum Mech for mech
 			/// </summary>
 			[EnumMember(Value = "mech")]
-			Mech = 7
+			Mech = 6
 		}
 }
