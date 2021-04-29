@@ -1,3 +1,10 @@
+## v2.16.1 (2021-04-29)
+
+### Fix
+
+- using windows dependent path seperator
+- Added missing EventType Handling
+
 ## v2.16.0 (2021-04-29)
 
 ### Feat
