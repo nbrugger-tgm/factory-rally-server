@@ -5,6 +5,6 @@ using System.Reflection;
 
 namespace Tgm.Roborally.Server {
     public class ServerProperties {
-        public static string mapRepo = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\Maps";
+        public static string mapRepo = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + Path.DirectorySeparatorChar +"Maps";
     }
 }
