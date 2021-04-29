@@ -1,3 +1,18 @@
+## v2.16.0 (2021-04-29)
+
+### Feat
+
+- add timer start event
+
+### Fix
+
+- add robot ID to some events
+- Removed wrong Robot
+
+### Refactor
+
+- spawn robots with direction of spawn field
+
 ## v2.15.1 (2021-04-29)
 
 ### Fix
