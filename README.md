@@ -1,6 +1,6 @@
-# Game Controller - 2.16.1
+# Factory Rally Server - v2.16.1
 
-The Game Controller is an Web API controlling the logic/flow of one (or multiple) game sessions.
+This is the Game Controller, it is an Web API controlling the logic/flow of one (or multiple) game sessions of Factory Rally.
 
 * [Installation and Configuration](INSTALLATION.md)
 * [How to use the ReST API](USAGE.md)
