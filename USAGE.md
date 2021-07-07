@@ -19,13 +19,9 @@ Events are things a client can react to. They are used to inform clients about c
 
 The regarding issue can be found [here](https://github.com/FactoryRally/game-controller/issues/6).
 
-#### Actions
-
-Actions are the things players/clients can do with the game /interactions. An example for this would be laying down cards at programming phase
-
 #### Graph
 
-![A graph of all phases and their corresponding actions/events](D:\Users\Nils\Desktop\Schule\ITP\robot-rally\game-controller\documentation\game-cycle-events.png)
+![A graph of all phases and their corresponding actions/events](documentation/game-cycle-events.png)
 
 > The `UpgradeUsedEvent` is not entered in this graph to reduce retundancy but it can allways occur when `UseUpgrade`Action can be executed
 
